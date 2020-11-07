@@ -1,6 +1,7 @@
 package de.gurkenlabs.liti;
 
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.resources.Resources;
 
 public class Program {
   /**
@@ -16,6 +17,8 @@ public class Program {
 
     // init the game infrastructure
     Game.init(args);
+
+    Resources.load("game.litidata");
 
     Game.start();
   }
