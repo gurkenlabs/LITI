@@ -1,116 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<litidata version="1.0">
- <maps>
-  <map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="1" name="dustpit">
-   <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="256" columns="16">
-    <image source="tileset.png" width="256" height="256"/>
-    <terraintypes>
-     <terrain name="dark-grass" tile="93"/>
-     <terrain name="sand" tile="93"/>
-     <terrain name="dark-mud" tile="93"/>
-    </terraintypes>
-    <tile id="1" terrain="2,2,2,2"/>
-    <tile id="2" terrain="1,1,1,1"/>
-    <tile id="17" terrain="0,0,0,0"/>
-    <tile id="32" terrain=",,,0"/>
-    <tile id="33" terrain=",,0,0"/>
-    <tile id="34" terrain=",,0,0"/>
-    <tile id="35" terrain=",,0,0"/>
-    <tile id="36" terrain=",,0,0"/>
-    <tile id="37" terrain=",,0,"/>
-    <tile id="38" terrain=",,,1"/>
-    <tile id="39" terrain=",,1,1"/>
-    <tile id="40" terrain=",,1,1"/>
-    <tile id="41" terrain=",,1,1"/>
-    <tile id="42" terrain=",,1,1"/>
-    <tile id="43" terrain=",,1,"/>
-    <tile id="48" terrain=",0,,0"/>
-    <tile id="49" terrain="0,0,0,"/>
-    <tile id="50" terrain="0,0,,"/>
-    <tile id="51" terrain="0,0,,"/>
-    <tile id="52" terrain="0,0,,0"/>
-    <tile id="53" terrain="0,,0,"/>
-    <tile id="54" terrain=",1,,1"/>
-    <tile id="55" terrain="1,1,1,"/>
-    <tile id="56" terrain="1,1,,"/>
-    <tile id="57" terrain="1,1,,"/>
-    <tile id="58" terrain="1,1,,1"/>
-    <tile id="59" terrain="1,,1,"/>
-    <tile id="64" terrain=",0,,0"/>
-    <tile id="65" terrain="0,,0,"/>
-    <tile id="68" terrain=",0,,0"/>
-    <tile id="69" terrain="0,,0,"/>
-    <tile id="70" terrain=",1,,1"/>
-    <tile id="71" terrain="1,,1,"/>
-    <tile id="74" terrain=",1,,1"/>
-    <tile id="75" terrain="1,,1,"/>
-    <tile id="80" terrain=",0,,0"/>
-    <tile id="81" terrain="0,,0,"/>
-    <tile id="84" terrain=",0,,0"/>
-    <tile id="85" terrain="0,,0,"/>
-    <tile id="86" terrain=",1,,1"/>
-    <tile id="87" terrain="1,,1,"/>
-    <tile id="90" terrain=",1,,1"/>
-    <tile id="91" terrain="1,,1,"/>
-    <tile id="96" terrain=",0,,0"/>
-    <tile id="97" terrain="0,,0,0"/>
-    <tile id="98" terrain=",,0,0"/>
-    <tile id="99" terrain=",,0,0"/>
-    <tile id="100" terrain=",0,0,0"/>
-    <tile id="101" terrain="0,,0,"/>
-    <tile id="102" terrain=",1,,1"/>
-    <tile id="103" terrain="1,,1,1"/>
-    <tile id="104" terrain=",,1,1"/>
-    <tile id="105" terrain=",,1,1"/>
-    <tile id="106" terrain=",1,1,1"/>
-    <tile id="107" terrain="1,,1,"/>
-    <tile id="112" terrain=",0,,"/>
-    <tile id="113" terrain="0,0,,"/>
-    <tile id="114" terrain="0,0,,"/>
-    <tile id="115" terrain="0,0,,"/>
-    <tile id="116" terrain="0,0,,"/>
-    <tile id="117" terrain="0,,,"/>
-    <tile id="118" terrain=",1,,"/>
-    <tile id="119" terrain="1,1,,"/>
-    <tile id="120" terrain="1,1,,"/>
-    <tile id="121" terrain="1,1,,"/>
-    <tile id="122" terrain="1,1,,"/>
-    <tile id="123" terrain="1,,,"/>
-    <tile id="128" terrain=",,,2"/>
-    <tile id="129" terrain=",,2,2"/>
-    <tile id="130" terrain=",,2,2"/>
-    <tile id="131" terrain=",,2,2"/>
-    <tile id="132" terrain=",,2,2"/>
-    <tile id="133" terrain=",,2,"/>
-    <tile id="144" terrain=",2,,2"/>
-    <tile id="145" terrain="2,2,2,"/>
-    <tile id="146" terrain="2,2,,"/>
-    <tile id="147" terrain="2,2,,"/>
-    <tile id="148" terrain="2,2,,2"/>
-    <tile id="149" terrain="2,,2,"/>
-    <tile id="160" terrain=",2,,2"/>
-    <tile id="161" terrain="2,,2,"/>
-    <tile id="164" terrain=",2,,2"/>
-    <tile id="165" terrain="2,,2,"/>
-    <tile id="176" terrain=",2,,2"/>
-    <tile id="177" terrain="2,,2,"/>
-    <tile id="180" terrain=",2,,2"/>
-    <tile id="181" terrain="2,,2,"/>
-    <tile id="192" terrain=",2,,2"/>
-    <tile id="193" terrain="2,,2,2"/>
-    <tile id="194" terrain=",,2,2"/>
-    <tile id="195" terrain=",,2,2"/>
-    <tile id="196" terrain=",2,2,2"/>
-    <tile id="197" terrain="2,,2,"/>
-    <tile id="208" terrain=",2,,"/>
-    <tile id="209" terrain="2,2,,"/>
-    <tile id="210" terrain="2,2,,"/>
-    <tile id="211" terrain="2,2,,"/>
-    <tile id="212" terrain="2,2,,"/>
-    <tile id="213" terrain="2,,,"/>
-   </tileset>
-   <layer id="1" name="ground" width="40" height="40">
-    <data encoding="csv">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="1">
+ <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="256" columns="16">
+  <image source="tileset.png" width="256" height="256"/>
+  <terraintypes>
+   <terrain name="dark-grass" tile="93"/>
+   <terrain name="sand" tile="93"/>
+   <terrain name="dark-mud" tile="93"/>
+  </terraintypes>
+  <tile id="1" terrain="2,2,2,2"/>
+  <tile id="2" terrain="1,1,1,1"/>
+  <tile id="17" terrain="0,0,0,0"/>
+  <tile id="32" terrain=",,,0"/>
+  <tile id="33" terrain=",,0,0"/>
+  <tile id="34" terrain=",,0,0"/>
+  <tile id="35" terrain=",,0,0"/>
+  <tile id="36" terrain=",,0,0"/>
+  <tile id="37" terrain=",,0,"/>
+  <tile id="38" terrain=",,,1"/>
+  <tile id="39" terrain=",,1,1"/>
+  <tile id="40" terrain=",,1,1"/>
+  <tile id="41" terrain=",,1,1"/>
+  <tile id="42" terrain=",,1,1"/>
+  <tile id="43" terrain=",,1,"/>
+  <tile id="48" terrain=",0,,0"/>
+  <tile id="49" terrain="0,0,0,"/>
+  <tile id="50" terrain="0,0,,"/>
+  <tile id="51" terrain="0,0,,"/>
+  <tile id="52" terrain="0,0,,0"/>
+  <tile id="53" terrain="0,,0,"/>
+  <tile id="54" terrain=",1,,1"/>
+  <tile id="55" terrain="1,1,1,"/>
+  <tile id="56" terrain="1,1,,"/>
+  <tile id="57" terrain="1,1,,"/>
+  <tile id="58" terrain="1,1,,1"/>
+  <tile id="59" terrain="1,,1,"/>
+  <tile id="64" terrain=",0,,0"/>
+  <tile id="65" terrain="0,,0,"/>
+  <tile id="68" terrain=",0,,0"/>
+  <tile id="69" terrain="0,,0,"/>
+  <tile id="70" terrain=",1,,1"/>
+  <tile id="71" terrain="1,,1,"/>
+  <tile id="74" terrain=",1,,1"/>
+  <tile id="75" terrain="1,,1,"/>
+  <tile id="80" terrain=",0,,0"/>
+  <tile id="81" terrain="0,,0,"/>
+  <tile id="84" terrain=",0,,0"/>
+  <tile id="85" terrain="0,,0,"/>
+  <tile id="86" terrain=",1,,1"/>
+  <tile id="87" terrain="1,,1,"/>
+  <tile id="90" terrain=",1,,1"/>
+  <tile id="91" terrain="1,,1,"/>
+  <tile id="96" terrain=",0,,0"/>
+  <tile id="97" terrain="0,,0,0"/>
+  <tile id="98" terrain=",,0,0"/>
+  <tile id="99" terrain=",,0,0"/>
+  <tile id="100" terrain=",0,0,0"/>
+  <tile id="101" terrain="0,,0,"/>
+  <tile id="102" terrain=",1,,1"/>
+  <tile id="103" terrain="1,,1,1"/>
+  <tile id="104" terrain=",,1,1"/>
+  <tile id="105" terrain=",,1,1"/>
+  <tile id="106" terrain=",1,1,1"/>
+  <tile id="107" terrain="1,,1,"/>
+  <tile id="112" terrain=",0,,"/>
+  <tile id="113" terrain="0,0,,"/>
+  <tile id="114" terrain="0,0,,"/>
+  <tile id="115" terrain="0,0,,"/>
+  <tile id="116" terrain="0,0,,"/>
+  <tile id="117" terrain="0,,,"/>
+  <tile id="118" terrain=",1,,"/>
+  <tile id="119" terrain="1,1,,"/>
+  <tile id="120" terrain="1,1,,"/>
+  <tile id="121" terrain="1,1,,"/>
+  <tile id="122" terrain="1,1,,"/>
+  <tile id="123" terrain="1,,,"/>
+  <tile id="128" terrain=",,,2"/>
+  <tile id="129" terrain=",,2,2"/>
+  <tile id="130" terrain=",,2,2"/>
+  <tile id="131" terrain=",,2,2"/>
+  <tile id="132" terrain=",,2,2"/>
+  <tile id="133" terrain=",,2,"/>
+  <tile id="144" terrain=",2,,2"/>
+  <tile id="145" terrain="2,2,2,"/>
+  <tile id="146" terrain="2,2,,"/>
+  <tile id="147" terrain="2,2,,"/>
+  <tile id="148" terrain="2,2,,2"/>
+  <tile id="149" terrain="2,,2,"/>
+  <tile id="160" terrain=",2,,2"/>
+  <tile id="161" terrain="2,,2,"/>
+  <tile id="164" terrain=",2,,2"/>
+  <tile id="165" terrain="2,,2,"/>
+  <tile id="176" terrain=",2,,2"/>
+  <tile id="177" terrain="2,,2,"/>
+  <tile id="180" terrain=",2,,2"/>
+  <tile id="181" terrain="2,,2,"/>
+  <tile id="192" terrain=",2,,2"/>
+  <tile id="193" terrain="2,,2,2"/>
+  <tile id="194" terrain=",,2,2"/>
+  <tile id="195" terrain=",,2,2"/>
+  <tile id="196" terrain=",2,2,2"/>
+  <tile id="197" terrain="2,,2,"/>
+  <tile id="208" terrain=",2,,"/>
+  <tile id="209" terrain="2,2,,"/>
+  <tile id="210" terrain="2,2,,"/>
+  <tile id="211" terrain="2,2,,"/>
+  <tile id="212" terrain="2,2,,"/>
+  <tile id="213" terrain="2,,,"/>
+ </tileset>
+ <layer id="1" name="ground" width="40" height="40">
+  <data encoding="csv">
 17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,
 17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,
 17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,
@@ -152,9 +150,9 @@
 17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,
 17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17
 </data>
-   </layer>
-   <layer id="2" name="ground-detail1" width="40" height="40">
-    <data encoding="csv">
+ </layer>
+ <layer id="2" name="ground-detail1" width="40" height="40">
+  <data encoding="csv">
 18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,
 18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,
 18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,
@@ -196,9 +194,9 @@
 18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,
 18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18
 </data>
-   </layer>
-   <layer id="3" name="ground-detail2" width="40" height="40">
-    <data encoding="csv">
+ </layer>
+ <layer id="3" name="ground-detail2" width="40" height="40">
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,39,40,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,39,41,105,107,3,88,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,71,3,3,3,3,104,106,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -240,46 +238,5 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-   </layer>
-   <objectgroup id="0" name="default" visible="1">
-    <object id="1" name="player-1" type="SPAWNPOINT" x="224" y="208" width="16" height="16"/>
-    <object id="2" name="player-2" type="SPAWNPOINT" x="448" y="208" width="16" height="16"/>
-    <object id="3" name="player-3" type="SPAWNPOINT" x="224" y="384" width="16" height="16"/>
-    <object id="4" name="player-4" type="SPAWNPOINT" x="448" y="384" width="16" height="16"/>
-    <object id="5" type="CREATURE" x="320" y="160" width="16" height="16">
-     <properties>
-      <property name="addShadow" type="bool" value="true"/>
-      <property name="collision" type="bool" value="true"/>
-      <property name="collisionboxHeight" type="float" value="8.8"/>
-      <property name="collisionboxWidth" type="float" value="6.0"/>
-      <property name="indestructible" type="bool" value="false"/>
-      <property name="spritesheetName" value="warrior"/>
-     </properties>
-    </object>
-    <object id="7" name="warrior-test" type="CREATURE" x="311" y="309" width="18" height="22">
-     <properties>
-      <property name="addShadow" type="bool" value="true"/>
-      <property name="collision" type="bool" value="true"/>
-      <property name="collisionboxHeight" value="12.0"/>
-      <property name="collisionboxWidth" value="7.0"/>
-      <property name="indestructible" type="bool" value="false"/>
-      <property name="spritesheetName" value="warrior"/>
-     </properties>
-    </object>
-   </objectgroup>
-  </map>
- </maps>
- <spriteSheets>
-  <sprite width="16" height="16" imageformat="PNG" name="tileset">
-   <image>iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAJxElEQVR42u3dwbHkNBRG4ZfWxAHFkjUJTBIsmADIgWDYEc2wgno1ZVu6kmzJut+p6s0bt7rd4/9IV5btj7/++O17z+vb11+6Xv/8/WfX6wNAOwQAEAABAARAAAABEABAAAQAEAABAARAAAABEABAAAQAEAABAARAAAABEABAAAQAEAABAARAAMCy/Pz7T997Xl9+/dL18j8AEAAAAgBAAAAIAAABACAAAAQAgAAAEAAAAgBAAAAIAAABACAAAAQAAAAAAAAAAAAAAACAIkfPaGh5bkPkPZ4Jgf85WlTUstAo8p43L2Ia+VCVowe1tDy85awdR3eSwPa29bnNltWGZ+3sFvJoOEvb1Qqg9Jk136tmpEEai4c8Gs7SdrUCKH1mzfeqGWnMkEakB44IoHbbSPhbpTRqpIEbw17TA0cEULttJPytUho10hgV+LNgnD0/sfRsxdaAlb7L1d9r30MACwb+LBhnF/yULgZqDVjpu1z9vfY9qwigJjyR8NfIIVoCRB7q2rt9TWmBG4f1veGvkUO0BIhchdi7fU1pcccw36v+qdHEcMMw36v+MudRYhBqj44ngJdKQPgJQPgJQPgfCLzwC//UwN/d+5NCXd1PAjcJgBTq6v47JBAdFZROwbWONq7WIIw+JdgafhKYPPtfcwqudbRxtQZh9CnB1vDfdWagNxS9nxPpYaPSqNm/1t8AE0qCUkhbPifSw0alUbN/rb/BjPmAUlsjyo+WdkvfJ7ooSPgXnQ8otTWi/Ghpt/R9oouCnrrj8Qqz4DNC5gzAhgIYOSex4kTozkF4OmQE8OIzAk/MSWTZ71IYdp4EI4AXSGBWD7376Kdmhn3n02Bq/wUO/toJuhk99FP7v8rTjiKn6HY6DoX/JaOA3gm5N48CVugFdzzmLAB6US+YVXoz6/+dl8SOXvCEm+vg3cqA0QuenpoI2yUIrfcKwOSJsF0k0HqvgFk18I5hiCwEktTJNfCOJUFkIdAKE2G7hkH4XyaBbPt/d+8XkcBuwb/af8l8qPeLSGC33+Bq/5/q8SJzAbsej3r/iT1eZC4g2yhoNQFYB4CpArAOYF4JkHkpsNQuUAJkXgo8OwC7nQIkgJcFYLdTgLMF4MaYsd9BWhcJf8YSYPZNQLKHnwCEf6sSQPiF39A/cf2f/d74wv/iEUCGZcCrTv5luRAow2XQSoCX1f3KACMAEkgmgBUfDppNACSwmAQy7rfwGwUIv0nA6b2gZcCY2gtaBnxPAEphyHA8Cv/EAJTCkFWIq/SGBICpvSEB3Nv7Zx4OmwdYoPdfYTi8eil050GfVQAmAhc56LMKYJWlwARAAASQSACtJUDmKwFJYIESIPOVgNYDzJHAkSwxqRfMKIEjWc4Mv1IAU8OvFJgb/h1vCXb2e5zNl2Bi+He8JdjZ73E2X6L3f77+F369/9T6f4WrAQ37ofZ/8bCfBGIlgPsCkMDUEmDV+wJkmgSUUhKY+hus0ANmXwospZN7wOxLgVcY/u96DJoHeEnPn/13IID58yBSSwBTf4cVJsGMAjB1Eswo4PlJMBIggKmTYCQwVwAZEP6FBaAkmnt34B+3zSYACV3o4M94NkAPeO8+X+2/dCboAVeeA3kiBFlrYJN/i4Rgdg28ct2/ygjAQiBMD4P91hPOCj8RJOkJVw3/KhcF6f0xTQAeDDIv+FnvCfB5O0mdGPys9wT4vN0K4c98XwASWCD8me8LMGrfR4R/ZBjuCFZNmy6FfnH4R4rgDqnUtDlLfnce+Ffb1rYZWYJc21700uejW6ZL7kQBjAhebZuRJci17UUvfT66ZfqsSb+zFYGRoETaP2sn8iyDEaMdoV9k0u9sRWAkKJH2z9qJPMtgxGhntduB1d5Bd6RwegPcuj8ksPAEYHSyrEc4vQFu3Z+VJZDtJa0LzgVkeq04Gy78IAPhJwII/9tFIODCTwCJRwFC7noAAniBAN4yIdgy87+qkKTzhRJomflfVUhP/h9Ez6MfvadlsU3pM2tOPY4493/WHiZIoPZc+9n9A3vWGbScehxx7v+svZn09I61txirDWHps2veo7ffaGTQ+t6rba5CWPrsmve85RqHUo9aWxNHh/ujRNUqNCJYKPhXQa6tiaPD/VGiahXaqhc73dlTtrZbKhvOttf7b1IejG57pKSuts9yt6OngxUJs/AnG0U8KanZQgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACG8+3rL99rt6vd9uo9Le0AmCiH/0IbCe/Re1rauUNMQOqePtoz1wS3Juy1AqgNdak9cgAG9cy1YauVQGuoa7ctfR9HAgigsrc+2uZoRBF9T6+gjtq/+uzodwG2FkBt4EohimwfLQFaP7dFAkSArWt+rz4xAa8f8nsRAAjAiwSQTQKEQAJIHH4CiE0aOnqw1fB/hASu2rj6+9H7WkqVSKnT0q7wI2X9X7P9Vfs1f28tT1r2t/U3AFJK4ChAIxfN9KwejLbbMwnqiEHqkcCTQXjiMwkABLDwDPhK4ScAEMBGIWhZPgyYC9hQAqXfITKvAGwrgd32t3b/HR1IEf6sYcg4+gE+Rp3zf7v0TAKCBBIJwPp/IBCIozIhm/QIAOklsOu8h/ADhXmB//4tm/hcDIT0o4Csox6XA0MJsPE6AAIAPnJeFttznwNHDFILwKlAIGktnFF6JAACIAESAAmQAAGABNLOARAAtgt91vkAAgASlwHCDzSGIasAHCnQ+ycWHwkgtQR2nP8gAOBCAtnl9/nfHSEggIQCANLX/9nLHkJAagFkviGIUQEIgAAIAPsFIGsZ4H4AIIBkzwNoGfUIPgz9E+87CSCFAM6CsePw14VAwEfuR2QRAJC8HCAApA18bRB2LAGEHwgEIvOIR/ihBEi+FJgEkL7+N/9BAkh88PsNCAB6/5TzH8IPtf/Gv0GNBICUEvA7EAAc/Fv2+iQIFEKwew0s/BB+VwVu/0h0oDsI9hvYtBY2AiABGAW4EpAAkC302QTgXgAQ/sQHvzsCgQBuOPjvCMjINqNzHiSANCVAJBQ/blsjmdpw1rZX2m6mCIFUw+JaiZyJpySkq3ajYuuZAyEApAz/CEFEb7zRE8jInY71/iCAm8O9y8uRAhIQekDwSQAgAQIA3hp6AiAAYDkJ9Hy30fviyEBKCfQEKdLe0d9/fH/ku3we3UT25+w7A4QQXA1Ys0jn6rZcV1K4+l69+wPgo+9OuaOCFS0LevbpaF4EQGHYHgluS7ju6p31/MCNgZkRLmEGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADIx792W+uKnr9HwgAAAABJRU5ErkJggg==</image>
-  </sprite>
-  <sprite width="18" height="22" imageformat="PNG" name="warrior-walk-down">
-   <image>iVBORw0KGgoAAAANSUhEUgAAAFoAAAAWCAYAAABAMosVAAABzUlEQVR42u2WzU0DMRCFc0bcQEJcOKHcoAFySB9pAVECRVAIEn3QCCVwQIveYaKRsT0/fsqG1Vqydla7+TzznsfZzWYd68DY3lxMcu3NVSCCQPLuz8frcX5/voc4izaMIZBwNEPPiDisfM5yJzIEkvcxv95eJn2POFLbaD7Uziidh+sZ51kC4V2Mq+vbIwcxRpTDMoyhD3UnMgRaaj5n1aqts1XnNIdhDH0ozuN3lkAeFjiHx7vmWShMRj6n7gzTecCtojwC4VzrJSac56fLKkufkR4OwzBaZ3ictwrDM4gzKpDmaB6u5SfaKfKhdQZrJ+KZCFKKJGvoBCMcuR/h1MyKGDbcGV7nPYXhWhNbphw/c3Oyhg11hncHRQrTU3gSZziaEeVoscvcsoYhjnaGqzB9zPSOIIlrpok4FkcnW2NojvePrMbwckrDtD6RzggVFhkP2/upnN7PqB5Dc7xCW7lYX1SWPp7O+LNQVqDWLtKt/t85PW28ZtES2u32e0wsLDE4Eo9wdBzl6BwyHIo+smhPIE9S+t0WM8pBO9biKKfMIctpGWZyWovXCrNgXk7WsBGBarVkaupxuiym0B6RMl02J4cmNHMHLXVk9fkFh9p5I1H8qLgAAAAASUVORK5CYII=</image>
-   <keyframes>120,200,120,200,120</keyframes>
-  </sprite>
- </spriteSheets>
- <tilesets/>
- <emitters/>
- <blueprints/>
- <sounds/>
-</litidata>
+ </layer>
+</map>

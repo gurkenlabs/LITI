@@ -1,6 +1,7 @@
 package de.gurkenlabs.liti;
 
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.gui.screens.GameScreen;
 import de.gurkenlabs.litiengine.resources.Resources;
 
 public class Program {
@@ -20,6 +21,11 @@ public class Program {
 
     Resources.load("game.litidata");
 
+    GameManager.init();
+
+    Game.screens().add(new GameScreen());
+
     Game.start();
+    Game.world().loadEnvironment("dustpit");
   }
 }
