@@ -1,0 +1,4 @@
+rootProject.name = 'LITI'
+
+include ":litiengine"
+project(":litiengine").projectDir = file("../litiengine")

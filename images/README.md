@@ -1,0 +1,1 @@
+#### This folder contains all images files that are not contained in the liti resource file

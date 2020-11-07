@@ -1,0 +1,6 @@
+/.gradle
+/build
+/out
+/crash.txt
+/game.log
+/game.log.lck

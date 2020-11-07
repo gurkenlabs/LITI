@@ -1,0 +1,21 @@
+plugins {
+  id 'java'
+  id 'application'
+}
+
+version 'v0.0.1'
+mainClassName = 'de.gurkenlabs.liti.Program'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation project(':litiengine')
+}
+
+sourceSets {
+  main.java.srcDir 'src'
+
+  main.resources.srcDirs = ['audio', 'images']
+}
