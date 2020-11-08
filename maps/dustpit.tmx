@@ -253,12 +253,12 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,0,0,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -302,7 +302,7 @@
    <properties>
     <property name="addShadow" type="bool" value="true"/>
     <property name="collision" type="bool" value="true"/>
-    <property name="collisionboxHeight" value="12.0"/>
+    <property name="collisionboxHeight" value="7.0"/>
     <property name="collisionboxWidth" value="7.0"/>
     <property name="indestructible" type="bool" value="false"/>
     <property name="spritesheetName" value="warrior"/>
@@ -340,6 +340,30 @@
     <property name="collisionboxWidth" value="13.0"/>
     <property name="indestructible" type="bool" value="false"/>
     <property name="spritesheetName" value="stone2"/>
+   </properties>
+  </object>
+  <object id="11" type="PROP" x="368" y="144" width="15" height="11">
+   <properties>
+    <property name="addShadow" type="bool" value="false"/>
+    <property name="collision" type="bool" value="true"/>
+    <property name="collisionAlign" value="RIGHT"/>
+    <property name="collisionValign" value="MIDDLE"/>
+    <property name="collisionboxHeight" value="7.0"/>
+    <property name="collisionboxWidth" value="13.0"/>
+    <property name="indestructible" type="bool" value="false"/>
+    <property name="spritesheetName" value="stone3"/>
+   </properties>
+  </object>
+  <object id="12" type="PROP" x="368" y="192" width="10" height="8">
+   <properties>
+    <property name="addShadow" type="bool" value="false"/>
+    <property name="collision" type="bool" value="true"/>
+    <property name="collisionAlign" value="RIGHT"/>
+    <property name="collisionValign" value="MIDDLE"/>
+    <property name="collisionboxHeight" value="6.0"/>
+    <property name="collisionboxWidth" value="9.0"/>
+    <property name="indestructible" type="bool" value="false"/>
+    <property name="spritesheetName" value="stone4"/>
    </properties>
   </object>
  </objectgroup>
