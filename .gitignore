@@ -5,3 +5,14 @@
 /game.log
 /game.log.lck
 /game.log.1
+
+
+### Intellij ###
+
+*.iml
+
+/.idea
+/.settings
+/bin
+.classpath
+.project
