@@ -16,6 +16,27 @@ dependencies {
 
 sourceSets {
   main.java.srcDir 'src'
-
   main.resources.srcDirs = ['audio', 'images']
 }
+
+// copy native binaries to support gamepad input
+task copyNativeLibs(type: Copy) {
+  def litiengineLibs = '../litiengine/build/libs'
+  def buildFolder = new File(buildDir, 'libs')
+
+  from(litiengineLibs) {
+    include '**/*'
+    exclude '**/*.jar'
+    exclude '**/*.zip'
+    exclude 'LICENSE'
+    exclude 'lib/**'
+  }
+
+  into buildFolder
+}
+
+run {
+  systemProperty "java.library.path", new File(buildDir, 'libs')
+}
+
+build.dependsOn copyNativeLibs

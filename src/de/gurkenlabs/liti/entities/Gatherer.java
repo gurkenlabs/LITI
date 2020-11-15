@@ -10,5 +10,8 @@ import de.gurkenlabs.litiengine.entities.MovementInfo;
 @CollisionInfo(collision = true, collisionBoxWidth = 6, collisionBoxHeight = 5, valign = Valign.MIDDLE_DOWN)
 @CombatInfo(hitpoints = 100)
 @MovementInfo(velocity = 50)
-public class Gatherer extends Character {
+public class Gatherer extends Player {
+  protected Gatherer(PlayerConfiguration config) {
+    super(config);
+  }
 }

@@ -7,5 +7,8 @@ import de.gurkenlabs.litiengine.entities.*;
 @CollisionInfo(collision = true, collisionBoxWidth = 4, collisionBoxHeight = 5, valign = Valign.MIDDLE_DOWN)
 @CombatInfo(hitpoints = 100)
 @MovementInfo(velocity = 50)
-public class Warrior extends Character {
+public class Warrior extends Player {
+  protected Warrior(PlayerConfiguration config) {
+    super(config);
+  }
 }

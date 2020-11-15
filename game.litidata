@@ -467,21 +467,11 @@
 </data>
    </layer>
    <objectgroup id="4" name="default" visible="1">
-    <object id="1" name="player-1" type="SPAWNPOINT" x="128" y="48" width="16" height="16"/>
-    <object id="2" name="player-2" type="SPAWNPOINT" x="352" y="48" width="16" height="16"/>
-    <object id="3" name="player-3" type="SPAWNPOINT" x="128" y="224" width="16" height="16"/>
-    <object id="4" name="player-4" type="SPAWNPOINT" x="352" y="224" width="16" height="16"/>
-    <object id="5" type="CREATURE" x="288" y="64" width="16" height="16">
-     <properties>
-      <property name="addShadow" type="bool" value="true"/>
-      <property name="collision" type="bool" value="true"/>
-      <property name="collisionboxHeight" type="float" value="8.8"/>
-      <property name="collisionboxWidth" type="float" value="6"/>
-      <property name="indestructible" type="bool" value="false"/>
-      <property name="spritesheetName" value="warrior"/>
-     </properties>
-    </object>
-    <object id="7" name="warrior-test" type="CREATURE" x="215" y="149" width="12" height="21">
+    <object id="1" name="player-1" type="SPAWNPOINT" x="272" y="82" width="16" height="16"/>
+    <object id="2" name="player-2" type="SPAWNPOINT" x="496" y="82" width="16" height="16"/>
+    <object id="3" name="player-3" type="SPAWNPOINT" x="272" y="258" width="16" height="16"/>
+    <object id="4" name="player-4" type="SPAWNPOINT" x="496" y="258" width="16" height="16"/>
+    <object id="7" name="warrior-test" type="CREATURE" x="294" y="162" width="12" height="21">
      <properties>
       <property name="addShadow" type="bool" value="true"/>
       <property name="collision" type="bool" value="true"/>
