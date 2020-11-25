@@ -39,7 +39,7 @@ public class Program {
     Game.screens().add(new ScoreScreen());
 
     Game.start();
-    Game.world().loadEnvironment("dustpit");
+    Game.world().loadEnvironment("plateau");
 
   }
 }

@@ -5,12 +5,14 @@ import de.gurkenlabs.liti.input.InputManager;
 import de.gurkenlabs.litiengine.input.Gamepad;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class Players {
   public static final int MAX_PLAYERS = 4;
 
-  private static List<Player> players = new CopyOnWriteArrayList<>();
+  private static Map<PlayerClass, Player> allPlayers = new ConcurrentHashMap<>();
 
   private static List<PlayerConfiguration> configurations = new CopyOnWriteArrayList<>();
 
@@ -20,7 +22,9 @@ public final class Players {
   /**
    * Creates actual entities and bind the actions to the entity
    *
-   * @param config The player configuration containing details about the chosen input device, class and the player index.
+   * @param config
+   *          The player configuration containing details about the chosen input
+   *          device, class and the player index.
    */
   public static Player join(PlayerConfiguration config) {
     if (config.getType() == null) {
@@ -29,21 +33,21 @@ public final class Players {
 
     Player player = null;
     switch (config.getType()) {
-      case WARRIOR:
-        player = new Warrior(config);
-        break;
-      case SHAMAN:
-        player = new Shaman(config);
-        break;
-      case HUNTRESS:
-        player = new Huntress(config);
-        break;
-      case GATHERER:
-        player = new Gatherer(config);
-        break;
-      case INVALID:
-      default:
-        break;
+    case WARRIOR:
+      player = new Warrior(config);
+      break;
+    case SHAMAN:
+      player = new Shaman(config);
+      break;
+    case HUNTRESS:
+      player = new Huntress(config);
+      break;
+    case GATHERER:
+      player = new Gatherer(config);
+      break;
+    case INVALID:
+    default:
+      break;
     }
 
     if (player == null) {
@@ -52,12 +56,12 @@ public final class Players {
 
     player.setIndex(config.getIndex());
     InputManager.bindPlayerInput(player, config.getGamepad());
-
+    getAll().put(config.getType(), player);
     return player;
   }
 
-  public static List<Player> getAll() {
-    return players;
+  public static Map<PlayerClass, Player> getAll() {
+    return allPlayers;
   }
 
   public static int joinedPlayers() {

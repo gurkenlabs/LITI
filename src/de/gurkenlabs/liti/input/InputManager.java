@@ -37,8 +37,8 @@ public final class InputManager {
       PlayerConfiguration configPlayer2 = Players.addConfiguration(1, InputBinding.InputType.GAMEPAD, Input.gamepads().get(0));
       configPlayer2.setPlayerClass(PlayerClass.GATHERER);
 
-      PlayerConfiguration configPlayer3 = Players.addConfiguration(2, InputBinding.InputType.GAMEPAD, Input.gamepads().get(1));
-      configPlayer3.setPlayerClass(PlayerClass.SHAMAN);
+//      PlayerConfiguration configPlayer3 = Players.addConfiguration(2, InputBinding.InputType.GAMEPAD, Input.gamepads().get(1));
+//      configPlayer3.setPlayerClass(PlayerClass.SHAMAN);
 
       bindUiInput(1, Input.gamepads().get(0));
       bindUiInput(2, Input.gamepads().get(1));
