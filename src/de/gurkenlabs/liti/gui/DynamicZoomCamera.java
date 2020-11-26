@@ -13,6 +13,7 @@ public class DynamicZoomCamera extends FreeFlightCamera {
 
   private static float minZoom = .3f;
   private static float maxZoom = 1.4f;
+  private static short padding = 20;
 
   public DynamicZoomCamera() {
     this.setFocus(Game.world().environment().getCenter());
@@ -45,7 +46,7 @@ public class DynamicZoomCamera extends FreeFlightCamera {
         maxY = playerY;
       }
     }
-    Rectangle2D bounds = new Rectangle2D.Double(minX - 20, minY - 20, maxX - minX + 40, maxY - minY + 40);
+    Rectangle2D bounds = new Rectangle2D.Double(minX - padding, minY - padding, maxX - minX + 2 * padding, maxY - minY + 2 * padding);
     this.setFocus(bounds.getCenterX(), bounds.getCenterY());
     double rel = Math.min(Game.world().environment().getMap().getSizeInPixels().getWidth() / bounds.getWidth() / 2, Game.world().environment().getMap().getSizeInPixels().getHeight() / bounds.getHeight() / 2);
     float targetZoom = MathUtilities.clamp((float) rel, minZoom, maxZoom);
