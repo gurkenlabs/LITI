@@ -7,11 +7,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 //TODO: dispatching delay
-public final class UI {
+public final class Hud {
   private static final int UI_INPUT_DELAY = 100;
   private static Map<Integer, Long> lastInputs = new ConcurrentHashMap<>();
 
-  private UI() {
+  private Hud() {
   }
 
   public static void cancel(int player) {

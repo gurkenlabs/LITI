@@ -4,12 +4,11 @@ import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.PlayerClass;
 import de.gurkenlabs.liti.entities.PlayerConfiguration;
 import de.gurkenlabs.liti.entities.Players;
-import de.gurkenlabs.liti.gui.UI;
+import de.gurkenlabs.liti.gui.Hud;
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.input.Gamepad;
 import de.gurkenlabs.litiengine.input.Input;
-import de.gurkenlabs.litiengine.util.MathUtilities;
 
 import java.awt.event.KeyEvent;
 
@@ -39,34 +38,37 @@ public final class InputManager {
         PlayerConfiguration configPlayer2 = Players.addConfiguration(1, InputBinding.InputType.GAMEPAD, Input.gamepads().get(0));
         configPlayer2.setPlayerClass(PlayerClass.GATHERER);
         bindUiInput(1, Input.gamepads().get(0));
+      }
 
+      if (Input.gamepads().getAll().size() > 1) {
         PlayerConfiguration configPlayer3 = Players.addConfiguration(2, InputBinding.InputType.GAMEPAD, Input.gamepads().get(1));
         configPlayer3.setPlayerClass(PlayerClass.SHAMAN);
-
-        defaultInputSet = true;
+        bindUiInput(2, Input.gamepads().get(1));
       }
+
+      defaultInputSet = true;
     }
   }
 
   public static void bindUiInput(int index, Gamepad gamepad) {
     if (gamepad != null) {
-      InputBinding.bind((value) -> UI.cancel(index), config.getgamepad_cancel(), gamepad);
-      InputBinding.bind((value) -> UI.confirm(index), config.getgamepad_interact(), gamepad);
-      InputBinding.bind((value) -> UI.confirm(index), config.getUi_gamepad_menu(), gamepad);
-      InputBinding.bind((value) -> UI.direction(index, Direction.UP), config.getgamepad_up(), gamepad);
-      InputBinding.bind((value) -> UI.direction(index, Direction.DOWN), config.getgamepad_down(), gamepad);
-      InputBinding.bind((value) -> UI.direction(index, Direction.LEFT), config.getgamepad_left(), gamepad);
-      InputBinding.bind((value) -> UI.direction(index, Direction.RIGHT), config.getgamepad_right(), gamepad);
+      InputBinding.bind((value) -> Hud.cancel(index), config.getgamepad_cancel(), gamepad);
+      InputBinding.bind((value) -> Hud.confirm(index), config.getgamepad_interact(), gamepad);
+      InputBinding.bind((value) -> Hud.confirm(index), config.getUi_gamepad_menu(), gamepad);
+      InputBinding.bind((value) -> Hud.direction(index, Direction.UP), config.getgamepad_up(), gamepad);
+      InputBinding.bind((value) -> Hud.direction(index, Direction.DOWN), config.getgamepad_down(), gamepad);
+      InputBinding.bind((value) -> Hud.direction(index, Direction.LEFT), config.getgamepad_left(), gamepad);
+      InputBinding.bind((value) -> Hud.direction(index, Direction.RIGHT), config.getgamepad_right(), gamepad);
       return;
     }
 
-    InputBinding.bind((value) -> UI.cancel(index), config.getkeyboard_cancel(), null);
-    InputBinding.bind((value) -> UI.confirm(index), config.getkeyboard_interact(), null);
-    InputBinding.bind((value) -> UI.confirm(index), config.getUi_keyboard_menu(), null);
-    InputBinding.bind((value) -> UI.direction(index, Direction.UP), config.getkeyboard_up(), null);
-    InputBinding.bind((value) -> UI.direction(index, Direction.DOWN), config.getkeyboard_down(), null);
-    InputBinding.bind((value) -> UI.direction(index, Direction.LEFT), config.getkeyboard_left(), null);
-    InputBinding.bind((value) -> UI.direction(index, Direction.RIGHT), config.getkeyboard_right(), null);
+    InputBinding.bind((value) -> Hud.cancel(index), config.getkeyboard_cancel(), null);
+    InputBinding.bind((value) -> Hud.confirm(index), config.getkeyboard_interact(), null);
+    InputBinding.bind((value) -> Hud.confirm(index), config.getUi_keyboard_menu(), null);
+    InputBinding.bind((value) -> Hud.direction(index, Direction.UP), config.getkeyboard_up(), null);
+    InputBinding.bind((value) -> Hud.direction(index, Direction.DOWN), config.getkeyboard_down(), null);
+    InputBinding.bind((value) -> Hud.direction(index, Direction.LEFT), config.getkeyboard_left(), null);
+    InputBinding.bind((value) -> Hud.direction(index, Direction.RIGHT), config.getkeyboard_right(), null);
   }
 
   public static void bindPlayerInput(Player player, Gamepad gamepad) {
