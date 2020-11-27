@@ -40,12 +40,11 @@ public final class InputManager {
         configPlayer2.setPlayerClass(PlayerClass.GATHERER);
         bindUiInput(1, Input.gamepads().get(0));
 
-        //PlayerConfiguration configPlayer3 = Players.addConfiguration(2, InputBinding.InputType.GAMEPAD, Input.gamepads().get(1));
-        //configPlayer3.setPlayerClass(PlayerClass.SHAMAN);
-        //bindUiInput(2, Input.gamepads().get(1));
-      }
+        PlayerConfiguration configPlayer3 = Players.addConfiguration(2, InputBinding.InputType.GAMEPAD, Input.gamepads().get(1));
+        configPlayer3.setPlayerClass(PlayerClass.SHAMAN);
 
-      defaultInputSet = true;
+        defaultInputSet = true;
+      }
     }
   }
 
