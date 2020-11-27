@@ -9,6 +9,7 @@ import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.input.Gamepad;
 import de.gurkenlabs.litiengine.input.Input;
+import de.gurkenlabs.litiengine.util.MathUtilities;
 
 import java.awt.event.KeyEvent;
 
@@ -34,101 +35,117 @@ public final class InputManager {
       Players.getConfiguration(0).setPlayerClass(PlayerClass.WARRIOR);
 
       // TODO: Hack to join multiple players without lobby screen
-      PlayerConfiguration configPlayer2 = Players.addConfiguration(1, InputBinding.InputType.GAMEPAD, Input.gamepads().get(0));
-      configPlayer2.setPlayerClass(PlayerClass.GATHERER);
+      if (Input.gamepads().getAll().size() > 0) {
+        PlayerConfiguration configPlayer2 = Players.addConfiguration(1, InputBinding.InputType.GAMEPAD, Input.gamepads().get(0));
+        configPlayer2.setPlayerClass(PlayerClass.GATHERER);
+        bindUiInput(1, Input.gamepads().get(0));
 
-//      PlayerConfiguration configPlayer3 = Players.addConfiguration(2, InputBinding.InputType.GAMEPAD, Input.gamepads().get(1));
-//      configPlayer3.setPlayerClass(PlayerClass.SHAMAN);
+        //PlayerConfiguration configPlayer3 = Players.addConfiguration(2, InputBinding.InputType.GAMEPAD, Input.gamepads().get(1));
+        //configPlayer3.setPlayerClass(PlayerClass.SHAMAN);
+        //bindUiInput(2, Input.gamepads().get(1));
+      }
 
-      bindUiInput(1, Input.gamepads().get(0));
-      bindUiInput(2, Input.gamepads().get(1));
       defaultInputSet = true;
     }
   }
 
   public static void bindUiInput(int index, Gamepad gamepad) {
     if (gamepad != null) {
-      InputBinding.bind(() -> UI.cancel(index), config.getgamepad_cancel(), gamepad);
-      InputBinding.bind(() -> UI.confirm(index), config.getgamepad_interact(), gamepad);
-      InputBinding.bind(() -> UI.confirm(index), config.getUi_gamepad_menu(), gamepad);
-      InputBinding.bind(() -> UI.direction(index, Direction.UP), config.getgamepad_up(), gamepad);
-      InputBinding.bind(() -> UI.direction(index, Direction.DOWN), config.getgamepad_down(), gamepad);
-      InputBinding.bind(() -> UI.direction(index, Direction.LEFT), config.getgamepad_left(), gamepad);
-      InputBinding.bind(() -> UI.direction(index, Direction.RIGHT), config.getgamepad_right(), gamepad);
+      InputBinding.bind((value) -> UI.cancel(index), config.getgamepad_cancel(), gamepad);
+      InputBinding.bind((value) -> UI.confirm(index), config.getgamepad_interact(), gamepad);
+      InputBinding.bind((value) -> UI.confirm(index), config.getUi_gamepad_menu(), gamepad);
+      InputBinding.bind((value) -> UI.direction(index, Direction.UP), config.getgamepad_up(), gamepad);
+      InputBinding.bind((value) -> UI.direction(index, Direction.DOWN), config.getgamepad_down(), gamepad);
+      InputBinding.bind((value) -> UI.direction(index, Direction.LEFT), config.getgamepad_left(), gamepad);
+      InputBinding.bind((value) -> UI.direction(index, Direction.RIGHT), config.getgamepad_right(), gamepad);
       return;
     }
 
-    InputBinding.bind(() -> UI.cancel(index), config.getkeyboard_cancel(), null);
-    InputBinding.bind(() -> UI.confirm(index), config.getkeyboard_interact(), null);
-    InputBinding.bind(() -> UI.confirm(index), config.getUi_keyboard_menu(), null);
-    InputBinding.bind(() -> UI.direction(index, Direction.UP), config.getkeyboard_up(), null);
-    InputBinding.bind(() -> UI.direction(index, Direction.DOWN), config.getkeyboard_down(), null);
-    InputBinding.bind(() -> UI.direction(index, Direction.LEFT), config.getkeyboard_left(), null);
-    InputBinding.bind(() -> UI.direction(index, Direction.RIGHT), config.getkeyboard_right(), null);
+    InputBinding.bind((value) -> UI.cancel(index), config.getkeyboard_cancel(), null);
+    InputBinding.bind((value) -> UI.confirm(index), config.getkeyboard_interact(), null);
+    InputBinding.bind((value) -> UI.confirm(index), config.getUi_keyboard_menu(), null);
+    InputBinding.bind((value) -> UI.direction(index, Direction.UP), config.getkeyboard_up(), null);
+    InputBinding.bind((value) -> UI.direction(index, Direction.DOWN), config.getkeyboard_down(), null);
+    InputBinding.bind((value) -> UI.direction(index, Direction.LEFT), config.getkeyboard_left(), null);
+    InputBinding.bind((value) -> UI.direction(index, Direction.RIGHT), config.getkeyboard_right(), null);
   }
 
   public static void bindPlayerInput(Player player, Gamepad gamepad) {
     // GAMEPAD CONTROLS
     if (player.getConfiguration().getInputDevice() == InputBinding.InputType.GAMEPAD) {
       // WALK UP
-      InputBinding.bind(() -> {
+      InputBinding.bind((value) -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
-          player.movement().setDy(-1);
+          player.movement().setDy(value);
         }
       }, config.getgamepad_up(), gamepad);
 
       // WALK DOWN
-      InputBinding.bind(() -> {
+      InputBinding.bind((value) -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
-          player.movement().setDy(1);
+          player.movement().setDy(value);
         }
       }, config.getgamepad_down(), gamepad);
 
       // WALK LEFT
-      InputBinding.bind(() -> {
+      InputBinding.bind((value) -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
-          player.movement().setDx(-1);
+          player.movement().setDx(value);
         }
       }, config.getgamepad_left(), gamepad);
 
       // WALK RIGHT
-      InputBinding.bind(() -> {
+      InputBinding.bind((value) -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
-          player.movement().setDx(1);
+          player.movement().setDx(value);
         }
       }, config.getgamepad_right(), gamepad);
+
+      // DASH
+      InputBinding.bind((value) -> {
+        if (player.getState() != Player.PlayerState.LOCKED) {
+          player.perform("DASH");
+        }
+      }, config.getgamepad_dash(), gamepad);
 
       return;
     }
 
     // KEYBOARD CONTROLS
     // WALK UP
-    InputBinding.bind(() -> {
+    InputBinding.bind((value) -> {
       if (player.getState() != Player.PlayerState.LOCKED) {
         player.movement().setDy(-1);
       }
     }, config.getkeyboard_up(), null);
 
     // WALK DOWN
-    InputBinding.bind(() -> {
+    InputBinding.bind((value) -> {
       if (player.getState() != Player.PlayerState.LOCKED) {
         player.movement().setDy(1);
       }
     }, config.getkeyboard_down(), null);
 
     // WALK LEFT
-    InputBinding.bind(() -> {
+    InputBinding.bind((value) -> {
       if (player.getState() != Player.PlayerState.LOCKED) {
         player.movement().setDx(-1);
       }
     }, config.getkeyboard_left(), null);
 
     // WALK RIGHT
-    InputBinding.bind(() -> {
+    InputBinding.bind((value) -> {
       if (player.getState() != Player.PlayerState.LOCKED) {
         player.movement().setDx(1);
       }
     }, config.getkeyboard_right(), null);
+
+    // DASH
+    InputBinding.bind((value) -> {
+      if (player.getState() != Player.PlayerState.LOCKED) {
+        player.perform("DASH");
+      }
+    }, config.getkeyboard_dash(), null);
   }
 
   public static void init(InputConfiguration conf) {

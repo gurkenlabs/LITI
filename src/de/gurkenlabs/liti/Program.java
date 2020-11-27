@@ -30,7 +30,6 @@ public class Program {
 
     Resources.load("game.litidata");
 
-    System.out.println(System.getProperty("java.library.path"));
     GameManager.init(inputConfig);
 
     Game.screens().add(new IngameScreen());

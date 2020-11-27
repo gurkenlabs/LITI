@@ -85,7 +85,7 @@ public class InputBinding {
     this.action = action;
   }
 
-  public static InputBinding bind(Runnable action, String bindingString, Gamepad gamepad) {
+  public static InputBinding bind(Consumer<Float> action, String bindingString, Gamepad gamepad) {
     InputType type = getInputType(bindingString);
     if (type == InputType.NONE) {
       return InputBinding.INVALID;
@@ -241,13 +241,13 @@ public class InputBinding {
     this.inputCondition = inputCondition;
   }
 
-  private static void bindToKeyboard(Runnable action, InputBinding binding) {
+  private static void bindToKeyboard(Consumer<Float> action, InputBinding binding) {
     switch (binding.getEventType()) {
       case PRESSED:
-        Input.keyboard().onKeyPressed(binding.getKeyCode(), e -> action.run());
+        Input.keyboard().onKeyPressed(binding.getKeyCode(), e -> action.accept(1.0f));
         return;
       case RELEASED:
-        Input.keyboard().onKeyTyped(binding.getKeyCode(), e -> action.run());
+        Input.keyboard().onKeyTyped(binding.getKeyCode(), e -> action.accept(-1.0f));
         return;
       default:
         return;
@@ -255,22 +255,22 @@ public class InputBinding {
   }
 
   private static void bindToKeyboard(IEntity entity, InputBinding binding, String action) {
-    bindToKeyboard(() -> entity.perform(action), binding);
+    bindToKeyboard((e) -> entity.perform(action), binding);
   }
 
-  private static void bindToMouse(Runnable action, InputBinding binding) {
+  private static void bindToMouse(Consumer<Float> action, InputBinding binding) {
     switch (binding.getEventType()) {
       case PRESSED:
         if (binding.getKeyCode() == MouseEvent.BUTTON1) {
           Input.mouse().onPressing(() -> {
             if (Input.mouse().isLeftButtonPressed()) {
-              action.run();
+              action.accept(1.0f);
             }
           });
         } else if (binding.getKeyCode() == MouseEvent.BUTTON2) {
           Input.mouse().onPressing(() -> {
             if (Input.mouse().isRightButtonPressed()) {
-              action.run();
+              action.accept(1.0f);
             }
           });
         }
@@ -279,21 +279,21 @@ public class InputBinding {
         if (binding.getKeyCode() == MouseEvent.BUTTON1) {
           Input.mouse().onReleased(e -> {
             if (Input.mouse().isLeftButtonPressed()) {
-              action.run();
+              action.accept(-1.0f);
             }
           });
         } else if (binding.getKeyCode() == MouseEvent.BUTTON2) {
           Input.mouse().onReleased(e -> {
             if (Input.mouse().isRightButtonPressed()) {
-              action.run();
+              action.accept(-1.0f);
             }
           });
         }
         break;
       case CHANGED:
         if (binding.getAction().equals("POSITION")) {
-          Input.mouse().onMoved(e -> action.run());
-          Input.mouse().onDragged(e -> action.run());
+          Input.mouse().onMoved(e -> action.accept(0.0f));
+          Input.mouse().onDragged(e -> action.accept(0.0f));
         }
         break;
       default:
@@ -302,10 +302,10 @@ public class InputBinding {
   }
 
   private static void bindToMouse(IEntity entity, InputBinding binding, String action) {
-    bindToMouse(() -> entity.perform(action), binding);
+    bindToMouse((e) -> entity.perform(action), binding);
   }
 
-  private static void bindToGamepad(Runnable action, InputBinding binding, Gamepad gamepad) {
+  private static void bindToGamepad(Consumer<Float> action, InputBinding binding, Gamepad gamepad) {
     if (!Game.config().input().isGamepadSupport() || gamepad == null) {
       return;
     }
@@ -314,14 +314,14 @@ public class InputBinding {
       case PRESSED:
         gamepad.onPressed(binding.getAction(), e -> {
           if (checkGamepadInputCondition(binding, e.getValue())) {
-            action.run();
+            action.accept(e.getValue());
           }
         });
         return;
       case RELEASED:
         gamepad.onReleased(binding.getAction(), e -> {
           if (checkGamepadInputCondition(binding, e.getValue())) {
-            action.run();
+            action.accept(e.getValue());
           }
         });
         return;
@@ -331,7 +331,7 @@ public class InputBinding {
   }
 
   private static void bindToGamepad(IEntity entity, InputBinding binding, String action, Gamepad gamepad) {
-    bindToGamepad(() -> entity.perform(action), binding, gamepad);
+    bindToGamepad((e) -> entity.perform(action), binding, gamepad);
   }
 
   private static boolean checkGamepadInputCondition(InputBinding binding, float value) {
