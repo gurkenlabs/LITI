@@ -16,6 +16,7 @@ public class Bash extends SurvivalSkill {
     super(executor, 20);
 
     this.getAttributes().value().setBaseValue(executor.getPlayerClass().getDamage());
+    this.getAttributes().impact().setBaseValue(executor.getPlayerClass().getRange());
     this.addEffect(new HitEffect(this));
   }
 }

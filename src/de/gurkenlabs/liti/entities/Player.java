@@ -8,9 +8,11 @@ import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.entities.Action;
 import de.gurkenlabs.litiengine.entities.Creature;
-import org.w3c.dom.ranges.Range;
+import de.gurkenlabs.litiengine.graphics.IRenderable;
 
-public abstract class Player extends Creature implements IUpdateable {
+import java.awt.*;
+
+public abstract class Player extends Creature implements IUpdateable, IRenderable {
 
   public enum PlayerState {
     LOCKED,
@@ -48,6 +50,11 @@ public abstract class Player extends Creature implements IUpdateable {
 
   public Dash getDash() {
     return dash;
+  }
+
+  @Override
+  public void render(Graphics2D g) {
+    this.bash.render(g);
   }
 
   public PlayerConfiguration getConfiguration() {

@@ -26,13 +26,29 @@ public enum PlayerClass {
   public int getDamage() {
     switch (this) {
       case GATHERER:
-        return 15;
+        return 13;
       case SHAMAN:
         return 20;
       case WARRIOR:
         return 20;
       case HUNTRESS:
         return 15;
+      case INVALID:
+      default:
+        return 15;
+    }
+  }
+
+  public int getRange() {
+    switch (this) {
+      case GATHERER:
+        return 20;
+      case SHAMAN:
+        return 30;
+      case WARRIOR:
+        return 20;
+      case HUNTRESS:
+        return 40;
       case INVALID:
       default:
         return 15;
