@@ -12,6 +12,7 @@ public class InputConfiguration extends ConfigurationGroup {
   private String keyboard_interact = "KEYBOARD_E_PRESSED";
   private String keyboard_cancel = "KEYBOARD_ESCAPE_RELEASED";
   private String keyboard_dash = "KEYBOARD_SHIFT_RELEASED";
+  private String keyboard_bash = "KEYBOARD_SPACE_RELEASED";
 
   private String gamepad_up = "GAMEPAD_AXIS-Y_-";
   private String gamepad_down = "GAMEPAD_AXIS-Y_+";
@@ -20,6 +21,7 @@ public class InputConfiguration extends ConfigurationGroup {
   private String gamepad_interact = "GAMEPAD_BUTTON-0_PRESSED";
   private String gamepad_cancel = "GAMEPAD_BUTTON-1_PRESSED";
   private String gamepad_dash = "GAMEPAD_BUTTON-0_PRESSED";
+  private String gamepad_bash = "GAMEPAD_BUTTON-2_PRESSED";
 
   private String ui_keyboard_menu = "KEYBOARD_ESCAPE_RELEASED";
   private String ui_gamepad_menu = "GAMEPAD_BUTTON-7_PRESSED";
@@ -39,7 +41,9 @@ public class InputConfiguration extends ConfigurationGroup {
     return this.keyboard_down;
   }
 
-  public void setkeyboard_down(String keyboard_down) { this.keyboard_down = keyboard_down; }
+  public void setkeyboard_down(String keyboard_down) {
+    this.keyboard_down = keyboard_down;
+  }
 
   public String getkeyboard_left() {
     return this.keyboard_left;
@@ -79,6 +83,14 @@ public class InputConfiguration extends ConfigurationGroup {
 
   public void setkeyboard_dash(String keyboard_dash) {
     this.keyboard_dash = keyboard_dash;
+  }
+
+  public String getkeyboard_bash() {
+    return this.keyboard_bash;
+  }
+
+  public void setkeyboard_bash(String keyboard_bash) {
+    this.keyboard_bash = keyboard_bash;
   }
 
   public String getgamepad_up() {
@@ -135,6 +147,14 @@ public class InputConfiguration extends ConfigurationGroup {
 
   public void setgamepad_dash(String gamepad_dash) {
     this.gamepad_dash = gamepad_dash;
+  }
+
+  public String getgamepad_bash() {
+    return this.gamepad_bash;
+  }
+
+  public void setgamepad_bash(String gamepad_bash) {
+    this.gamepad_bash = gamepad_bash;
   }
 
   public String getUi_gamepad_menu() {

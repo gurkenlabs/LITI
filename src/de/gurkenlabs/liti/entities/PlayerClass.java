@@ -22,4 +22,20 @@ public enum PlayerClass {
         return 100;
     }
   }
+
+  public int getDamage() {
+    switch (this) {
+      case GATHERER:
+        return 15;
+      case SHAMAN:
+        return 20;
+      case WARRIOR:
+        return 20;
+      case HUNTRESS:
+        return 15;
+      case INVALID:
+      default:
+        return 15;
+    }
+  }
 }

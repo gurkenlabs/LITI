@@ -9,7 +9,7 @@ import de.gurkenlabs.litiengine.entities.MovementInfo;
 @EntityInfo(width = 12, height = 22)
 @CollisionInfo(collision = true, collisionBoxWidth = 4, collisionBoxHeight = 5, valign = Valign.MIDDLE_DOWN)
 @CombatInfo(hitpoints = 70)
-@MovementInfo(velocity = 80)
+@MovementInfo(velocity = 70)
 public class Shaman extends Player {
   protected Shaman(PlayerConfiguration config) {
     super(config);

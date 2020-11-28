@@ -1,5 +1,6 @@
 package de.gurkenlabs.liti.entities;
 
+import de.gurkenlabs.liti.abilities.Bash;
 import de.gurkenlabs.liti.abilities.Dash;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameLoop;
@@ -22,12 +23,14 @@ public abstract class Player extends Creature implements IUpdateable {
   private int index;
   private PlayerState playerState;
   private Dash dash;
+  private Bash bash;
 
   protected Player(PlayerConfiguration config) {
     this.stamina = new RangeAttribute<>(config.getPlayerClass().getStamina(), 0.0, 100.0);
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
     this.dash = new Dash(this);
+    this.bash = new Bash(this);
   }
 
   @Override
@@ -51,12 +54,17 @@ public abstract class Player extends Creature implements IUpdateable {
     return configuration;
   }
 
+  public PlayerClass getPlayerClass() {
+    return this.getConfiguration().getPlayerClass();
+  }
+
   public RangeAttribute<Double> getStamina() {
     return stamina;
   }
 
   public void setIndex(int index) {
     this.index = index;
+    this.setTeam(this.index);
   }
 
   public void setState(PlayerState playerState) {
@@ -72,6 +80,11 @@ public abstract class Player extends Creature implements IUpdateable {
     this.dash.cast();
   }
 
+  @Action(name = "BASH")
+  public void useBash() {
+    this.bash.cast();
+  }
+
   @Override
   public String toString() {
     return "Player " + (this.getConfiguration().getIndex() + 1) + " (#" + this.getMapId() + ")";
@@ -79,7 +92,7 @@ public abstract class Player extends Creature implements IUpdateable {
 
   private void recoverStamina() {
     if (this.stamina.get() < this.stamina.getMax()) {
-      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.01F * Game.loop().getTimeScale();
+      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * Game.loop().getTimeScale();
       if (this.stamina.get() + recovery > this.stamina.getMax()) {
         this.stamina.setToMax();
       } else {

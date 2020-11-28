@@ -109,6 +109,13 @@ public final class InputManager {
         }
       }, config.getgamepad_dash(), gamepad);
 
+      // BASH
+      InputBinding.bind((value) -> {
+        if (player.getState() != Player.PlayerState.LOCKED) {
+          player.perform("BASH");
+        }
+      }, config.getgamepad_bash(), gamepad);
+
       return;
     }
 
@@ -147,6 +154,13 @@ public final class InputManager {
         player.perform("DASH");
       }
     }, config.getkeyboard_dash(), null);
+
+    // BASH
+    InputBinding.bind((value) -> {
+      if (player.getState() != Player.PlayerState.LOCKED) {
+        player.perform("BASH");
+      }
+    }, config.getkeyboard_bash(), null);
   }
 
   public static void init(InputConfiguration conf) {
