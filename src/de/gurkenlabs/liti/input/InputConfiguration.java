@@ -10,14 +10,18 @@ public class InputConfiguration extends ConfigurationGroup {
   private String keyboard_left = "KEYBOARD_A_PRESSED";
   private String keyboard_right = "KEYBOARD_D_PRESSED";
   private String keyboard_interact = "KEYBOARD_E_PRESSED";
+  private String keyboard_block_start = "KEYBOARD_Q_PRESSED";
+  private String keyboard_block_stop = "KEYBOARD_Q_RELEASED";
   private String keyboard_cancel = "KEYBOARD_ESCAPE_RELEASED";
   private String keyboard_dash = "KEYBOARD_SHIFT_RELEASED";
   private String keyboard_bash = "KEYBOARD_SPACE_RELEASED";
 
-  private String gamepad_up = "GAMEPAD_AXIS-Y_-";
-  private String gamepad_down = "GAMEPAD_AXIS-Y_+";
-  private String gamepad_left = "GAMEPAD_AXIS-X_-";
-  private String gamepad_right = "GAMEPAD_AXIS-X_+";
+  private String gamepad_up = "GAMEPAD_AXIS-Y_-_PRESSED";
+  private String gamepad_down = "GAMEPAD_AXIS-Y_+_PRESSED";
+  private String gamepad_left = "GAMEPAD_AXIS-X_-_PRESSED";
+  private String gamepad_right = "GAMEPAD_AXIS-X_+_PRESSED";
+  private String gamepad_block_start = "GAMEPAD_AXIS-Z_+_PRESSED";
+  private String gamepad_block_stop = "GAMEPAD_AXIS-Z_+_RELEASED";
   private String gamepad_interact = "GAMEPAD_BUTTON-0_PRESSED";
   private String gamepad_cancel = "GAMEPAD_BUTTON-1_PRESSED";
   private String gamepad_dash = "GAMEPAD_BUTTON-0_PRESSED";
@@ -41,9 +45,7 @@ public class InputConfiguration extends ConfigurationGroup {
     return this.keyboard_down;
   }
 
-  public void setkeyboard_down(String keyboard_down) {
-    this.keyboard_down = keyboard_down;
-  }
+  public void setkeyboard_down(String keyboard_down) { this.keyboard_down = keyboard_down; }
 
   public String getkeyboard_left() {
     return this.keyboard_left;
@@ -67,6 +69,18 @@ public class InputConfiguration extends ConfigurationGroup {
 
   public void setkeyboard_interact(String keyboard_interact) {
     this.keyboard_interact = keyboard_interact;
+  }
+
+  public String getkeyboard_block_start() { return this.keyboard_block_start; }
+
+  public void setkeyboard_block_start(String keyboard_block_start) {
+    this.keyboard_block_start = keyboard_block_start;
+  }
+
+  public String getkeyboard_block_stop() { return this.keyboard_block_stop; }
+
+  public void setkeyboard_block_stop(String keyboard_block_stop) {
+    this.keyboard_block_stop = keyboard_block_stop;
   }
 
   public String getkeyboard_cancel() {
@@ -123,6 +137,18 @@ public class InputConfiguration extends ConfigurationGroup {
 
   public void setgamepad_right(String gamepad_right) {
     this.gamepad_right = gamepad_right;
+  }
+
+  public String getgamepad_block_start() { return this.gamepad_block_start; }
+
+  public void setgamepad_block_start(String gamepad_block_start) {
+    this.gamepad_block_start = gamepad_block_start;
+  }
+
+  public String getgamepad_block_stop() { return this.gamepad_block_stop; }
+
+  public void setgamepad_block_stop(String gamepad_block_stop) {
+    this.gamepad_block_stop = gamepad_block_stop;
   }
 
   public String getgamepad_interact() {

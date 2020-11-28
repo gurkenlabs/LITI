@@ -19,6 +19,7 @@ public final class Hud extends GuiComponent implements IRenderable {
   private static final Color COLOR_HEALTH = new Color(225, 109, 115);
   private static final Color COLOR_HEALTH_LOW = Color.RED;
   private static final Color COLOR_STAMINA = new Color(232, 230, 215);
+  private static final Color COLOR_STAMINA_DEPLETED = new Color(135, 29, 68);
 
   private static final int UI_INPUT_DELAY = 100;
   private static Map<Integer, Long> lastInputs = new ConcurrentHashMap<>();
@@ -31,43 +32,7 @@ public final class Hud extends GuiComponent implements IRenderable {
   public void render(Graphics2D g) {
     super.render(g);
 
-    for (Player player : Players.getAll().values()) {
-      final double width = 16;
-      final double height = 2;
-      final double staminaWidth = 14;
-      final double staminaHeight = .75;
-      final double staminaBgHeight = .5;
-
-      double x = player.getX() - (width - player.getWidth()) / 2.0;
-      double y = player.getY() - height * 3;
-      RoundRectangle2D rect = new RoundRectangle2D.Double(x, y, width, height, 1.5, 1.5);
-
-      final double currentWidth = width * (player.getHitPoints().get() / (double) player.getHitPoints().getMax());
-      RoundRectangle2D healthbar = new RoundRectangle2D.Double(x, y, currentWidth, height, 1.5, 1.5);
-
-      g.setColor(COLOR_HEALTH_BG);
-      Game.graphics().renderShape(g, rect);
-
-      if (player.getHitPoints().get() < 33) {
-        g.setColor(COLOR_HEALTH_LOW);
-      } else {
-        g.setColor(COLOR_HEALTH);
-      }
-
-      Game.graphics().renderShape(g, healthbar);
-
-      g.setColor(COLOR_HEALTH_BG);
-      Rectangle2D staminaRect = new Rectangle2D.Double(x + (width - staminaWidth) / 2.0, y + height + 1 + (staminaHeight - staminaBgHeight) / 2.0, staminaWidth, staminaBgHeight);
-      Game.graphics().renderShape(g, staminaRect);
-
-      g.setColor(COLOR_STAMINA);
-
-      double currentStaminaWidth = player.getStamina().getRelativeCurrentValue() * staminaWidth;
-      double staminaX = x + (width - staminaWidth) / 2.0 + (staminaWidth - currentStaminaWidth) / 2.0;
-      Rectangle2D stamina = new Rectangle2D.Double(staminaX, y + height + 1, currentStaminaWidth, staminaHeight);
-
-      Game.graphics().renderShape(g, stamina);
-    }
+    this.renderHealthAndStaminaBars(g);
   }
 
   public static void cancel(int player) {
@@ -102,7 +67,7 @@ public final class Hud extends GuiComponent implements IRenderable {
       return (LitiScreen) Game.screens().current();
     }
 
-    throw new IllegalArgumentException("Sceens need to inherit from LitiScreen!");
+    throw new IllegalArgumentException("Screens need to inherit from LitiScreen!");
   }
 
   private static boolean checkInputDelay(int player) {
@@ -111,5 +76,49 @@ public final class Hud extends GuiComponent implements IRenderable {
     }
 
     return Game.time().since(lastInputs.get(player)) > UI_INPUT_DELAY;
+  }
+
+  private void renderHealthAndStaminaBars(Graphics2D g) {
+    for (Player player : Players.getAll().values()) {
+      final double width = 16;
+      final double height = 2;
+      final double staminaWidth = 14;
+      final double staminaHeight = .75;
+      final double staminaBgHeight = .5;
+
+      double x = player.getX() - (width - player.getWidth()) / 2.0;
+      double y = player.getY() - height * 3;
+      RoundRectangle2D rect = new RoundRectangle2D.Double(x, y, width, height, 1.5, 1.5);
+
+      final double currentWidth = width * (player.getHitPoints().get() / (double) player.getHitPoints().getMax());
+      RoundRectangle2D healthbar = new RoundRectangle2D.Double(x, y, currentWidth, height, 1.5, 1.5);
+
+      g.setColor(COLOR_HEALTH_BG);
+      Game.graphics().renderShape(g, rect);
+
+      if (player.getHitPoints().get() < 33) {
+        g.setColor(COLOR_HEALTH_LOW);
+      } else {
+        g.setColor(COLOR_HEALTH);
+      }
+
+      Game.graphics().renderShape(g, healthbar);
+
+      g.setColor(player.isStaminaDepleted() ? Color.getHSBColor(.9f, 0.785f, (Game.time().now() % 100) / 100f) : COLOR_HEALTH_BG);
+      Rectangle2D staminaRect = new Rectangle2D.Double(x + (width - staminaWidth) / 2.0, y + height + 1 + (staminaHeight - staminaBgHeight) / 2.0, staminaWidth, staminaBgHeight);
+      Game.graphics().renderShape(g, staminaRect);
+
+      g.setColor(COLOR_STAMINA);
+
+      double currentStaminaWidth = player.getStamina().getRelativeCurrentValue() * staminaWidth;
+      double staminaX = x + (width - staminaWidth) / 2.0 + (staminaWidth - currentStaminaWidth) / 2.0;
+      Rectangle2D stamina = new Rectangle2D.Double(staminaX, y + height + 1, currentStaminaWidth, staminaHeight);
+
+      Game.graphics().renderShape(g, stamina);
+
+      if (player.isBlocking()) {
+        Game.graphics().renderText(g, "block", player.getCenter());
+      }
+    }
   }
 }

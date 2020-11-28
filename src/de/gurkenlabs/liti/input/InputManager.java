@@ -116,6 +116,20 @@ public final class InputManager {
         }
       }, config.getgamepad_bash(), gamepad);
 
+      // BLOCK START
+      InputBinding.bind((value) -> {
+        if (player.getState() != Player.PlayerState.LOCKED) {
+          player.setBlocking(true);
+        }
+      }, config.getgamepad_block_start(), gamepad);
+
+      // BLOCK STOP
+      InputBinding.bind((value) -> {
+        if (player.getState() != Player.PlayerState.LOCKED) {
+          player.setBlocking(false);
+        }
+      }, config.getgamepad_block_stop(), gamepad);
+
       return;
     }
 
@@ -161,6 +175,20 @@ public final class InputManager {
         player.perform("BASH");
       }
     }, config.getkeyboard_bash(), null);
+
+    // BLOCK START
+    InputBinding.bind((value) -> {
+      if (player.getState() != Player.PlayerState.LOCKED) {
+        player.setBlocking(true);
+      }
+    }, config.getkeyboard_block_start(), null);
+
+    // BLOCK STOP
+    InputBinding.bind((value) -> {
+      if (player.getState() != Player.PlayerState.LOCKED) {
+        player.setBlocking(false);
+      }
+    }, config.getkeyboard_block_stop(), null);
   }
 
   public static void init(InputConfiguration conf) {

@@ -200,7 +200,7 @@ public class InputBinding {
       }
     } else if (buttonSplit[0].equals("AXIS")) {
       identifier = ReflectionUtilities.getStaticValue(Axis.class, buttonSplit[1]);
-      type = InputEventType.PRESSED;
+      type = InputEventType.fromString(split[3]);
       condition = GamepadInputCondition.fromSymbol(split[2]);
     } else {
       System.out.println("Invalid binding configuration! Unknown gamepad button type '" + buttonSplit[0] + "' used!");
@@ -335,6 +335,10 @@ public class InputBinding {
   }
 
   private static boolean checkGamepadInputCondition(InputBinding binding, float value) {
+    if (binding.getEventType() == InputEventType.RELEASED && value < Game.config().input().getGamepadStickDeadzone()) {
+      return true;
+    }
+
     if (Math.abs(value) < Game.config().input().getGamepadStickDeadzone()) {
       return false;
     }

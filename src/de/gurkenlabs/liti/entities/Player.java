@@ -13,11 +13,12 @@ import de.gurkenlabs.litiengine.graphics.IRenderable;
 import java.awt.*;
 
 public abstract class Player extends Creature implements IUpdateable, IRenderable {
-
   public enum PlayerState {
     LOCKED,
     NORMAL
   }
+
+  private static final int STAMINA_DEPLETION_DELAY = 5000;
 
   private PlayerConfiguration configuration;
 
@@ -27,17 +28,40 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private Dash dash;
   private Bash bash;
 
+  private boolean isBlocking;
+  private long staminaDepleted;
+
   protected Player(PlayerConfiguration config) {
     this.stamina = new RangeAttribute<>(config.getPlayerClass().getStamina(), 0.0, 100.0);
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
     this.dash = new Dash(this);
     this.bash = new Bash(this);
+    this.movement().onMovementCheck(e -> !this.isBlocking());
   }
 
   @Override
   public void update() {
-    this.recoverStamina();
+    if (this.isStaminaDepleted()) {
+      this.setBlocking(false);
+      return;
+    }
+
+    if (this.isBlocking()) {
+      this.drainStaminaWhileBlocking();
+    }
+
+    if (this.getStamina().get() == this.getStamina().getMin()) {
+      this.staminaDepleted = Game.time().now();
+    }
+
+    if (!this.isBlocking()) {
+      this.recoverStamina();
+    }
+  }
+
+  public boolean isStaminaDepleted() {
+    return this.staminaDepleted != 0 && Game.time().since(this.staminaDepleted) < STAMINA_DEPLETION_DELAY;
   }
 
   public int getIndex() {
@@ -67,6 +91,21 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   public RangeAttribute<Double> getStamina() {
     return stamina;
+  }
+
+  public boolean isBlocking() {
+    return isBlocking;
+  }
+
+  public void setBlocking(boolean blocking) {
+    if (blocking && (this.getStamina().get() < 0.20 * this.getStamina().getMax() || this.isStaminaDepleted())) {
+      return;
+    }
+
+    this.isBlocking = blocking;
+    if (this.isBlocking) {
+      this.movement().setVelocity(0);
+    }
   }
 
   public void setIndex(int index) {
@@ -104,6 +143,18 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
         this.stamina.setToMax();
       } else {
         this.stamina.setBaseValue(this.stamina.get() + recovery);
+      }
+    }
+  }
+
+
+  private void drainStaminaWhileBlocking() {
+    if (this.stamina.get() > this.stamina.getMin()) {
+      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * Game.loop().getTimeScale();
+      if (this.stamina.get() - drain <= this.stamina.getMin()) {
+        this.stamina.setToMin();
+      } else {
+        this.stamina.setBaseValue(this.stamina.get() - drain);
       }
     }
   }

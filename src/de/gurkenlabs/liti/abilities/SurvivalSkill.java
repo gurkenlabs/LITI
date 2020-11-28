@@ -1,13 +1,10 @@
 package de.gurkenlabs.liti.abilities;
 
 import de.gurkenlabs.liti.entities.Player;
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.abilities.Ability;
 import de.gurkenlabs.litiengine.abilities.AbilityExecution;
 import de.gurkenlabs.litiengine.attributes.AttributeModifier;
 import de.gurkenlabs.litiengine.attributes.Modification;
-import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 
 public class SurvivalSkill extends Ability {
   private final Player player;
@@ -23,12 +20,12 @@ public class SurvivalSkill extends Ability {
     super(executor);
     this.player = executor;
     this.requiredStamina = requiredStamina;
-    this.modifier = new AttributeModifier<>(Modification.SUBSTRACT, this.getRequiredStamina());
+    this.modifier = new AttributeModifier<>(Modification.SUBTRACT, this.getRequiredStamina());
   }
 
   @Override
   public boolean canCast() {
-    return this.player.getStamina().get() >= this.getRequiredStamina() && super.canCast();
+    return !this.player.isBlocking() && this.player.getStamina().get() >= this.getRequiredStamina() && super.canCast();
   }
 
   @Override
@@ -38,7 +35,7 @@ public class SurvivalSkill extends Ability {
       return null;
     }
 
-    this.player.getStamina().modifyBaseValue(this.modifier);
+    this.player.getStamina().modify(this.modifier);
     return execution;
   }
 
