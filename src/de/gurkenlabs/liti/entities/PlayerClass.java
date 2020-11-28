@@ -1,8 +1,5 @@
 package de.gurkenlabs.liti.entities;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 public enum PlayerClass {
   INVALID,
   WARRIOR,

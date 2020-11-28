@@ -11,7 +11,7 @@ import de.gurkenlabs.litiengine.entities.MovementInfo;
 @CombatInfo(hitpoints = 120)
 @MovementInfo(velocity = 60, acceleration = 500, deceleration = 250)
 public class Gatherer extends Player {
-  protected Gatherer(PlayerConfiguration config) {
+  public Gatherer(PlayerConfiguration config) {
     super(config);
   }
 }

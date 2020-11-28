@@ -1,13 +1,13 @@
 package de.gurkenlabs.liti.gui;
 
-import java.awt.geom.Rectangle2D;
-import java.util.Collection;
-
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.graphics.FreeFlightCamera;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+
+import java.awt.geom.Rectangle2D;
+import java.util.Collection;
 
 public class DynamicZoomCamera extends FreeFlightCamera {
 

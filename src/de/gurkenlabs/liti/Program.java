@@ -1,19 +1,14 @@
 package de.gurkenlabs.liti;
 
+import com.sun.jna.NativeLibrary;
 import de.gurkenlabs.liti.gui.IngameScreen;
 import de.gurkenlabs.liti.gui.LobbyScreen;
 import de.gurkenlabs.liti.gui.MenuScreen;
 import de.gurkenlabs.liti.gui.ScoreScreen;
-import de.gurkenlabs.liti.gui.SplashScreen;
 import de.gurkenlabs.liti.input.InputConfiguration;
 import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.gui.screens.GameScreen;
 import de.gurkenlabs.litiengine.resources.Resources;
 import uk.co.caprica.vlcj.binding.RuntimeUtil;
-
-import static de.gurkenlabs.litiengine.Game.config;
-
-import com.sun.jna.NativeLibrary;
 
 public class Program {
   /**

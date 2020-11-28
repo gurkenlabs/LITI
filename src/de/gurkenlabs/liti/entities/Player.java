@@ -2,7 +2,6 @@ package de.gurkenlabs.liti.entities;
 
 import de.gurkenlabs.liti.abilities.Bash;
 import de.gurkenlabs.liti.abilities.Dash;
-import de.gurkenlabs.liti.input.InputBinding;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameLoop;
 import de.gurkenlabs.litiengine.IUpdateable;
@@ -10,12 +9,8 @@ import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.entities.Action;
 import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
-import de.gurkenlabs.litiengine.input.Gamepad;
-import de.gurkenlabs.litiengine.input.Input;
-import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 
 public abstract class Player extends Creature implements IUpdateable, IRenderable {
   
