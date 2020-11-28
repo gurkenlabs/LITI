@@ -2,6 +2,7 @@ package de.gurkenlabs.liti.entities;
 
 import de.gurkenlabs.liti.abilities.Bash;
 import de.gurkenlabs.liti.abilities.Dash;
+import de.gurkenlabs.liti.input.InputBinding;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameLoop;
 import de.gurkenlabs.litiengine.IUpdateable;
@@ -9,136 +10,166 @@ import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.entities.Action;
 import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
+import de.gurkenlabs.litiengine.input.Gamepad;
+import de.gurkenlabs.litiengine.input.Input;
+import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public abstract class Player extends Creature implements IUpdateable, IRenderable {
+  
   public enum PlayerState {
     LOCKED,
     NORMAL
   }
-
+  
   private static final int STAMINA_DEPLETION_DELAY = 3000;
-
+  private static final int BLOCK_COOLDOWN = 500;
+  
   private PlayerConfiguration configuration;
-
+  
   private final RangeAttribute<Double> stamina;
   private int index;
   private PlayerState playerState;
   private Dash dash;
   private Bash bash;
-
+  
   private boolean isBlocking;
+  
+  private boolean isDashing;
+  private long lastBlock;
   private long staminaDepleted;
-
+  
   protected Player(PlayerConfiguration config) {
-    this.stamina = new RangeAttribute<>(config.getPlayerClass().getStamina(), 0.0, 100.0);
+    this.stamina = new RangeAttribute<>(config.getPlayerClass().getStamina(), 0.0, config.getPlayerClass().getStamina());
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
     this.dash = new Dash(this);
     this.bash = new Bash(this);
     this.movement().onMovementCheck(e -> !this.isBlocking());
+    this.setTurnOnMove(false);
   }
-
+  
   @Override
   public void update() {
     if (this.isStaminaDepleted()) {
       this.setBlocking(false);
       return;
     }
-
+    
     if (this.isBlocking()) {
       this.drainStaminaWhileBlocking();
     }
-
+    
     if (this.getStamina().get() == this.getStamina().getMin()) {
       this.staminaDepleted = Game.time().now();
     }
-
+    
     if (!this.isBlocking()) {
       this.recoverStamina();
     }
   }
-
+  
   public boolean isStaminaDepleted() {
     return this.staminaDepleted != 0 && Game.time().since(this.staminaDepleted) < STAMINA_DEPLETION_DELAY;
   }
-
+  
   public int getIndex() {
     return index;
   }
-
+  
   public PlayerState getState() {
     return playerState;
   }
-
+  
   public Dash getDash() {
     return dash;
   }
-
+  
   @Override
   public void render(Graphics2D g) {
     this.bash.render(g);
   }
-
+  
   public PlayerConfiguration getConfiguration() {
     return configuration;
   }
-
+  
   public PlayerClass getPlayerClass() {
     return this.getConfiguration().getPlayerClass();
   }
-
+  
   public RangeAttribute<Double> getStamina() {
     return stamina;
   }
-
+  
   public boolean isBlocking() {
     return isBlocking;
   }
-
+  
   public void setBlocking(boolean blocking) {
+    if (blocking == this.isBlocking) {
+      return;
+    }
+    
     if (blocking && (this.getStamina().get() < 0.20 * this.getStamina().getMax() || this.isStaminaDepleted())) {
       return;
     }
-
+    
+    if (!this.isBlocking && (this.lastBlock != 0 && Game.time().since(this.lastBlock) < BLOCK_COOLDOWN)) {
+      return;
+    }
+    
     this.isBlocking = blocking;
     if (this.isBlocking) {
       this.movement().setVelocity(0);
+      this.getStamina().setBaseValue(this.getStamina().get() - this.getStamina().getMax() * 0.2);
+    } else {
+      this.lastBlock = Game.time().now();
     }
   }
-
+  
+  public boolean isDashing() {
+    return isDashing;
+  }
+  
+  public void setDashing(boolean dashing) {
+    // DONT CALL THIS MANUALLY
+    isDashing = dashing;
+  }
+  
   public void setIndex(int index) {
     this.index = index;
     this.setTeam(this.index);
   }
-
+  
   public void setState(PlayerState playerState) {
     this.playerState = playerState;
   }
-
+  
   public void setConfiguration(PlayerConfiguration configuration) {
     this.configuration = configuration;
   }
-
+  
   @Action(name = "DASH")
   public void useDash() {
     this.dash.cast();
   }
-
+  
   @Action(name = "BASH")
   public void useBash() {
     this.bash.cast();
   }
-
+  
   @Override
   public String toString() {
     return "Player " + (this.getConfiguration().getIndex() + 1) + " (#" + this.getMapId() + ")";
   }
-
+  
   private void recoverStamina() {
     if (this.stamina.get() < this.stamina.getMax()) {
-      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * Game.loop().getTimeScale();
+      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * this.getPlayerClass().getStaminaRecoveryFactor() * Game.loop().getTimeScale();
       if (this.stamina.get() + recovery > this.stamina.getMax()) {
         this.stamina.setToMax();
       } else {
@@ -146,11 +177,10 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
       }
     }
   }
-
-
+  
   private void drainStaminaWhileBlocking() {
     if (this.stamina.get() > this.stamina.getMin()) {
-      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * Game.loop().getTimeScale();
+      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * this.getPlayerClass().getStaminaDrainFactor() * Game.loop().getTimeScale();
       if (this.stamina.get() - drain <= this.stamina.getMin()) {
         this.stamina.setToMin();
       } else {

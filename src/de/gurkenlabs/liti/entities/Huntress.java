@@ -9,7 +9,7 @@ import de.gurkenlabs.litiengine.entities.MovementInfo;
 @EntityInfo(width = 8, height = 23)
 @CollisionInfo(collision = true, collisionBoxWidth = 4, collisionBoxHeight = 6, valign = Valign.MIDDLE_DOWN)
 @CombatInfo(hitpoints = 70)
-@MovementInfo(velocity = 80)
+@MovementInfo(velocity = 90, acceleration = 150, deceleration = 100)
 public class Huntress extends Player {
   protected Huntress(PlayerConfiguration config) {
     super(config);

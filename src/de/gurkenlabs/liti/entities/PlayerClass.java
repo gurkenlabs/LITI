@@ -9,7 +9,7 @@ public enum PlayerClass {
   SHAMAN,
   HUNTRESS,
   GATHERER;
-
+  
   public double getStamina() {
     switch (this) {
       case GATHERER:
@@ -25,7 +25,7 @@ public enum PlayerClass {
         return 100;
     }
   }
-
+  
   public int getDamage() {
     switch (this) {
       case GATHERER:
@@ -41,23 +41,23 @@ public enum PlayerClass {
         return 15;
     }
   }
-
+  
   public int getRange() {
     switch (this) {
       case GATHERER:
-        return 20;
-      case SHAMAN:
         return 30;
-      case WARRIOR:
-        return 20;
-      case HUNTRESS:
+      case SHAMAN:
         return 40;
+      case WARRIOR:
+        return 30;
+      case HUNTRESS:
+        return 50;
       case INVALID:
       default:
-        return 15;
+        return 30;
     }
   }
-
+  
   public int getDashValue() {
     switch (this) {
       case GATHERER:
@@ -71,6 +71,28 @@ public enum PlayerClass {
       case INVALID:
       default:
         return 150;
+    }
+  }
+  
+  public double getStaminaRecoveryFactor() {
+    switch (this) {
+      case HUNTRESS:
+        return 1.25;
+      case WARRIOR:
+        return .75;
+      case INVALID:
+      default:
+        return 1.0;
+    }
+  }
+  
+  public double getStaminaDrainFactor() {
+    switch (this) {
+      case WARRIOR:
+        return .25;
+      case INVALID:
+      default:
+        return 1.0;
     }
   }
 }
