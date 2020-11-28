@@ -27,12 +27,12 @@ public final class Players {
    *          device, class and the player index.
    */
   public static Player join(PlayerConfiguration config) {
-    if (config.getType() == null) {
+    if (config.getPlayerClass() == null) {
       throw new IllegalArgumentException("unspecified player class for player " + (config.getIndex() + 1));
     }
 
     Player player = null;
-    switch (config.getType()) {
+    switch (config.getPlayerClass()) {
     case WARRIOR:
       player = new Warrior(config);
       break;
@@ -56,7 +56,7 @@ public final class Players {
 
     player.setIndex(config.getIndex());
     InputManager.bindPlayerInput(player, config.getGamepad());
-    getAll().put(config.getType(), player);
+    getAll().put(config.getPlayerClass(), player);
     return player;
   }
 

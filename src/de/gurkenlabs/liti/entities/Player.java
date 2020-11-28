@@ -1,10 +1,15 @@
 package de.gurkenlabs.liti.entities;
 
 import de.gurkenlabs.liti.abilities.Dash;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.GameLoop;
+import de.gurkenlabs.litiengine.IUpdateable;
+import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.entities.Action;
 import de.gurkenlabs.litiengine.entities.Creature;
+import org.w3c.dom.ranges.Range;
 
-public abstract class Player extends Creature {
+public abstract class Player extends Creature implements IUpdateable {
 
   public enum PlayerState {
     LOCKED,
@@ -13,14 +18,21 @@ public abstract class Player extends Creature {
 
   private PlayerConfiguration configuration;
 
+  private final RangeAttribute<Double> stamina;
   private int index;
   private PlayerState playerState;
   private Dash dash;
 
   protected Player(PlayerConfiguration config) {
+    this.stamina = new RangeAttribute<>(config.getPlayerClass().getStamina(), 0.0, 100.0);
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
     this.dash = new Dash(this);
+  }
+
+  @Override
+  public void update() {
+    this.recoverStamina();
   }
 
   public int getIndex() {
@@ -39,6 +51,9 @@ public abstract class Player extends Creature {
     return configuration;
   }
 
+  public RangeAttribute<Double> getStamina() {
+    return stamina;
+  }
 
   public void setIndex(int index) {
     this.index = index;
@@ -60,5 +75,16 @@ public abstract class Player extends Creature {
   @Override
   public String toString() {
     return "Player " + (this.getConfiguration().getIndex() + 1) + " (#" + this.getMapId() + ")";
+  }
+
+  private void recoverStamina() {
+    if (this.stamina.get() < this.stamina.getMax()) {
+      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.01F * Game.loop().getTimeScale();
+      if (this.stamina.get() + recovery > this.stamina.getMax()) {
+        this.stamina.setToMax();
+      } else {
+        this.stamina.setBaseValue(this.stamina.get() + recovery);
+      }
+    }
   }
 }

@@ -26,7 +26,7 @@ public class PlayerConfiguration {
     return gamepad;
   }
 
-  public PlayerClass getType() {
+  public PlayerClass getPlayerClass() {
     return type;
   }
 
