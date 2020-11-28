@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <litidata version="1.0">
  <maps>
-  <map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="48" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="26" name="plateau">
+  <map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="48" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="26" name="plateau">
    <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="1024" columns="32">
     <image source="tileset.png" width="512" height="512"/>
     <terraintypes>
@@ -705,6 +705,43 @@
      </properties>
     </object>
    </objectgroup>
+   <objectgroup id="0" name="props" visible="1">
+    <object id="8" type="PROP" x="254" y="143" width="20" height="28">
+     <properties>
+      <property name="addShadow" type="bool" value="false"/>
+      <property name="collision" type="bool" value="true"/>
+      <property name="collisionAlign" value="CENTER"/>
+      <property name="collisionValign" value="MIDDLE_DOWN"/>
+      <property name="collisionboxHeight" value="10.0"/>
+      <property name="collisionboxWidth" value="12.0"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="stone1"/>
+     </properties>
+    </object>
+    <object id="9" type="PROP" x="420" y="144" width="20" height="28">
+     <properties>
+      <property name="addShadow" type="bool" value="false"/>
+      <property name="collision" type="bool" value="true"/>
+      <property name="collisionAlign" value="LEFT"/>
+      <property name="collisionboxHeight" value="13.0"/>
+      <property name="collisionboxWidth" value="14.0"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="stone1"/>
+     </properties>
+    </object>
+    <object id="10" type="PROP" x="335" y="180" width="15" height="20">
+     <properties>
+      <property name="addShadow" type="bool" value="false"/>
+      <property name="collision" type="bool" value="true"/>
+      <property name="collisionAlign" value="RIGHT"/>
+      <property name="collisionValign" value="MIDDLE_DOWN"/>
+      <property name="collisionboxHeight" value="6.0"/>
+      <property name="collisionboxWidth" value="11.0"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="stone2"/>
+     </properties>
+    </object>
+   </objectgroup>
   </map>
  </maps>
  <spriteSheets>
@@ -725,6 +762,10 @@
   </sprite>
   <sprite width="8" height="23" imageformat="PNG" name="huntress-walk-down">
    <image>iVBORw0KGgoAAAANSUhEUgAAAAgAAAAXCAYAAAA2jw7FAAAAvUlEQVR42mNgQALfVjv9B2FkMYb379//B2F0BffvXYWIgxgwfG2KGxgji2EYj9UakMD/Syf+w2gYG0USGwYrAisAAmERyf/Pd28ES4DYIABX8LmjCYxhCmB8uDW4rEBxKF5JGABZAcIYEiAdWwyl4bphbLgkiEZXAJeDKehUVQZLwDBcga6ayn9cbgDLIZsAEgBh0qyAAWwKMMIgTEkDjDHCwsbGwQFkHEwBiA0Sg0vCFGBjwxXgwiimYJMEACtPXL8n3FD1AAAAAElFTkSuQmCC</image>
+  </sprite>
+  <sprite width="21" height="41" imageformat="PNG" name="projectile-stone">
+   <image>iVBORw0KGgoAAAANSUhEUgAAAH4AAAApCAYAAADzqJ3HAAACbUlEQVR42u2ZQU4FIQyG32XcvEu4cqdx607PYFx4DD3xGBJJGgK0hf4MDG1C8gx5/8zjK+Uv3m4nxMfn9xHHzWO+oIDSgdC0SARPKCD01sV9fHo9nt/eDxR8ZEJtEVJA2gWNumF8/f6YJxW6mmwDXgJIuqBU0xq+9H2drCGgMBeGRDenbaGreV8nrASULmYEQ/8uad7vD1lNK11NQrXAv3wC1QBFSCkYKaAwLHUlmj2VJARXkS6TBNxicgsxUleiSROKJhYHnmpz0LcDTz+H71iBt9RtSVJOt1RJtoCfLmr8DqdJj5HcMzSaaPDaI2R5z8BByr20FBI1YgjNUkJZVpEe8NN7Bg2kOC/dnVG3RzPOpUnKJZOmOlmCX8Yz1CBRKOEz/Y5WM92pFppWVUQLvgZsGc8ghdSimdupvZrce0orU6qn8Q0ceKRnMAefQqILrIWU06UXRshkklaR3G9NE0B7N4D0DEPg5+bO1sxppQnaU0G4HR+Bx7kzwZslTw2S5PzldEtzWq2W50h/M3cxFI8QDry1Z4B3Cq07e2RV6pmvga/t+tIY5Rm2vF0cdcTR//xJLrRGeYatbxdHVpJa6U+N4wjPsFynsDp4zlSO8gxLdgqrJ0GLx7D0DA5+IgM50jOM6hQ8JvMM6E7BY1LPgO4UPCb1DOhOwWMBz2DdKXgscsFk3Sl4bHa76LFxp+CxaafgsWmn4IGLF2Z0af/DRWg7IADsnucgtbcCNQsYyTOQ2sUHIEChyicSEhJM7RlIbfOSd3YZRUG6HHjEWWGtaVnaEOVy2VI/+463TiaEQVrW3M1+xo9OpmnbuRbtP433KBQF/BC1AAAAAElFTkSuQmCC</image>
+   <keyframes>250,250,120,100,100,100</keyframes>
   </sprite>
   <sprite width="20" height="28" imageformat="PNG" name="prop-stone1">
    <image>iVBORw0KGgoAAAANSUhEUgAAABQAAAAcCAYAAABh2p9gAAAAyklEQVR42u3VsQ6CQAwGYB6MRBY2E1c3XVmJg4+hs5NPeqbDT5rylys94yTJn3AHfGmPwHXdL47rfC8sKex4vhQPTKECfhU9jKcC9PZ8tKMaBMqSBr32w9gfzIMas2gzaNEa+HpPJdzubhCDLRCoHrvVRUBdmf1aaLsyubdl4BpczrMgxSKghwKh6whQwzLvgXLNXce+H4YaykCEvhSkBspYgysM1TFQo6wyiTy/AhGAFk6DulpbKYMQ2jaLBdk97t/GQ7cS3qhakA8Ss8JtCcwJ/QAAAABJRU5ErkJggg==</image>

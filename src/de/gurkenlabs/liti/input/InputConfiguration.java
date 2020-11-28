@@ -10,10 +10,11 @@ public class InputConfiguration extends ConfigurationGroup {
   private String keyboard_left = "KEYBOARD_A_PRESSED";
   private String keyboard_right = "KEYBOARD_D_PRESSED";
   private String keyboard_interact = "KEYBOARD_E_PRESSED";
-  private String keyboard_block_start = "KEYBOARD_SHIFT_PRESSED";
-  private String keyboard_block_stop = "KEYBOARD_SHIFT_RELEASED";
+  private String keyboard_block_start = "MOUSE_2_PRESSED";
+  private String keyboard_block_stop = "MOUSE_2_RELEASED";
   private String keyboard_cancel = "KEYBOARD_ESCAPE_RELEASED";
-  private String keyboard_dash = "KEYBOARD_SPACE_RELEASED";
+  private String keyboard_dash = "KEYBOARD_SPACE_PRESSED";
+  private String keyboard_ultimate = "KEYBOARD_SHIFT_PRESSED";
   private String keyboard_bash = "MOUSE_1_PRESSED";
   private String keyboard_aim = "MOUSE_POSITION";
 
@@ -26,10 +27,11 @@ public class InputConfiguration extends ConfigurationGroup {
   private String gamepad_interact = "GAMEPAD_BUTTON-0_PRESSED";
   private String gamepad_cancel = "GAMEPAD_BUTTON-1_PRESSED";
   private String gamepad_dash = "GAMEPAD_AXIS-Z_+_PRESSED";
+  private String gamepad_ultimate = "GAMEPAD_BUTTON-1_PRESSED";
   private String gamepad_bash = "GAMEPAD_AXIS-Z_-_PRESSED";
   private String gamepad_aimx = "GAMEPAD_AXIS-RX_CHANGED";
   private String gamepad_aimy = "GAMEPAD_AXIS-RY_CHANGED";
-  
+
   private String ui_keyboard_menu = "KEYBOARD_ESCAPE_RELEASED";
   private String ui_gamepad_menu = "GAMEPAD_BUTTON-7_PRESSED";
 
@@ -102,6 +104,14 @@ public class InputConfiguration extends ConfigurationGroup {
     this.keyboard_dash = keyboard_dash;
   }
 
+  public String getkeyboard_ultimate() {
+    return this.keyboard_ultimate;
+  }
+
+  public void setkeyboard_ultimate(String keyboard_ultimate) {
+    this.keyboard_ultimate = keyboard_ultimate;
+  }
+
   public String getkeyboard_bash() {
     return this.keyboard_bash;
   }
@@ -109,11 +119,11 @@ public class InputConfiguration extends ConfigurationGroup {
   public void setkeyboard_bash(String keyboard_bash) {
     this.keyboard_bash = keyboard_bash;
   }
-  
+
   public String getkeyboard_aim() {
     return this.keyboard_aim;
   }
-  
+
   public void setkeyboard_aim(String keyboard_aim) {
     this.keyboard_aim = keyboard_aim;
   }
@@ -186,6 +196,14 @@ public class InputConfiguration extends ConfigurationGroup {
     this.gamepad_dash = gamepad_dash;
   }
 
+  public String getgamepad_ultimate() {
+    return this.gamepad_ultimate;
+  }
+
+  public void setgamepad_ultimate(String gamepad_ultimate) {
+    this.gamepad_ultimate = gamepad_ultimate;
+  }
+
   public String getgamepad_bash() {
     return this.gamepad_bash;
   }
@@ -193,17 +211,17 @@ public class InputConfiguration extends ConfigurationGroup {
   public void setgamepad_bash(String gamepad_bash) {
     this.gamepad_bash = gamepad_bash;
   }
-  
+
   public String getgamepad_aimx() { return this.gamepad_aimx; }
-  
+
   public void setgamepad_aimx(String gamepad_aimx) {
     this.gamepad_aimx = gamepad_aimx;
   }
-  
+
   public String getgamepad_aimy() {
     return this.gamepad_aimy;
   }
-  
+
   public void setgamepad_aimy(String gamepad_aimy) {
     this.gamepad_aimy = gamepad_aimy;
   }

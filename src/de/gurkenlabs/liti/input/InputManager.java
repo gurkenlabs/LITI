@@ -45,7 +45,7 @@ public final class InputManager {
       
       if (Input.gamepads().getAll().size() > 1) {
         PlayerConfiguration configPlayer3 = Players.addConfiguration(2, InputBinding.InputType.GAMEPAD, Input.gamepads().get(1));
-        configPlayer3.setPlayerClass(PlayerClass.SHAMAN);
+        configPlayer3.setPlayerClass(PlayerClass.GATHERER);
         bindUiInput(2, Input.gamepads().get(1));
       }
       
@@ -111,13 +111,21 @@ public final class InputManager {
           player.perform("DASH");
         }
       }, config.getgamepad_dash(), gamepad);
-      
+
+
       // BASH
       InputBinding.bind((value) -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
           player.perform("BASH");
         }
       }, config.getgamepad_bash(), gamepad);
+
+      // ULTIMATE
+      InputBinding.bind((value) -> {
+        if (player.getState() != Player.PlayerState.LOCKED) {
+          player.perform("ULTIMATE");
+        }
+      }, config.getgamepad_ultimate(), gamepad);
       
       // BLOCK START
       InputBinding.bind((value) -> {
@@ -207,7 +215,14 @@ public final class InputManager {
         player.perform("BASH");
       }
     }, config.getkeyboard_bash(), null);
-    
+
+    // ULTIMATE
+    InputBinding.bind((value) -> {
+      if (player.getState() != Player.PlayerState.LOCKED) {
+        player.perform("ULTIMATE");
+      }
+    }, config.getkeyboard_ultimate(), null);
+
     // BLOCK START
     InputBinding.bind((value) -> {
       if (player.getState() != Player.PlayerState.LOCKED) {

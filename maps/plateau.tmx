@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="48" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="26">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="48" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="26" name="plateau">
  <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="1024" columns="32">
   <image source="tileset.png" width="512" height="512"/>
   <terraintypes>
@@ -575,13 +575,13 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="4" name="spawns">
+ <objectgroup id="4" name="spawns" visible="1">
   <object id="1" name="player-1" type="SPAWNPOINT" x="48" y="112" width="16" height="16"/>
   <object id="2" name="player-2" type="SPAWNPOINT" x="704" y="112" width="16" height="16"/>
   <object id="3" name="player-3" type="SPAWNPOINT" x="48" y="400" width="16" height="16"/>
   <object id="4" name="player-4" type="SPAWNPOINT" x="704" y="400" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="6" name="collision">
+ <objectgroup id="6" name="collision" visible="1">
   <object id="11" type="COLLISIONBOX" x="297" y="407" width="177" height="41">
    <properties>
     <property name="collisionType" value="STATIC"/>
@@ -700,6 +700,43 @@
   <object id="25" type="COLLISIONBOX" x="632" y="392" width="17" height="47">
    <properties>
     <property name="collisionType" value="STATIC"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="0" name="props" visible="1">
+  <object id="8" type="PROP" x="254" y="143" width="20" height="28">
+   <properties>
+    <property name="addShadow" type="bool" value="false"/>
+    <property name="collision" type="bool" value="true"/>
+    <property name="collisionAlign" value="CENTER"/>
+    <property name="collisionValign" value="MIDDLE_DOWN"/>
+    <property name="collisionboxHeight" value="10.0"/>
+    <property name="collisionboxWidth" value="12.0"/>
+    <property name="indestructible" type="bool" value="false"/>
+    <property name="spritesheetName" value="stone1"/>
+   </properties>
+  </object>
+  <object id="9" type="PROP" x="420" y="144" width="20" height="28">
+   <properties>
+    <property name="addShadow" type="bool" value="false"/>
+    <property name="collision" type="bool" value="true"/>
+    <property name="collisionAlign" value="LEFT"/>
+    <property name="collisionboxHeight" value="13.0"/>
+    <property name="collisionboxWidth" value="14.0"/>
+    <property name="indestructible" type="bool" value="false"/>
+    <property name="spritesheetName" value="stone1"/>
+   </properties>
+  </object>
+  <object id="10" type="PROP" x="335" y="180" width="15" height="20">
+   <properties>
+    <property name="addShadow" type="bool" value="false"/>
+    <property name="collision" type="bool" value="true"/>
+    <property name="collisionAlign" value="RIGHT"/>
+    <property name="collisionValign" value="MIDDLE_DOWN"/>
+    <property name="collisionboxHeight" value="6.0"/>
+    <property name="collisionboxWidth" value="11.0"/>
+    <property name="indestructible" type="bool" value="false"/>
+    <property name="spritesheetName" value="stone2"/>
    </properties>
   </object>
  </objectgroup>
