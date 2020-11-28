@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
   implementation project(':litiengine')
+  implementation 'uk.co.caprica:vlcj:4.7.0'
 }
 
 sourceSets {

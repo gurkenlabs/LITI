@@ -4,6 +4,7 @@ import de.gurkenlabs.liti.gui.IngameScreen;
 import de.gurkenlabs.liti.gui.LobbyScreen;
 import de.gurkenlabs.liti.gui.MenuScreen;
 import de.gurkenlabs.liti.gui.ScoreScreen;
+import de.gurkenlabs.liti.gui.SplashScreen;
 import de.gurkenlabs.liti.input.InputConfiguration;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.gui.screens.GameScreen;
@@ -15,7 +16,8 @@ public class Program {
   /**
    * The main entry point for the Game.
    *
-   * @param args The command line arguments.
+   * @param args
+   *          The command line arguments.
    */
   public static void main(String[] args) {
     // set meta information about the game
@@ -32,7 +34,7 @@ public class Program {
 
     System.out.println(System.getProperty("java.library.path"));
     GameManager.init(inputConfig);
-
+    Game.screens().add(new SplashScreen());
     Game.screens().add(new IngameScreen());
     Game.screens().add(new MenuScreen());
     Game.screens().add(new LobbyScreen());

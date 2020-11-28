@@ -1,8 +1,6 @@
 package de.gurkenlabs.liti.gui;
 
-import de.gurkenlabs.litiengine.gui.screens.Screen;
-
-import java.awt.*;
+import java.awt.Graphics2D;
 
 public class MenuScreen extends LitiScreen {
   public MenuScreen() {
@@ -12,5 +10,10 @@ public class MenuScreen extends LitiScreen {
   @Override
   public void render(Graphics2D g) {
     super.render(g);
+  }
+
+  @Override
+  protected void initializeComponents() {
+    super.initializeComponents();
   }
 }
