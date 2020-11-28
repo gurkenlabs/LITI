@@ -35,7 +35,7 @@ public class SurvivalSkill extends Ability {
       return null;
     }
 
-    this.player.getStamina().modify(this.modifier);
+    this.player.getStamina().modifyBaseValue(this.modifier);
     return execution;
   }
 

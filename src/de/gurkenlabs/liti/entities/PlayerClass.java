@@ -1,5 +1,8 @@
 package de.gurkenlabs.liti.entities;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 public enum PlayerClass {
   INVALID,
   WARRIOR,
@@ -52,6 +55,22 @@ public enum PlayerClass {
       case INVALID:
       default:
         return 15;
+    }
+  }
+
+  public int getDashValue() {
+    switch (this) {
+      case GATHERER:
+        return 100;
+      case SHAMAN:
+        return 200;
+      case WARRIOR:
+        return 120;
+      case HUNTRESS:
+        return 200;
+      case INVALID:
+      default:
+        return 150;
     }
   }
 }

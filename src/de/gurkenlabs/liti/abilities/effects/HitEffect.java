@@ -25,7 +25,7 @@ public class HitEffect extends Effect {
     if (affectedEntity instanceof Player) {
       Player player = (Player) affectedEntity;
       if (player.isBlocking()) {
-        player.getStamina().modify(Modification.SUBTRACT, Math.sqrt(damage));
+        player.getStamina().modifyBaseValue(Modification.SUBTRACT, Math.sqrt(damage));
 
         if (player.getStamina().get() > 0) {
           return;

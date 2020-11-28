@@ -31,7 +31,8 @@ public class Program {
     Resources.load("game.litidata");
 
     GameManager.init(new InputConfiguration());
-    Game.screens().add(new SplashScreen());
+    
+    //Game.screens().add(new SplashScreen());
     Game.screens().add(new IngameScreen());
     Game.screens().add(new MenuScreen());
     Game.screens().add(new LobbyScreen());

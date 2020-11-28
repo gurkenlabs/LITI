@@ -18,7 +18,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     NORMAL
   }
 
-  private static final int STAMINA_DEPLETION_DELAY = 5000;
+  private static final int STAMINA_DEPLETION_DELAY = 3000;
 
   private PlayerConfiguration configuration;
 

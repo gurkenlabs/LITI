@@ -108,13 +108,15 @@ public final class Hud extends GuiComponent implements IRenderable {
       Rectangle2D staminaRect = new Rectangle2D.Double(x + (width - staminaWidth) / 2.0, y + height + 1 + (staminaHeight - staminaBgHeight) / 2.0, staminaWidth, staminaBgHeight);
       Game.graphics().renderShape(g, staminaRect);
 
-      g.setColor(COLOR_STAMINA);
+      if (!player.isStaminaDepleted()) {
+        g.setColor(COLOR_STAMINA);
 
-      double currentStaminaWidth = player.getStamina().getRelativeCurrentValue() * staminaWidth;
-      double staminaX = x + (width - staminaWidth) / 2.0 + (staminaWidth - currentStaminaWidth) / 2.0;
-      Rectangle2D stamina = new Rectangle2D.Double(staminaX, y + height + 1, currentStaminaWidth, staminaHeight);
+        double currentStaminaWidth = player.getStamina().getRelativeCurrentValue() * staminaWidth;
+        double staminaX = x + (width - staminaWidth) / 2.0 + (staminaWidth - currentStaminaWidth) / 2.0;
+        Rectangle2D stamina = new Rectangle2D.Double(staminaX, y + height + 1, currentStaminaWidth, staminaHeight);
 
-      Game.graphics().renderShape(g, stamina);
+        Game.graphics().renderShape(g, stamina);
+      }
 
       if (player.isBlocking()) {
         Game.graphics().renderText(g, "block", player.getCenter());
