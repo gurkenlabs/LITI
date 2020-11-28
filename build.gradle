@@ -17,7 +17,7 @@ dependencies {
 
 sourceSets {
   main.java.srcDir 'src'
-  main.resources.srcDirs = ['audio', 'images']
+  main.resources.srcDirs = ['audio', 'images','localization']
 }
 
 // copy native binaries to support gamepad input

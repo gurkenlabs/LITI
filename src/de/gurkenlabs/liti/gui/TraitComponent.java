@@ -3,6 +3,7 @@ package de.gurkenlabs.liti.gui;
 import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
 import de.gurkenlabs.litiengine.gui.ImageComponent;
+import de.gurkenlabs.litiengine.gui.ImageScaleMode;
 import de.gurkenlabs.litiengine.resources.Resources;
 
 public class TraitComponent extends GuiComponent {
@@ -15,7 +16,14 @@ public class TraitComponent extends GuiComponent {
   protected TraitComponent(double x, double y, double width, double height, Trait trait) {
     super(x, y, width, height);
     this.trait = trait;
-    this.setText(trait.toString());
+  }
+
+  @Override
+  public void prepare() {
+    super.prepare();
+    this.icon.setImage(Resources.images().get(this.getTrait() + ".png"));
+    this.name.setText(Resources.strings().get(this.getTrait().toString()));
+    this.value.setImage(Resources.spritesheets().get("proficiencies").getSprite(proficiency));
   }
 
   public Trait getTrait() {
@@ -29,11 +37,13 @@ public class TraitComponent extends GuiComponent {
   @Override
   protected void initializeComponents() {
     super.initializeComponents();
-    this.icon = new ImageComponent(this.getX(), this.getY(), this.getWidth() * 1 / 6d, this.getHeight(),
-        Resources.images().get(getTrait().toString() + ".png"));
-    this.name = new ImageComponent(this.getX(), this.getY(), this.getWidth() * 1 / 6d, this.getHeight(),
-        getTrait().toString());
-    this.value = new ImageComponent(this.getX(), this.getY(), this.getWidth() * 1 / 6d, this.getHeight(),
-        Resources.spritesheets().get("proficiencies").getSprite(proficiency));
+    this.icon = new ImageComponent(this.getX(), this.getY(), this.getWidth() * 1 / 6d, this.getHeight());
+    this.name = new ImageComponent(this.getX() + this.getWidth() * 1 / 6d, this.getY(), this.getWidth() * 4 / 6d, this.getHeight());
+    this.value = new ImageComponent(this.getX() + this.getWidth() * 5 / 6d, this.getY(), this.getWidth() * 1 / 6d, this.getHeight());
+    this.icon.setImageScaleMode(ImageScaleMode.FIT);
+    this.value.setImageScaleMode(ImageScaleMode.FIT);
+    this.getComponents().add(this.icon);
+    this.getComponents().add(this.name);
+    this.getComponents().add(this.value);
   }
 }
