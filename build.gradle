@@ -23,7 +23,7 @@ sourceSets {
 // copy native binaries to support gamepad input
 task copyNativeLibs(type: Copy) {
   def litiengineLibs = '../litiengine/build/libs'
-  def litiLibs = './dist/libs'
+  def litiLibs = 'dist/libs'
   def buildFolder = new File(buildDir, 'libs')
 
   from(litiengineLibs) {
