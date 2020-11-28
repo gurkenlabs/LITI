@@ -12,7 +12,7 @@ import de.gurkenlabs.litiengine.util.Imaging;
 
 public class LobbyScreen extends LitiScreen {
   private CharacterSelectionComponent[] charSelects;
-  private static final BufferedImage TITLE = Imaging.scale(Resources.images().get("lobby_title.png"), Game.window().getWidth() * 1 / 5);
+  private static final BufferedImage TITLE = Imaging.scale(Resources.images().get("lobby_title.png"), Game.window().getWidth() * 1 / 8);
 
   public LobbyScreen() {
     super("LOBBY");
@@ -24,7 +24,7 @@ public class LobbyScreen extends LitiScreen {
     g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     double scale = 1.4 + 0.15 * Math.sin(Game.time().sinceEnvironmentLoad() / 400.0);
     ImageRenderer.render(g, Imaging.scale(TITLE, scale), Game.window().getCenter().getX() - (scale * TITLE.getWidth()) / 2,
-        Game.window().getHeight() * 2 / 11d - (scale * TITLE.getHeight()) / 2);
+        Game.window().getHeight() * 2 / 14d - (scale * TITLE.getHeight()) / 2);
     g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 
   }
@@ -89,7 +89,7 @@ public class LobbyScreen extends LitiScreen {
     super.initializeComponents();
     double compWidth = Game.window().getResolution().getWidth() / 6d;
     double compHeight = Game.window().getResolution().getHeight() * 4 / 8d;
-    double compY = Game.window().getResolution().getHeight() * 3 / 8d;
+    double compY = Game.window().getResolution().getHeight() * 3 / 10d;
     this.charSelects = new CharacterSelectionComponent[4];
     for (int i = 0; i <= 3; i++) {
       charSelects[i] = new CharacterSelectionComponent(compWidth / 2 + i * (compWidth + compWidth / 3d), compY, compWidth, compHeight);
