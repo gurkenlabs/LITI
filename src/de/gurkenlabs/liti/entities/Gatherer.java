@@ -8,8 +8,8 @@ import de.gurkenlabs.litiengine.entities.MovementInfo;
 
 @EntityInfo(width = 12, height = 22)
 @CollisionInfo(collision = true, collisionBoxWidth = 6, collisionBoxHeight = 5, valign = Valign.MIDDLE_DOWN)
-@CombatInfo(hitpoints = 100)
-@MovementInfo(velocity = 50)
+@CombatInfo(hitpoints = 120)
+@MovementInfo(velocity = 80, acceleration = 500, deceleration = 250)
 public class Gatherer extends Player {
   protected Gatherer(PlayerConfiguration config) {
     super(config);

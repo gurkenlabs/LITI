@@ -5,8 +5,18 @@ import de.gurkenlabs.litiengine.Game;
 import java.awt.*;
 
 public class IngameScreen extends LitiScreen {
+  private Hud hud;
+
   public IngameScreen() {
     super("INGAME");
+
+  }
+
+  @Override
+  protected void initializeComponents() {
+    super.initializeComponents();
+    this.hud = new Hud();
+    this.getComponents().add(this.hud);
   }
 
   @Override

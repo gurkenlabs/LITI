@@ -9,7 +9,6 @@ import de.gurkenlabs.litiengine.abilities.effects.EffectTarget;
 import de.gurkenlabs.litiengine.entities.ICombatEntity;
 
 public class DashEffect extends Effect {
-  private long lastDashEmitter = 0;
   private double angle;
 
   public DashEffect(final Ability ability) {
@@ -38,7 +37,7 @@ public class DashEffect extends Effect {
   @Override
   protected void cease(EffectApplication appliance) {
     Player character = (Player) this.getAbility().getExecutor();
-    character.setState(Player.PlayerState.LOCKED);
+    character.setState(Player.PlayerState.NORMAL);
     super.cease(appliance);
     super.cease(appliance);
   }

@@ -10,14 +10,22 @@ public class InputConfiguration extends ConfigurationGroup {
   private String keyboard_left = "KEYBOARD_A_PRESSED";
   private String keyboard_right = "KEYBOARD_D_PRESSED";
   private String keyboard_interact = "KEYBOARD_E_PRESSED";
+  private String keyboard_block_start = "KEYBOARD_Q_PRESSED";
+  private String keyboard_block_stop = "KEYBOARD_Q_RELEASED";
   private String keyboard_cancel = "KEYBOARD_ESCAPE_RELEASED";
+  private String keyboard_dash = "KEYBOARD_SHIFT_RELEASED";
+  private String keyboard_bash = "KEYBOARD_SPACE_RELEASED";
 
-  private String gamepad_up = "GAMEPAD_AXIS-Y_-";
-  private String gamepad_down = "GAMEPAD_AXIS-Y_+";
-  private String gamepad_left = "GAMEPAD_AXIS-X_-";
-  private String gamepad_right = "GAMEPAD_AXIS-X_+";
+  private String gamepad_up = "GAMEPAD_AXIS-Y_-_PRESSED";
+  private String gamepad_down = "GAMEPAD_AXIS-Y_+_PRESSED";
+  private String gamepad_left = "GAMEPAD_AXIS-X_-_PRESSED";
+  private String gamepad_right = "GAMEPAD_AXIS-X_+_PRESSED";
+  private String gamepad_block_start = "GAMEPAD_AXIS-Z_+_PRESSED";
+  private String gamepad_block_stop = "GAMEPAD_AXIS-Z_+_RELEASED";
   private String gamepad_interact = "GAMEPAD_BUTTON-0_PRESSED";
   private String gamepad_cancel = "GAMEPAD_BUTTON-1_PRESSED";
+  private String gamepad_dash = "GAMEPAD_BUTTON-0_PRESSED";
+  private String gamepad_bash = "GAMEPAD_BUTTON-2_PRESSED";
 
   private String ui_keyboard_menu = "KEYBOARD_ESCAPE_RELEASED";
   private String ui_gamepad_menu = "GAMEPAD_BUTTON-7_PRESSED";
@@ -37,9 +45,7 @@ public class InputConfiguration extends ConfigurationGroup {
     return this.keyboard_down;
   }
 
-  public void setkeyboard_down(String keyboard_down) {
-    this.keyboard_down = keyboard_down;
-  }
+  public void setkeyboard_down(String keyboard_down) { this.keyboard_down = keyboard_down; }
 
   public String getkeyboard_left() {
     return this.keyboard_left;
@@ -65,12 +71,40 @@ public class InputConfiguration extends ConfigurationGroup {
     this.keyboard_interact = keyboard_interact;
   }
 
+  public String getkeyboard_block_start() { return this.keyboard_block_start; }
+
+  public void setkeyboard_block_start(String keyboard_block_start) {
+    this.keyboard_block_start = keyboard_block_start;
+  }
+
+  public String getkeyboard_block_stop() { return this.keyboard_block_stop; }
+
+  public void setkeyboard_block_stop(String keyboard_block_stop) {
+    this.keyboard_block_stop = keyboard_block_stop;
+  }
+
   public String getkeyboard_cancel() {
     return this.keyboard_cancel;
   }
 
   public void setkeyboard_cancel(String keyboard_cancel) {
     this.keyboard_cancel = keyboard_cancel;
+  }
+
+  public String getkeyboard_dash() {
+    return this.keyboard_dash;
+  }
+
+  public void setkeyboard_dash(String keyboard_dash) {
+    this.keyboard_dash = keyboard_dash;
+  }
+
+  public String getkeyboard_bash() {
+    return this.keyboard_bash;
+  }
+
+  public void setkeyboard_bash(String keyboard_bash) {
+    this.keyboard_bash = keyboard_bash;
   }
 
   public String getgamepad_up() {
@@ -105,6 +139,18 @@ public class InputConfiguration extends ConfigurationGroup {
     this.gamepad_right = gamepad_right;
   }
 
+  public String getgamepad_block_start() { return this.gamepad_block_start; }
+
+  public void setgamepad_block_start(String gamepad_block_start) {
+    this.gamepad_block_start = gamepad_block_start;
+  }
+
+  public String getgamepad_block_stop() { return this.gamepad_block_stop; }
+
+  public void setgamepad_block_stop(String gamepad_block_stop) {
+    this.gamepad_block_stop = gamepad_block_stop;
+  }
+
   public String getgamepad_interact() {
     return this.gamepad_interact;
   }
@@ -119,6 +165,22 @@ public class InputConfiguration extends ConfigurationGroup {
 
   public void setgamepad_cancel(String gamepad_cancel) {
     this.gamepad_cancel = gamepad_cancel;
+  }
+
+  public String getgamepad_dash() {
+    return this.gamepad_dash;
+  }
+
+  public void setgamepad_dash(String gamepad_dash) {
+    this.gamepad_dash = gamepad_dash;
+  }
+
+  public String getgamepad_bash() {
+    return this.gamepad_bash;
+  }
+
+  public void setgamepad_bash(String gamepad_bash) {
+    this.gamepad_bash = gamepad_bash;
   }
 
   public String getUi_gamepad_menu() {

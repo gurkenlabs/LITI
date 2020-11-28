@@ -24,16 +24,13 @@ public class Program {
     Game.info().setName("LITI");
     Game.info().setSubTitle("Stoneage Brawl");
     Game.info().setVersion("v1.0.0");
-    InputConfiguration inputConfig = new InputConfiguration();
-    config().add(inputConfig);
 
     // init the game infrastructure
     Game.init(args);
 
     Resources.load("game.litidata");
 
-    System.out.println(System.getProperty("java.library.path"));
-    GameManager.init(inputConfig);
+    GameManager.init(new InputConfiguration());
     Game.screens().add(new SplashScreen());
     Game.screens().add(new IngameScreen());
     Game.screens().add(new MenuScreen());

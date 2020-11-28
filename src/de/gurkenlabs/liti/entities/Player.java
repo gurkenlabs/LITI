@@ -1,26 +1,67 @@
 package de.gurkenlabs.liti.entities;
 
+import de.gurkenlabs.liti.abilities.Bash;
 import de.gurkenlabs.liti.abilities.Dash;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.GameLoop;
+import de.gurkenlabs.litiengine.IUpdateable;
+import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.entities.Action;
 import de.gurkenlabs.litiengine.entities.Creature;
+import de.gurkenlabs.litiengine.graphics.IRenderable;
 
-public abstract class Player extends Creature {
+import java.awt.*;
 
+public abstract class Player extends Creature implements IUpdateable, IRenderable {
   public enum PlayerState {
     LOCKED,
     NORMAL
   }
 
+  private static final int STAMINA_DEPLETION_DELAY = 5000;
+
   private PlayerConfiguration configuration;
 
+  private final RangeAttribute<Double> stamina;
   private int index;
   private PlayerState playerState;
   private Dash dash;
+  private Bash bash;
+
+  private boolean isBlocking;
+  private long staminaDepleted;
 
   protected Player(PlayerConfiguration config) {
+    this.stamina = new RangeAttribute<>(config.getPlayerClass().getStamina(), 0.0, 100.0);
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
     this.dash = new Dash(this);
+    this.bash = new Bash(this);
+    this.movement().onMovementCheck(e -> !this.isBlocking());
+  }
+
+  @Override
+  public void update() {
+    if (this.isStaminaDepleted()) {
+      this.setBlocking(false);
+      return;
+    }
+
+    if (this.isBlocking()) {
+      this.drainStaminaWhileBlocking();
+    }
+
+    if (this.getStamina().get() == this.getStamina().getMin()) {
+      this.staminaDepleted = Game.time().now();
+    }
+
+    if (!this.isBlocking()) {
+      this.recoverStamina();
+    }
+  }
+
+  public boolean isStaminaDepleted() {
+    return this.staminaDepleted != 0 && Game.time().since(this.staminaDepleted) < STAMINA_DEPLETION_DELAY;
   }
 
   public int getIndex() {
@@ -35,13 +76,41 @@ public abstract class Player extends Creature {
     return dash;
   }
 
+  @Override
+  public void render(Graphics2D g) {
+    this.bash.render(g);
+  }
+
   public PlayerConfiguration getConfiguration() {
     return configuration;
   }
 
+  public PlayerClass getPlayerClass() {
+    return this.getConfiguration().getPlayerClass();
+  }
+
+  public RangeAttribute<Double> getStamina() {
+    return stamina;
+  }
+
+  public boolean isBlocking() {
+    return isBlocking;
+  }
+
+  public void setBlocking(boolean blocking) {
+    if (blocking && (this.getStamina().get() < 0.20 * this.getStamina().getMax() || this.isStaminaDepleted())) {
+      return;
+    }
+
+    this.isBlocking = blocking;
+    if (this.isBlocking) {
+      this.movement().setVelocity(0);
+    }
+  }
 
   public void setIndex(int index) {
     this.index = index;
+    this.setTeam(this.index);
   }
 
   public void setState(PlayerState playerState) {
@@ -57,8 +126,36 @@ public abstract class Player extends Creature {
     this.dash.cast();
   }
 
+  @Action(name = "BASH")
+  public void useBash() {
+    this.bash.cast();
+  }
+
   @Override
   public String toString() {
     return "Player " + (this.getConfiguration().getIndex() + 1) + " (#" + this.getMapId() + ")";
+  }
+
+  private void recoverStamina() {
+    if (this.stamina.get() < this.stamina.getMax()) {
+      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * Game.loop().getTimeScale();
+      if (this.stamina.get() + recovery > this.stamina.getMax()) {
+        this.stamina.setToMax();
+      } else {
+        this.stamina.setBaseValue(this.stamina.get() + recovery);
+      }
+    }
+  }
+
+
+  private void drainStaminaWhileBlocking() {
+    if (this.stamina.get() > this.stamina.getMin()) {
+      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * Game.loop().getTimeScale();
+      if (this.stamina.get() - drain <= this.stamina.getMin()) {
+        this.stamina.setToMin();
+      } else {
+        this.stamina.setBaseValue(this.stamina.get() - drain);
+      }
+    }
   }
 }
