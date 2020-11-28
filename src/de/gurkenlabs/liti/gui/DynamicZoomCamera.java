@@ -3,13 +3,14 @@ package de.gurkenlabs.liti.gui;
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.graphics.Camera;
 import de.gurkenlabs.litiengine.graphics.FreeFlightCamera;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 
 import java.awt.geom.Rectangle2D;
 import java.util.Collection;
 
-public class DynamicZoomCamera extends FreeFlightCamera {
+public class DynamicZoomCamera extends Camera {
 
   private static float minZoom = .3f;
   private static float maxZoom = 1.4f;
@@ -21,6 +22,7 @@ public class DynamicZoomCamera extends FreeFlightCamera {
 
   @Override
   public void update() {
+    super.update();
     this.determineFocusAndZoom();
   }
 

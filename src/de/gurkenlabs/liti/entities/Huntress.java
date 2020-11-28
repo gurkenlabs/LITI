@@ -1,5 +1,6 @@
 package de.gurkenlabs.liti.entities;
 
+import de.gurkenlabs.liti.abilities.SurvivalSkill;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.entities.CollisionInfo;
 import de.gurkenlabs.litiengine.entities.CombatInfo;
@@ -13,5 +14,10 @@ import de.gurkenlabs.litiengine.entities.MovementInfo;
 public class Huntress extends Player {
   protected Huntress(PlayerConfiguration config) {
     super(config);
+  }
+
+  @Override
+  public SurvivalSkill getUltimate() {
+    return null;
   }
 }

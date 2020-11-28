@@ -14,7 +14,8 @@ public class SurvivalSkill extends Ability {
   /**
    * Initializes a new instance of the {@code Ability} class.
    *
-   * @param executor The executing entity
+   * @param executor
+   *         The executing entity
    */
   protected SurvivalSkill(Player executor, int requiredStamina) {
     super(executor);
@@ -37,6 +38,10 @@ public class SurvivalSkill extends Ability {
 
     this.player.getStamina().modifyBaseValue(this.modifier);
     return execution;
+  }
+
+  public Player getPlayer() {
+    return this.player;
   }
 
   public int getRequiredStamina() {
