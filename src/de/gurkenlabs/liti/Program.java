@@ -9,8 +9,11 @@ import de.gurkenlabs.liti.input.InputConfiguration;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.gui.screens.GameScreen;
 import de.gurkenlabs.litiengine.resources.Resources;
+import uk.co.caprica.vlcj.binding.RuntimeUtil;
 
 import static de.gurkenlabs.litiengine.Game.config;
+
+import com.sun.jna.NativeLibrary;
 
 public class Program {
   /**
@@ -20,6 +23,8 @@ public class Program {
    *          The command line arguments.
    */
   public static void main(String[] args) {
+    NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "dist/libs");
+    NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcCoreLibraryName(), "dist/libs");
     // set meta information about the game
     Game.info().setName("LITI");
     Game.info().setSubTitle("Stoneage Brawl");
