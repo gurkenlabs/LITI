@@ -582,6 +582,98 @@
     <object id="2" name="player-2" type="SPAWNPOINT" x="704" y="112" width="16" height="16"/>
     <object id="3" name="player-3" type="SPAWNPOINT" x="48" y="400" width="16" height="16"/>
     <object id="4" name="player-4" type="SPAWNPOINT" x="704" y="400" width="16" height="16"/>
+    <object id="26" type="PROP" x="160" y="176" width="44" height="72">
+     <properties>
+      <property name="addShadow" type="bool" value="false"/>
+      <property name="collision" type="bool" value="false"/>
+      <property name="collisionValign" value="MIDDLE_DOWN"/>
+      <property name="collisionboxHeight" value="18.0"/>
+      <property name="collisionboxWidth" value="28.0"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="stonehenge1"/>
+     </properties>
+    </object>
+    <object id="28" type="COLLISIONBOX" x="179" y="222" width="12" height="21">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+     </properties>
+    </object>
+    <object id="29" type="COLLISIONBOX" x="191" y="224" width="6" height="14">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+     </properties>
+    </object>
+    <object id="30" type="COLLISIONBOX" x="176" y="222" width="3" height="17">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+     </properties>
+    </object>
+    <object id="31" type="COLLISIONBOX" x="173" y="222" width="3" height="15">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+     </properties>
+    </object>
+    <object id="32" type="COLLISIONBOX" x="170" y="222" width="3" height="13">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+     </properties>
+    </object>
+    <object id="33" type="COLLISIONBOX" x="168" y="222" width="2" height="11">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+     </properties>
+    </object>
+    <object id="34" type="COLLISIONBOX" x="191" y="238" width="3" height="3">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+     </properties>
+    </object>
+    <object id="35" type="PROP" x="207" y="140" width="44" height="72">
+     <properties>
+      <property name="addShadow" type="bool" value="false"/>
+      <property name="collision" type="bool" value="false"/>
+      <property name="collisionValign" value="MIDDLE_DOWN"/>
+      <property name="collisionboxHeight" value="18.0"/>
+      <property name="collisionboxWidth" value="28.0"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="stonehenge1"/>
+     </properties>
+    </object>
+    <object id="36" type="COLLISIONBOX" x="226" y="186" width="12" height="21">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+     </properties>
+    </object>
+    <object id="37" type="COLLISIONBOX" x="238" y="188" width="6" height="14">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+     </properties>
+    </object>
+    <object id="38" type="COLLISIONBOX" x="223" y="186" width="3" height="17">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+     </properties>
+    </object>
+    <object id="39" type="COLLISIONBOX" x="220" y="186" width="3" height="15">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+     </properties>
+    </object>
+    <object id="40" type="COLLISIONBOX" x="217" y="186" width="3" height="13">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+     </properties>
+    </object>
+    <object id="41" type="COLLISIONBOX" x="215" y="186" width="2" height="11">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+     </properties>
+    </object>
+    <object id="42" type="COLLISIONBOX" x="238" y="202" width="3" height="3">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+     </properties>
+    </object>
    </objectgroup>
    <objectgroup id="6" name="collision" visible="1">
     <object id="11" type="COLLISIONBOX" x="297" y="407" width="177" height="41">
@@ -781,6 +873,9 @@
   </sprite>
   <sprite width="10" height="8" imageformat="PNG" name="prop-stone4">
    <image>iVBORw0KGgoAAAANSUhEUgAAAAoAAAAICAYAAADA+m62AAAAU0lEQVR42mNggIKEoor/2DADMvCJiP9fMnHCf4KKQQrRFYPYyJjBxsbBwd7VH6wQl4lgU2EKcSkGiYHUgBUim4qOYfJgNyIrRsYoimAAJoiOYfIAybB9uDVij4YAAAAASUVORK5CYII=</image>
+  </sprite>
+  <sprite width="44" height="72" imageformat="PNG" name="prop-stonehenge1">
+   <image>iVBORw0KGgoAAAANSUhEUgAAACwAAABICAYAAACN4RdNAAAB4UlEQVR42u3azU7DMAwA4D7YJHbhhsSV27hyRRx4DDhz4kk7BcmSMUn8E6d1hytF09qs+eq6i9d1WZyX59f3tdeWKAsHDYN+eLqsGuyu6IKFFh6NsdDePj9iomvYsOgeNhz67v5xlYABrWm7g7UXYoITnOBbAWvQCU5wghN8Y2ANOgxYCs+UODRYit4VjLGhwRR6WLAEHQ7MoRNsBQOIQ4cAU1QPHRKM4YcC19BSbOm764TBRZpu332G60V4+g1BK9hyR94FneAEHx1sKdz/DXjajBcK/PX9snr84tg0whi9RS08PEVz4F6FpgHTvkMXHaC5yHrUwi7fFAV8Op3PgCzvRyo2yUFAEVTGVWHLB0rDyBGwNLLwCuOrsB5gKRT/mY7BLBp3pGhrhKVQvB7SsYuuYQGMsRY0jWDv8YQa+A+6ha2lxgi6BS3758C/0BJwLTW88hmDW1gVuJXLHrUFxorAEiyXzyO1hQb8g9aAe/lM0aUfB6bYKWBoFEuBFjCcwS5YmxZStBYsxo6AKVoKBii8Qv9NwBY0BuO+3DiqyUOLruU1Pf2wHi5mMdYDXCtFKRhHE7ZJ9qsugKzoVsEkyVdziTnSWjAp2FTEzwC7RXZWpDfBbo2f9vzwYaCjB+I1zhX2r8sqI4IDOAAAAABJRU5ErkJggg==</image>
   </sprite>
   <sprite width="10" height="22" imageformat="PNG" name="shaman-walk-down">
    <image>iVBORw0KGgoAAAANSUhEUgAAAAoAAAAWCAYAAAD5Jg1dAAAAwklEQVR42p2RIQ4CQQxF9wA4MGtQBAd4GLESiScYNJoLINEkGA7BCUt+k9+0s50VNPnZaf9rm9npun/idpiJ1wg4b5eSKTScdr14tRoUvH/eqrqJdQWvj5dQKD6PRb6XvdR1nYgEMV/0BuKMgGerkcDMZKsJokCjPhu4Wa8MrgUPN7ffk8GEFESgwAbelAA8exkkhHkJQgGEkb2S9+wZWyC/YSJX+ZVhom8glAL15OakUoYBgpmdAzQFKuyTKY2mtqAf4douwAn3wUYAAAAASUVORK5CYII=</image>
