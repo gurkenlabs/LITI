@@ -2,6 +2,7 @@ package de.gurkenlabs.liti.entities;
 
 import de.gurkenlabs.liti.abilities.Bash;
 import de.gurkenlabs.liti.abilities.Dash;
+import de.gurkenlabs.liti.abilities.Proficiency;
 import de.gurkenlabs.liti.abilities.SurvivalSkill;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameLoop;
@@ -16,7 +17,8 @@ import java.awt.*;
 public abstract class Player extends Creature implements IUpdateable, IRenderable {
 
   public enum PlayerState {
-    LOCKED, NORMAL
+    LOCKED,
+    NORMAL
   }
 
   private static final int STAMINA_DEPLETION_DELAY = 3000;
@@ -37,7 +39,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private long staminaDepleted;
 
   protected Player(PlayerConfiguration config) {
-    this.stamina = new RangeAttribute<>(config.getPlayerClass().getStamina(), 0.0, config.getPlayerClass().getStamina());
+    this.stamina = new RangeAttribute<>(Proficiency.getStamina(config.getPlayerClass()), 0.0, Proficiency.getStamina(config.getPlayerClass()));
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
     this.dash = new Dash(this);
@@ -173,7 +175,9 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   private void recoverStamina() {
     if (this.stamina.get() < this.stamina.getMax()) {
-      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * this.getPlayerClass().getStaminaRecoveryFactor() * Game.loop().getTimeScale();
+      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F
+          * Proficiency.getStaminaDrainFactor(this.getPlayerClass())
+          * Game.loop().getTimeScale();
       if (this.stamina.get() + recovery > this.stamina.getMax()) {
         this.stamina.setToMax();
       } else {
@@ -184,7 +188,9 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   private void drainStaminaWhileBlocking() {
     if (this.stamina.get() > this.stamina.getMin()) {
-      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * this.getPlayerClass().getStaminaDrainFactor() * Game.loop().getTimeScale();
+      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F
+          * Proficiency.getStaminaDrainFactor(this.getPlayerClass())
+          * Game.loop().getTimeScale();
       if (this.stamina.get() - drain <= this.stamina.getMin()) {
         this.stamina.setToMin();
       } else {

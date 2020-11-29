@@ -9,7 +9,7 @@ public class Dash extends SurvivalSkill {
   public Dash(Player executor) {
     super(executor, 40);
 
-    this.getAttributes().value().setBaseValue(executor.getPlayerClass().getDashValue());
+    this.getAttributes().value().setBaseValue(Proficiency.getDashValue(executor.getPlayerClass()));
     this.getEffects().add(new DashEffect(this));
   }
 }

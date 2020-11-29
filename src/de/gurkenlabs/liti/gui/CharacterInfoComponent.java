@@ -1,10 +1,13 @@
 package de.gurkenlabs.liti.gui;
 
 import de.gurkenlabs.liti.abilities.Trait;
+import de.gurkenlabs.liti.entities.PlayerClass;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
+import de.gurkenlabs.litiengine.gui.ImageComponent;
 
 public class CharacterInfoComponent extends GuiComponent {
   private TraitComponent[] traits;
+  private ImageComponent ultimate;
 
   protected CharacterInfoComponent(double x, double y, double width, double height) {
     super(x, y, width, height);
@@ -20,5 +23,11 @@ public class CharacterInfoComponent extends GuiComponent {
           Trait.values()[i]);
       this.getComponents().add(traits[i]);
     }
+    this.ultimate = new ImageComponent(this.getX(), this.getY() + 5 * cellHeight, this.getWidth(), cellHeight);
+    this.getComponents().add(ultimate);
+  }
+
+  protected void setClass(PlayerClass newClass) {
+
   }
 }
