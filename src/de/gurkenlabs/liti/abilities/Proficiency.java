@@ -6,127 +6,48 @@ import java.util.Map;
 import de.gurkenlabs.liti.entities.PlayerClass;
 
 public class Proficiency {
-  private static final Map<PlayerClass, Map<Trait, Double>> playerProficiencies = new EnumMap<>(PlayerClass.class);
-  private static final Map<Trait, Double> baseProficiencies = new EnumMap<>(Trait.class);
+  private static final Map<PlayerClass, Map<Trait, Double>> classProficiencies = new EnumMap<>(PlayerClass.class);
 
   {
-    baseProficiencies.put(Trait.DAMAGE, 1.0);
-    baseProficiencies.put(Trait.MOBILITY, 1.0);
-    baseProficiencies.put(Trait.HEALTH, 1.0);
-    baseProficiencies.put(Trait.RANGE, 1.0);
-    baseProficiencies.put(Trait.RECOVERY, 1.0);
+    classProficiencies.put(PlayerClass.GATHERER, new EnumMap<>(Trait.class));
+    classProficiencies.put(PlayerClass.WARRIOR, new EnumMap<>(Trait.class));
+    classProficiencies.put(PlayerClass.HUNTRESS, new EnumMap<>(Trait.class));
+    classProficiencies.put(PlayerClass.SHAMAN, new EnumMap<>(Trait.class));
 
-    playerProficiencies.put(PlayerClass.GATHERER, new EnumMap<>(Trait.class));
-    playerProficiencies.put(PlayerClass.WARRIOR, new EnumMap<>(Trait.class));
-    playerProficiencies.put(PlayerClass.HUNTRESS, new EnumMap<>(Trait.class));
-    playerProficiencies.put(PlayerClass.SHAMAN, new EnumMap<>(Trait.class));
+    set(PlayerClass.WARRIOR, Trait.DAMAGE, 20);
+    set(PlayerClass.WARRIOR, Trait.STAMINA, 100);
+    set(PlayerClass.WARRIOR, Trait.HEALTH, 100);
+    set(PlayerClass.WARRIOR, Trait.RANGE, 40);
+    set(PlayerClass.WARRIOR, Trait.RECOVERY, .75);
+    set(PlayerClass.WARRIOR, Trait.MOBILITY, 60);
 
-    setProficiency(PlayerClass.GATHERER, Trait.DAMAGE, 1.0);
-    setProficiency(PlayerClass.GATHERER, Trait.MOBILITY, 1.2);
-    setProficiency(PlayerClass.GATHERER, Trait.HEALTH, 1.5);
-    setProficiency(PlayerClass.GATHERER, Trait.RANGE, 1.0);
-    setProficiency(PlayerClass.GATHERER, Trait.RECOVERY, 1.25);
+    set(PlayerClass.SHAMAN, Trait.DAMAGE, 20);
+    set(PlayerClass.SHAMAN, Trait.STAMINA, 60);
+    set(PlayerClass.SHAMAN, Trait.HEALTH, 70);
+    set(PlayerClass.SHAMAN, Trait.RANGE, 50);
+    set(PlayerClass.SHAMAN, Trait.RECOVERY, .90);
+    set(PlayerClass.SHAMAN, Trait.MOBILITY, 60);
 
-    setProficiency(PlayerClass.WARRIOR, Trait.DAMAGE, 1.0);
-    setProficiency(PlayerClass.WARRIOR, Trait.MOBILITY, 1.2);
-    setProficiency(PlayerClass.WARRIOR, Trait.HEALTH, 1.5);
-    setProficiency(PlayerClass.WARRIOR, Trait.RANGE, 1.0);
-    setProficiency(PlayerClass.WARRIOR, Trait.RECOVERY, 1.25);
-  }
+    set(PlayerClass.HUNTRESS, Trait.DAMAGE, 13);
+    set(PlayerClass.HUNTRESS, Trait.STAMINA, 100);
+    set(PlayerClass.HUNTRESS, Trait.HEALTH, 70);
+    set(PlayerClass.HUNTRESS, Trait.RANGE, 40);
+    set(PlayerClass.HUNTRESS, Trait.RECOVERY, 1.25);
+    set(PlayerClass.HUNTRESS, Trait.MOBILITY, 90);
 
-  public static double getBaseValue(Trait trait) {
-    return baseProficiencies.get(trait);
-  }
-
-  public static double getMultiplier(PlayerClass playerClass, Trait trait) {
-    return playerProficiencies.get(playerClass).get(trait);
+    set(PlayerClass.GATHERER, Trait.DAMAGE, 15);
+    set(PlayerClass.GATHERER, Trait.STAMINA, 80);
+    set(PlayerClass.GATHERER, Trait.HEALTH, 120);
+    set(PlayerClass.GATHERER, Trait.RANGE, 30);
+    set(PlayerClass.GATHERER, Trait.RECOVERY, .90);
+    set(PlayerClass.GATHERER, Trait.MOBILITY, 80);
   }
 
   public static double get(PlayerClass playerClass, Trait trait) {
-    return getMultiplier(playerClass, trait) * getBaseValue(trait);
+    return classProficiencies.get(playerClass).get(trait);
   }
 
-  public static double getStamina(PlayerClass playerClass) {
-    switch (playerClass) {
-    case GATHERER:
-      return 100;
-    case SHAMAN:
-      return 60;
-    case WARRIOR:
-      return 60;
-    case HUNTRESS:
-      return 100;
-    default:
-      return 100;
-    }
-  }
-
-  public static int getDamage(PlayerClass playerClass) {
-    switch (playerClass) {
-    case GATHERER:
-      return 13;
-    case SHAMAN:
-      return 20;
-    case WARRIOR:
-      return 20;
-    case HUNTRESS:
-      return 15;
-    default:
-      return 15;
-    }
-  }
-
-  public static int getRange(PlayerClass playerClass) {
-    switch (playerClass) {
-    case GATHERER:
-      return 30;
-    case SHAMAN:
-      return 40;
-    case WARRIOR:
-      return 30;
-    case HUNTRESS:
-      return 50;
-    default:
-      return 30;
-    }
-  }
-
-  public static int getDashValue(PlayerClass playerClass) {
-    switch (playerClass) {
-    case GATHERER:
-      return 100;
-    case SHAMAN:
-      return 200;
-    case WARRIOR:
-      return 120;
-    case HUNTRESS:
-      return 200;
-    default:
-      return 150;
-    }
-  }
-
-  public static double getStaminaRecoveryFactor(PlayerClass playerClass) {
-    switch (playerClass) {
-    case HUNTRESS:
-      return 1.25;
-    case WARRIOR:
-      return .75;
-    default:
-      return 1.0;
-    }
-  }
-
-  public static double getStaminaDrainFactor(PlayerClass playerClass) {
-    switch (playerClass) {
-    case WARRIOR:
-      return .25;
-    default:
-      return 1.0;
-    }
-  }
-
-  private static void setProficiency(PlayerClass playerClass, Trait trait, double value) {
-    playerProficiencies.get(playerClass).put(trait, value);
+  private static void set(PlayerClass playerClass, Trait trait, double value) {
+    classProficiencies.get(playerClass).put(trait, value);
   }
 }

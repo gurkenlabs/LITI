@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.gurkenlabs.liti.abilities.Proficiency;
+import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.Valign;
@@ -80,7 +81,7 @@ public class StoneProjectile extends Projectile implements IUpdateable {
           for (ICombatEntity entity : Game.world().environment().findCombatEntities(
               new Ellipse2D.Double(impactCenter.getX() - impactSize / 2.0, impactCenter.getY() - impactSize / 2.0, impactSize, impactSize),
               e -> (e instanceof Player) && !e.equals(StoneProjectile.this.executor) && !StoneProjectile.this.hitEntities.contains(e))) {
-            entity.hit(Proficiency.getDamage(PlayerClass.WARRIOR) * 2);
+            entity.hit((int) (Proficiency.get(PlayerClass.WARRIOR, Trait.DAMAGE) * 2));
             StoneProjectile.this.hitEntities.add(entity);
           }
         });
@@ -94,7 +95,7 @@ public class StoneProjectile extends Projectile implements IUpdateable {
     this.setLocation(GeometricUtilities.project(this.getLocation(), this.getAngle(), velocity));
     for (ICombatEntity entity : Game.world().environment().findCombatEntities(this.getCollisionBox(),
         e -> (e instanceof Player) && !e.equals(this.executor) && !this.hitEntities.contains(e))) {
-      entity.hit(Proficiency.getDamage(PlayerClass.WARRIOR) * 2);
+      entity.hit((int) (Proficiency.get(PlayerClass.WARRIOR, Trait.DAMAGE) * 2));
       this.hitEntities.add(entity);
     }
   }

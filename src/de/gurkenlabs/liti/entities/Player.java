@@ -4,6 +4,7 @@ import de.gurkenlabs.liti.abilities.Bash;
 import de.gurkenlabs.liti.abilities.Dash;
 import de.gurkenlabs.liti.abilities.Proficiency;
 import de.gurkenlabs.liti.abilities.SurvivalSkill;
+import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameLoop;
 import de.gurkenlabs.litiengine.IUpdateable;
@@ -39,7 +40,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private long staminaDepleted;
 
   protected Player(PlayerConfiguration config) {
-    this.stamina = new RangeAttribute<>(Proficiency.getStamina(config.getPlayerClass()), 0.0, Proficiency.getStamina(config.getPlayerClass()));
+    this.stamina = new RangeAttribute<>(Proficiency.get(config.getPlayerClass(), Trait.STAMINA), 0.0, Proficiency.get(config.getPlayerClass(), Trait.STAMINA));
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
     this.dash = new Dash(this);
@@ -176,7 +177,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private void recoverStamina() {
     if (this.stamina.get() < this.stamina.getMax()) {
       double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F
-          * Proficiency.getStaminaDrainFactor(this.getPlayerClass())
+          * Proficiency.get(this.getPlayerClass(), Trait.RECOVERY)
           * Game.loop().getTimeScale();
       if (this.stamina.get() + recovery > this.stamina.getMax()) {
         this.stamina.setToMax();
@@ -189,7 +190,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private void drainStaminaWhileBlocking() {
     if (this.stamina.get() > this.stamina.getMin()) {
       double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F
-          * Proficiency.getStaminaDrainFactor(this.getPlayerClass())
+          * (1.5 - Proficiency.get(this.getPlayerClass(), Trait.RECOVERY))
           * Game.loop().getTimeScale();
       if (this.stamina.get() - drain <= this.stamina.getMin()) {
         this.stamina.setToMin();

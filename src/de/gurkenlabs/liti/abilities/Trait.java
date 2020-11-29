@@ -3,7 +3,8 @@ package de.gurkenlabs.liti.abilities;
 public enum Trait {
   HEALTH,
   DAMAGE,
-  MOBILITY,
+  STAMINA,
   RECOVERY,
-  RANGE
+  RANGE,
+  MOBILITY
 }
