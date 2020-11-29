@@ -6,17 +6,44 @@ import java.util.Map;
 import de.gurkenlabs.liti.entities.PlayerClass;
 
 public class Proficiency {
-  private Map<PlayerClass, Map<Trait, Integer>> proficiencies;
+  private static final Map<PlayerClass, Map<Trait, Double>> playerProficiencies = new EnumMap<>(PlayerClass.class);
+  private static final Map<Trait, Double> baseProficiencies = new EnumMap<>(Trait.class);
 
-  private Proficiency() {
-    proficiencies = new EnumMap<>(PlayerClass.class);
-    proficiencies.put(PlayerClass.GATHERER, new EnumMap(Trait.class) {
+  {
+    baseProficiencies.put(Trait.DAMAGE, 1.0);
+    baseProficiencies.put(Trait.MOBILITY, 1.0);
+    baseProficiencies.put(Trait.HEALTH, 1.0);
+    baseProficiencies.put(Trait.RANGE, 1.0);
+    baseProficiencies.put(Trait.RECOVERY, 1.0);
 
-    });
+    playerProficiencies.put(PlayerClass.GATHERER, new EnumMap<>(Trait.class));
+    playerProficiencies.put(PlayerClass.WARRIOR, new EnumMap<>(Trait.class));
+    playerProficiencies.put(PlayerClass.HUNTRESS, new EnumMap<>(Trait.class));
+    playerProficiencies.put(PlayerClass.SHAMAN, new EnumMap<>(Trait.class));
+
+    setProficiency(PlayerClass.GATHERER, Trait.DAMAGE, 1.0);
+    setProficiency(PlayerClass.GATHERER, Trait.MOBILITY, 1.2);
+    setProficiency(PlayerClass.GATHERER, Trait.HEALTH, 1.5);
+    setProficiency(PlayerClass.GATHERER, Trait.RANGE, 1.0);
+    setProficiency(PlayerClass.GATHERER, Trait.RECOVERY, 1.25);
+
+    setProficiency(PlayerClass.WARRIOR, Trait.DAMAGE, 1.0);
+    setProficiency(PlayerClass.WARRIOR, Trait.MOBILITY, 1.2);
+    setProficiency(PlayerClass.WARRIOR, Trait.HEALTH, 1.5);
+    setProficiency(PlayerClass.WARRIOR, Trait.RANGE, 1.0);
+    setProficiency(PlayerClass.WARRIOR, Trait.RECOVERY, 1.25);
   }
 
-  public int getProficiencies(PlayerClass playerClass, Trait trait) {
-    return proficiencies.get(playerClass).get(trait);
+  public static double getBaseValue(Trait trait) {
+    return baseProficiencies.get(trait);
+  }
+
+  public static double getMultiplier(PlayerClass playerClass, Trait trait) {
+    return playerProficiencies.get(playerClass).get(trait);
+  }
+
+  public static double get(PlayerClass playerClass, Trait trait) {
+    return getMultiplier(playerClass, trait) * getBaseValue(trait);
   }
 
   public static double getStamina(PlayerClass playerClass) {
@@ -97,5 +124,9 @@ public class Proficiency {
     default:
       return 1.0;
     }
+  }
+
+  private static void setProficiency(PlayerClass playerClass, Trait trait, double value) {
+    playerProficiencies.get(playerClass).put(trait, value);
   }
 }
