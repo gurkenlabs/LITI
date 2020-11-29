@@ -9,6 +9,9 @@ import de.gurkenlabs.liti.input.InputManager;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.environment.Environment;
+import de.gurkenlabs.litiengine.input.Input;
+
+import java.awt.event.KeyEvent;
 
 public final class GameManager {
   private GameManager() {
@@ -31,6 +34,16 @@ public final class GameManager {
     });
 
     InputManager.init(inputConfig);
+
+    if (Game.isDebug()) {
+      Input.keyboard().onKeyPressed(KeyEvent.VK_F12, e -> {
+        for (Player player : Game.world().environment().getEntities(Player.class)) {
+          if (player.isDead()) {
+            player.resurrect();
+          }
+        }
+      });
+    }
   }
 
   private static void spawn(Player player, Environment e) {
