@@ -32,7 +32,7 @@ public class LobbyScreen extends LitiScreen {
   @Override
   public void dispatchCancel(int player) {
     super.dispatchCancel(player);
-    CharacterSelectionComponent charSelect = this.charSelects[player - 1];
+    CharacterSelectionComponent charSelect = this.charSelects[player];
     if (!charSelect.hasPlayerAssigned()) {
       charSelect.assignPlayer();
 
@@ -48,7 +48,7 @@ public class LobbyScreen extends LitiScreen {
   @Override
   public void dispatchConfirm(int player) {
     super.dispatchConfirm(player);
-    CharacterSelectionComponent charSelect = this.charSelects[player - 1];
+    CharacterSelectionComponent charSelect = this.charSelects[player];
     if (!charSelect.hasPlayerAssigned()) {
       charSelect.assignPlayer();
 
@@ -58,9 +58,21 @@ public class LobbyScreen extends LitiScreen {
   }
 
   @Override
+  public void dispatchInfo(int player) {
+    super.dispatchInfo(player);
+    CharacterSelectionComponent charSelect = this.charSelects[player];
+    if (!charSelect.hasPlayerAssigned()) {
+      charSelect.assignPlayer();
+
+    } else {
+      charSelect.info();
+    }
+  }
+
+  @Override
   public void dispatchDirection(int player, Direction direction) {
     super.dispatchDirection(player, direction);
-    CharacterSelectionComponent charSelect = this.charSelects[player - 1];
+    CharacterSelectionComponent charSelect = this.charSelects[player];
     if (!charSelect.hasPlayerAssigned()) {
       charSelect.assignPlayer();
 
@@ -88,11 +100,11 @@ public class LobbyScreen extends LitiScreen {
   protected void initializeComponents() {
     super.initializeComponents();
     double compWidth = Game.window().getResolution().getWidth() / 6d;
-    double compHeight = Game.window().getResolution().getHeight() * 4 / 8d;
+    double compHeight = Game.window().getResolution().getHeight() * 3 / 9d;
     double compY = Game.window().getResolution().getHeight() * 3 / 10d;
     this.charSelects = new CharacterSelectionComponent[4];
     for (int i = 0; i <= 3; i++) {
-      charSelects[i] = new CharacterSelectionComponent(compWidth / 2 + i * (compWidth + compWidth / 3d), compY, compWidth, compHeight);
+      charSelects[i] = new CharacterSelectionComponent(compWidth / 2 + i * (compWidth + compWidth / 3d), compY, compWidth, compHeight, i);
       this.getComponents().add(charSelects[i]);
     }
   }

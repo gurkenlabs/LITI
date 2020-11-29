@@ -19,4 +19,8 @@ public abstract class LitiScreen extends Screen {
   public void dispatchDirection(int player, Direction direction) {
 
   }
+
+  public void dispatchInfo(int player) {
+
+  }
 }

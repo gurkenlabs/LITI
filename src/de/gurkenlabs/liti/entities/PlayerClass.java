@@ -1,7 +1,6 @@
 package de.gurkenlabs.liti.entities;
 
 public enum PlayerClass {
-  INVALID,
   WARRIOR,
   SHAMAN,
   HUNTRESS,
@@ -17,7 +16,6 @@ public enum PlayerClass {
         return 60;
       case HUNTRESS:
         return 100;
-      case INVALID:
       default:
         return 100;
     }
@@ -33,7 +31,6 @@ public enum PlayerClass {
         return 20;
       case HUNTRESS:
         return 15;
-      case INVALID:
       default:
         return 15;
     }
@@ -49,7 +46,6 @@ public enum PlayerClass {
         return 30;
       case HUNTRESS:
         return 50;
-      case INVALID:
       default:
         return 30;
     }
@@ -65,7 +61,6 @@ public enum PlayerClass {
         return 120;
       case HUNTRESS:
         return 200;
-      case INVALID:
       default:
         return 150;
     }
@@ -77,7 +72,6 @@ public enum PlayerClass {
         return 1.25;
       case WARRIOR:
         return .75;
-      case INVALID:
       default:
         return 1.0;
     }
@@ -87,7 +81,6 @@ public enum PlayerClass {
     switch (this) {
       case WARRIOR:
         return .25;
-      case INVALID:
       default:
         return 1.0;
     }

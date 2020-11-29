@@ -45,7 +45,6 @@ public final class Players {
     case GATHERER:
       player = new Gatherer(config);
       break;
-    case INVALID:
     default:
       break;
     }

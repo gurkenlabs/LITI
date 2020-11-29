@@ -21,7 +21,7 @@ public final class Hud extends GuiComponent implements IRenderable {
   private static final Color COLOR_STAMINA = new Color(232, 230, 215);
   private static final Color COLOR_STAMINA_DEPLETED = new Color(135, 29, 68);
 
-  private static final int UI_INPUT_DELAY = 100;
+  private static final int UI_INPUT_DELAY = 200;
   private static Map<Integer, Long> lastInputs = new ConcurrentHashMap<>();
 
   Hud() {
@@ -59,6 +59,15 @@ public final class Hud extends GuiComponent implements IRenderable {
     }
 
     getLitiScreen().dispatchDirection(player, direction);
+    lastInputs.put(player, Game.time().now());
+  }
+
+  public static void info(int player) {
+    if (!checkInputDelay(player)) {
+      return;
+    }
+
+    getLitiScreen().dispatchInfo(player);
     lastInputs.put(player, Game.time().now());
   }
 
@@ -105,7 +114,8 @@ public final class Hud extends GuiComponent implements IRenderable {
       Game.graphics().renderShape(g, healthbar);
 
       g.setColor(player.isStaminaDepleted() ? Color.getHSBColor(.9f, 0.785f, (Game.time().now() % 100) / 100f) : COLOR_HEALTH_BG);
-      Rectangle2D staminaRect = new Rectangle2D.Double(x + (width - staminaWidth) / 2.0, y + height + 1 + (staminaHeight - staminaBgHeight) / 2.0, staminaWidth, staminaBgHeight);
+      Rectangle2D staminaRect = new Rectangle2D.Double(x + (width - staminaWidth) / 2.0, y + height + 1 + (staminaHeight - staminaBgHeight) / 2.0,
+          staminaWidth, staminaBgHeight);
       Game.graphics().renderShape(g, staminaRect);
 
       if (!player.isStaminaDepleted()) {
