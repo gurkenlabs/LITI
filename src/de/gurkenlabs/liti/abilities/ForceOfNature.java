@@ -2,6 +2,7 @@ package de.gurkenlabs.liti.abilities;
 
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.StoneProjectile;
+import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.abilities.AbilityExecution;
 import de.gurkenlabs.litiengine.environment.Environment;
@@ -28,8 +29,9 @@ public class ForceOfNature extends SurvivalSkill {
     }
 
     // TODO: anticipation - see servus bonus charge
-    Point2D spawn = GeometricUtilities.getPointOnCircle(this.getPlayer().getCenter(), 15, this.getPlayer().getAngle());
-    Game.world().environment().add(new StoneProjectile(this.getPlayer(), this.getPlayer().getAngle(), new Point2D.Double(spawn.getX() - 10, spawn.getY() - 20)));
+    Point2D spawn = GeometricUtilities.getPointOnCircle(this.getPlayer().getCenter(), 25, this.getPlayer().getAngle() -90);
+    double y = this.getPlayer().getFacingDirection() == Direction.UP ? spawn.getY() - 41 : spawn.getY() - 20;
+    Game.world().environment().add(new StoneProjectile(this.getPlayer(), this.getPlayer().getAngle(), new Point2D.Double(spawn.getX() - 10, y)));
     return super.cast();
   }
 }
