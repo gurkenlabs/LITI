@@ -32,9 +32,12 @@ public class StoneProjectile extends Projectile implements IUpdateable {
   private List<ICombatEntity> hitEntities = new CopyOnWriteArrayList<>();
   private final Player executor;
 
+  private final Point2D origin;
+
   public StoneProjectile(Player executor, double angle, Point2D origin) {
     super(angle, origin);
     this.executor = executor;
+    this.origin = origin;
     this.setRenderType(RenderType.OVERLAY);
 
     this.setController(IEntityAnimationController.class, new EntityAnimationController<>(this, Resources.spritesheets().get("projectile-stone")));
@@ -65,6 +68,7 @@ public class StoneProjectile extends Projectile implements IUpdateable {
 
       @Override
       public void finished(Animation animation) {
+        System.out.println(StoneProjectile.this.getLocation().distance(StoneProjectile.this.origin));
         StoneProjectile.this.die();
         Game.world().environment().remove(StoneProjectile.this);
         Game.world().camera().shake(1, 0, 700);
@@ -73,10 +77,10 @@ public class StoneProjectile extends Projectile implements IUpdateable {
         Point2D impactCenter = new Point2D.Double(StoneProjectile.this.getCollisionBoxCenter().getX(),
             StoneProjectile.this.getCollisionBoxCenter().getY());
         Emitter stoneParticles = new Emitter(impactCenter.getX() - 20, impactCenter.getY() - 20, "stone-particle");
-        stoneParticles.onFinished(e -> {
-          Game.world().environment().remove(stoneParticles);
-        });
+        Emitter crackEmitter = new Emitter(impactCenter.getX() - 20, impactCenter.getY() - 20, "crack");
+        crackEmitter.setRenderType(RenderType.GROUND);
         Game.world().environment().add(stoneParticles);
+        Game.world().environment().add(crackEmitter);
         Game.loop().perform(300, () -> {
           for (ICombatEntity entity : Game.world().environment().findCombatEntities(
               new Ellipse2D.Double(impactCenter.getX() - impactSize / 2.0, impactCenter.getY() - impactSize / 2.0, impactSize, impactSize),
