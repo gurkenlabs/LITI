@@ -5,10 +5,10 @@ import java.util.Map;
 
 import de.gurkenlabs.liti.entities.PlayerClass;
 
-public class Proficiency {
+public final class Proficiency {
   private static final Map<PlayerClass, Map<Trait, Double>> classProficiencies = new EnumMap<>(PlayerClass.class);
 
-  {
+  static {
     classProficiencies.put(PlayerClass.GATHERER, new EnumMap<>(Trait.class));
     classProficiencies.put(PlayerClass.WARRIOR, new EnumMap<>(Trait.class));
     classProficiencies.put(PlayerClass.HUNTRESS, new EnumMap<>(Trait.class));
