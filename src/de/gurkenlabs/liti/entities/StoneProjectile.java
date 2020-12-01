@@ -8,6 +8,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import de.gurkenlabs.liti.abilities.Proficiency;
 import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.GameLoop;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.entities.AnimationInfo;
@@ -33,12 +34,14 @@ public class StoneProjectile extends Projectile implements IUpdateable {
   private final Player executor;
 
   private final Point2D origin;
+  private final double velocity;
 
   public StoneProjectile(Player executor, double angle, Point2D origin) {
     super(angle, origin);
     this.executor = executor;
     this.origin = origin;
     this.setRenderType(RenderType.OVERLAY);
+    this.velocity = 1000 / Game.loop().getTickRate() * 0.001f * this.getVelocity().get();
 
     this.setController(IEntityAnimationController.class, new EntityAnimationController<>(this, Resources.spritesheets().get("projectile-stone")));
     this.animations().addListener(new AnimationListener() {
@@ -68,7 +71,6 @@ public class StoneProjectile extends Projectile implements IUpdateable {
 
       @Override
       public void finished(Animation animation) {
-        System.out.println(StoneProjectile.this.getLocation().distance(StoneProjectile.this.origin));
         StoneProjectile.this.die();
         Game.world().environment().remove(StoneProjectile.this);
         Game.world().camera().shake(1, 0, 700);
@@ -95,8 +97,8 @@ public class StoneProjectile extends Projectile implements IUpdateable {
 
   @Override
   public void update() {
-    final double velocity = this.getTickVelocity();
-    this.setLocation(GeometricUtilities.project(this.getLocation(), this.getAngle(), velocity));
+    final double vel = this.velocity * Game.loop().getTimeScale();
+    this.setLocation(GeometricUtilities.project(this.getLocation(), this.getAngle(), vel));
     for (ICombatEntity entity : Game.world().environment().findCombatEntities(this.getCollisionBox(),
         e -> (e instanceof Player) && !e.equals(this.executor) && !this.hitEntities.contains(e))) {
       entity.hit((int) (Proficiency.get(PlayerClass.WARRIOR, Trait.DAMAGE) * 2));
