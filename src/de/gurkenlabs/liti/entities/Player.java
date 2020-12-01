@@ -144,6 +144,10 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   public void setState(PlayerState playerState) {
     this.playerState = playerState;
+
+    if (this.playerState == PlayerState.LOCKED) {
+      this.movement().setVelocity(0);
+    }
   }
 
   public void setConfiguration(PlayerConfiguration configuration) {
