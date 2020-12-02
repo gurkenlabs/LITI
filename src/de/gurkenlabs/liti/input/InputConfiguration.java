@@ -34,6 +34,8 @@ public class InputConfiguration extends ConfigurationGroup {
 
   private String ui_keyboard_menu = "KEYBOARD_ESCAPE_RELEASED";
   private String ui_gamepad_menu = "GAMEPAD_BUTTON-7_PRESSED";
+  private String ui_keyboard_confirm = "KEYBOARD_SPACE_RELEASED";
+  private String ui_gamepad_confirm = "GAMEPAD_BUTTON-0_PRESSED";
   private String ui_keyboard_info = "KEYBOARD_CONTROL_RELEASED";
   private String ui_gamepad_info = "GAMEPAD_BUTTON-2_PRESSED";
 
@@ -264,11 +266,27 @@ public class InputConfiguration extends ConfigurationGroup {
     this.ui_gamepad_info = ui_gamepad_info;
   }
 
+  public String getUi_gamepad_confirm() {
+    return this.ui_gamepad_confirm;
+  }
+
+  public void setUi_gamepad_confirm(String ui_gamepad_confirm) {
+    this.ui_gamepad_confirm = ui_gamepad_confirm;
+  }
+
   public String getUi_keyboard_info() {
     return this.ui_keyboard_info;
   }
 
   public void setUi_keyboard_info(String ui_keyboard_info) {
     this.ui_keyboard_info = ui_keyboard_info;
+  }
+
+  public String getUi_keyboard_confirm() {
+    return this.ui_keyboard_confirm;
+  }
+
+  public void setUi_keyboard_confirm(String ui_keyboard_confirm) {
+    this.ui_keyboard_confirm = ui_keyboard_confirm;
   }
 }

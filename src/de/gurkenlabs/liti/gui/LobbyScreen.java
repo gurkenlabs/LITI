@@ -34,8 +34,7 @@ public class LobbyScreen extends LitiScreen {
     super.dispatchCancel(player);
     CharacterSelectionComponent charSelect = this.charSelects[player];
     if (!charSelect.hasPlayerAssigned()) {
-      charSelect.assignPlayer();
-
+      return;
     }
     if (charSelect.hasPlayerAssigned() && !charSelect.isReady()) {
       charSelect.removePlayer();
@@ -61,10 +60,7 @@ public class LobbyScreen extends LitiScreen {
   public void dispatchInfo(int player) {
     super.dispatchInfo(player);
     CharacterSelectionComponent charSelect = this.charSelects[player];
-    if (!charSelect.hasPlayerAssigned()) {
-      charSelect.assignPlayer();
-
-    } else {
+    if (charSelect.hasPlayerAssigned()) {
       charSelect.info();
     }
   }
@@ -74,8 +70,7 @@ public class LobbyScreen extends LitiScreen {
     super.dispatchDirection(player, direction);
     CharacterSelectionComponent charSelect = this.charSelects[player];
     if (!charSelect.hasPlayerAssigned()) {
-      charSelect.assignPlayer();
-
+      return;
     }
     switch (direction) {
     case UP:

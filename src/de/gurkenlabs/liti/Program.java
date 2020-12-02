@@ -38,12 +38,10 @@ public class Program {
 
     // Game.screens().add(new SplashScreen());
     // Game.screens().add(new MenuScreen());
-    // Game.screens().add(new LobbyScreen());
+     Game.screens().add(new LobbyScreen());
     Game.screens().add(new IngameScreen());
     Game.screens().add(new ScoreScreen());
 
     Game.start();
-    Game.world().loadEnvironment("plateau");
-
   }
 }
