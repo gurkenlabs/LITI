@@ -2,8 +2,12 @@ package de.gurkenlabs.liti.gui;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.util.Optional;
 
-import de.gurkenlabs.liti.entities.Costume;
+import de.gurkenlabs.liti.entities.Skin;
+import de.gurkenlabs.liti.constants.LitiColors;
+import de.gurkenlabs.liti.constants.Skins;
 import de.gurkenlabs.liti.entities.PlayerClass;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.litiengine.Game;
@@ -12,6 +16,7 @@ import de.gurkenlabs.litiengine.graphics.animation.Animation;
 import de.gurkenlabs.litiengine.graphics.animation.AnimationController;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
 import de.gurkenlabs.litiengine.gui.ImageComponent;
+import de.gurkenlabs.litiengine.resources.ResourceLoadException;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
 
@@ -23,7 +28,7 @@ public class CharacterSelectionComponent extends GuiComponent {
   private boolean ready;
   private PlayerClass currentClass;
   private int playerIndex;
-  private Costume currentCostume;
+  private Skin currentSkin;
   private AnimationController inactivePlayerPrompt;
 
   protected CharacterSelectionComponent(double x, double y, double width, double height, int playerIndex) {
@@ -54,6 +59,7 @@ public class CharacterSelectionComponent extends GuiComponent {
     super.prepare();
     this.info.setVisible(false);
     this.currentClass = Game.random().choose(PlayerClass.values());
+    this.currentSkin = Game.random().choose(Skins.getAll());
     Game.loop().attach(inactivePlayerPrompt);
   }
 
@@ -84,8 +90,8 @@ public class CharacterSelectionComponent extends GuiComponent {
     return currentClass;
   }
 
-  public Costume getCostume() {
-    return currentCostume;
+  public Skin getCurrentSkin() {
+    return currentSkin;
   }
 
   public int getPlayerIndex() {
@@ -100,12 +106,12 @@ public class CharacterSelectionComponent extends GuiComponent {
     return ready;
   }
 
-  public void nextCostume() {
-    setCostume(Costume.values()[(currentCostume.ordinal() + 1) % Costume.values().length]);
+  public void nextSkin() {
+    setSkin(Skins.getAll().get((Skins.getAll().indexOf(this.getCurrentSkin()) + 1) % Skins.getAll().size()));
   }
 
-  public void previousCostume() {
-    setCostume(Costume.values()[Math.floorMod(currentCostume.ordinal() - 1, Costume.values().length)]);
+  public void previousSkin() {
+    setSkin(Skins.getAll().get(Math.floorMod(Skins.getAll().indexOf(this.getCurrentSkin()) - 1, Skins.getAll().size())));
   }
 
   public void nextClass() {
@@ -140,10 +146,25 @@ public class CharacterSelectionComponent extends GuiComponent {
   }
 
   private BufferedImage getPortrait() {
-    if (this.getCurrentPlayerClass() == null) {
+    if (this.getCurrentPlayerClass() == null || !this.hasPlayerAssigned()) {
       return null;
     }
-    return null;
+
+    String defaultPortraitName = String.format("%s_portrait_default.png", this.getCurrentPlayerClass().toString().toLowerCase());
+    String portraitName = String.format("%s_portrait_player-%d_skin-%d.png", this.getCurrentPlayerClass().toString().toLowerCase(), this.getPlayerIndex(), Skins.getAll().indexOf(this.getCurrentSkin()));
+
+    Optional<BufferedImage> opt = Resources.images().tryGet(portraitName);
+    if (opt.isPresent()) {
+      return opt.get();
+    }
+    System.out.println(portraitName);
+    BufferedImage defaultPortrait = Resources.images().get(defaultPortraitName, true);
+    BufferedImage replacedSkin = Imaging.replaceColors(defaultPortrait, this.getCurrentSkin().getColorMappings());
+    BufferedImage replacedPlayer = Imaging.replaceColors(replacedSkin, LitiColors.getPlayerColorMappings(this.getPlayerIndex()));
+    BufferedImage scaled = Imaging.scale(replacedPlayer, (int) (this.characterPortrait.getBoundingBox().getWidth() * 2 / 3d), (int) (this.characterPortrait.getBoundingBox().getHeight() * 2 / 3d), true);
+    Resources.images().add(portraitName, scaled);
+    return scaled;
+
   }
 
   private void setClass(PlayerClass newClass) {
@@ -152,8 +173,8 @@ public class CharacterSelectionComponent extends GuiComponent {
     Players.getConfiguration(this.getPlayerIndex()).setPlayerClass(this.getCurrentPlayerClass());
   }
 
-  private void setCostume(Costume newCostume) {
-    this.currentCostume = newCostume;
+  private void setSkin(Skin newSkin) {
+    this.currentSkin = newSkin;
   }
 
   private void updateClassName() {

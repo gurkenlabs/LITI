@@ -1,10 +1,13 @@
 package de.gurkenlabs.liti.entities;
 
+import java.awt.Graphics2D;
+
 import de.gurkenlabs.liti.abilities.Bash;
 import de.gurkenlabs.liti.abilities.Dash;
 import de.gurkenlabs.liti.abilities.Proficiency;
 import de.gurkenlabs.liti.abilities.SurvivalSkill;
 import de.gurkenlabs.liti.abilities.Trait;
+import de.gurkenlabs.liti.entities.controllers.PlayerAnimationController;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameLoop;
 import de.gurkenlabs.litiengine.IUpdateable;
@@ -12,8 +15,9 @@ import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.entities.Action;
 import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
-
-import java.awt.*;
+import de.gurkenlabs.litiengine.graphics.Spritesheet;
+import de.gurkenlabs.litiengine.graphics.animation.Animation;
+import de.gurkenlabs.litiengine.util.Imaging;
 
 public abstract class Player extends Creature implements IUpdateable, IRenderable {
 
@@ -177,6 +181,23 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   }
 
   public abstract SurvivalSkill getUltimate();
+
+  @Override
+  public void updateAnimationController() {
+    if (this.getConfiguration().getSkin() == null) {
+      return;
+    }
+    this.animations().getAll().forEach(an -> {
+      Spritesheet replaced = new Spritesheet(Imaging.replaceColors(an.getSpritesheet().getImage(), this.getConfiguration().getSkin().getColorMappings()), an.getSpritesheet().getName(), an.getSpritesheet().getSpriteWidth(), an.getSpritesheet().getSpriteHeight());
+      this.animations().add(new Animation(replaced, an.isLooping(), an.getKeyFrameDurations()));
+      this.animations().remove(an);
+    });
+
+    this.setController(PlayerAnimationController.class, new PlayerAnimationController(this));
+    if (Game.world().environment() != null && Game.world().environment().isLoaded()) {
+      this.animations().attach();
+    }
+  }
 
   private void recoverStamina() {
     if (this.stamina.get() < this.stamina.getMax()) {

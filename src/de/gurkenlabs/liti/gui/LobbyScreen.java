@@ -74,10 +74,10 @@ public class LobbyScreen extends LitiScreen {
     }
     switch (direction) {
     case UP:
-      charSelect.previousCostume();
+      charSelect.previousSkin();
       break;
     case DOWN:
-      charSelect.nextCostume();
+      charSelect.nextSkin();
       break;
     case LEFT:
       charSelect.previousClass();
