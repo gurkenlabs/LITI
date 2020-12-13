@@ -1,8 +1,10 @@
 package de.gurkenlabs.liti.input;
 
+import java.awt.event.KeyEvent;
+import java.awt.geom.Point2D;
+import java.util.function.Consumer;
+
 import de.gurkenlabs.liti.entities.Player;
-import de.gurkenlabs.liti.entities.PlayerClass;
-import de.gurkenlabs.liti.entities.PlayerConfiguration;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.liti.gui.Hud;
 import de.gurkenlabs.litiengine.Direction;
@@ -11,53 +13,19 @@ import de.gurkenlabs.litiengine.input.Gamepad;
 import de.gurkenlabs.litiengine.input.Input;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 
-import java.awt.event.KeyEvent;
-import java.awt.geom.Point2D;
-import java.util.function.Consumer;
-
 public final class InputManager {
   private static InputConfiguration config;
-
-  // TODO: also display error message if input device gets lost during the game:
-  // "missing gamepad for player X"
-  private static boolean defaultInputSet = false;
 
   private InputManager() {
   }
 
-  public static boolean isDefaultInputSet() {
-    return defaultInputSet;
-  }
-
   public static void update() {
-    // setup player configuration 1 if no configuration is bound yet
-    if (!defaultInputSet) {
-      assignDefaultUiInput();
-
-      // TODO: set this in the lobby screen
-      Players.getConfiguration(0).setPlayerClass(PlayerClass.WARRIOR);
-
-      // TODO: Hack to join multiple players without lobby screen
-      if (Input.gamepads().getAll().size() > 0) {
-        PlayerConfiguration configPlayer2 = Players.addConfiguration(1, InputBinding.InputType.GAMEPAD, Input.gamepads().get(0));
-        configPlayer2.setPlayerClass(PlayerClass.HUNTRESS);
-        bindUiInput(1, Input.gamepads().get(0));
-      }
-
-      if (Input.gamepads().getAll().size() > 1) {
-        PlayerConfiguration configPlayer3 = Players.addConfiguration(2, InputBinding.InputType.GAMEPAD, Input.gamepads().get(1));
-        configPlayer3.setPlayerClass(PlayerClass.GATHERER);
-        bindUiInput(2, Input.gamepads().get(1));
-      }
-
-      defaultInputSet = true;
-    }
   }
 
   public static void bindUiInput(int index, Gamepad gamepad) {
     if (gamepad != null) {
       InputBinding.bind((value) -> Hud.cancel(index), config.getgamepad_cancel(), gamepad);
-      InputBinding.bind((value) -> Hud.confirm(index), config.getgamepad_interact(), gamepad);
+      InputBinding.bind((value) -> Hud.confirm(index), config.getUi_gamepad_confirm(), gamepad);
       InputBinding.bind((value) -> Hud.confirm(index), config.getUi_gamepad_menu(), gamepad);
       InputBinding.bind((value) -> Hud.info(index), config.getUi_gamepad_info(), gamepad);
       InputBinding.bind((value) -> Hud.direction(index, Direction.UP), config.getgamepad_up(), gamepad);
@@ -68,7 +36,7 @@ public final class InputManager {
     }
 
     InputBinding.bind((value) -> Hud.cancel(index), config.getkeyboard_cancel(), null);
-    InputBinding.bind((value) -> Hud.confirm(index), config.getkeyboard_interact(), null);
+    InputBinding.bind((value) -> Hud.confirm(index), config.getUi_keyboard_confirm(), null);
     InputBinding.bind((value) -> Hud.confirm(index), config.getUi_keyboard_menu(), null);
     InputBinding.bind((value) -> Hud.info(index), config.getUi_keyboard_info(), null);
     InputBinding.bind((value) -> Hud.direction(index, Direction.UP), config.getkeyboard_up(), null);
@@ -250,12 +218,19 @@ public final class InputManager {
 
   public static void init(InputConfiguration conf) {
     config = conf;
+    setupDefaultUIInput();
 
     Game.loop().attach(InputManager::update);
 
     if (Game.config().input().isGamepadSupport()) {
-      Input.gamepads().onRemoved(gamepad -> {
-        // TODO
+      // TODO: also display error message if input device gets lost during the
+      // game:
+      // "missing gamepad for player X"
+      Input.gamepads().onRemoved(l -> {
+        System.out.println(String.format("Gamepad %d (%s) removed.", l.getId(), l.getName()));
+      });
+      Input.gamepads().onAdded(l -> {
+        System.out.println(String.format("Gamepad %d (%s) added.", l.getId(), l.getName()));
       });
     }
 
@@ -264,18 +239,12 @@ public final class InputManager {
     }
   }
 
-  private static void assignDefaultUiInput() {
-    // TODO: hardcoded keyboard input for testing. Target: prefer controller
-    // over keyboard if present
-    if (Game.config().input().isGamepadSupport()) {
-      for (Gamepad gamepad : Input.gamepads().getAll()) {
-        // bindUiInput(0, gamepad);
-        // Players.addConfiguration(0, InputBinding.InputType.GAMEPAD, gamepad);
-        // return;
-      }
+  private static void setupDefaultUIInput() {
+    int inputIndex = 0;
+    Players.addConfiguration(inputIndex, InputBinding.InputType.KEYBOARD, null);
+    for (Gamepad pad : Input.gamepads().getAll()) {
+      inputIndex++;
+      Players.addConfiguration(inputIndex, InputBinding.InputType.GAMEPAD, pad);
     }
-
-    bindUiInput(0, null);
-    Players.addConfiguration(0, InputBinding.InputType.KEYBOARD, null);
   }
 }

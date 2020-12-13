@@ -7,7 +7,7 @@ public class PlayerConfiguration {
   private int index;
   private InputBinding.InputType inputDevice = InputBinding.InputType.NONE;
   private Gamepad gamepad;
-
+  private Skin skin;
   private PlayerClass type;
 
   // TODO: color etc.
@@ -30,6 +30,10 @@ public class PlayerConfiguration {
     return type;
   }
 
+  public Skin getSkin() {
+    return skin;
+  }
+
   public int getIndex() {
     return index;
   }
@@ -44,5 +48,9 @@ public class PlayerConfiguration {
 
   public void setPlayerClass(PlayerClass type) {
     this.type = type;
+  }
+
+  public void setSkin(Skin skin) {
+    this.skin = skin;
   }
 }

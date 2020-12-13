@@ -82,6 +82,8 @@ public final class Players {
 
     PlayerConfiguration config = new PlayerConfiguration(index, device, gamepad);
     getConfigurations().add(config);
+
+    InputManager.bindUiInput(index, gamepad);
     return config;
   }
 }

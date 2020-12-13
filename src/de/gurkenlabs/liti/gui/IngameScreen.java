@@ -13,6 +13,12 @@ public class IngameScreen extends LitiScreen {
   }
 
   @Override
+  public void prepare() {
+    super.prepare();
+    Game.world().loadEnvironment("plateau");
+  }
+
+  @Override
   protected void initializeComponents() {
     super.initializeComponents();
     this.hud = new Hud();

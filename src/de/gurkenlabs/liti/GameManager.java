@@ -18,6 +18,7 @@ public final class GameManager {
   }
 
   public static void init(InputConfiguration inputConfig) {
+    InputManager.init(inputConfig);
     Game.world().onLoaded(e -> {
       if (!e.getMap().getName().equals("plateau")) {
         return;
@@ -32,8 +33,6 @@ public final class GameManager {
         spawn(player, e);
       }
     });
-
-    InputManager.init(inputConfig);
 
     if (Game.isDebug()) {
       Input.keyboard().onKeyPressed(KeyEvent.VK_F12, e -> {
