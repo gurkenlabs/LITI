@@ -2,21 +2,19 @@ package de.gurkenlabs.liti.gui;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
 import java.util.Optional;
 
-import de.gurkenlabs.liti.entities.Skin;
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.constants.Skins;
 import de.gurkenlabs.liti.entities.PlayerClass;
 import de.gurkenlabs.liti.entities.Players;
+import de.gurkenlabs.liti.entities.Skin;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
-import de.gurkenlabs.litiengine.graphics.animation.Animation;
 import de.gurkenlabs.litiengine.graphics.animation.AnimationController;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
 import de.gurkenlabs.litiengine.gui.ImageComponent;
-import de.gurkenlabs.litiengine.resources.ResourceLoadException;
+import de.gurkenlabs.litiengine.input.Input;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
 
@@ -48,7 +46,9 @@ public class CharacterSelectionComponent extends GuiComponent {
       if (this.inactivePlayerPrompt == null || this.inactivePlayerPrompt.getCurrentImage() == null) {
         return;
       }
-      BufferedImage prompt = Imaging.scale(this.inactivePlayerPrompt.getCurrentImage(), (int) (this.characterPortrait.getBoundingBox().getWidth() * 2 / 3d), (int) (this.characterPortrait.getBoundingBox().getHeight() * 2 / 3d), true);
+      BufferedImage prompt = Imaging
+          .scale(this.inactivePlayerPrompt.getCurrentImage(), (int) (this.characterPortrait.getBoundingBox().getWidth() * 2 / 3d),
+              (int) (this.characterPortrait.getBoundingBox().getHeight() * 2 / 3d), true);
       ImageRenderer.render(g, prompt, this.characterPortrait.getBoundingBox().getCenterX() - prompt.getWidth() / 2d,
           this.characterPortrait.getBoundingBox().getCenterY() - prompt.getHeight() / 2d);
     }
@@ -151,17 +151,19 @@ public class CharacterSelectionComponent extends GuiComponent {
     }
 
     String defaultPortraitName = String.format("%s_portrait_default.png", this.getCurrentPlayerClass().toString().toLowerCase());
-    String portraitName = String.format("%s_portrait_player-%d_skin-%d.png", this.getCurrentPlayerClass().toString().toLowerCase(), this.getPlayerIndex(), Skins.getAll().indexOf(this.getCurrentSkin()));
+    String portraitName = String
+        .format("%s_portrait_player-%d_skin-%d.png", this.getCurrentPlayerClass().toString().toLowerCase(), this.getPlayerIndex(),
+            Skins.getAll().indexOf(this.getCurrentSkin()));
 
     Optional<BufferedImage> opt = Resources.images().tryGet(portraitName);
     if (opt.isPresent()) {
       return opt.get();
     }
-    System.out.println(portraitName);
     BufferedImage defaultPortrait = Resources.images().get(defaultPortraitName, true);
     BufferedImage replacedSkin = Imaging.replaceColors(defaultPortrait, this.getCurrentSkin().getColorMappings());
     BufferedImage replacedPlayer = Imaging.replaceColors(replacedSkin, LitiColors.getPlayerColorMappings(this.getPlayerIndex()));
-    BufferedImage scaled = Imaging.scale(replacedPlayer, (int) (this.characterPortrait.getBoundingBox().getWidth() * 2 / 3d), (int) (this.characterPortrait.getBoundingBox().getHeight() * 2 / 3d), true);
+    BufferedImage scaled = Imaging.scale(replacedPlayer, (int) (this.characterPortrait.getBoundingBox().getWidth() * 2 / 3d),
+        (int) (this.characterPortrait.getBoundingBox().getHeight() * 2 / 3d), true);
     Resources.images().add(portraitName, scaled);
     return scaled;
 

@@ -24,8 +24,8 @@ public class InputConfiguration extends ConfigurationGroup {
   private String gamepad_right = "GAMEPAD_AXIS-X_+_PRESSED";
   private String gamepad_block_start = "GAMEPAD_BUTTON-0_PRESSED";
   private String gamepad_block_stop = "GAMEPAD_BUTTON-0_RELEASED";
-  private String gamepad_interact = "GAMEPAD_BUTTON-0_PRESSED";
-  private String gamepad_cancel = "GAMEPAD_BUTTON-1_PRESSED";
+  private String gamepad_interact = "GAMEPAD_BUTTON-1_PRESSED";
+  private String gamepad_cancel = "GAMEPAD_BUTTON-2_PRESSED";
   private String gamepad_dash = "GAMEPAD_AXIS-Z_+_PRESSED";
   private String gamepad_ultimate = "GAMEPAD_BUTTON-1_PRESSED";
   private String gamepad_bash = "GAMEPAD_AXIS-Z_-_PRESSED";
@@ -33,11 +33,11 @@ public class InputConfiguration extends ConfigurationGroup {
   private String gamepad_aimy = "GAMEPAD_AXIS-RY_CHANGED";
 
   private String ui_keyboard_menu = "KEYBOARD_ESCAPE_RELEASED";
-  private String ui_gamepad_menu = "GAMEPAD_BUTTON-7_PRESSED";
+  private String ui_gamepad_menu = "GAMEPAD_BUTTON-9_PRESSED";
   private String ui_keyboard_confirm = "KEYBOARD_SPACE_RELEASED";
-  private String ui_gamepad_confirm = "GAMEPAD_BUTTON-0_PRESSED";
+  private String ui_gamepad_confirm = "GAMEPAD_BUTTON-1_PRESSED";
   private String ui_keyboard_info = "KEYBOARD_CONTROL_RELEASED";
-  private String ui_gamepad_info = "GAMEPAD_BUTTON-2_PRESSED";
+  private String ui_gamepad_info = "GAMEPAD_BUTTON-0_PRESSED";
 
   public InputConfiguration() {
   }

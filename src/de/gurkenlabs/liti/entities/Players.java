@@ -22,9 +22,8 @@ public final class Players {
   /**
    * Creates actual entities and bind the actions to the entity
    *
-   * @param config
-   *          The player configuration containing details about the chosen input
-   *          device, class and the player index.
+   * @param config The player configuration containing details about the chosen input
+   *               device, class and the player index.
    */
   public static Player join(PlayerConfiguration config) {
     if (config.getPlayerClass() == null) {
