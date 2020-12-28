@@ -22,7 +22,7 @@ public class TraitComponent extends GuiComponent {
   public void prepare() {
     super.prepare();
     this.name.setText(Resources.strings().get(this.getTrait().toString()));
-    this.value.setImage(Resources.spritesheets().get("proficiencies").getSprite(proficiency));
+    this.value.setImage(Resources.spritesheets().get("proficiency-levels").getSprite(proficiency));
   }
 
   public Trait getTrait() {

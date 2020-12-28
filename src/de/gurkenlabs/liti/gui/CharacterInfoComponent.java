@@ -23,7 +23,7 @@ public class CharacterInfoComponent extends GuiComponent {
           Trait.values()[i]);
       this.getComponents().add(traits[i]);
     }
-    this.ultimate = new ImageComponent(this.getX(), this.getY() + 5 * cellHeight, this.getWidth(), cellHeight);
+    this.ultimate = new ImageComponent(this.getX(), this.getY() + 6 * cellHeight, this.getWidth(), cellHeight * 4);
     this.getComponents().add(ultimate);
   }
 

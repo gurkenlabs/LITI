@@ -74,13 +74,13 @@ public class CharacterSelectionComponent extends GuiComponent {
   protected void initializeComponents() {
     super.initializeComponents();
     double portraitHeight = this.getHeight() * 4 / 5d;
-    double textHeight = this.getHeight() * 1 / 5d;
+    double textHeight = Game.window().getResolution().getHeight() * 1 / 3d;
 
-    this.characterPortrait = new ImageComponent(this.getX(), this.getY(), this.getWidth(), portraitHeight);
-    this.characterPortrait.setSpriteSheet(Resources.spritesheets().get("woodframe_single"));
-    this.className = new ImageComponent(this.getX(), this.getY() + this.characterPortrait.getHeight(), this.getWidth(), textHeight);
-
-    this.info = new CharacterInfoComponent(this.getX(), this.className.getY() + textHeight, this.getWidth(), textHeight * 4);
+    this.className = new ImageComponent(this.getX(), this.getY(), this.getWidth(), textHeight);
+    this.characterPortrait = new ImageComponent(this.getX(), this.getY() + this.className.getHeight(), this.getWidth(), portraitHeight);
+    this.characterPortrait.setSpriteSheet(Resources.spritesheets().get("frame-portrait"));
+    this.info = new CharacterInfoComponent(this.getX(), this.characterPortrait.getY() + this.characterPortrait.getHeight(), this.getWidth(),
+        textHeight * 9);
     this.getComponents().add(characterPortrait);
     this.getComponents().add(className);
     this.getComponents().add(info);
