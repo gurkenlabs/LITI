@@ -1,9 +1,5 @@
 package de.gurkenlabs.liti.gui;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.util.Optional;
-
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.constants.Skins;
 import de.gurkenlabs.liti.entities.PlayerClass;
@@ -14,9 +10,12 @@ import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.animation.AnimationController;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
 import de.gurkenlabs.litiengine.gui.ImageComponent;
-import de.gurkenlabs.litiengine.input.Input;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Optional;
 
 public class CharacterSelectionComponent extends GuiComponent {
   private ImageComponent characterPortrait;

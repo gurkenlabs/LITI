@@ -1,15 +1,13 @@
 package de.gurkenlabs.liti.gui;
 
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
-import de.gurkenlabs.litiengine.resources.Resource;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class LobbyScreen extends LitiScreen {
   private CharacterSelectionComponent[] charSelects;
