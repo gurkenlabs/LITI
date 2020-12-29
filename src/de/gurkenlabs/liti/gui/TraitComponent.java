@@ -22,22 +22,22 @@ public class TraitComponent extends GuiComponent {
   public void prepare() {
     super.prepare();
     this.name.setText(Resources.strings().get(this.getTrait().toString()));
-    this.value.setImage(Resources.spritesheets().get("proficiency-levels").getSprite(proficiency));
   }
 
   public Trait getTrait() {
     return trait;
   }
 
-  public void setProficiency(int proficiency) {
-    this.proficiency = proficiency;
+  public void setProficiencyLevel(int proficiencyLevel) {
+    this.proficiency = proficiencyLevel;
+    this.value.setImage(Resources.spritesheets().get("proficiency-levels").getSprite(proficiencyLevel));
   }
 
   @Override
   protected void initializeComponents() {
     super.initializeComponents();
-    this.name = new ImageComponent(this.getX() + this.getWidth() * 2 / 6d, this.getY(), this.getWidth() * 3 / 6d, this.getHeight());
-    this.value = new ImageComponent(this.getX() + this.getWidth() * 1 / 6d, this.getY(), this.getWidth() * 1 / 6d, this.getHeight());
+    this.name = new ImageComponent(this.getX() + this.getWidth() * 1 / 6d, this.getY(), this.getWidth() * 3 / 6d, this.getHeight());
+    this.value = new ImageComponent(this.getX() + this.getWidth() * 4 / 6d, this.getY(), this.getWidth() * 1 / 6d, this.getHeight());
     this.value.setImageScaleMode(ImageScaleMode.FIT);
     this.name.setTextAlign(Align.LEFT);
     this.getComponents().add(this.name);

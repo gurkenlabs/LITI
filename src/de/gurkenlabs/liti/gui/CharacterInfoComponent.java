@@ -1,5 +1,6 @@
 package de.gurkenlabs.liti.gui;
 
+import de.gurkenlabs.liti.abilities.Proficiency;
 import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.liti.entities.PlayerClass;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
@@ -17,17 +18,20 @@ public class CharacterInfoComponent extends GuiComponent {
   protected void initializeComponents() {
     super.initializeComponents();
     this.traits = new TraitComponent[Trait.values().length];
-    double cellHeight = this.getHeight() / (Trait.values().length + 1);
+    double cellHeight = this.getHeight() / (Trait.values().length);
     for (int i = 0; i < Trait.values().length; i++) {
       traits[i] = new TraitComponent(this.getX(), this.getY() + i * cellHeight, this.getWidth(), cellHeight,
           Trait.values()[i]);
       this.getComponents().add(traits[i]);
     }
-    this.ultimate = new ImageComponent(this.getX(), this.getY() + 6 * cellHeight, this.getWidth(), cellHeight * 4);
+    this.ultimate = new ImageComponent(this.getX(), this.getY() + 6 * cellHeight, this.getWidth(), cellHeight * 3);
+    this.ultimate.getAppearance().setTransparentBackground(false);
     this.getComponents().add(ultimate);
   }
 
   protected void setClass(PlayerClass newClass) {
-
+    for (int i = 0; i < Trait.values().length; i++) {
+      traits[i].setProficiencyLevel(Proficiency.getLevel(newClass, Trait.values()[i]));
+    }
   }
 }

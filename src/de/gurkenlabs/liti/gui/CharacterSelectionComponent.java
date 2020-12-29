@@ -33,7 +33,7 @@ public class CharacterSelectionComponent extends GuiComponent {
     super(x, y, width, height);
     this.playerIndex = playerIndex;
     this.inactivePlayerPrompt = new AnimationController(Resources.spritesheets().get("confirm_prompt"), true);
-
+    this.updateClassName();
   }
 
   @Override
@@ -58,8 +58,8 @@ public class CharacterSelectionComponent extends GuiComponent {
   public void prepare() {
     super.prepare();
     this.info.setVisible(false);
-    this.currentClass = Game.random().choose(PlayerClass.values());
-    this.currentSkin = Game.random().choose(Skins.getAll());
+    this.setClass(Game.random().choose(PlayerClass.values()));
+    this.setSkin(Game.random().choose(Skins.getAll()));
     Game.loop().attach(inactivePlayerPrompt);
   }
 
@@ -74,13 +74,13 @@ public class CharacterSelectionComponent extends GuiComponent {
   protected void initializeComponents() {
     super.initializeComponents();
     double portraitHeight = this.getHeight() * 4 / 5d;
-    double textHeight = Game.window().getResolution().getHeight() * 1 / 3d;
+    double textHeight = this.getHeight() * 1 / 5d;
 
     this.className = new ImageComponent(this.getX(), this.getY(), this.getWidth(), textHeight);
     this.characterPortrait = new ImageComponent(this.getX(), this.getY() + this.className.getHeight(), this.getWidth(), portraitHeight);
     this.characterPortrait.setSpriteSheet(Resources.spritesheets().get("frame-portrait"));
     this.info = new CharacterInfoComponent(this.getX(), this.characterPortrait.getY() + this.characterPortrait.getHeight(), this.getWidth(),
-        textHeight * 9);
+        textHeight * 4);
     this.getComponents().add(characterPortrait);
     this.getComponents().add(className);
     this.getComponents().add(info);
@@ -129,8 +129,8 @@ public class CharacterSelectionComponent extends GuiComponent {
 
   public void removePlayer() {
     playerAssigned = false;
-    this.className.setText("");
     this.info.setVisible(false);
+    this.updateClassName();
   }
 
   public void ready() {
@@ -172,7 +172,10 @@ public class CharacterSelectionComponent extends GuiComponent {
   private void setClass(PlayerClass newClass) {
     this.currentClass = newClass;
     this.updateClassName();
-    Players.getConfiguration(this.getPlayerIndex()).setPlayerClass(this.getCurrentPlayerClass());
+    this.info.setClass(newClass);
+    if (Players.getConfigurations().size() > this.getPlayerIndex()) {
+      Players.getConfiguration(this.getPlayerIndex()).setPlayerClass(this.getCurrentPlayerClass());
+    }
   }
 
   private void setSkin(Skin newSkin) {
@@ -180,6 +183,6 @@ public class CharacterSelectionComponent extends GuiComponent {
   }
 
   private void updateClassName() {
-    this.className.setText(this.getCurrentPlayerClass().name());
+    this.className.setText(this.playerAssigned ? this.getCurrentPlayerClass().name() : String.format("P%d", this.getPlayerIndex() + 1));
   }
 }

@@ -47,6 +47,63 @@ public final class Proficiency {
     return classProficiencies.get(playerClass).get(trait);
   }
 
+  public static int getLevel(PlayerClass playerClass, Trait trait) {
+    double value = get(playerClass, trait);
+    int level = 0;
+    switch (trait) {
+    case HEALTH:
+      if (value < 100) {
+        return 0;
+      } else if (value >= 100 && value < 120) {
+        return 1;
+      } else {
+        return 2;
+      }
+    case DAMAGE:
+      if (value < 15) {
+        return 0;
+      } else if (value >= 15 && value < 20) {
+        return 1;
+      } else {
+        return 2;
+      }
+    case STAMINA:
+      if (value < 80) {
+        return 0;
+      } else if (value >= 80 && value < 100) {
+        return 1;
+      } else {
+        return 2;
+      }
+    case RECOVERY:
+      if (value < 0.9) {
+        return 0;
+      } else if (value >= 0.9 && value < 1.25) {
+        return 1;
+      } else {
+        return 2;
+      }
+    case RANGE:
+      if (value < 40) {
+        return 0;
+      } else if (value >= 40 && value < 50) {
+        return 1;
+      } else {
+        return 2;
+      }
+    case MOBILITY:
+      if (value < 80) {
+        return 0;
+      } else if (value >= 80 && value < 90) {
+        return 1;
+      } else {
+        return 2;
+      }
+    default:
+      return 0;
+    }
+  }
+
   private static void set(PlayerClass playerClass, Trait trait, double value) {
     classProficiencies.get(playerClass).put(trait, value);
   }

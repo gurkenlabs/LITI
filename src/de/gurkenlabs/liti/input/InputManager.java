@@ -37,7 +37,6 @@ public final class InputManager {
 
     InputBinding.bind((value) -> Hud.cancel(index), config.getkeyboard_cancel(), null);
     InputBinding.bind((value) -> Hud.confirm(index), config.getUi_keyboard_confirm(), null);
-    InputBinding.bind((value) -> Hud.confirm(index), config.getUi_keyboard_menu(), null);
     InputBinding.bind((value) -> Hud.info(index), config.getUi_keyboard_info(), null);
     InputBinding.bind((value) -> Hud.direction(index, Direction.UP), config.getkeyboard_up(), null);
     InputBinding.bind((value) -> Hud.direction(index, Direction.DOWN), config.getkeyboard_down(), null);
