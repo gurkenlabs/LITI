@@ -23,4 +23,8 @@ public abstract class LitiScreen extends Screen {
   public void dispatchInfo(int player) {
 
   }
+
+  public void dispatchMenu(int player) {
+
+  }
 }

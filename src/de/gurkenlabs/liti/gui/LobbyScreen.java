@@ -5,6 +5,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
+import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -22,11 +23,10 @@ public class LobbyScreen extends LitiScreen {
   public void render(Graphics2D g) {
     ImageRenderer.render(g, BACKGROUND, 0, 0);
     super.render(g);
-    //    g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    double scale = 1.0 + 0.10 * Math.sin(Game.time().sinceEnvironmentLoad() / 500.0);
+    double offsetY = TITLE.getHeight() / 4d * Math.sin(Game.time().sinceEnvironmentLoad() / 600.0);
     double titleRefY = Game.window().getHeight() * 1 / 12d;
-    ImageRenderer.render(g, Imaging.scale(TITLE, scale), Game.window().getCenter().getX() - (scale * TITLE.getWidth()) / 2,
-        titleRefY - (scale * TITLE.getHeight()) / 2);
+    ImageRenderer.render(g, TITLE, Game.window().getCenter().getX() - TITLE.getWidth() / 2d,
+        titleRefY - TITLE.getHeight() / 2d + offsetY);
     g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 
   }
@@ -44,6 +44,10 @@ public class LobbyScreen extends LitiScreen {
     } else if (charSelect.isReady()) {
       charSelect.unready();
     }
+  }
+
+  @Override public void dispatchMenu(int player) {
+    this.dispatchCancel(player);
   }
 
   @Override

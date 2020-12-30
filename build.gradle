@@ -1,48 +1,48 @@
 plugins {
-  id 'java'
-  id 'application'
+    id 'java'
+    id 'application'
 }
 
 version 'v0.0.1'
 mainClassName = 'de.gurkenlabs.liti.Program'
 
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-  implementation project(':litiengine')
-  implementation 'uk.co.caprica:vlcj:4.7.0'
+    implementation project(':litiengine')
+    implementation 'uk.co.caprica:vlcj:4.7.0'
 }
 
 sourceSets {
-  main.java.srcDir 'src'
-  main.resources.srcDirs = ['audio', 'images','localization']
+    main.java.srcDir 'src'
+    main.resources.srcDirs = ['audio', 'images', 'localization', 'misc']
 }
 
 // copy native binaries to support gamepad input
 task copyNativeLibs(type: Copy) {
-  def litiengineLibs = '../litiengine/build/libs'
-  def litiLibs = 'dist/libs'
-  def buildFolder = new File(buildDir, 'libs')
+    def litiengineLibs = '../litiengine/build/libs'
+    def litiLibs = 'dist/libs'
+    def buildFolder = new File(buildDir, 'libs')
 
-  from(litiengineLibs) {
-    include '**/*'
-    exclude '**/*.jar'
-    exclude '**/*.zip'
-    exclude 'LICENSE'
-    exclude 'lib/**'
-  }
-  
-  from(litiLibs){
-    include '**/*'
-  }
+    from(litiengineLibs) {
+        include '**/*'
+        exclude '**/*.jar'
+        exclude '**/*.zip'
+        exclude 'LICENSE'
+        exclude 'lib/**'
+    }
 
-  into buildFolder
+    from(litiLibs) {
+        include '**/*'
+    }
+
+    into buildFolder
 }
 
 run {
-  systemProperty "java.library.path", new File(buildDir, 'libs')
+    systemProperty "java.library.path", new File(buildDir, 'libs')
 }
 
 build.dependsOn copyNativeLibs

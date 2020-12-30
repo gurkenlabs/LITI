@@ -9,6 +9,9 @@ import de.gurkenlabs.litiengine.util.ColorHelper;
 public final class LitiColors {
 
   public static final Color SHADOW_COLOR = new Color(0, 0, 0, 80);
+  public static final Color TEXT_DARK = ColorHelper.decode("#25160b");
+  public static final Color TEXT_OUTLINE = ColorHelper.decode("#392515");
+
   public static final Color defaultMainSkinColor = ColorHelper.decode("#949494");
   public static final Color defaultSkinDetailColor = ColorHelper.decode("#857171");
   public static final Color defaultDarkSkinColor = ColorHelper.decode("#696969");

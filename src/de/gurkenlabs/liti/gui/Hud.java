@@ -53,6 +53,15 @@ public final class Hud extends GuiComponent implements IRenderable {
     lastInputs.put(player, Game.time().now());
   }
 
+  public static void menu(int player) {
+    if (!checkInputDelay(player)) {
+      return;
+    }
+
+    getLitiScreen().dispatchMenu(player);
+    lastInputs.put(player, Game.time().now());
+  }
+
   public static void direction(int player, Direction direction) {
     if (!checkInputDelay(player)) {
       return;

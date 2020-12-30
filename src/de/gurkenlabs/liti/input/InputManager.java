@@ -26,7 +26,7 @@ public final class InputManager {
     if (gamepad != null) {
       InputBinding.bind((value) -> Hud.cancel(index), config.getgamepad_cancel(), gamepad);
       InputBinding.bind((value) -> Hud.confirm(index), config.getUi_gamepad_confirm(), gamepad);
-      InputBinding.bind((value) -> Hud.confirm(index), config.getUi_gamepad_menu(), gamepad);
+      InputBinding.bind((value) -> Hud.menu(index), config.getUi_gamepad_menu(), gamepad);
       InputBinding.bind((value) -> Hud.info(index), config.getUi_gamepad_info(), gamepad);
       InputBinding.bind((value) -> Hud.direction(index, Direction.UP), config.getgamepad_up(), gamepad);
       InputBinding.bind((value) -> Hud.direction(index, Direction.DOWN), config.getgamepad_down(), gamepad);
@@ -37,6 +37,7 @@ public final class InputManager {
 
     InputBinding.bind((value) -> Hud.cancel(index), config.getkeyboard_cancel(), null);
     InputBinding.bind((value) -> Hud.confirm(index), config.getUi_keyboard_confirm(), null);
+    InputBinding.bind((value) -> Hud.menu(index), config.getUi_keyboard_menu(), null);
     InputBinding.bind((value) -> Hud.info(index), config.getUi_keyboard_info(), null);
     InputBinding.bind((value) -> Hud.direction(index, Direction.UP), config.getkeyboard_up(), null);
     InputBinding.bind((value) -> Hud.direction(index, Direction.DOWN), config.getkeyboard_down(), null);

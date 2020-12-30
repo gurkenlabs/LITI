@@ -1,5 +1,6 @@
 package de.gurkenlabs.liti;
 
+import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.gui.IngameScreen;
 import de.gurkenlabs.liti.gui.LobbyScreen;
 import de.gurkenlabs.liti.gui.MenuScreen;
@@ -7,14 +8,14 @@ import de.gurkenlabs.liti.gui.ScoreScreen;
 import de.gurkenlabs.liti.gui.SplashScreen;
 import de.gurkenlabs.liti.input.InputConfiguration;
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.gui.GuiProperties;
 import de.gurkenlabs.litiengine.resources.Resources;
 
 public class Program {
   /**
    * The main entry point for the Game.
    *
-   * @param args
-   *          The command line arguments.
+   * @param args The command line arguments.
    */
   public static void main(String[] args) {
 
@@ -29,6 +30,8 @@ public class Program {
     Game.info().setSubTitle("Stoneage Brawl");
     Game.info().setVersion("v1.0.0");
 
+    GuiProperties.getDefaultAppearance().setForeColor(LitiColors.TEXT_DARK);
+
     // init the game infrastructure
     Game.init(args);
 
@@ -38,7 +41,7 @@ public class Program {
 
     // Game.screens().add(new SplashScreen());
     // Game.screens().add(new MenuScreen());
-     Game.screens().add(new LobbyScreen());
+    Game.screens().add(new LobbyScreen());
     Game.screens().add(new IngameScreen());
     Game.screens().add(new ScoreScreen());
 
