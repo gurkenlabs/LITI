@@ -1,5 +1,6 @@
 package de.gurkenlabs.liti.gui;
 
+import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.litiengine.Direction;
@@ -15,14 +16,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 //TODO: dispatching delay
 public final class Hud extends GuiComponent implements IRenderable {
-  private static final Color COLOR_HEALTH_BG = new Color(40, 42, 43, 200);
-  private static final Color COLOR_HEALTH = new Color(225, 109, 115);
-  private static final Color COLOR_HEALTH_LOW = Color.RED;
-  private static final Color COLOR_STAMINA = new Color(232, 230, 215);
-  private static final Color COLOR_STAMINA_DEPLETED = new Color(135, 29, 68);
 
   private static final int UI_INPUT_DELAY = 200;
-  private static Map<Integer, Long> lastInputs = new ConcurrentHashMap<>();
+  private static final Map<Integer, Long> lastInputs = new ConcurrentHashMap<>();
 
   Hud() {
     super(0, 0);
@@ -111,24 +107,24 @@ public final class Hud extends GuiComponent implements IRenderable {
       final double currentWidth = width * (player.getHitPoints().get() / (double) player.getHitPoints().getMax());
       RoundRectangle2D healthbar = new RoundRectangle2D.Double(x, y, currentWidth, height, 1.5, 1.5);
 
-      g.setColor(COLOR_HEALTH_BG);
+      g.setColor(LitiColors.COLOR_HEALTH_BG);
       Game.graphics().renderShape(g, rect);
 
       if (player.getHitPoints().get() < 33) {
-        g.setColor(COLOR_HEALTH_LOW);
+        g.setColor(LitiColors.COLOR_HEALTH_LOW);
       } else {
-        g.setColor(COLOR_HEALTH);
+        g.setColor(LitiColors.COLOR_HEALTH);
       }
 
       Game.graphics().renderShape(g, healthbar);
 
-      g.setColor(player.isStaminaDepleted() ? Color.getHSBColor(.9f, 0.785f, (Game.time().now() % 100) / 100f) : COLOR_HEALTH_BG);
+      g.setColor(player.isStaminaDepleted() ? Color.getHSBColor(.9f, 0.785f, (Game.time().now() % 100) / 100f) : LitiColors.COLOR_HEALTH_BG);
       Rectangle2D staminaRect = new Rectangle2D.Double(x + (width - staminaWidth) / 2.0, y + height + 1 + (staminaHeight - staminaBgHeight) / 2.0,
           staminaWidth, staminaBgHeight);
       Game.graphics().renderShape(g, staminaRect);
 
       if (!player.isStaminaDepleted()) {
-        g.setColor(COLOR_STAMINA);
+        g.setColor(LitiColors.COLOR_STAMINA);
 
         double currentStaminaWidth = player.getStamina().getRelativeCurrentValue() * staminaWidth;
         double staminaX = x + (width - staminaWidth) / 2.0 + (staminaWidth - currentStaminaWidth) / 2.0;

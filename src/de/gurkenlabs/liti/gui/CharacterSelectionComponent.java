@@ -1,11 +1,13 @@
 package de.gurkenlabs.liti.gui;
 
+import de.gurkenlabs.liti.constants.ButtonPrompts;
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.constants.LitiFonts;
 import de.gurkenlabs.liti.constants.Skins;
 import de.gurkenlabs.liti.entities.PlayerClass;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.liti.entities.Skin;
+import de.gurkenlabs.liti.input.InputBinding;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.Valign;
@@ -14,6 +16,7 @@ import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.animation.AnimationController;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
 import de.gurkenlabs.litiengine.gui.ImageComponent;
+import de.gurkenlabs.litiengine.gui.ImageScaleMode;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
@@ -28,12 +31,14 @@ public class CharacterSelectionComponent extends GuiComponent {
   private ImageComponent className;
   private ImageComponent arrowLeft, arrowRight, arrowUp, arrowDown;
   private CharacterInfoComponent info;
+  private ImageComponent infoFrame, infoQuestionMark, infoButtonPrompt;
   private boolean playerAssigned;
   private boolean ready;
   private PlayerClass currentClass;
   private int playerIndex;
   private Skin currentSkin;
   private AnimationController inactivePlayerPrompt;
+  private static final BufferedImage QUESTION_MARK = Resources.images().get("info.png");
   private static final BufferedImage ARROW_RIGHT = Resources.images().get("arrow.png");
   private static final BufferedImage ARROW_UP = Imaging.scale(Imaging.rotate(ARROW_RIGHT, Rotation.ROTATE_270), 0.5d);
   private static final BufferedImage ARROW_LEFT = Imaging.rotate(ARROW_RIGHT, Rotation.ROTATE_180);
@@ -44,8 +49,10 @@ public class CharacterSelectionComponent extends GuiComponent {
     this.playerIndex = playerIndex;
     this.inactivePlayerPrompt = new AnimationController(Resources.spritesheets().get("confirm_prompt"), true);
     this.updateClassName();
-
     this.className.getAppearance().setForeColor(LitiColors.getPlayerColorMappings(this.getPlayerIndex()).get(LitiColors.defaultMainOutfitColor));
+    this.infoButtonPrompt.setImage(Imaging
+        .scale(ButtonPrompts.get(this.getPlayerIndex(), InputBinding.InputEvent.INFO), (int) (infoButtonPrompt.getWidth() * 4 / 5),
+            (int) (infoButtonPrompt.getHeight() * 4 / 5d), true));
   }
 
   @Override
@@ -58,6 +65,7 @@ public class CharacterSelectionComponent extends GuiComponent {
   public void prepare() {
     super.prepare();
     this.info.setVisible(false);
+    this.showInfoPrompt(false);
     this.setClass(Game.random().choose(PlayerClass.values()));
     this.setSkin(Game.random().choose(Skins.getAll()));
     Game.loop().attach(inactivePlayerPrompt);
@@ -103,8 +111,16 @@ public class CharacterSelectionComponent extends GuiComponent {
         characterPortrait.getY() + characterPortrait.getHeight() - arrowHeight * 5 / 4d,
         arrowWidth, arrowHeight / 2d, ARROW_DOWN);
     this.info = new CharacterInfoComponent(characterPortrait.getX(), this.characterPortrait.getY() + this.characterPortrait.getHeight(),
-        this.getWidth(),
-        textHeight * 4);
+        this.getWidth(), textHeight * 4);
+
+    this.infoFrame = new ImageComponent(this.getX() + arrowWidth, characterPortrait.getY() + characterPortrait.getHeight(),
+        this.getWidth() - 2 * arrowWidth,
+        characterPortrait.getHeight() * 1 / 6d);
+    this.infoFrame.setSpriteSheet(Resources.spritesheets().get("frame-info.png"));
+    this.infoQuestionMark = new ImageComponent(infoFrame.getX(), infoFrame.getY(), infoFrame.getWidth() / 2d, infoFrame.getHeight(), QUESTION_MARK);
+//    this.infoQuestionMark.setImageScaleMode(ImageScaleMode.FIT);
+    this.infoButtonPrompt = new ImageComponent(infoFrame.getX() + infoFrame.getWidth() / 2d, infoFrame.getY(), infoFrame.getWidth() / 2d,
+        infoFrame.getHeight());
     this.getComponents().add(characterPortrait);
     this.getComponents().add(arrowLeft);
     this.getComponents().add(arrowRight);
@@ -112,6 +128,9 @@ public class CharacterSelectionComponent extends GuiComponent {
     this.getComponents().add(arrowDown);
     this.getComponents().add(className);
     this.getComponents().add(info);
+    this.getComponents().add(infoFrame);
+    this.getComponents().add(infoQuestionMark);
+    this.getComponents().add(infoButtonPrompt);
   }
 
   public PlayerClass getCurrentPlayerClass() {
@@ -168,14 +187,14 @@ public class CharacterSelectionComponent extends GuiComponent {
 
   public void assignPlayer() {
     playerAssigned = true;
-    this.info.setVisible(true);
     this.updateClassName();
+    this.showInfoPrompt(true);
   }
 
   public void removePlayer() {
     playerAssigned = false;
-    this.info.setVisible(false);
     this.updateClassName();
+    this.showInfoPrompt(false);
   }
 
   public void ready() {
@@ -187,7 +206,12 @@ public class CharacterSelectionComponent extends GuiComponent {
   }
 
   public void info() {
-    this.info.toggleSurvivalSkillInfo();
+    this.showInfoPrompt(!this.infoFrame.isVisible());
+    this.info.setVisible(!this.info.isVisible());
+    Game.tweens().begin(this.info, TweenType.POSITION_Y, 100).targetRelative(+10).ease(TweenFunction.BACK_OUT);
+    Game.loop().perform(100, () -> {
+      Game.tweens().begin(this.info, TweenType.POSITION_Y, 100).targetRelative(0);
+    });
   }
 
   private BufferedImage getPortrait() {
@@ -233,6 +257,12 @@ public class CharacterSelectionComponent extends GuiComponent {
             (int) (this.characterPortrait.getHeight() * 2 / 4d),
             true) :
         this.getPortrait());
+  }
+
+  private void showInfoPrompt(boolean show) {
+    this.infoFrame.setVisible(show);
+    this.infoQuestionMark.setVisible(show);
+    this.infoButtonPrompt.setVisible(show);
   }
 
   private void updateClassName() {

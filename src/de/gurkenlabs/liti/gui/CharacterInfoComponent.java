@@ -11,25 +11,15 @@ import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 
-import javax.naming.spi.ResolveResult;
-
 public class CharacterInfoComponent extends GuiComponent {
   private TraitComponent[] traits;
-  private ImageComponent ultimate;
-  private boolean displayInfo;
+  private ImageComponent survivalSKillFrame;
+  private ImageComponent survivalSkillName;
+  private ImageComponent survivalSkillDescription;
   private PlayerClass playerClass;
 
   protected CharacterInfoComponent(double x, double y, double width, double height) {
     super(x, y, width, height);
-  }
-
-  protected void toggleSurvivalSkillInfo() {
-    displayInfo = !displayInfo;
-    Game.tweens().begin(this.ultimate, TweenType.POSITION_Y, 100).targetRelative(+10).ease(TweenFunction.BACK_OUT);
-    Game.loop().perform(100, () -> {
-      Game.tweens().begin(this.ultimate, TweenType.POSITION_Y, 100).targetRelative(0);
-    });
-    this.updateInfoText();
   }
 
   @Override
@@ -43,12 +33,22 @@ public class CharacterInfoComponent extends GuiComponent {
           Trait.values()[i]);
       this.getComponents().add(traits[i]);
     }
-    this.ultimate = new ImageComponent(this.getX(), this.getY() + 6 * (cellHeight + cellPadding), this.getWidth(), cellHeight * 3);
-    this.ultimate.setFont(LitiFonts.ETCHED);
-    this.ultimate.setTextAntialiasing(true);
-    this.ultimate.setAutomaticLineBreaks(true);
-    this.ultimate.setSpriteSheet(Resources.spritesheets().get("frame-survivalskill"));
-    this.getComponents().add(ultimate);
+    this.survivalSKillFrame = new ImageComponent(this.getX(), this.getY() + 6 * (cellHeight + cellPadding), this.getWidth(), cellHeight * 3);
+    this.survivalSKillFrame.setSpriteSheet(Resources.spritesheets().get("frame-survivalskill"));
+    this.survivalSkillName = new ImageComponent(this.getX() + cellPadding, this.getY() + 6 * (cellHeight + cellPadding),
+        this.getWidth() - 2 * cellPadding, cellHeight);
+    this.survivalSkillName.setFont(LitiFonts.ETCHED);
+    this.survivalSkillName.setFontSize((float) this.survivalSkillName.getHeight() * 3 / 5f);
+
+    this.survivalSkillDescription = new ImageComponent(this.getX() + cellPadding, this.getY() + 7 * (cellHeight + cellPadding) - cellPadding / 2d,
+        this.getWidth() - 2 * cellPadding, 2 * cellHeight - cellPadding);
+    this.survivalSkillDescription.setFont(LitiFonts.ETCHED);
+    this.survivalSkillDescription.setAutomaticLineBreaks(true);
+    this.survivalSkillDescription.setFontSize((float) this.survivalSKillFrame.getHeight() * 1 / 6f);
+
+    this.getComponents().add(survivalSKillFrame);
+    this.getComponents().add(survivalSkillName);
+    this.getComponents().add(survivalSkillDescription);
   }
 
   protected void setClass(PlayerClass newClass) {
@@ -60,12 +60,8 @@ public class CharacterInfoComponent extends GuiComponent {
   }
 
   private void updateInfoText() {
-    if (displayInfo) {
-      this.ultimate.setText(Resources.strings().get(String.format("skill-%s-desc", this.playerClass.toString().toLowerCase())));
-      this.ultimate.setFontSize((float) this.ultimate.getHeight() * 1 / 5f);
-    } else {
-      this.ultimate.setText(Resources.strings().get(String.format("skill-%s-name", this.playerClass.toString().toLowerCase())));
-      this.ultimate.setFontSize((float) this.ultimate.getHeight() * 1 / 3f);
-    }
+    this.survivalSkillName.setText(Resources.strings().get(String.format("skill-%s-name", this.playerClass.toString().toLowerCase())));
+    this.survivalSkillDescription.setText(Resources.strings().get(String.format("skill-%s-desc", this.playerClass.toString().toLowerCase())));
   }
 }
+

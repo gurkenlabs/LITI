@@ -12,6 +12,12 @@ public final class LitiColors {
   public static final Color TEXT_DARK = ColorHelper.decode("#25160b");
   public static final Color TEXT_OUTLINE = ColorHelper.decode("#392515");
 
+  public static final Color COLOR_HEALTH_BG = new Color(40, 42, 43, 200);
+  public static final Color COLOR_HEALTH = new Color(225, 109, 115);
+  public static final Color COLOR_HEALTH_LOW = Color.RED;
+  public static final Color COLOR_STAMINA = new Color(232, 230, 215);
+  public static final Color COLOR_STAMINA_DEPLETED = new Color(135, 29, 68);
+
   public static final Color defaultMainSkinColor = ColorHelper.decode("#949494");
   public static final Color defaultSkinDetailColor = ColorHelper.decode("#857171");
   public static final Color defaultDarkSkinColor = ColorHelper.decode("#696969");
