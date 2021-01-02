@@ -325,7 +325,7 @@ public class InputBinding {
         });
       } else if (binding.getKeyCode() == MouseEvent.BUTTON2) {
         Input.mouse().onReleased(e -> {
-          if (Input.mouse().isRightButtonPressed()) {
+          if (Input.mouse().isRightButton(e)) {
             action.accept(-1.0f);
           }
         });

@@ -202,7 +202,7 @@ public final class InputManager {
 
     // BLOCK STOP
     InputBinding.bind((value) -> {
-      if (player.getState() != Player.PlayerState.LOCKED) {
+      if(player.isBlocking()) {
         player.setBlocking(false);
       }
     }, config.getkeyboard_block_stop(), null);
