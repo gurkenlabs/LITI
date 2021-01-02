@@ -94,6 +94,10 @@ public final class Hud extends GuiComponent implements IRenderable {
 
   private void renderHealthAndStaminaBars(Graphics2D g) {
     for (Player player : Players.getAll()) {
+      if(!player.isLoaded() || player.isFalling()){
+        continue;
+      }
+
       final double width = 16;
       final double height = 2;
       final double staminaWidth = 14;

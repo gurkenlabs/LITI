@@ -18,10 +18,20 @@ import de.gurkenlabs.litiengine.entities.ICollisionEntity;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.graphics.animation.Animation;
+import de.gurkenlabs.litiengine.tweening.Tween;
+import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 import de.gurkenlabs.litiengine.util.Imaging;
 
 public abstract class Player extends Creature implements IUpdateable, IRenderable {
+
+  public boolean isFalling() {
+    return isFalling;
+  }
+
+  public void setFalling(boolean falling) {
+    isFalling = falling;
+  }
 
   public enum PlayerState {
     LOCKED,
@@ -40,6 +50,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private Bash bash;
 
   private boolean isBlocking;
+  private boolean isFalling;
 
   private boolean isDashing;
   private long lastBlock;
@@ -61,13 +72,21 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
             this.setState(PlayerState.LOCKED);
             System.out.println("bye bye!");
             this.setScaling(true);
-            Game.tweens().begin(this, TweenType.SIZE_BOTH, 2000);
+            //this.setSize(this.animations().getCurrentImage().getWidth(), this.animations().getCurrentImage().getHeight());
+            this.setFalling(true);
+            Tween tween = Game.tweens().begin(this, TweenType.SIZE_BOTH, 3000);
+            tween.ease(TweenFunction.QUAD_OUT);
             Game.loop().perform(2000, () -> {
               this.die();
+              tween.stop();
+              // TODO: reset size after tweening
               this.setScaling(false);
-              // TODO: reset size
+              this.setFalling(false);
+              Game.world().environment().remove(this);
               System.out.println("you fell off a cliff...");
             });
+
+            break;
           }
         }
       }
