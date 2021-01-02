@@ -15,7 +15,7 @@ public class IngameScreen extends LitiScreen {
   @Override
   public void prepare() {
     super.prepare();
-    Game.world().loadEnvironment("plateau");
+    Game.world().loadEnvironment("plateau2");
   }
 
   @Override

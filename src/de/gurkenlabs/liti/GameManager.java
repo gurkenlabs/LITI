@@ -1,8 +1,7 @@
 package de.gurkenlabs.liti;
 
-import de.gurkenlabs.liti.entities.Player;
-import de.gurkenlabs.liti.entities.PlayerConfiguration;
-import de.gurkenlabs.liti.entities.Players;
+import de.gurkenlabs.liti.constants.Skins;
+import de.gurkenlabs.liti.entities.*;
 import de.gurkenlabs.liti.gui.DynamicZoomCamera;
 import de.gurkenlabs.liti.input.InputConfiguration;
 import de.gurkenlabs.liti.input.InputManager;
@@ -20,7 +19,7 @@ public final class GameManager {
   public static void init(InputConfiguration inputConfig) {
     InputManager.init(inputConfig);
     Game.world().onLoaded(e -> {
-      if (!e.getMap().getName().equals("plateau")) {
+      if (!e.getMap().getName().equals("plateau2")) {
         return;
       }
 
@@ -29,6 +28,8 @@ public final class GameManager {
 
       System.out.println(Players.joinedPlayers() + " players joined...");
       for (PlayerConfiguration config : Players.getConfigurations()) {
+        // config.setPlayerClass(Game.random().next(PlayerClass.class));
+        // config.setSkin(Skins.getRandom());
         Player player = Players.join(config);
         spawn(player, e);
       }
