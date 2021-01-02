@@ -26,7 +26,7 @@ public class DynamicZoomCamera extends Camera {
   }
 
   private void determineFocusAndZoom() {
-    Collection<Player> players = Players.getAll().values();
+    Collection<Player> players = Players.getAll();
     double minX = 0;
     double maxX = 0;
     double minY = 0;
