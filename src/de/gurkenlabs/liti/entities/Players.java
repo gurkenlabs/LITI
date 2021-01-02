@@ -12,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public final class Players {
   public static final int MAX_PLAYERS = 4;
 
-  private static Map<PlayerClass, Player> allPlayers = new ConcurrentHashMap<>();
+  private static List<Player> allPlayers = new CopyOnWriteArrayList<>();
 
   private static List<PlayerConfiguration> configurations = new CopyOnWriteArrayList<>();
 
@@ -58,11 +58,11 @@ public final class Players {
 
     player.setIndex(config.getIndex());
     InputManager.bindPlayerInput(player, config.getGamepad());
-    getAll().put(config.getPlayerClass(), player);
+    getAll().add(player);
     return player;
   }
 
-  public static Map<PlayerClass, Player> getAll() {
+  public static List<Player> getAll() {
     return allPlayers;
   }
 
