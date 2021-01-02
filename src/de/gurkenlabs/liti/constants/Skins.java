@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import de.gurkenlabs.liti.entities.Skin;
+import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.resources.Resources;
 
 public final class Skins {
@@ -28,4 +29,6 @@ public final class Skins {
   public static List<Skin> getAll() {
     return skinInstances;
   }
+
+  public static Skin getRandom() { return Game.random().choose(getAll()); }
 }

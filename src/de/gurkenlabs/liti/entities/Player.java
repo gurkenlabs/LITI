@@ -51,6 +51,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.bash = new Bash(this);
     this.movement().onMovementCheck(e -> !this.isBlocking());
     this.setTurnOnMove(false);
+    this.updateAnimationController();
   }
 
   @Override
@@ -184,9 +185,12 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   @Override
   public void updateAnimationController() {
-    if (this.getConfiguration().getSkin() == null) {
+    if (this.getConfiguration() == null || this.getConfiguration().getSkin() == null) {
       return;
     }
+
+    super.updateAnimationController();
+
     this.animations().getAll().forEach(an -> {
       Spritesheet replaced = new Spritesheet(Imaging.replaceColors(an.getSpritesheet().getImage(), this.getConfiguration().getSkin().getColorMappings()), an.getSpritesheet().getName(), an.getSpritesheet().getSpriteWidth(), an.getSpritesheet().getSpriteHeight());
       this.animations().add(new Animation(replaced, an.isLooping(), an.getKeyFrameDurations()));

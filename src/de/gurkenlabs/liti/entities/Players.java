@@ -30,6 +30,10 @@ public final class Players {
       throw new IllegalArgumentException("unspecified player class for player " + (config.getIndex() + 1));
     }
 
+    if (config.getSkin() == null) {
+      throw new IllegalArgumentException("unspecified player skin for player " + (config.getIndex() + 1));
+    }
+
     Player player = null;
     switch (config.getPlayerClass()) {
     case WARRIOR:
