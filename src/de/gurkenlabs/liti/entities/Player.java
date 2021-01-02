@@ -14,9 +14,11 @@ import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.entities.Action;
 import de.gurkenlabs.litiengine.entities.Creature;
+import de.gurkenlabs.litiengine.entities.ICollisionEntity;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.graphics.animation.Animation;
+import de.gurkenlabs.litiengine.tweening.TweenType;
 import de.gurkenlabs.litiengine.util.Imaging;
 
 public abstract class Player extends Creature implements IUpdateable, IRenderable {
@@ -52,6 +54,24 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.movement().onMovementCheck(e -> !this.isBlocking());
     this.setTurnOnMove(false);
     this.updateAnimationController();
+    this.onCollision(e -> {
+      for (ICollisionEntity entity : e.getInvolvedEntities()) {
+        for (String tag : entity.getTags()) {
+          if (tag != null && tag.equals("bounds")) {
+            this.setState(PlayerState.LOCKED);
+            System.out.println("bye bye!");
+            this.setScaling(true);
+            Game.tweens().begin(this, TweenType.SIZE_BOTH, 2000);
+            Game.loop().perform(2000, () -> {
+              this.die();
+              this.setScaling(false);
+              // TODO: reset size
+              System.out.println("you fell off a cliff...");
+            });
+          }
+        }
+      }
+    });
   }
 
   @Override
@@ -205,9 +225,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   private void recoverStamina() {
     if (this.stamina.get() < this.stamina.getMax()) {
-      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F
-          * Proficiency.get(this.getPlayerClass(), Trait.RECOVERY)
-          * Game.loop().getTimeScale();
+      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * Proficiency.get(this.getPlayerClass(), Trait.RECOVERY) * Game.loop().getTimeScale();
       if (this.stamina.get() + recovery > this.stamina.getMax()) {
         this.stamina.setToMax();
       } else {
@@ -218,9 +236,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   private void drainStaminaWhileBlocking() {
     if (this.stamina.get() > this.stamina.getMin()) {
-      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F
-          * (1.5 - Proficiency.get(this.getPlayerClass(), Trait.RECOVERY))
-          * Game.loop().getTimeScale();
+      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * (1.5 - Proficiency.get(this.getPlayerClass(), Trait.RECOVERY)) * Game.loop().getTimeScale();
       if (this.stamina.get() - drain <= this.stamina.getMin()) {
         this.stamina.setToMin();
       } else {

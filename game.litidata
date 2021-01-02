@@ -2,6 +2,156 @@
 <litidata version="1.0">
  <maps>
   <map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="42" height="34" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="5" name="plateau2">
+   <properties>
+    <property name="AMBIENTLIGHT" value="#14333030"/>
+    <property name="GRAVITY" type="int" value="0"/>
+   </properties>
+   <objectgroup id="0" name="collision" visible="1">
+    <object id="101" name="bound" type="COLLISIONBOX" x="59" y="71" width="21" height="27">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="102" name="bound" type="COLLISIONBOX" x="105" y="66" width="13" height="28">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="103" name="bound" type="COLLISIONBOX" x="118" y="64" width="20" height="28">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="104" name="bound" type="COLLISIONBOX" x="174" y="61" width="20" height="23">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="105" name="bound" type="COLLISIONBOX" x="194" y="53" width="10" height="29">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="106" name="bound" type="COLLISIONBOX" x="0" y="72" width="38" height="28">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="107" name="bound" type="COLLISIONBOX" x="256" y="47" width="30" height="29">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="108" name="bound" type="COLLISIONBOX" x="286" y="50" width="18" height="29">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="109" name="bound" type="COLLISIONBOX" x="304" y="54" width="19" height="28">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="110" name="bound" type="COLLISIONBOX" x="342" y="57" width="42" height="28">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="111" name="bound" type="COLLISIONBOX" x="384" y="56" width="20" height="28">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="112" name="bound" type="COLLISIONBOX" x="454" y="54" width="38" height="29">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="113" name="bound" type="COLLISIONBOX" x="492" y="55" width="37" height="29">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="114" name="bound" type="COLLISIONBOX" x="529" y="68" width="3" height="19">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="115" name="bound" type="COLLISIONBOX" x="532" y="74" width="48" height="20">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="116" name="bound" type="COLLISIONBOX" x="580" y="78" width="15" height="18">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="117" name="bound" type="COLLISIONBOX" x="633" y="83" width="39" height="18">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="118" name="bound" type="COLLISIONBOX" x="204" y="48" width="12" height="30">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="119" name="bound" type="COLLISIONBOX" x="156" y="65" width="18" height="23">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="120" name="bound" type="COLLISIONBOX" x="138" y="61" width="18" height="28">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="121" name="bound" type="COLLISIONBOX" x="80" y="66" width="10" height="28">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="122" name="bound" type="COLLISIONBOX" x="90" y="64" width="15" height="28">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="123" name="bound" type="COLLISIONBOX" x="38" y="72" width="21" height="27">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="124" name="bound" type="COLLISIONBOX" x="595" y="81" width="38" height="18">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+   </objectgroup>
    <imagelayer id="2" name="background" offsetx="-7" offsety="-4">
     <image source="plateau.png" width="686" height="555"/>
    </imagelayer>
@@ -44,7 +194,7 @@
 </data>
    </layer>
    <objectgroup id="4" name="spawns" visible="1">
-    <object id="1" name="player-1" type="SPAWNPOINT" x="74" y="177" width="16" height="16"/>
+    <object id="1" name="player-1" type="SPAWNPOINT" x="102" y="172" width="16" height="16"/>
     <object id="2" name="player-2" type="SPAWNPOINT" x="572" y="173" width="16" height="16"/>
     <object id="3" name="player-3" type="SPAWNPOINT" x="105" y="401" width="16" height="16"/>
     <object id="4" name="player-4" type="SPAWNPOINT" x="561" y="404" width="16" height="16"/>
@@ -560,7 +710,7 @@
       <property name="collisionType" value="STATIC"/>
      </properties>
     </object>
-    <object id="89" type="COLLISIONBOX" x="256" y="79" width="13" height="17">
+    <object id="89" type="COLLISIONBOX" x="256" y="80" width="13" height="16">
      <properties>
       <property name="collisionType" value="STATIC"/>
      </properties>
@@ -600,6 +750,60 @@
       <property name="collisionboxWidth" value="20.0"/>
       <property name="indestructible" type="bool" value="false"/>
       <property name="spritesheetName" value="tree"/>
+     </properties>
+    </object>
+    <object id="97" type="PROP" x="0" y="366" width="80" height="58">
+     <properties>
+      <property name="addShadow" type="bool" value="true"/>
+      <property name="collision" type="bool" value="true"/>
+      <property name="collisionValign" value="MIDDLE_DOWN"/>
+      <property name="collisionboxHeight" value="18.0"/>
+      <property name="collisionboxWidth" value="80.0"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="tent"/>
+     </properties>
+    </object>
+   </objectgroup>
+   <objectgroup id="0" name="lights" visible="1">
+    <object id="96" type="LIGHTSOURCE" x="219" y="152" width="240" height="240">
+     <properties>
+      <property name="lightActive" type="bool" value="true"/>
+      <property name="lightColor" value="#e2edfb"/>
+      <property name="lightIntensity" value="50"/>
+      <property name="lightShape" value="ellipse"/>
+     </properties>
+    </object>
+    <object id="98" type="PROP" x="0" y="136" width="80" height="58">
+     <properties>
+      <property name="addShadow" type="bool" value="true"/>
+      <property name="collision" type="bool" value="true"/>
+      <property name="collisionValign" value="MIDDLE_DOWN"/>
+      <property name="collisionboxHeight" value="18.0"/>
+      <property name="collisionboxWidth" value="80.0"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="tent"/>
+     </properties>
+    </object>
+    <object id="99" type="PROP" x="592" y="135" width="80" height="58">
+     <properties>
+      <property name="addShadow" type="bool" value="true"/>
+      <property name="collision" type="bool" value="true"/>
+      <property name="collisionValign" value="MIDDLE_DOWN"/>
+      <property name="collisionboxHeight" value="18.0"/>
+      <property name="collisionboxWidth" value="80.0"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="tent"/>
+     </properties>
+    </object>
+    <object id="100" type="PROP" x="592" y="367" width="80" height="58">
+     <properties>
+      <property name="addShadow" type="bool" value="true"/>
+      <property name="collision" type="bool" value="true"/>
+      <property name="collisionValign" value="MIDDLE_DOWN"/>
+      <property name="collisionboxHeight" value="18.0"/>
+      <property name="collisionboxWidth" value="80.0"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="tent"/>
      </properties>
     </object>
    </objectgroup>
@@ -670,6 +874,9 @@
   </sprite>
   <sprite width="44" height="72" imageformat="PNG" name="prop-stonehenge1">
    <image>iVBORw0KGgoAAAANSUhEUgAAACwAAABICAYAAACN4RdNAAAB4UlEQVR42u3azU7DMAwA4D7YJHbhhsSV27hyRRx4DDhz4kk7BcmSMUn8E6d1hytF09qs+eq6i9d1WZyX59f3tdeWKAsHDYN+eLqsGuyu6IKFFh6NsdDePj9iomvYsOgeNhz67v5xlYABrWm7g7UXYoITnOBbAWvQCU5wghN8Y2ANOgxYCs+UODRYit4VjLGhwRR6WLAEHQ7MoRNsBQOIQ4cAU1QPHRKM4YcC19BSbOm764TBRZpu332G60V4+g1BK9hyR94FneAEHx1sKdz/DXjajBcK/PX9snr84tg0whi9RS08PEVz4F6FpgHTvkMXHaC5yHrUwi7fFAV8Op3PgCzvRyo2yUFAEVTGVWHLB0rDyBGwNLLwCuOrsB5gKRT/mY7BLBp3pGhrhKVQvB7SsYuuYQGMsRY0jWDv8YQa+A+6ha2lxgi6BS3758C/0BJwLTW88hmDW1gVuJXLHrUFxorAEiyXzyO1hQb8g9aAe/lM0aUfB6bYKWBoFEuBFjCcwS5YmxZStBYsxo6AKVoKBii8Qv9NwBY0BuO+3DiqyUOLruU1Pf2wHi5mMdYDXCtFKRhHE7ZJ9qsugKzoVsEkyVdziTnSWjAp2FTEzwC7RXZWpDfBbo2f9vzwYaCjB+I1zhX2r8sqI4IDOAAAAABJRU5ErkJggg==</image>
+  </sprite>
+  <sprite width="80" height="58" imageformat="PNG" name="prop-tent">
+   <image>iVBORw0KGgoAAAANSUhEUgAAAFAAAAA6CAYAAAAnft6RAAACvElEQVR42u3bO07EQAwA0L0LFS0d0hY0lIDElnR0iGvQwgUoECcN8kqWvGY+tsfO5DMjWdlo2UR5sueThMNhtO2266ubCWJIDMA+aBxwgA7AeRFLmKMpADnmaEbEoSJony/3E0QK8Ov18RxDqYD3fPs0lUoYvh+IwszLYQ7AAiAiAh4FpJ9HKbP2cXqYKCCWMgfE737eT+cYiBm8WiAgBOwPPENQwF0iAl4L4O4REbAVcpeAHM8DcheIEiwtIi/jzSJ6ZhkfiTeP6AlXg9wcYgse/o5vJXPDzSB6ZJ70GKls3HXpajKwNKisEtJzetK63MN18yrWzjk4j77QMrVZFaIk4yyI2j6wlI2LRdSUqxZR2vdJgReH6D1JbhlEVoXovY71LHvpANMNMuJGwBwZOCvi9+/b1AsvMgNLUx2thRow6jZU6SLx+UgPRDQwAdIfHo93d5H38XoBSpaAYNAEWIKLxoPjRwPWloAUUAyJGdcLEPEoYC9ECESsAgIcLVcPQDiGF2A0Yu06RHj0NQoJojdgCa8HIPUAHzEeBE1dC6J39s2NmHo35x8i4nFA2J8bEPuhpQDmXC4QKWAuAAK3GkQKKMGkeD0A6blrJmI8ioiQNUDsO7V4UsAoRAncBaLmj3nkEHGLaNIy5nhRgKVn0lqDJsBSOXtkXw1Qgpg7d6piZgcsIdLBJyL7PAB5WK5f3Q/WAHFfixcFmEP0AFSNwqmgc8VU5rVkXxQgfubn4lMUFaAVkQLStXNq7qjFkwJqyzjV5aTmeCo8K2JuxZLrF3sCproYK6BoPWzpC6XTnFrf5w2YqgzrdYrvA7aOziVISfbVOnUJYG5WEAoXBZkCagHkkJIlmQXP7QFTBKIHICJa17PhcN6QEYB43NZVRSicJ2bt4qwAVvxFvN7hOeh4ZPgq0NaCuvn/G1kzzB/ypCR1i+VVJQAAAABJRU5ErkJggg==</image>
   </sprite>
   <sprite width="73" height="86" imageformat="PNG" name="prop-tree">
    <image>iVBORw0KGgoAAAANSUhEUgAAAEkAAABWCAYAAACD87uSAAAC0ElEQVR42u3aTUrFMBAA4N7FlVtBcKHy7uAB3Alewou48hpew6WHefKEQIzJ/CWTTjpTGBTSpsnXyTT63rYNPr5e7s4ptjhgIC2o77fbcysCCQFaBqqGVIZ0MhQg00gUnByIOqF0Xu3apZCkQJyo9YX1vRxQbSJUvJ6HYB4FmggVUNp/DUodrxdnVnCWsEugQGJCUeDcAo3aerhEwpZiIBHrVSARi3rUJM033tGyaXhBPxIQN8sCaNTfft6BSFDeMkmUTR6R2MXcK1IJFUASJO846IcVgUP4NCeADGbR59PjbyxTj7QxWkBLIWkONgdpBXbdzIcIImkNiIJU3ncmUO0eKNLIgWEg3OzSenitZfeveFMGSFkakqW154sDGhOIxCm2HKAZy1nyUMlINSitsFLvKGOZjqOBNeP+m/bkZ2cUdm9J/1svBHfPQz3f0gZzm7VMrO2RyEDSmiRFur662bXQi3B63nBSJAnUHnuoIUit+oQtNQyp1m4OacSWAKpFWDa12mfvxNWRsEyBoKA2M0DaUDlSCYYBaoHl/bK+BzArm6AYVROHZ5A21qVPKlKCSuOgjofzr+IuHA2kvF8qUms8JaD0pTLke5OtyUpgRiBBbZKHPewLpiqdEqCwayzNRe3YA2nJgwNFQXSNRM00l0icpRhQnoECSQFp83oEUGRSZFMgxZILpEDiQr1/vJ5dInGgDot0mRgVCkMwh3R/fzpdIv1etkETkSClc1v3MAOUYKhBQeJAJYjLz/IeqQ16QKZwoOhBSufm8fzw93pJdpvBaQFJsqkW5XncDDcBNBop9ScdiymYFBhE3gZlRg/MEDDt7GkhlYjleZoPb3ckToYkUG59mYqkAZTXkBKJer0pKA2gGpS0r8NlE/RG6unvMDWptkx6kbShpiHNriG7IUnBVsSZvut2kzl77cSXxzkK1jL/W3IDYxntcJ+YWJ38D7lG9wXVkd/aAAAAAElFTkSuQmCC</image>
