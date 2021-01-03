@@ -1,5 +1,6 @@
 package de.gurkenlabs.liti.gui;
 
+import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 
 import java.awt.*;
@@ -32,5 +33,25 @@ public class IngameScreen extends LitiScreen {
     }
 
     super.render(g);
+  }
+
+  @Override public boolean canPressDirection(int player, Direction direction) {
+    return true;
+  }
+
+  @Override public boolean canPressMenu(int player) {
+    return true;
+  }
+
+  @Override public boolean canPressInfo(int player) {
+    return true;
+  }
+
+  @Override public boolean canPressConfirm(int player) {
+    return true;
+  }
+
+  @Override public boolean canPressCancel(int player) {
+    return true;
   }
 }

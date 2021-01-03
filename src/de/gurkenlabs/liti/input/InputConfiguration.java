@@ -33,7 +33,7 @@ public class InputConfiguration {
   public static final String UI_GAMEPAD_MENU = "GAMEPAD_BUTTON-9_PRESSED";
   public static final String UI_KEYBOARD_CONFIRM = "KEYBOARD_SPACE_RELEASED";
   public static final String UI_GAMEPAD_CONFIRM = "GAMEPAD_BUTTON-1_PRESSED";
-  public static final String UI_KEYBOARD_INFO = "KEYBOARD_CONTROL_RELEASED";
+  public static final String UI_KEYBOARD_INFO = "KEYBOARD_CONTROL_PRESSED";
   public static final String UI_GAMEPAD_INFO = "GAMEPAD_BUTTON-0_PRESSED";
 
   private InputConfiguration() {

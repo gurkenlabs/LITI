@@ -2,6 +2,7 @@ package de.gurkenlabs.liti.gui;
 
 import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.constants.LitiColors;
+import de.gurkenlabs.liti.constants.LitiSounds;
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.litiengine.Direction;
@@ -9,6 +10,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
+import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 
 import java.awt.*;
@@ -59,14 +61,12 @@ public final class Hud extends GuiComponent implements IRenderable {
     }
 
     getLitiScreen().dispatchMenu(player);
-    lastInputs.put(player, Game.time().now());
   }
 
   public static void direction(int player, Direction direction) {
     if (!checkInputDelay(player)) {
       return;
     }
-
     getLitiScreen().dispatchDirection(player, direction);
     lastInputs.put(player, Game.time().now());
   }
@@ -127,7 +127,8 @@ public final class Hud extends GuiComponent implements IRenderable {
       Game.graphics().renderShape(g, healthbar);
 
       g.setColor(player.isStaminaDepleted() ? Color.getHSBColor(.9f, 0.785f, (Game.time().now() % 100) / 100f) : LitiColors.COLOR_HEALTH_BG);
-      Rectangle2D staminaRect = new Rectangle2D.Double(x + (width - staminaWidth) / 2.0, y + height + 1 + (staminaHeight - staminaBgHeight) / 2.0, staminaWidth, staminaBgHeight);
+      Rectangle2D staminaRect = new Rectangle2D.Double(x + (width - staminaWidth) / 2.0, y + height + 1 + (staminaHeight - staminaBgHeight) / 2.0,
+          staminaWidth, staminaBgHeight);
       Game.graphics().renderShape(g, staminaRect);
 
       if (!player.isStaminaDepleted()) {
@@ -157,7 +158,8 @@ public final class Hud extends GuiComponent implements IRenderable {
         continue;
       }
 
-      String timeRemaining = TimeUtilities.toTimerFormat(player.getResurrection() - Game.time().since(player.getLastDeath()), TimeUtilities.TimerFormat.S_0);
+      String timeRemaining = TimeUtilities
+          .toTimerFormat(player.getResurrection() - Game.time().since(player.getLastDeath()), TimeUtilities.TimerFormat.S_0);
       Game.graphics().renderText(g, timeRemaining, spawn.getCenter());
     }
   }

@@ -4,8 +4,6 @@ import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.resources.Resources;
-import de.gurkenlabs.litiengine.util.Imaging;
-import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -24,20 +22,40 @@ public class LobbyScreen extends LitiScreen {
     ImageRenderer.render(g, BACKGROUND, 0, 0);
     super.render(g);
     double offsetY = TITLE.getHeight() / 4d * Math.sin(Game.time().sinceEnvironmentLoad() / 600.0);
-    double titleRefY = Game.window().getHeight() * 1 / 12d;
+    double titleRefY = Game.window().getHeight() / 11d;
     ImageRenderer.render(g, TITLE, Game.window().getCenter().getX() - TITLE.getWidth() / 2d,
         titleRefY - TITLE.getHeight() / 2d + offsetY);
     g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 
   }
 
+  @Override public boolean canPressDirection(int player, Direction direction) {
+    return this.charSelects[player].hasPlayerAssigned() && !this.charSelects[player].isReady();
+  }
+
+  @Override public boolean canPressMenu(int player) {
+    return !this.charSelects[player].hasPlayerAssigned();
+  }
+
+  @Override public boolean canPressInfo(int player) {
+    return this.charSelects[player].hasPlayerAssigned() && !this.charSelects[player].isReady();
+  }
+
+  @Override public boolean canPressConfirm(int player) {
+    return !this.charSelects[player].isReady();
+  }
+
+  @Override public boolean canPressCancel(int player) {
+    return this.charSelects[player].hasPlayerAssigned();
+  }
+
   @Override
   public void dispatchCancel(int player) {
-    super.dispatchCancel(player);
-    CharacterSelectionComponent charSelect = this.charSelects[player];
-    if (!charSelect.hasPlayerAssigned()) {
+    if (!this.canPressCancel(player)) {
       return;
     }
+    super.dispatchCancel(player);
+    CharacterSelectionComponent charSelect = this.charSelects[player];
     if (charSelect.hasPlayerAssigned() && !charSelect.isReady()) {
       charSelect.removePlayer();
 
@@ -47,12 +65,20 @@ public class LobbyScreen extends LitiScreen {
   }
 
   @Override public void dispatchMenu(int player) {
-    this.dispatchCancel(player);
+    if (!this.canPressMenu(player)) {
+      return;
+    }
+    super.dispatchMenu(player);
+
   }
 
   @Override
   public void dispatchConfirm(int player) {
+    if (!this.canPressConfirm(player)) {
+      return;
+    }
     super.dispatchConfirm(player);
+
     CharacterSelectionComponent charSelect = this.charSelects[player];
     if (!charSelect.hasPlayerAssigned()) {
       charSelect.assignPlayer();
@@ -64,33 +90,31 @@ public class LobbyScreen extends LitiScreen {
 
   @Override
   public void dispatchInfo(int player) {
-    super.dispatchInfo(player);
-    CharacterSelectionComponent charSelect = this.charSelects[player];
-    if (!charSelect.hasPlayerAssigned() || charSelect.isReady()) {
+    if (!this.canPressInfo(player)) {
       return;
     }
-    charSelect.info();
+    super.dispatchInfo(player);
+    this.charSelects[player].info();
   }
 
   @Override
   public void dispatchDirection(int player, Direction direction) {
     super.dispatchDirection(player, direction);
-    CharacterSelectionComponent charSelect = this.charSelects[player];
-    if (!charSelect.hasPlayerAssigned() || charSelect.isReady()) {
+    if (!this.canPressDirection(player, direction)) {
       return;
     }
     switch (direction) {
     case UP:
-      charSelect.previousSkin();
+      this.charSelects[player].previousSkin();
       break;
     case DOWN:
-      charSelect.nextSkin();
+      this.charSelects[player].nextSkin();
       break;
     case LEFT:
-      charSelect.previousClass();
+      this.charSelects[player].previousClass();
       break;
     case RIGHT:
-      charSelect.nextClass();
+      this.charSelects[player].nextClass();
       break;
     default:
       break;
