@@ -66,16 +66,17 @@ public class LobbyScreen extends LitiScreen {
   public void dispatchInfo(int player) {
     super.dispatchInfo(player);
     CharacterSelectionComponent charSelect = this.charSelects[player];
-    if (charSelect.hasPlayerAssigned()) {
-      charSelect.info();
+    if (!charSelect.hasPlayerAssigned() || charSelect.isReady()) {
+      return;
     }
+    charSelect.info();
   }
 
   @Override
   public void dispatchDirection(int player, Direction direction) {
     super.dispatchDirection(player, direction);
     CharacterSelectionComponent charSelect = this.charSelects[player];
-    if (!charSelect.hasPlayerAssigned()) {
+    if (!charSelect.hasPlayerAssigned() || charSelect.isReady()) {
       return;
     }
     switch (direction) {
