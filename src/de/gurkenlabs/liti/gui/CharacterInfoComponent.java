@@ -38,7 +38,7 @@ public class CharacterInfoComponent extends GuiComponent {
     this.survivalSkillName = new ImageComponent(this.getX() + cellPadding, this.getY() + 6 * (cellHeight + cellPadding),
         this.getWidth() - 2 * cellPadding, cellHeight);
     this.survivalSkillName.setFont(LitiFonts.ETCHED);
-    this.survivalSkillName.setFontSize((float) this.survivalSkillName.getHeight() * 3 / 5f);
+    this.survivalSkillName.setFontSize((float) this.survivalSkillName.getHeight() * 2 / 3f);
 
     this.survivalSkillDescription = new ImageComponent(this.getX() + cellPadding, this.getY() + 7 * (cellHeight + cellPadding) - cellPadding / 2d,
         this.getWidth() - 2 * cellPadding, 2 * cellHeight - cellPadding);

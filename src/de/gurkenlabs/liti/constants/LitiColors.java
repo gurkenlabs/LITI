@@ -12,6 +12,11 @@ public final class LitiColors {
   public static final Color TEXT_DARK = ColorHelper.decode("#25160b");
   public static final Color TEXT_OUTLINE = ColorHelper.decode("#392515");
 
+  public static final Color TRAIT_BAD = ColorHelper.decode("#cb231b");
+  public static final Color TRAIT_MEDIUM = ColorHelper.decode("#ffcf00");
+  public static final Color TRAIT_GOOD = ColorHelper.decode("#8fef6e");
+
+
   public static final Color COLOR_HEALTH_BG = new Color(40, 42, 43, 200);
   public static final Color COLOR_HEALTH = new Color(225, 109, 115);
   public static final Color COLOR_HEALTH_LOW = Color.RED;

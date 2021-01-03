@@ -12,11 +12,9 @@ import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.entities.Rotation;
-import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.animation.AnimationController;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
 import de.gurkenlabs.litiengine.gui.ImageComponent;
-import de.gurkenlabs.litiengine.gui.ImageScaleMode;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
@@ -29,6 +27,7 @@ import java.util.Optional;
 public class CharacterSelectionComponent extends GuiComponent {
   private ImageComponent characterPortrait;
   private ImageComponent className;
+  private ImageComponent readyText;
   private ImageComponent arrowLeft, arrowRight, arrowUp, arrowDown;
   private CharacterInfoComponent info;
   private ImageComponent infoFrame, infoQuestionMark, infoButtonPrompt;
@@ -58,14 +57,20 @@ public class CharacterSelectionComponent extends GuiComponent {
   @Override
   public void render(Graphics2D g) {
     this.updatePortrait();
+    double textHeight = this.getHeight() * 1 / 5d;
     super.render(g);
+    if (this.readyText.isVisible()) {
+      this.readyText.setFontSize((float) (textHeight + textHeight * 0.3 * Math.sin(Game.time().sinceEnvironmentLoad() / 400.0)));
+    }
   }
 
   @Override
   public void prepare() {
     super.prepare();
     this.info.setVisible(false);
+    this.readyText.setVisible(false);
     this.showInfoPrompt(false);
+    this.showArrows(false);
     this.setClass(Game.random().choose(PlayerClass.values()));
     this.setSkin(Game.random().choose(Skins.getAll()));
     Game.loop().attach(inactivePlayerPrompt);
@@ -87,11 +92,12 @@ public class CharacterSelectionComponent extends GuiComponent {
     this.className = new ImageComponent(this.getX(), this.getY(), this.getWidth(), textHeight);
     this.className.setTextShadow(true);
     this.className.setFont(LitiFonts.ROUND.deriveFont((float) (this.className.getHeight() * 2 / 3d)));
-    this.className.setTextAntialiasing(true);
     this.className.setTextShadowColor(LitiColors.TEXT_OUTLINE);
     this.className.setTextShadowStroke(3f);
     this.className.setTextValign(Valign.MIDDLE);
     this.className.setTextAlign(Align.CENTER);
+    this.className.setTextAntialiasing(true);
+
     this.characterPortrait = new ImageComponent(this.getX(), this.getY() + this.className.getHeight(), this.getWidth(), portraitHeight);
     this.characterPortrait.setSpriteSheet(Resources.spritesheets().get("frame-portrait"));
 
@@ -118,9 +124,20 @@ public class CharacterSelectionComponent extends GuiComponent {
         characterPortrait.getHeight() * 1 / 6d);
     this.infoFrame.setSpriteSheet(Resources.spritesheets().get("frame-info.png"));
     this.infoQuestionMark = new ImageComponent(infoFrame.getX(), infoFrame.getY(), infoFrame.getWidth() / 2d, infoFrame.getHeight(), QUESTION_MARK);
-//    this.infoQuestionMark.setImageScaleMode(ImageScaleMode.FIT);
     this.infoButtonPrompt = new ImageComponent(infoFrame.getX() + infoFrame.getWidth() / 2d, infoFrame.getY(), infoFrame.getWidth() / 2d,
         infoFrame.getHeight());
+
+    this.readyText = new ImageComponent(this.characterPortrait.getX() - this.characterPortrait.getWidth() / 4d, this.characterPortrait.getY(),
+        this.characterPortrait.getWidth() * 1.5d, this.characterPortrait.getHeight(), Resources.strings().get("ready"));
+    this.readyText.getAppearance().setForeColor(LitiColors.TRAIT_GOOD);
+    this.readyText.setFont(LitiFonts.ROUND.deriveFont((float) textHeight));
+    this.readyText.setTextShadow(true);
+    this.readyText.setTextShadowColor(LitiColors.TEXT_OUTLINE);
+    this.readyText.setTextShadowStroke(3f);
+    this.readyText.setTextAntialiasing(true);
+    this.readyText.setTextValign(Valign.MIDDLE);
+    this.readyText.setTextAlign(Align.CENTER);
+
     this.getComponents().add(characterPortrait);
     this.getComponents().add(arrowLeft);
     this.getComponents().add(arrowRight);
@@ -131,6 +148,7 @@ public class CharacterSelectionComponent extends GuiComponent {
     this.getComponents().add(infoFrame);
     this.getComponents().add(infoQuestionMark);
     this.getComponents().add(infoButtonPrompt);
+    this.getComponents().add(readyText);
   }
 
   public PlayerClass getCurrentPlayerClass() {
@@ -189,20 +207,32 @@ public class CharacterSelectionComponent extends GuiComponent {
     playerAssigned = true;
     this.updateClassName();
     this.showInfoPrompt(true);
+    this.showArrows(true);
   }
 
   public void removePlayer() {
     playerAssigned = false;
     this.updateClassName();
     this.showInfoPrompt(false);
+    this.showArrows(false);
+    this.info.setVisible(false);
   }
 
   public void ready() {
-
+    this.ready = true;
+    this.showInfoPrompt(false);
+    this.showArrows(false);
+    this.info.setVisible(false);
+    this.readyText.setVisible(true);
+    this.updateClassName();
   }
 
   public void unready() {
-
+    this.ready = false;
+    this.showInfoPrompt(true);
+    this.showArrows(true);
+    this.readyText.setVisible(false);
+    this.updateClassName();
   }
 
   public void info() {
@@ -265,7 +295,15 @@ public class CharacterSelectionComponent extends GuiComponent {
     this.infoButtonPrompt.setVisible(show);
   }
 
+  private void showArrows(boolean show) {
+    this.arrowUp.setVisible(show);
+    this.arrowDown.setVisible(show);
+    this.arrowLeft.setVisible(show);
+    this.arrowRight.setVisible(show);
+  }
+
   private void updateClassName() {
-    this.className.setText(this.playerAssigned ? this.getCurrentPlayerClass().name() : String.format("P%d", this.getPlayerIndex() + 1));
+    this.className
+        .setText(this.playerAssigned && !this.isReady() ? this.getCurrentPlayerClass().name() : String.format("P%d", this.getPlayerIndex() + 1));
   }
 }

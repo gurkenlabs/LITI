@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 //TODO: dispatching delay
 public final class Hud extends GuiComponent implements IRenderable {
 
-  private static final int UI_INPUT_DELAY = 200;
+  private static final int UI_INPUT_DELAY = 250;
   private static final Map<Integer, Long> lastInputs = new ConcurrentHashMap<>();
 
   Hud() {
