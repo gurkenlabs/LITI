@@ -65,6 +65,10 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.updateAnimationController();
     this.onCollision(this::handleCliffs);
     this.onDeath(e -> {
+      this.setScaling(false);
+      this.setFalling(false);
+      Game.world().environment().remove(this);
+
       GameManager.playerDied(this);
       this.lastDeath = Game.time().now();
     });
@@ -287,9 +291,6 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
             tween.stop();
             move.stop();
             // TODO: reset size after tweening
-            this.setScaling(false);
-            this.setFalling(false);
-            Game.world().environment().remove(this);
             System.out.println("you fell off a cliff...");
           });
 
