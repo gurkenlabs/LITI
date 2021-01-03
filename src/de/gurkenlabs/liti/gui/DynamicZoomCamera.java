@@ -3,9 +3,11 @@ package de.gurkenlabs.liti.gui;
 import java.awt.geom.Rectangle2D;
 import java.util.Collection;
 
+import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.graphics.Camera;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 
@@ -32,8 +34,9 @@ public class DynamicZoomCamera extends Camera {
     double minY = 0;
     double maxY = 0;
     for (Player p : players) {
-      double playerX = p.getCenter().getX();
-      double playerY = p.getCenter().getY();
+      Spawnpoint spawn = GameManager.getSpawn(p);
+      double playerX = p.isDead() ? spawn.getCenter().getX(): p.getCenter().getX();
+      double playerY = p.isDead() ? spawn.getCenter().getY(): p.getCenter().getY();
       if (minX == 0 || playerX < minX) {
         minX = playerX;
       }
