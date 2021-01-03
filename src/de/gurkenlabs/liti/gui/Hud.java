@@ -1,12 +1,15 @@
 package de.gurkenlabs.liti.gui;
 
+import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
+import de.gurkenlabs.litiengine.util.TimeUtilities;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -29,6 +32,7 @@ public final class Hud extends GuiComponent implements IRenderable {
     super.render(g);
 
     this.renderHealthAndStaminaBars(g);
+    this.renderRespawnTimer(g);
   }
 
   public static void cancel(int player) {
@@ -94,7 +98,7 @@ public final class Hud extends GuiComponent implements IRenderable {
 
   private void renderHealthAndStaminaBars(Graphics2D g) {
     for (Player player : Players.getAll()) {
-      if(!player.isLoaded() || player.isFalling()){
+      if (!player.isLoaded() || player.isFalling()) {
         continue;
       }
 
@@ -123,8 +127,7 @@ public final class Hud extends GuiComponent implements IRenderable {
       Game.graphics().renderShape(g, healthbar);
 
       g.setColor(player.isStaminaDepleted() ? Color.getHSBColor(.9f, 0.785f, (Game.time().now() % 100) / 100f) : LitiColors.COLOR_HEALTH_BG);
-      Rectangle2D staminaRect = new Rectangle2D.Double(x + (width - staminaWidth) / 2.0, y + height + 1 + (staminaHeight - staminaBgHeight) / 2.0,
-          staminaWidth, staminaBgHeight);
+      Rectangle2D staminaRect = new Rectangle2D.Double(x + (width - staminaWidth) / 2.0, y + height + 1 + (staminaHeight - staminaBgHeight) / 2.0, staminaWidth, staminaBgHeight);
       Game.graphics().renderShape(g, staminaRect);
 
       if (!player.isStaminaDepleted()) {
@@ -140,6 +143,22 @@ public final class Hud extends GuiComponent implements IRenderable {
       if (player.isBlocking()) {
         Game.graphics().renderText(g, "block", player.getCenter());
       }
+    }
+  }
+
+  private void renderRespawnTimer(Graphics2D g) {
+    for (Player player : Players.getAll()) {
+      if (!player.isDead()) {
+        continue;
+      }
+
+      Spawnpoint spawn = GameManager.getSpawn(player);
+      if (spawn == null) {
+        continue;
+      }
+
+      String timeRemaining = TimeUtilities.toTimerFormat(player.getResurrection() - Game.time().since(player.getLastDeath()), TimeUtilities.TimerFormat.S_0);
+      Game.graphics().renderText(g, timeRemaining, spawn.getCenter());
     }
   }
 }

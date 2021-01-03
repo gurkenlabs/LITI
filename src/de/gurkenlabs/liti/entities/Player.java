@@ -2,6 +2,7 @@ package de.gurkenlabs.liti.entities;
 
 import java.awt.Graphics2D;
 
+import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.abilities.Bash;
 import de.gurkenlabs.liti.abilities.Dash;
 import de.gurkenlabs.liti.abilities.Proficiency;
@@ -14,11 +15,14 @@ import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.entities.Action;
 import de.gurkenlabs.litiengine.entities.Creature;
+import de.gurkenlabs.litiengine.entities.EntityInfo;
 import de.gurkenlabs.litiengine.entities.ICollisionEntity;
+import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.graphics.animation.Animation;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
+import de.gurkenlabs.litiengine.physics.CollisionEvent;
 import de.gurkenlabs.litiengine.tweening.Tween;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
@@ -26,17 +30,8 @@ import de.gurkenlabs.litiengine.util.Imaging;
 
 public abstract class Player extends Creature implements IUpdateable, IRenderable {
 
-  public boolean isFalling() {
-    return isFalling;
-  }
-
-  public void setFalling(boolean falling) {
-    isFalling = falling;
-  }
-
   public enum PlayerState {
-    LOCKED,
-    NORMAL
+    LOCKED, NORMAL
   }
 
   private static final int STAMINA_DEPLETION_DELAY = 3000;
@@ -56,6 +51,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private boolean isDashing;
   private long lastBlock;
   private long staminaDepleted;
+  private long lastDeath;
+  private long resurrection;
 
   protected Player(PlayerConfiguration config) {
     this.stamina = new RangeAttribute<>(Proficiency.get(config.getPlayerClass(), Trait.STAMINA), 0.0, Proficiency.get(config.getPlayerClass(), Trait.STAMINA));
@@ -66,41 +63,10 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.movement().onMovementCheck(e -> !this.isBlocking());
     this.setTurnOnMove(false);
     this.updateAnimationController();
-    this.onCollision(e -> {
-      for (ICollisionEntity entity : e.getInvolvedEntities()) {
-        for (String tag : entity.getTags()) {
-          if (tag != null && tag.equals("bounds")) {
-            this.setState(PlayerState.LOCKED);
-            System.out.println("bye bye!");
-            this.setScaling(true);
-            this.setSize(this.animations().getCurrentImage().getWidth()-5, this.animations().getCurrentImage().getHeight()-5);
-            this.setFalling(true);
-            Tween tween = Game.tweens().begin(this, TweenType.SIZE_BOTH, 10000);
-            tween.ease(TweenFunction.QUAD_OUT);
-
-            Tween move = Game.tweens().begin(this, TweenType.POSITION_Y, 5000);
-            if (entity.getCollisionBoxCenter().getY() > this.getCollisionBoxCenter().getY()) {
-              move.ease(TweenFunction.BACK_IN);
-            } else {
-              move.ease(TweenFunction.QUAD_OUT);
-              move.stop();
-            }
-
-            Game.loop().perform(2000, () -> {
-              this.die();
-              tween.stop();
-              move.stop();
-              // TODO: reset size after tweening
-              this.setScaling(false);
-              this.setFalling(false);
-              Game.world().environment().remove(this);
-              System.out.println("you fell off a cliff...");
-            });
-
-            break;
-          }
-        }
-      }
+    this.onCollision(this::handleCliffs);
+    this.onDeath(e -> {
+      GameManager.playerDied(this);
+      this.lastDeath = Game.time().now();
     });
   }
 
@@ -138,6 +104,26 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   public Dash getDash() {
     return dash;
+  }
+
+  public boolean isFalling() {
+    return isFalling;
+  }
+
+  public void setFalling(boolean falling) {
+    isFalling = falling;
+  }
+
+  public long getLastDeath() {
+    return lastDeath;
+  }
+
+  public long getResurrection() {
+    return resurrection;
+  }
+
+  public void setResurrection(long resurrection) {
+    this.resurrection = resurrection;
   }
 
   @Override
@@ -243,6 +229,13 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   }
 
   @Override
+  public void loaded(Environment environment) {
+    final EntityInfo info = this.getClass().getAnnotation(EntityInfo.class);
+    this.setSize(info.width(), info.height());
+    super.loaded(environment);
+  }
+
+  @Override
   protected IEntityAnimationController<?> createAnimationController() {
     return new PlayerAnimationController(this);
   }
@@ -265,6 +258,43 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
         this.stamina.setToMin();
       } else {
         this.stamina.setBaseValue(this.stamina.get() - drain);
+      }
+    }
+  }
+
+  private void handleCliffs(CollisionEvent e) {
+    for (ICollisionEntity entity : e.getInvolvedEntities()) {
+      for (String tag : entity.getTags()) {
+        if (tag != null && tag.equals("bounds")) {
+          this.setState(PlayerState.LOCKED);
+          System.out.println("bye bye!");
+          this.setScaling(true);
+          this.setSize(this.animations().getCurrentImage().getWidth() - 5, this.animations().getCurrentImage().getHeight() - 5);
+          this.setFalling(true);
+          Tween tween = Game.tweens().begin(this, TweenType.SIZE_BOTH, 10000);
+          tween.ease(TweenFunction.QUAD_OUT);
+
+          Tween move = Game.tweens().begin(this, TweenType.POSITION_Y, 5000);
+          if (entity.getCollisionBoxCenter().getY() > this.getCollisionBoxCenter().getY()) {
+            move.ease(TweenFunction.BACK_IN);
+          } else {
+            move.ease(TweenFunction.QUAD_OUT);
+            move.stop();
+          }
+
+          Game.loop().perform(2000, () -> {
+            this.die();
+            tween.stop();
+            move.stop();
+            // TODO: reset size after tweening
+            this.setScaling(false);
+            this.setFalling(false);
+            Game.world().environment().remove(this);
+            System.out.println("you fell off a cliff...");
+          });
+
+          break;
+        }
       }
     }
   }
