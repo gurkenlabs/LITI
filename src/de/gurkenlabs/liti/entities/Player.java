@@ -19,14 +19,11 @@ import de.gurkenlabs.litiengine.entities.EntityInfo;
 import de.gurkenlabs.litiengine.entities.ICollisionEntity;
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
-import de.gurkenlabs.litiengine.graphics.Spritesheet;
-import de.gurkenlabs.litiengine.graphics.animation.Animation;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.physics.CollisionEvent;
 import de.gurkenlabs.litiengine.tweening.Tween;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
-import de.gurkenlabs.litiengine.util.Imaging;
 
 public abstract class Player extends Creature implements IUpdateable, IRenderable {
 
@@ -55,7 +52,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private long resurrection;
 
   protected Player(PlayerConfiguration config) {
-    this.stamina = new RangeAttribute<>(Proficiency.get(config.getPlayerClass(), Trait.STAMINA), 0.0, Proficiency.get(config.getPlayerClass(), Trait.STAMINA));
+    this.stamina = new RangeAttribute<>(Proficiency.get(config.getPlayerClass(), Trait.STAMINA), 0.0,
+        Proficiency.get(config.getPlayerClass(), Trait.STAMINA));
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
     this.dash = new Dash(this);
@@ -64,13 +62,13 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.setTurnOnMove(false);
     this.updateAnimationController();
     this.onCollision(this::handleCliffs);
+    this.setScaling(false);
     this.onDeath(e -> {
-      this.setScaling(false);
-      this.setFalling(false);
       Game.world().environment().remove(this);
-
       GameManager.playerDied(this);
       this.lastDeath = Game.time().now();
+      this.setFalling(false);
+      this.setScaling(false);
     });
   }
 
@@ -209,10 +207,10 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.bash.cast();
   }
 
-  @Action(name = "ULTIMATE")
-  public void useUltimate() {
-    if (this.getUltimate() != null) {
-      this.getUltimate().cast();
+  @Action(name = "SURVIVALSKILL")
+  public void useSurvivalSkill() {
+    if (this.getSurvivalSkill() != null) {
+      this.getSurvivalSkill().cast();
     }
   }
 
@@ -221,7 +219,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     return "Player " + (this.getConfiguration().getIndex() + 1) + " (#" + this.getMapId() + ")";
   }
 
-  public abstract SurvivalSkill getUltimate();
+  public abstract SurvivalSkill getSurvivalSkill();
 
   @Override
   public void updateAnimationController() {
@@ -246,7 +244,9 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   private void recoverStamina() {
     if (this.stamina.get() < this.stamina.getMax()) {
-      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * Proficiency.get(this.getPlayerClass(), Trait.RECOVERY) * Game.loop().getTimeScale();
+      double recovery =
+          Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * Proficiency.get(this.getPlayerClass(), Trait.RECOVERY) * Game
+              .loop().getTimeScale();
       if (this.stamina.get() + recovery > this.stamina.getMax()) {
         this.stamina.setToMax();
       } else {
@@ -257,7 +257,9 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   private void drainStaminaWhileBlocking() {
     if (this.stamina.get() > this.stamina.getMin()) {
-      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * (1.5 - Proficiency.get(this.getPlayerClass(), Trait.RECOVERY)) * Game.loop().getTimeScale();
+      double drain =
+          Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * (1.5 - Proficiency.get(this.getPlayerClass(), Trait.RECOVERY))
+              * Game.loop().getTimeScale();
       if (this.stamina.get() - drain <= this.stamina.getMin()) {
         this.stamina.setToMin();
       } else {
@@ -272,25 +274,17 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
         if (tag != null && tag.equals("bounds")) {
           this.setState(PlayerState.LOCKED);
           System.out.println("bye bye!");
-          this.setScaling(true);
-          this.setSize(this.animations().getCurrentImage().getWidth() - 5, this.animations().getCurrentImage().getHeight() - 5);
           this.setFalling(true);
-          Tween tween = Game.tweens().begin(this, TweenType.SIZE_BOTH, 10000);
-          tween.ease(TweenFunction.QUAD_OUT);
-
-          Tween move = Game.tweens().begin(this, TweenType.POSITION_Y, 5000);
+          this.setScaling(true);
+          Game.tweens().begin(this, TweenType.SIZE_BOTH, 2000).targetRelative(-10, -10);
           if (entity.getCollisionBoxCenter().getY() > this.getCollisionBoxCenter().getY()) {
-            move.ease(TweenFunction.BACK_IN);
+            Game.tweens().begin(this, TweenType.POSITION_Y, 1500).targetRelative(+20);
           } else {
-            move.ease(TweenFunction.QUAD_OUT);
-            move.stop();
+            Game.tweens().begin(this, TweenType.POSITION_Y, 1500).targetRelative(-10).ease(TweenFunction.BACK_OUT);
           }
-
-          Game.loop().perform(2000, () -> {
+          Game.loop().perform(1500, () -> {
             this.die();
-            tween.stop();
-            move.stop();
-            // TODO: reset size after tweening
+            Game.tweens().remove(this, TweenType.POSITION_Y);
             System.out.println("you fell off a cliff...");
           });
 

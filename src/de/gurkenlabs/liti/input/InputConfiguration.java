@@ -1,292 +1,42 @@
 package de.gurkenlabs.liti.input;
 
-import de.gurkenlabs.litiengine.configuration.ConfigurationGroup;
-import de.gurkenlabs.litiengine.configuration.ConfigurationGroupInfo;
+public class InputConfiguration {
+  public static final String KEYBOARD_UP = "KEYBOARD_W_PRESSED";
+  public static final String KEYBOARD_DOWN = "KEYBOARD_S_PRESSED";
+  public static final String KEYBOARD_LEFT = "KEYBOARD_A_PRESSED";
+  public static final String KEYBOARD_RIGHT = "KEYBOARD_D_PRESSED";
+  public static final String KEYBOARD_INTERACT = "KEYBOARD_E_PRESSED";
+  public static final String KEYBOARD_BLOCK_START = "MOUSE_2_PRESSED";
+  public static final String KEYBOARD_BLOCK_STOP = "MOUSE_2_RELEASED";
+  public static final String KEYBOARD_CANCEL = "KEYBOARD_ESCAPE_RELEASED";
+  public static final String KEYBOARD_DASH = "KEYBOARD_SPACE_PRESSED";
+  public static final String KEYBOARD_SURVIVALSKILL = "KEYBOARD_SHIFT_PRESSED";
+  public static final String KEYBOARD_BASH = "MOUSE_1_PRESSED";
+  public static final String KEYBOARD_AIM = "MOUSE_POSITION";
 
-@ConfigurationGroupInfo(prefix = "lepus_input_")
-public class InputConfiguration extends ConfigurationGroup {
-  private String keyboard_up = "KEYBOARD_W_PRESSED";
-  private String keyboard_down = "KEYBOARD_S_PRESSED";
-  private String keyboard_left = "KEYBOARD_A_PRESSED";
-  private String keyboard_right = "KEYBOARD_D_PRESSED";
-  private String keyboard_interact = "KEYBOARD_E_PRESSED";
-  private String keyboard_block_start = "MOUSE_2_PRESSED";
-  private String keyboard_block_stop = "MOUSE_2_RELEASED";
-  private String keyboard_cancel = "KEYBOARD_ESCAPE_RELEASED";
-  private String keyboard_dash = "KEYBOARD_SPACE_PRESSED";
-  private String keyboard_ultimate = "KEYBOARD_SHIFT_PRESSED";
-  private String keyboard_bash = "MOUSE_1_PRESSED";
-  private String keyboard_aim = "MOUSE_POSITION";
+  public static final String GAMEPAD_UP = "GAMEPAD_AXIS-Y_-_PRESSED";
+  public static final String GAMEPAD_DOWN = "GAMEPAD_AXIS-Y_+_PRESSED";
+  public static final String GAMEPAD_LEFT = "GAMEPAD_AXIS-X_-_PRESSED";
+  public static final String GAMEPAD_RIGHT = "GAMEPAD_AXIS-X_+_PRESSED";
+  public static final String GAMEPAD_POV = "GAMEPAD_AXIS-POV_+_PRESSED";
+  public static final String GAMEPAD_BLOCK_START = "GAMEPAD_BUTTON-0_PRESSED";
+  public static final String GAMEPAD_BLOCK_STOP = "GAMEPAD_BUTTON-0_RELEASED";
+  public static final String GAMEPAD_INTERACT = "GAMEPAD_BUTTON-1_PRESSED";
+  public static final String GAMEPAD_CANCEL = "GAMEPAD_BUTTON-2_PRESSED";
+  public static final String GAMEPAD_DASH = "GAMEPAD_AXIS-Z_+_PRESSED";
+  public static final String GAMEPAD_SURVIVALSKILL = "GAMEPAD_BUTTON-1_PRESSED";
+  public static final String GAMEPAD_BASH = "GAMEPAD_AXIS-Z_-_PRESSED";
+  public static final String GAMEPAD_AIMX = "GAMEPAD_AXIS-RX_CHANGED";
+  public static final String GAMEPAD_AIMY = "GAMEPAD_AXIS-RY_CHANGED";
 
-  private String gamepad_up = "GAMEPAD_AXIS-Y_-_PRESSED";
-  private String gamepad_down = "GAMEPAD_AXIS-Y_+_PRESSED";
-  private String gamepad_left = "GAMEPAD_AXIS-X_-_PRESSED";
-  private String gamepad_right = "GAMEPAD_AXIS-X_+_PRESSED";
-  private String gamepad_block_start = "GAMEPAD_BUTTON-0_PRESSED";
-  private String gamepad_block_stop = "GAMEPAD_BUTTON-0_RELEASED";
-  private String gamepad_interact = "GAMEPAD_BUTTON-1_PRESSED";
-  private String gamepad_cancel = "GAMEPAD_BUTTON-2_PRESSED";
-  private String gamepad_dash = "GAMEPAD_AXIS-Z_+_PRESSED";
-  private String gamepad_ultimate = "GAMEPAD_BUTTON-1_PRESSED";
-  private String gamepad_bash = "GAMEPAD_AXIS-Z_-_PRESSED";
-  private String gamepad_aimx = "GAMEPAD_AXIS-RX_CHANGED";
-  private String gamepad_aimy = "GAMEPAD_AXIS-RY_CHANGED";
+  public static final String UI_KEYBOARD_MENU = "KEYBOARD_ESCAPE_RELEASED";
+  public static final String UI_GAMEPAD_MENU = "GAMEPAD_BUTTON-9_PRESSED";
+  public static final String UI_KEYBOARD_CONFIRM = "KEYBOARD_SPACE_RELEASED";
+  public static final String UI_GAMEPAD_CONFIRM = "GAMEPAD_BUTTON-1_PRESSED";
+  public static final String UI_KEYBOARD_INFO = "KEYBOARD_CONTROL_RELEASED";
+  public static final String UI_GAMEPAD_INFO = "GAMEPAD_BUTTON-0_PRESSED";
 
-  private String ui_keyboard_menu = "KEYBOARD_ESCAPE_RELEASED";
-  private String ui_gamepad_menu = "GAMEPAD_BUTTON-9_PRESSED";
-  private String ui_keyboard_confirm = "KEYBOARD_SPACE_RELEASED";
-  private String ui_gamepad_confirm = "GAMEPAD_BUTTON-1_PRESSED";
-  private String ui_keyboard_info = "KEYBOARD_CONTROL_RELEASED";
-  private String ui_gamepad_info = "GAMEPAD_BUTTON-0_PRESSED";
-
-  public InputConfiguration() {
+  private InputConfiguration() {
   }
 
-  public String getkeyboard_up() {
-    return this.keyboard_up;
-  }
-
-  public void setkeyboard_up(String keyboard_up) {
-    this.keyboard_up = keyboard_up;
-  }
-
-  public String getkeyboard_down() {
-    return this.keyboard_down;
-  }
-
-  public void setkeyboard_down(String keyboard_down) {
-    this.keyboard_down = keyboard_down;
-  }
-
-  public String getkeyboard_left() {
-    return this.keyboard_left;
-  }
-
-  public void setkeyboard_left(String keyboard_left) {
-    this.keyboard_left = keyboard_left;
-  }
-
-  public String getkeyboard_right() {
-    return this.keyboard_right;
-  }
-
-  public void setkeyboard_right(String keyboard_right) {
-    this.keyboard_right = keyboard_right;
-  }
-
-  public String getkeyboard_interact() {
-    return this.keyboard_interact;
-  }
-
-  public void setkeyboard_interact(String keyboard_interact) {
-    this.keyboard_interact = keyboard_interact;
-  }
-
-  public String getkeyboard_block_start() {
-    return this.keyboard_block_start;
-  }
-
-  public void setkeyboard_block_start(String keyboard_block_start) {
-    this.keyboard_block_start = keyboard_block_start;
-  }
-
-  public String getkeyboard_block_stop() {
-    return this.keyboard_block_stop;
-  }
-
-  public void setkeyboard_block_stop(String keyboard_block_stop) {
-    this.keyboard_block_stop = keyboard_block_stop;
-  }
-
-  public String getkeyboard_cancel() {
-    return this.keyboard_cancel;
-  }
-
-  public void setkeyboard_cancel(String keyboard_cancel) {
-    this.keyboard_cancel = keyboard_cancel;
-  }
-
-  public String getkeyboard_dash() {
-    return this.keyboard_dash;
-  }
-
-  public void setkeyboard_dash(String keyboard_dash) {
-    this.keyboard_dash = keyboard_dash;
-  }
-
-  public String getkeyboard_ultimate() {
-    return this.keyboard_ultimate;
-  }
-
-  public void setkeyboard_ultimate(String keyboard_ultimate) {
-    this.keyboard_ultimate = keyboard_ultimate;
-  }
-
-  public String getkeyboard_bash() {
-    return this.keyboard_bash;
-  }
-
-  public void setkeyboard_bash(String keyboard_bash) {
-    this.keyboard_bash = keyboard_bash;
-  }
-
-  public String getkeyboard_aim() {
-    return this.keyboard_aim;
-  }
-
-  public void setkeyboard_aim(String keyboard_aim) {
-    this.keyboard_aim = keyboard_aim;
-  }
-
-  public String getgamepad_up() {
-    return this.gamepad_up;
-  }
-
-  public void setgamepad_up(String gamepad_up) {
-    this.gamepad_up = gamepad_up;
-  }
-
-  public String getgamepad_down() {
-    return this.gamepad_down;
-  }
-
-  public void setgamepad_down(String gamepad_down) {
-    this.gamepad_down = gamepad_down;
-  }
-
-  public String getgamepad_left() {
-    return this.gamepad_left;
-  }
-
-  public void setgamepad_left(String gamepad_left) {
-    this.gamepad_left = gamepad_left;
-  }
-
-  public String getgamepad_right() {
-    return this.gamepad_right;
-  }
-
-  public void setgamepad_right(String gamepad_right) {
-    this.gamepad_right = gamepad_right;
-  }
-
-  public String getgamepad_block_start() {
-    return this.gamepad_block_start;
-  }
-
-  public void setgamepad_block_start(String gamepad_block_start) {
-    this.gamepad_block_start = gamepad_block_start;
-  }
-
-  public String getgamepad_block_stop() {
-    return this.gamepad_block_stop;
-  }
-
-  public void setgamepad_block_stop(String gamepad_block_stop) {
-    this.gamepad_block_stop = gamepad_block_stop;
-  }
-
-  public String getgamepad_interact() {
-    return this.gamepad_interact;
-  }
-
-  public void setgamepad_interact(String gamepad_interact) {
-    this.gamepad_interact = gamepad_interact;
-  }
-
-  public String getgamepad_cancel() {
-    return this.gamepad_cancel;
-  }
-
-  public void setgamepad_cancel(String gamepad_cancel) {
-    this.gamepad_cancel = gamepad_cancel;
-  }
-
-  public String getgamepad_dash() {
-    return this.gamepad_dash;
-  }
-
-  public void setgamepad_dash(String gamepad_dash) {
-    this.gamepad_dash = gamepad_dash;
-  }
-
-  public String getgamepad_ultimate() {
-    return this.gamepad_ultimate;
-  }
-
-  public void setgamepad_ultimate(String gamepad_ultimate) {
-    this.gamepad_ultimate = gamepad_ultimate;
-  }
-
-  public String getgamepad_bash() {
-    return this.gamepad_bash;
-  }
-
-  public void setgamepad_bash(String gamepad_bash) {
-    this.gamepad_bash = gamepad_bash;
-  }
-
-  public String getgamepad_aimx() {
-    return this.gamepad_aimx;
-  }
-
-  public void setgamepad_aimx(String gamepad_aimx) {
-    this.gamepad_aimx = gamepad_aimx;
-  }
-
-  public String getgamepad_aimy() {
-    return this.gamepad_aimy;
-  }
-
-  public void setgamepad_aimy(String gamepad_aimy) {
-    this.gamepad_aimy = gamepad_aimy;
-  }
-
-  public String getUi_gamepad_menu() {
-    return this.ui_gamepad_menu;
-  }
-
-  public void setUi_gamepad_menu(String ui_gamepad_menu) {
-    this.ui_gamepad_menu = ui_gamepad_menu;
-  }
-
-  public String getUi_keyboard_menu() {
-    return ui_keyboard_menu;
-  }
-
-  public void setUi_keyboard_menu(String ui_keyboard_menu) {
-    this.ui_keyboard_menu = ui_keyboard_menu;
-  }
-
-  public String getUi_gamepad_info() {
-    return this.ui_gamepad_info;
-  }
-
-  public void setUi_gamepad_info(String ui_gamepad_info) {
-    this.ui_gamepad_info = ui_gamepad_info;
-  }
-
-  public String getUi_gamepad_confirm() {
-    return this.ui_gamepad_confirm;
-  }
-
-  public void setUi_gamepad_confirm(String ui_gamepad_confirm) {
-    this.ui_gamepad_confirm = ui_gamepad_confirm;
-  }
-
-  public String getUi_keyboard_info() {
-    return this.ui_keyboard_info;
-  }
-
-  public void setUi_keyboard_info(String ui_keyboard_info) {
-    this.ui_keyboard_info = ui_keyboard_info;
-  }
-
-  public String getUi_keyboard_confirm() {
-    return this.ui_keyboard_confirm;
-  }
-
-  public void setUi_keyboard_confirm(String ui_keyboard_confirm) {
-    this.ui_keyboard_confirm = ui_keyboard_confirm;
-  }
 }

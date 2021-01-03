@@ -44,7 +44,7 @@ public class InputBinding {
 
     private final String symbol;
 
-    private GamepadInputCondition(String symbol) {
+    GamepadInputCondition(String symbol) {
       this.symbol = symbol;
     }
 
@@ -343,7 +343,7 @@ public class InputBinding {
   }
 
   private static void bindToMouse(IEntity entity, InputBinding binding, String action) {
-    bindToMouse((e) -> entity.perform(action), binding);
+    bindToMouse(e -> entity.perform(action), binding);
   }
 
   private static void bindToGamepad(Consumer<Float> action, InputBinding binding, Gamepad gamepad) {
@@ -372,6 +372,7 @@ public class InputBinding {
           action.accept(e.getValue());
         }
       });
+      break;
     default:
       break;
     }
