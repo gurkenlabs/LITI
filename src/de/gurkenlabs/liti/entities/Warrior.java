@@ -11,7 +11,7 @@ import de.gurkenlabs.litiengine.graphics.animation.Animation;
 import de.gurkenlabs.litiengine.graphics.animation.AnimationController;
 import de.gurkenlabs.litiengine.resources.Resources;
 
-@EntityInfo(width = 12, height = 21)
+@EntityInfo(width = 18, height = 30)
 @CollisionInfo(collision = true, collisionBoxWidth = 4, collisionBoxHeight = 5, valign = Valign.MIDDLE_DOWN)
 @CombatInfo(hitpoints = 100)
 @MovementInfo(velocity = 60, acceleration = 1000, deceleration = 500)
@@ -31,7 +31,7 @@ public class Warrior extends Player {
   }
 
   @Override
-  public SurvivalSkill getUltimate() {
+  public SurvivalSkill getSurvivalSkill() {
     return this.ultimate;
   }
 }

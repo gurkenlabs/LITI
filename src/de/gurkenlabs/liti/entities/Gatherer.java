@@ -17,7 +17,7 @@ public class Gatherer extends Player {
   }
 
   @Override
-  public SurvivalSkill getUltimate() {
+  public SurvivalSkill getSurvivalSkill() {
     return null;
   }
 }

@@ -10,7 +10,7 @@ public class InputConfiguration {
   public static final String KEYBOARD_BLOCK_STOP = "MOUSE_2_RELEASED";
   public static final String KEYBOARD_CANCEL = "KEYBOARD_ESCAPE_RELEASED";
   public static final String KEYBOARD_DASH = "KEYBOARD_SPACE_PRESSED";
-  public static final String KEYBOARD_ULTIMATE = "KEYBOARD_SHIFT_PRESSED";
+  public static final String KEYBOARD_SURVIVALSKILL = "KEYBOARD_SHIFT_PRESSED";
   public static final String KEYBOARD_BASH = "MOUSE_1_PRESSED";
   public static final String KEYBOARD_AIM = "MOUSE_POSITION";
 
@@ -24,7 +24,7 @@ public class InputConfiguration {
   public static final String GAMEPAD_INTERACT = "GAMEPAD_BUTTON-1_PRESSED";
   public static final String GAMEPAD_CANCEL = "GAMEPAD_BUTTON-2_PRESSED";
   public static final String GAMEPAD_DASH = "GAMEPAD_AXIS-Z_+_PRESSED";
-  public static final String GAMEPAD_ULTIMATE = "GAMEPAD_BUTTON-1_PRESSED";
+  public static final String GAMEPAD_SURVIVALSKILL = "GAMEPAD_BUTTON-1_PRESSED";
   public static final String GAMEPAD_BASH = "GAMEPAD_AXIS-Z_-_PRESSED";
   public static final String GAMEPAD_AIMX = "GAMEPAD_AXIS-RX_CHANGED";
   public static final String GAMEPAD_AIMY = "GAMEPAD_AXIS-RY_CHANGED";

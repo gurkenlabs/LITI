@@ -112,9 +112,9 @@ public final class InputManager {
       // ULTIMATE
       InputBinding.bind(value -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
-          player.perform("ULTIMATE");
+          player.perform("SURVIVALSKILL");
         }
-      }, InputConfiguration.GAMEPAD_ULTIMATE, gamepad);
+      }, InputConfiguration.GAMEPAD_SURVIVALSKILL, gamepad);
 
       // BLOCK START
       InputBinding.bind(value -> {
@@ -208,9 +208,9 @@ public final class InputManager {
     // ULTIMATE
     InputBinding.bind(value -> {
       if (player.getState() != Player.PlayerState.LOCKED) {
-        player.perform("ULTIMATE");
+        player.perform("SURVIVALSKILL");
       }
-    }, InputConfiguration.KEYBOARD_ULTIMATE, null);
+    }, InputConfiguration.KEYBOARD_SURVIVALSKILL, null);
 
     // BLOCK START
     InputBinding.bind(value -> {

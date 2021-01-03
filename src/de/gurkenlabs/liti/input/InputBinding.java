@@ -1,12 +1,10 @@
 package de.gurkenlabs.liti.input;
 
-import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.input.Gamepad;
 import de.gurkenlabs.litiengine.input.Gamepad.Axis;
 import de.gurkenlabs.litiengine.input.Gamepad.Buttons;
-import de.gurkenlabs.litiengine.input.Gamepad.DPad;
 import de.gurkenlabs.litiengine.input.Input;
 import de.gurkenlabs.litiengine.util.ReflectionUtilities;
 
@@ -46,7 +44,7 @@ public class InputBinding {
 
     private final String symbol;
 
-    private GamepadInputCondition(String symbol) {
+    GamepadInputCondition(String symbol) {
       this.symbol = symbol;
     }
 
@@ -245,25 +243,6 @@ public class InputBinding {
       identifier = ReflectionUtilities.getStaticValue(Axis.class, buttonSplit[1]);
       type = split.length > 3 ? InputEventType.fromString(split[3]) : InputEventType.CHANGED;
       condition = GamepadInputCondition.fromSymbol(split[2]);
-    } else if (buttonSplit[0].equals("DPAD")) {
-      identifier = Axis.POV;
-      switch (Direction.valueOf(buttonSplit[1])) {
-      case DOWN:
-        break;
-      case LEFT:
-        break;
-      case RIGHT:
-        break;
-      case UP:
-        condition = GamepadInputCondition.NEGATIVE;
-        break;
-      default:
-        break;
-      }
-      condition = GamepadInputCondition.POSITIVE;
-
-      ;
-      type = InputEventType.fromString(split[2]);
     } else {
       System.out.println("Invalid binding configuration! Unknown gamepad button type '" + buttonSplit[0] + "' used!");
       return InputBinding.INVALID;
@@ -364,7 +343,7 @@ public class InputBinding {
   }
 
   private static void bindToMouse(IEntity entity, InputBinding binding, String action) {
-    bindToMouse((e) -> entity.perform(action), binding);
+    bindToMouse(e -> entity.perform(action), binding);
   }
 
   private static void bindToGamepad(Consumer<Float> action, InputBinding binding, Gamepad gamepad) {
