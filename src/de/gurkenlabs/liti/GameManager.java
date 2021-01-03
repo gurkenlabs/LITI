@@ -28,9 +28,9 @@ public final class GameManager {
     }
   }
 
-  public static void init(InputConfiguration inputConfig) {
+  public static void init() {
     Game.loop().attach(GameManager::update);
-    InputManager.init(inputConfig);
+    InputManager.init();
     Game.world().onLoaded(e -> {
       if (!e.getMap().getName().equals("plateau2")) {
         return;
