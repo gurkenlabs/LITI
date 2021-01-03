@@ -151,6 +151,77 @@
       <property name="tags" value="bounds"/>
      </properties>
     </object>
+    <object id="125" name="bound" type="COLLISIONBOX" x="561" y="257" width="34" height="24">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="126" name="bound" type="COLLISIONBOX" x="595" y="264" width="31" height="17">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="127" name="bound" type="COLLISIONBOX" x="626" y="260" width="46" height="27">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="128" name="bound" type="COLLISIONBOX" x="521" y="259" width="40" height="20">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="129" name="bound" type="COLLISIONBOX" x="0" y="254" width="32" height="32">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="130" name="bound" type="COLLISIONBOX" x="32" y="254" width="14" height="38">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="131" name="bound" type="COLLISIONBOX" x="46" y="260" width="34" height="25">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="132" name="bound" type="COLLISIONBOX" x="80" y="265" width="34" height="20">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="133" name="bound" type="COLLISIONBOX" x="138" y="260" width="8" height="19">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="134" name="bound" type="COLLISIONBOX" x="114" y="265" width="24" height="17">
+     <properties>
+      <property name="collisionType" value="STATIC"/>
+      <property name="tags" value="bounds"/>
+     </properties>
+    </object>
+    <object id="135" type="PROP" x="192" y="254" width="44" height="72">
+     <properties>
+      <property name="addShadow" type="bool" value="false"/>
+      <property name="collision" type="bool" value="false"/>
+      <property name="collisionValign" value="MIDDLE_DOWN"/>
+      <property name="collisionboxHeight" value="18.0"/>
+      <property name="collisionboxWidth" value="28.0"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="stonehenge1"/>
+     </properties>
+    </object>
    </objectgroup>
    <imagelayer id="2" name="background" offsetx="-7" offsety="-4">
     <image source="plateau.png" width="686" height="555"/>
@@ -220,15 +291,21 @@
       <property name="collisionType" value="STATIC"/>
      </properties>
     </object>
-    <object id="21" type="PROP" x="191" y="253" width="44" height="72">
+    <object id="21" type="PROP" x="1086" y="253" width="44" height="72">
      <properties>
       <property name="addShadow" type="bool" value="false"/>
       <property name="collision" type="bool" value="false"/>
+      <property name="collisionAlign" value="CENTER"/>
+      <property name="collisionType" value="DYNAMIC"/>
       <property name="collisionValign" value="MIDDLE_DOWN"/>
       <property name="collisionboxHeight" value="18.0"/>
       <property name="collisionboxWidth" value="28.0"/>
+      <property name="hitpoints" value="100"/>
       <property name="indestructible" type="bool" value="false"/>
+      <property name="material" value="UNDEFINED"/>
+      <property name="rotationSprite" value="NONE"/>
       <property name="spritesheetName" value="stonehenge1"/>
+      <property name="velocity" value="0.0"/>
      </properties>
     </object>
     <object id="22" type="COLLISIONBOX" x="210" y="299" width="12" height="21">
@@ -511,7 +588,7 @@
       <property name="collisionType" value="STATIC"/>
      </properties>
     </object>
-    <object id="69" type="PROP" x="151" y="225" width="20" height="28">
+    <object id="69" type="PROP" x="147" y="230" width="20" height="28">
      <properties>
       <property name="addShadow" type="bool" value="false"/>
       <property name="collision" type="bool" value="true"/>
@@ -523,7 +600,7 @@
       <property name="spritesheetName" value="stone1"/>
      </properties>
     </object>
-    <object id="70" type="PROP" x="171" y="225" width="20" height="28">
+    <object id="70" type="PROP" x="167" y="230" width="20" height="28">
      <properties>
       <property name="addShadow" type="bool" value="false"/>
       <property name="collision" type="bool" value="true"/>
@@ -535,7 +612,7 @@
       <property name="spritesheetName" value="stone1"/>
      </properties>
     </object>
-    <object id="71" type="PROP" x="188" y="230" width="20" height="11">
+    <object id="71" type="PROP" x="187" y="234" width="20" height="11">
      <properties>
       <property name="addShadow" type="bool" value="true"/>
       <property name="collision" type="bool" value="true"/>
@@ -556,7 +633,7 @@
       <property name="spritesheetName" value="stonehenge1"/>
      </properties>
     </object>
-    <object id="72" type="PROP" x="465" y="230" width="16" height="11">
+    <object id="72" type="PROP" x="467" y="232" width="16" height="11">
      <properties>
       <property name="addShadow" type="bool" value="true"/>
       <property name="collision" type="bool" value="true"/>
@@ -567,7 +644,7 @@
       <property name="spritesheetName" value="stone3"/>
      </properties>
     </object>
-    <object id="73" type="PROP" x="499" y="225" width="20" height="28">
+    <object id="73" type="PROP" x="499" y="229" width="20" height="28">
      <properties>
       <property name="addShadow" type="bool" value="false"/>
       <property name="collision" type="bool" value="true"/>
@@ -580,7 +657,7 @@
       <property name="spritesheetName" value="stone1"/>
      </properties>
     </object>
-    <object id="74" type="PROP" x="479" y="225" width="20" height="28">
+    <object id="74" type="PROP" x="479" y="229" width="20" height="28">
      <properties>
       <property name="addShadow" type="bool" value="false"/>
       <property name="collision" type="bool" value="true"/>
@@ -598,7 +675,7 @@
       <property name="collisionType" value="STATIC"/>
      </properties>
     </object>
-    <object id="76" type="PROP" x="148" y="267" width="20" height="28">
+    <object id="76" type="PROP" x="146" y="263" width="20" height="28">
      <properties>
       <property name="addShadow" type="bool" value="false"/>
       <property name="collision" type="bool" value="true"/>
@@ -610,7 +687,7 @@
       <property name="spritesheetName" value="stone1"/>
      </properties>
     </object>
-    <object id="77" type="PROP" x="168" y="267" width="20" height="28">
+    <object id="77" type="PROP" x="166" y="263" width="20" height="28">
      <properties>
       <property name="addShadow" type="bool" value="false"/>
       <property name="collision" type="bool" value="true"/>
@@ -622,7 +699,7 @@
       <property name="spritesheetName" value="stone1"/>
      </properties>
     </object>
-    <object id="78" type="PROP" x="181" y="293" width="20" height="11">
+    <object id="78" type="PROP" x="180" y="290" width="20" height="11">
      <properties>
       <property name="addShadow" type="bool" value="true"/>
       <property name="collision" type="bool" value="true"/>
@@ -765,11 +842,18 @@
     </object>
    </objectgroup>
    <objectgroup id="0" name="lights" visible="1">
-    <object id="96" type="LIGHTSOURCE" x="219" y="152" width="240" height="240">
+    <object id="96" type="LIGHTSOURCE" x="205" y="159" width="240" height="240">
      <properties>
+      <property name="collisionAlign" value="CENTER"/>
+      <property name="collisionType" value="DYNAMIC"/>
+      <property name="collisionValign" value="DOWN"/>
+      <property name="collisionboxHeight" value="0.0"/>
+      <property name="collisionboxWidth" value="0.0"/>
       <property name="lightActive" type="bool" value="true"/>
       <property name="lightColor" value="#e2edfb"/>
-      <property name="lightIntensity" value="50"/>
+      <property name="lightFocusOffsetX" value="0"/>
+      <property name="lightFocusOffsetY" value="0"/>
+      <property name="lightIntensity" type="int" value="50"/>
       <property name="lightShape" value="ellipse"/>
      </properties>
     </object>

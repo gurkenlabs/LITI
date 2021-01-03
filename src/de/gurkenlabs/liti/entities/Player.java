@@ -18,6 +18,7 @@ import de.gurkenlabs.litiengine.entities.ICollisionEntity;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.graphics.animation.Animation;
+import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.tweening.Tween;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
@@ -72,13 +73,23 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
             this.setState(PlayerState.LOCKED);
             System.out.println("bye bye!");
             this.setScaling(true);
-            //this.setSize(this.animations().getCurrentImage().getWidth(), this.animations().getCurrentImage().getHeight());
+            this.setSize(this.animations().getCurrentImage().getWidth()-5, this.animations().getCurrentImage().getHeight()-5);
             this.setFalling(true);
-            Tween tween = Game.tweens().begin(this, TweenType.SIZE_BOTH, 3000);
+            Tween tween = Game.tweens().begin(this, TweenType.SIZE_BOTH, 10000);
             tween.ease(TweenFunction.QUAD_OUT);
+
+            Tween move = Game.tweens().begin(this, TweenType.POSITION_Y, 5000);
+            if (entity.getCollisionBoxCenter().getY() > this.getCollisionBoxCenter().getY()) {
+              move.ease(TweenFunction.BACK_IN);
+            } else {
+              move.ease(TweenFunction.QUAD_OUT);
+              move.stop();
+            }
+
             Game.loop().perform(2000, () -> {
               this.die();
               tween.stop();
+              move.stop();
               // TODO: reset size after tweening
               this.setScaling(false);
               this.setFalling(false);
@@ -229,17 +240,11 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     }
 
     super.updateAnimationController();
+  }
 
-    this.animations().getAll().forEach(an -> {
-      Spritesheet replaced = new Spritesheet(Imaging.replaceColors(an.getSpritesheet().getImage(), this.getConfiguration().getSkin().getColorMappings()), an.getSpritesheet().getName(), an.getSpritesheet().getSpriteWidth(), an.getSpritesheet().getSpriteHeight());
-      this.animations().add(new Animation(replaced, an.isLooping(), an.getKeyFrameDurations()));
-      this.animations().remove(an);
-    });
-
-    this.setController(PlayerAnimationController.class, new PlayerAnimationController(this));
-    if (Game.world().environment() != null && Game.world().environment().isLoaded()) {
-      this.animations().attach();
-    }
+  @Override
+  protected IEntityAnimationController<?> createAnimationController() {
+    return new PlayerAnimationController(this);
   }
 
   private void recoverStamina() {
