@@ -28,6 +28,7 @@ public class HitEffect extends Effect {
         player.getStamina().modifyBaseValue(Modification.SUBTRACT, damage);
 
         if (player.getStamina().get() > 0) {
+          player.getCombatStatistics().addDamageBlocked(damage);
           return;
         }
       }

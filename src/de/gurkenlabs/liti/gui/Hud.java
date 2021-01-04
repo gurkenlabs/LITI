@@ -118,8 +118,8 @@ public final class Hud extends GuiComponent implements IRenderable {
       g.setColor(LitiColors.COLOR_HEALTH_BG);
       Game.graphics().renderShape(g, rect);
 
-      if (player.getCombatStatistics().getRecentDamage() > 0) {
-        final double previousWidth = width * Math.min(1, (player.getHitPoints().get() + player.getCombatStatistics().getRecentDamage()) / (double) player.getHitPoints().getMax());
+      if (player.getCombatStatistics().getRecentDamageReceived() > 0) {
+        final double previousWidth = width * Math.min(1, (player.getHitPoints().get() + player.getCombatStatistics().getRecentDamageReceived()) / (double) player.getHitPoints().getMax());
         RoundRectangle2D previousHealthbar = new RoundRectangle2D.Double(x, y, previousWidth, height, 1.5, 1.5);
 
         g.setColor(LitiColors.COLOR_HEALTH_HIT);
