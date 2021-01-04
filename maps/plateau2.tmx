@@ -272,6 +272,37 @@
     <property name="spritesheetName" value="stone3"/>
    </properties>
   </object>
+  <object id="141" type="CREATURE" x="329" y="283.5" width="14" height="11">
+   <properties>
+    <property name="addShadow" type="bool" value="true"/>
+    <property name="collision" type="bool" value="true"/>
+    <property name="collisionboxHeight" type="float" value="4.4"/>
+    <property name="collisionboxWidth" type="float" value="5.6000000000000005"/>
+    <property name="indestructible" type="bool" value="false"/>
+    <property name="spawnDirection" value="LEFT"/>
+    <property name="spritesheetName" value="rooster"/>
+   </properties>
+  </object>
+  <object id="142" name="player-1" type="AREA" x="0" y="112" width="125" height="100">
+   <properties>
+    <property name="tags" value="base"/>
+   </properties>
+  </object>
+  <object id="143" name="player-3" type="AREA" x="0" y="345" width="125" height="100">
+   <properties>
+    <property name="tags" value="base"/>
+   </properties>
+  </object>
+  <object id="144" name="player-4" type="AREA" x="547" y="342" width="125" height="100">
+   <properties>
+    <property name="tags" value="base"/>
+   </properties>
+  </object>
+  <object id="145" name="player-2" type="AREA" x="547" y="118" width="125" height="100">
+   <properties>
+    <property name="tags" value="base"/>
+   </properties>
+  </object>
  </objectgroup>
  <imagelayer id="2" name="background" offsetx="-7" offsety="-4">
   <image source="plateau.png" width="686" height="555"/>
@@ -869,7 +900,7 @@
     <property name="spritesheetName" value="tree"/>
    </properties>
   </object>
-  <object id="97" type="PROP" x="0" y="366" width="80" height="58">
+  <object id="97" name="player-3" type="PROP" x="0" y="366" width="80" height="58">
    <properties>
     <property name="addShadow" type="bool" value="false"/>
     <property name="collision" type="bool" value="true"/>
@@ -898,7 +929,7 @@
     <property name="lightShape" value="ellipse"/>
    </properties>
   </object>
-  <object id="98" type="PROP" x="0" y="136" width="80" height="58">
+  <object id="98" name="player-1" type="PROP" x="0" y="136" width="80" height="58">
    <properties>
     <property name="addShadow" type="bool" value="false"/>
     <property name="collision" type="bool" value="true"/>
@@ -910,7 +941,7 @@
     <property name="spritesheetName" value="tent"/>
    </properties>
   </object>
-  <object id="99" type="PROP" x="592" y="135" width="80" height="58">
+  <object id="99" name="player-2" type="PROP" x="592" y="135" width="80" height="58">
    <properties>
     <property name="addShadow" type="bool" value="false"/>
     <property name="collision" type="bool" value="true"/>
@@ -922,7 +953,7 @@
     <property name="spritesheetName" value="tent"/>
    </properties>
   </object>
-  <object id="100" type="PROP" x="592" y="367" width="80" height="58">
+  <object id="100" name="player-4" type="PROP" x="592" y="367" width="80" height="58">
    <properties>
     <property name="addShadow" type="bool" value="false"/>
     <property name="collision" type="bool" value="true"/>

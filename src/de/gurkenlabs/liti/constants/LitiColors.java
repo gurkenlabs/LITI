@@ -20,7 +20,7 @@ public final class LitiColors {
   public static final Color COLOR_HEALTH_BG = new Color(40, 42, 43, 200);
   public static final Color COLOR_HEALTH = new Color(225, 109, 115);
   public static final Color COLOR_HEALTH_LOW = new Color(227, 69, 77);
-  public static final Color COLOR_HEALTH_HIT = new Color(163, 11, 20);
+  public static final Color COLOR_HEALTH_HIT = new Color(101, 8, 13);
   public static final Color COLOR_STAMINA = new Color(232, 230, 215);
   public static final Color COLOR_STAMINA_DEPLETED = new Color(135, 29, 68);
 

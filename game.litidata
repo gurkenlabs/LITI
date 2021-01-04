@@ -222,6 +222,89 @@
       <property name="spritesheetName" value="stonehenge1"/>
      </properties>
     </object>
+    <object id="136" type="PROP" x="180" y="241" width="20" height="11">
+     <properties>
+      <property name="addShadow" type="bool" value="true"/>
+      <property name="collision" type="bool" value="true"/>
+      <property name="collisionboxHeight" value="11.0"/>
+      <property name="collisionboxWidth" value="15.0"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="stone3"/>
+     </properties>
+    </object>
+    <object id="137" type="PROP" x="177" y="284" width="20" height="11">
+     <properties>
+      <property name="addShadow" type="bool" value="true"/>
+      <property name="collision" type="bool" value="true"/>
+      <property name="collisionboxHeight" value="11.0"/>
+      <property name="collisionboxWidth" value="15.0"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="stone3"/>
+     </properties>
+    </object>
+    <object id="138" type="PROP" x="183" y="295" width="20" height="11">
+     <properties>
+      <property name="addShadow" type="bool" value="true"/>
+      <property name="collision" type="bool" value="true"/>
+      <property name="collisionboxHeight" value="11.0"/>
+      <property name="collisionboxWidth" value="15.0"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="stone3"/>
+     </properties>
+    </object>
+    <object id="139" type="PROP" x="471" y="238" width="16" height="11">
+     <properties>
+      <property name="addShadow" type="bool" value="true"/>
+      <property name="collision" type="bool" value="true"/>
+      <property name="collisionboxHeight" value="11.0"/>
+      <property name="collisionboxWidth" value="16.0"/>
+      <property name="flipHorizontally" type="bool" value="true"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="stone3"/>
+     </properties>
+    </object>
+    <object id="140" type="PROP" x="476" y="289" width="16" height="11">
+     <properties>
+      <property name="addShadow" type="bool" value="true"/>
+      <property name="collision" type="bool" value="true"/>
+      <property name="collisionboxHeight" value="11.0"/>
+      <property name="collisionboxWidth" value="16.0"/>
+      <property name="flipHorizontally" type="bool" value="true"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="stone3"/>
+     </properties>
+    </object>
+    <object id="141" type="CREATURE" x="329" y="283.5" width="14" height="11">
+     <properties>
+      <property name="addShadow" type="bool" value="true"/>
+      <property name="collision" type="bool" value="true"/>
+      <property name="collisionboxHeight" type="float" value="4.4"/>
+      <property name="collisionboxWidth" type="float" value="5.6000000000000005"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spawnDirection" value="LEFT"/>
+      <property name="spritesheetName" value="rooster"/>
+     </properties>
+    </object>
+    <object id="142" name="player-1" type="AREA" x="0" y="112" width="125" height="100">
+     <properties>
+      <property name="tags" value="base"/>
+     </properties>
+    </object>
+    <object id="143" name="player-3" type="AREA" x="0" y="345" width="125" height="100">
+     <properties>
+      <property name="tags" value="base"/>
+     </properties>
+    </object>
+    <object id="144" name="player-4" type="AREA" x="547" y="342" width="125" height="100">
+     <properties>
+      <property name="tags" value="base"/>
+     </properties>
+    </object>
+    <object id="145" name="player-2" type="AREA" x="547" y="118" width="125" height="100">
+     <properties>
+      <property name="tags" value="base"/>
+     </properties>
+    </object>
    </objectgroup>
    <imagelayer id="2" name="background" offsetx="-7" offsety="-4">
     <image source="plateau.png" width="686" height="555"/>
@@ -612,12 +695,12 @@
       <property name="spritesheetName" value="stone1"/>
      </properties>
     </object>
-    <object id="71" type="PROP" x="187" y="234" width="20" height="11">
+    <object id="71" type="PROP" x="191" y="230" width="20" height="11">
      <properties>
       <property name="addShadow" type="bool" value="true"/>
       <property name="collision" type="bool" value="true"/>
       <property name="collisionboxHeight" value="11.0"/>
-      <property name="collisionboxWidth" value="20.0"/>
+      <property name="collisionboxWidth" value="15.0"/>
       <property name="indestructible" type="bool" value="false"/>
       <property name="spritesheetName" value="stone3"/>
      </properties>
@@ -633,7 +716,7 @@
       <property name="spritesheetName" value="stonehenge1"/>
      </properties>
     </object>
-    <object id="72" type="PROP" x="467" y="232" width="16" height="11">
+    <object id="72" type="PROP" x="465" y="230" width="16" height="11">
      <properties>
       <property name="addShadow" type="bool" value="true"/>
       <property name="collision" type="bool" value="true"/>
@@ -699,17 +782,7 @@
       <property name="spritesheetName" value="stone1"/>
      </properties>
     </object>
-    <object id="78" type="PROP" x="180" y="290" width="20" height="11">
-     <properties>
-      <property name="addShadow" type="bool" value="true"/>
-      <property name="collision" type="bool" value="true"/>
-      <property name="collisionboxHeight" value="11.0"/>
-      <property name="collisionboxWidth" value="20.0"/>
-      <property name="indestructible" type="bool" value="false"/>
-      <property name="spritesheetName" value="stone3"/>
-     </properties>
-    </object>
-    <object id="80" type="PROP" x="472" y="293" width="16" height="11">
+    <object id="80" type="PROP" x="471" y="298" width="16" height="11">
      <properties>
       <property name="addShadow" type="bool" value="true"/>
       <property name="collision" type="bool" value="true"/>
@@ -829,13 +902,14 @@
       <property name="spritesheetName" value="tree"/>
      </properties>
     </object>
-    <object id="97" type="PROP" x="0" y="366" width="80" height="58">
+    <object id="97" name="player-3" type="PROP" x="0" y="366" width="80" height="58">
      <properties>
-      <property name="addShadow" type="bool" value="true"/>
+      <property name="addShadow" type="bool" value="false"/>
       <property name="collision" type="bool" value="true"/>
+      <property name="collisionAlign" value="LEFT"/>
       <property name="collisionValign" value="MIDDLE_DOWN"/>
-      <property name="collisionboxHeight" value="18.0"/>
-      <property name="collisionboxWidth" value="80.0"/>
+      <property name="collisionboxHeight" value="22.0"/>
+      <property name="collisionboxWidth" value="75.0"/>
       <property name="indestructible" type="bool" value="false"/>
       <property name="spritesheetName" value="tent"/>
      </properties>
@@ -857,35 +931,38 @@
       <property name="lightShape" value="ellipse"/>
      </properties>
     </object>
-    <object id="98" type="PROP" x="0" y="136" width="80" height="58">
+    <object id="98" name="player-1" type="PROP" x="0" y="136" width="80" height="58">
      <properties>
-      <property name="addShadow" type="bool" value="true"/>
+      <property name="addShadow" type="bool" value="false"/>
       <property name="collision" type="bool" value="true"/>
+      <property name="collisionAlign" value="LEFT"/>
       <property name="collisionValign" value="MIDDLE_DOWN"/>
-      <property name="collisionboxHeight" value="18.0"/>
-      <property name="collisionboxWidth" value="80.0"/>
+      <property name="collisionboxHeight" value="22.0"/>
+      <property name="collisionboxWidth" value="75.0"/>
       <property name="indestructible" type="bool" value="false"/>
       <property name="spritesheetName" value="tent"/>
      </properties>
     </object>
-    <object id="99" type="PROP" x="592" y="135" width="80" height="58">
+    <object id="99" name="player-2" type="PROP" x="592" y="135" width="80" height="58">
      <properties>
-      <property name="addShadow" type="bool" value="true"/>
+      <property name="addShadow" type="bool" value="false"/>
       <property name="collision" type="bool" value="true"/>
+      <property name="collisionAlign" value="RIGHT"/>
       <property name="collisionValign" value="MIDDLE_DOWN"/>
-      <property name="collisionboxHeight" value="18.0"/>
-      <property name="collisionboxWidth" value="80.0"/>
+      <property name="collisionboxHeight" value="22.0"/>
+      <property name="collisionboxWidth" value="75.0"/>
       <property name="indestructible" type="bool" value="false"/>
       <property name="spritesheetName" value="tent"/>
      </properties>
     </object>
-    <object id="100" type="PROP" x="592" y="367" width="80" height="58">
+    <object id="100" name="player-4" type="PROP" x="592" y="367" width="80" height="58">
      <properties>
-      <property name="addShadow" type="bool" value="true"/>
+      <property name="addShadow" type="bool" value="false"/>
       <property name="collision" type="bool" value="true"/>
+      <property name="collisionAlign" value="RIGHT"/>
       <property name="collisionValign" value="MIDDLE_DOWN"/>
-      <property name="collisionboxHeight" value="18.0"/>
-      <property name="collisionboxWidth" value="80.0"/>
+      <property name="collisionboxHeight" value="22.0"/>
+      <property name="collisionboxWidth" value="75.0"/>
       <property name="indestructible" type="bool" value="false"/>
       <property name="spritesheetName" value="tent"/>
      </properties>
@@ -964,6 +1041,13 @@
   </sprite>
   <sprite width="73" height="86" imageformat="PNG" name="prop-tree">
    <image>iVBORw0KGgoAAAANSUhEUgAAAEkAAABWCAYAAACD87uSAAAC0ElEQVR42u3aTUrFMBAA4N7FlVtBcKHy7uAB3Alewou48hpew6WHefKEQIzJ/CWTTjpTGBTSpsnXyTT63rYNPr5e7s4ptjhgIC2o77fbcysCCQFaBqqGVIZ0MhQg00gUnByIOqF0Xu3apZCkQJyo9YX1vRxQbSJUvJ6HYB4FmggVUNp/DUodrxdnVnCWsEugQGJCUeDcAo3aerhEwpZiIBHrVSARi3rUJM033tGyaXhBPxIQN8sCaNTfft6BSFDeMkmUTR6R2MXcK1IJFUASJO846IcVgUP4NCeADGbR59PjbyxTj7QxWkBLIWkONgdpBXbdzIcIImkNiIJU3ncmUO0eKNLIgWEg3OzSenitZfeveFMGSFkakqW154sDGhOIxCm2HKAZy1nyUMlINSitsFLvKGOZjqOBNeP+m/bkZ2cUdm9J/1svBHfPQz3f0gZzm7VMrO2RyEDSmiRFur662bXQi3B63nBSJAnUHnuoIUit+oQtNQyp1m4OacSWAKpFWDa12mfvxNWRsEyBoKA2M0DaUDlSCYYBaoHl/bK+BzArm6AYVROHZ5A21qVPKlKCSuOgjofzr+IuHA2kvF8qUms8JaD0pTLke5OtyUpgRiBBbZKHPewLpiqdEqCwayzNRe3YA2nJgwNFQXSNRM00l0icpRhQnoECSQFp83oEUGRSZFMgxZILpEDiQr1/vJ5dInGgDot0mRgVCkMwh3R/fzpdIv1etkETkSClc1v3MAOUYKhBQeJAJYjLz/IeqQ16QKZwoOhBSufm8fzw93pJdpvBaQFJsqkW5XncDDcBNBop9ScdiymYFBhE3gZlRg/MEDDt7GkhlYjleZoPb3ckToYkUG59mYqkAZTXkBKJer0pKA2gGpS0r8NlE/RG6unvMDWptkx6kbShpiHNriG7IUnBVsSZvut2kzl77cSXxzkK1jL/W3IDYxntcJ+YWJ38D7lG9wXVkd/aAAAAAElFTkSuQmCC</image>
+  </sprite>
+  <sprite width="14" height="11" imageformat="PNG" name="rooster-idle-left">
+   <image>iVBORw0KGgoAAAANSUhEUgAAABwAAAALCAYAAABs3u23AAAAg0lEQVR42mNgGAygQUPjP90tRMY0t/DIkSP/QZgult1bzQq2LMrPG0zjchC5HsGwDGYhDGPzOUyc2BDAZR6KD/Hhnp4elDgmpB5ZH14XgRSgs2GaYJbBgh7dYFz6CAYDSCGyAcgpGd0iYvQRHfbommDxB4t3YvXhBaDgQqbxpWxi9QEAA0QsmMQwtQAAAAAASUVORK5CYII=</image>
+   <keyframes>800,120</keyframes>
+  </sprite>
+  <sprite width="13" height="11" imageformat="PNG" name="rooster-walk-left">
+   <image>iVBORw0KGgoAAAANSUhEUgAAABoAAAALCAYAAABhwJ3wAAAAcUlEQVR42mNgoBA0aGj8p4smkB5kTDNNR44c+Q/CJDmSVE33VrOC1Uf5eYNpXGZSpAmkHqYHhrE5GkWcLE1IjsOHe3p6sPuIJE1IjgDJobOxqSdfE5o+ZL1EJQiSNKEFLzHqydIESkD4+AQ1Eq2BCAAA7kgoPN4PXx8AAAAASUVORK5CYII=</image>
   </sprite>
   <sprite width="10" height="20" imageformat="PNG" name="shaman-walk-down">
    <image>iVBORw0KGgoAAAANSUhEUgAAAAoAAAAUCAYAAAC07qxWAAAAqUlEQVR42q2RsQ1CMQxEvQM0lJEQHWWGyhY0bJARqNiEjo2MztJZjnEahKXTj33PtvIj8ku85K1RX8BDnlppabjJXaN2DQb23k25iXUDW2tKoTjG0Dmn5rpNRII4HE8O4oyA56uRwKzkqwmiQCOfHbxezg5nwcPN/fdUMCEDESiwgTclAM9fBglhXoLQAsKoXil6/ow7kN9lIlfFlcvE2ECoBPLk7aS/gh/GHReroZ6AcAAAAABJRU5ErkJggg==</image>

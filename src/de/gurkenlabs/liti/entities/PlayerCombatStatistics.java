@@ -41,7 +41,7 @@ public final class PlayerCombatStatistics {
 
   public int getRecentDamageReceived() {
     int damage = 0;
-    for (int i = entityHits.size() - 1; i > 0; i--) {
+    for (int i = this.entityHits.size() - 1; i > 0; i--) {
       final EntityHitEvent event = entityHits.get(i);
       if (Game.time().since(event.getTime()) > RECENT_DAMAGE_PERIOD) {
         return damage;
@@ -51,6 +51,19 @@ public final class PlayerCombatStatistics {
     }
 
     return damage;
+  }
+
+  public int getRecentKills(){
+    int kills = 0;
+    for (int i = this.killTimes.size() - 1; i > 0; i--) {
+      if (Game.time().since(this.killTimes.get(i)) > RECENT_KILL_PERIOD) {
+        return kills;
+      }
+
+      kills++;
+    }
+
+    return kills;
   }
 
   public int getDamageDealt() {

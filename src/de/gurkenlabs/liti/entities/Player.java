@@ -16,6 +16,7 @@ import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.entities.*;
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
+import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.physics.CollisionEvent;
 import de.gurkenlabs.litiengine.tweening.Tween;
@@ -49,6 +50,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private long lastDeath;
   private long resurrection;
 
+  private Chicken currentChicken;
+
   protected Player(PlayerConfiguration config) {
     this.stamina = new RangeAttribute<>(Proficiency.get(config.getPlayerClass(), Trait.STAMINA), 0.0, Proficiency.get(config.getPlayerClass(), Trait.STAMINA));
     this.playerState = PlayerState.NORMAL;
@@ -64,6 +67,11 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.onCollision(this::handleCliffs);
     this.onDeath(this::handleDeath);
     this.onResurrect(this::handleResurrect);
+  }
+
+  @Override
+  public boolean canCollideWith(final ICollisionEntity otherEntity) {
+    return !((otherEntity instanceof Chicken));
   }
 
   @Override
@@ -122,9 +130,23 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.resurrection = resurrection;
   }
 
+  public Chicken getCurrentChicken() {
+    return currentChicken;
+  }
+
+  public void setCurrentChicken(Chicken currentChicken) {
+    this.currentChicken = currentChicken;
+  }
+
   @Override
   public void render(Graphics2D g) {
     this.bash.render(g);
+
+    if (this.currentChicken != null) {
+      this.currentChicken.setRenderType(RenderType.NORMAL);
+      Game.graphics().renderEntity(g, this.currentChicken);
+      this.currentChicken.setRenderType(RenderType.NONE);
+    }
   }
 
   public PlayerConfiguration getConfiguration() {
@@ -160,12 +182,35 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
       return;
     }
 
+    if (this.currentChicken != null) {
+      this.currentChicken.drop();
+    }
+
     this.isBlocking = blocking;
     if (this.isBlocking) {
       this.movement().setVelocity(0);
       this.getStamina().setBaseValue(this.getStamina().get() - this.getStamina().getMax() * 0.2);
     } else {
       this.lastBlock = Game.time().now();
+    }
+  }
+
+  public void interact() {
+    if (this.currentChicken != null) {
+      Prop base = Game.world().environment().getProp("player-" + (this.getConfiguration().getIndex() + 1));
+      if (base != null && base.getCollisionBoxCenter().distance(this.getCollisionBoxCenter()) < 20) {
+        this.currentChicken.capture();
+      }
+
+      return;
+    }
+
+    for (Chicken chicken : Game.world().environment().getEntities(Chicken.class)) {
+      if (chicken.getBoundingBox().intersects(this.getBoundingBox()) && this.doesFace(chicken)) {
+        if (!chicken.isPickedUpOrBeingPickedUp()) {
+          chicken.startPickup(this);
+        }
+      }
     }
   }
 
@@ -193,17 +238,28 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   @Action(name = "DASH")
   public void useDash() {
+    if (this.currentChicken != null) {
+      this.currentChicken.drop();
+    }
     this.dash.cast();
   }
 
   @Action(name = "BASH")
   public void useBash() {
+    if (this.currentChicken != null) {
+      this.currentChicken.drop();
+    }
+
     this.bash.cast();
   }
 
   @Action(name = "SURVIVALSKILL")
   public void useSurvivalSkill() {
     if (this.getSurvivalSkill() != null) {
+      if (this.currentChicken != null) {
+        this.currentChicken.drop();
+      }
+
       this.getSurvivalSkill().cast();
     }
   }
@@ -299,5 +355,35 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private void handleResurrect(ICombatEntity entity) {
     this.stamina.setToMax();
     this.staminaDepleted = 0;
+  }
+
+  public boolean doesFace(Entity entity) {
+    boolean facesTrigger = false;
+    switch (this.getFacingDirection()) {
+      case DOWN:
+        if (entity.getCenter().getY() > this.getCollisionBox().getMinY()) {
+          facesTrigger = true;
+        }
+        break;
+      case UP:
+        if (entity.getCenter().getY() < this.getCollisionBox().getMaxY()) {
+          facesTrigger = true;
+        }
+        break;
+      case LEFT:
+        if (entity.getCenter().getX() < this.getCollisionBox().getMaxX()) {
+          facesTrigger = true;
+        }
+        break;
+      case RIGHT:
+        if (entity.getCenter().getX() > this.getCollisionBox().getMinX()) {
+          facesTrigger = true;
+        }
+        break;
+      default:
+        break;
+    }
+
+    return facesTrigger;
   }
 }

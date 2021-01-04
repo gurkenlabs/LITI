@@ -95,6 +95,13 @@ public final class InputManager {
         }
       }, InputConfiguration.GAMEPAD_RIGHT, gamepad);
 
+      // INTERACT
+      InputBinding.bind(value -> {
+        if (player.getState() != Player.PlayerState.LOCKED) {
+          player.interact();
+        }
+      }, InputConfiguration.GAMEPAD_INTERACT, gamepad);
+
       // DASH
       InputBinding.bind(value -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
@@ -190,6 +197,13 @@ public final class InputManager {
         player.movement().setDx(1);
       }
     }, InputConfiguration.KEYBOARD_RIGHT, null);
+
+    // INTERACT
+    InputBinding.bind(value -> {
+      if (player.getState() != Player.PlayerState.LOCKED) {
+        player.interact();
+      }
+    }, InputConfiguration.KEYBOARD_INTERACT, gamepad);
 
     // DASH
     InputBinding.bind(value -> {
