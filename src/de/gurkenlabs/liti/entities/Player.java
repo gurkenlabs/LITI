@@ -19,16 +19,15 @@ import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.physics.CollisionEvent;
-import de.gurkenlabs.litiengine.tweening.Tween;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 
 public abstract class Player extends Creature implements IUpdateable, IRenderable {
-
   public enum PlayerState {
     LOCKED, NORMAL
   }
 
+  private static final int INTERACT_COOLDOWN = 1000;
   private static final int STAMINA_DEPLETION_DELAY = 3000;
   private static final int BLOCK_COOLDOWN = 500;
 
@@ -48,9 +47,11 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private long lastBlock;
   private long staminaDepleted;
   private long lastDeath;
+  private long lastInteract;
   private long resurrection;
 
   private Chicken currentChicken;
+  private Egg channelledEgg;
 
   protected Player(PlayerConfiguration config) {
     this.stamina = new RangeAttribute<>(Proficiency.get(config.getPlayerClass(), Trait.STAMINA), 0.0, Proficiency.get(config.getPlayerClass(), Trait.STAMINA));
@@ -138,6 +139,14 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.currentChicken = currentChicken;
   }
 
+  public Egg getCurrentEgg() {
+    return channelledEgg;
+  }
+
+  public void setChannelledEgg(Egg channelledEgg) {
+    this.channelledEgg = channelledEgg;
+  }
+
   @Override
   public void render(Graphics2D g) {
     this.bash.render(g);
@@ -196,12 +205,24 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   }
 
   public void interact() {
+    if (Game.time().since(this.lastInteract) < INTERACT_COOLDOWN) {
+      return;
+    }
+
+    if (this.channelledEgg != null && this.getState() == PlayerState.LOCKED) {
+      this.channelledEgg.release();
+      this.lastInteract = Game.time().now();
+      return;
+    }
+
     if (this.currentChicken != null) {
       Prop base = Game.world().environment().getProp("player-" + (this.getConfiguration().getIndex() + 1));
       if (base != null && base.getCollisionBoxCenter().distance(this.getCollisionBoxCenter()) < 20) {
         this.currentChicken.capture();
+      } else {
+        this.currentChicken.drop();
       }
-
+      this.lastInteract = Game.time().now();
       return;
     }
 
@@ -209,6 +230,18 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
       if (chicken.getBoundingBox().intersects(this.getBoundingBox()) && this.doesFace(chicken)) {
         if (!chicken.isPickedUpOrBeingPickedUp()) {
           chicken.startPickup(this);
+          this.lastInteract = Game.time().now();
+          return;
+        }
+      }
+    }
+
+    for (Egg egg : Game.world().environment().getEntities(Egg.class)) {
+      if (egg.getBoundingBox().intersects(this.getBoundingBox()) && this.doesFace(egg)) {
+        if (!egg.isBeingChannelled()) {
+          egg.channel(this);
+          this.lastInteract = Game.time().now();
+          return;
         }
       }
     }

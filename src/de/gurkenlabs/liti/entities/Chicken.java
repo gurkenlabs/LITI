@@ -46,6 +46,9 @@ public class Chicken extends Creature implements IUpdateable {
     player.setState(Player.PlayerState.LOCKED);
     player.setCurrentChicken(this);
     this.pickupStart = Game.time().now();
+
+    // TODO: if player receives damage cancel the pickup
+    // TODO: UI for pickup delay
     return true;
   }
 

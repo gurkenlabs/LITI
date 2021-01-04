@@ -7,6 +7,7 @@ import de.gurkenlabs.liti.input.InputManager;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.environment.CreatureMapObjectLoader;
+import de.gurkenlabs.litiengine.environment.PropMapObjectLoader;
 import de.gurkenlabs.litiengine.input.Input;
 
 import java.awt.event.KeyEvent;
@@ -29,6 +30,7 @@ public final class GameManager {
 
   public static void init() {
     CreatureMapObjectLoader.registerCustomCreatureType(Chicken.class);
+    PropMapObjectLoader.registerCustomPropType(Egg.class);
 
     Game.loop().attach(GameManager::update);
     InputManager.init();

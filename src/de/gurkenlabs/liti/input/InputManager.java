@@ -97,9 +97,7 @@ public final class InputManager {
 
       // INTERACT
       InputBinding.bind(value -> {
-        if (player.getState() != Player.PlayerState.LOCKED) {
           player.interact();
-        }
       }, InputConfiguration.GAMEPAD_INTERACT, gamepad);
 
       // DASH
@@ -200,9 +198,7 @@ public final class InputManager {
 
     // INTERACT
     InputBinding.bind(value -> {
-      if (player.getState() != Player.PlayerState.LOCKED) {
         player.interact();
-      }
     }, InputConfiguration.KEYBOARD_INTERACT, gamepad);
 
     // DASH

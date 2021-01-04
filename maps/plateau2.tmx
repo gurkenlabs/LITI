@@ -222,7 +222,7 @@
   </object>
   <object id="136" type="PROP" x="180" y="241" width="20" height="11">
    <properties>
-    <property name="addShadow" type="bool" value="true"/>
+    <property name="addShadow" type="bool" value="false"/>
     <property name="collision" type="bool" value="true"/>
     <property name="collisionboxHeight" value="11.0"/>
     <property name="collisionboxWidth" value="15.0"/>
@@ -232,7 +232,7 @@
   </object>
   <object id="137" type="PROP" x="177" y="284" width="20" height="11">
    <properties>
-    <property name="addShadow" type="bool" value="true"/>
+    <property name="addShadow" type="bool" value="false"/>
     <property name="collision" type="bool" value="true"/>
     <property name="collisionboxHeight" value="11.0"/>
     <property name="collisionboxWidth" value="15.0"/>
@@ -242,7 +242,7 @@
   </object>
   <object id="138" type="PROP" x="183" y="295" width="20" height="11">
    <properties>
-    <property name="addShadow" type="bool" value="true"/>
+    <property name="addShadow" type="bool" value="false"/>
     <property name="collision" type="bool" value="true"/>
     <property name="collisionboxHeight" value="11.0"/>
     <property name="collisionboxWidth" value="15.0"/>
@@ -252,7 +252,7 @@
   </object>
   <object id="139" type="PROP" x="471" y="238" width="16" height="11">
    <properties>
-    <property name="addShadow" type="bool" value="true"/>
+    <property name="addShadow" type="bool" value="false"/>
     <property name="collision" type="bool" value="true"/>
     <property name="collisionboxHeight" value="11.0"/>
     <property name="collisionboxWidth" value="16.0"/>
@@ -263,7 +263,7 @@
   </object>
   <object id="140" type="PROP" x="476" y="289" width="16" height="11">
    <properties>
-    <property name="addShadow" type="bool" value="true"/>
+    <property name="addShadow" type="bool" value="false"/>
     <property name="collision" type="bool" value="true"/>
     <property name="collisionboxHeight" value="11.0"/>
     <property name="collisionboxWidth" value="16.0"/>
@@ -695,7 +695,7 @@
   </object>
   <object id="71" type="PROP" x="191" y="230" width="20" height="11">
    <properties>
-    <property name="addShadow" type="bool" value="true"/>
+    <property name="addShadow" type="bool" value="false"/>
     <property name="collision" type="bool" value="true"/>
     <property name="collisionboxHeight" value="11.0"/>
     <property name="collisionboxWidth" value="15.0"/>
@@ -716,7 +716,7 @@
   </object>
   <object id="72" type="PROP" x="465" y="230" width="16" height="11">
    <properties>
-    <property name="addShadow" type="bool" value="true"/>
+    <property name="addShadow" type="bool" value="false"/>
     <property name="collision" type="bool" value="true"/>
     <property name="collisionboxHeight" value="11.0"/>
     <property name="collisionboxWidth" value="16.0"/>
@@ -782,7 +782,7 @@
   </object>
   <object id="80" type="PROP" x="471" y="298" width="16" height="11">
    <properties>
-    <property name="addShadow" type="bool" value="true"/>
+    <property name="addShadow" type="bool" value="false"/>
     <property name="collision" type="bool" value="true"/>
     <property name="collisionboxHeight" value="11.0"/>
     <property name="collisionboxWidth" value="16.0"/>
@@ -910,6 +910,18 @@
     <property name="collisionboxWidth" value="75.0"/>
     <property name="indestructible" type="bool" value="false"/>
     <property name="spritesheetName" value="tent"/>
+   </properties>
+  </object>
+  <object id="146" type="PROP" x="319" y="123" width="31" height="29">
+   <properties>
+    <property name="addShadow" type="bool" value="false"/>
+    <property name="collision" type="bool" value="true"/>
+    <property name="collisionAlign" value="CENTER"/>
+    <property name="collisionValign" value="MIDDLE"/>
+    <property name="collisionboxHeight" value="14.0"/>
+    <property name="collisionboxWidth" value="18.0"/>
+    <property name="indestructible" type="bool" value="false"/>
+    <property name="spritesheetName" value="egg"/>
    </properties>
   </object>
  </objectgroup>
