@@ -13,10 +13,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameLoop;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.attributes.RangeAttribute;
-import de.gurkenlabs.litiengine.entities.Action;
-import de.gurkenlabs.litiengine.entities.Creature;
-import de.gurkenlabs.litiengine.entities.EntityInfo;
-import de.gurkenlabs.litiengine.entities.ICollisionEntity;
+import de.gurkenlabs.litiengine.entities.*;
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
@@ -34,7 +31,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private static final int STAMINA_DEPLETION_DELAY = 3000;
   private static final int BLOCK_COOLDOWN = 500;
 
-  private PlayerConfiguration configuration;
+  private final PlayerConfiguration configuration;
+  private final PlayerCombatStatistics combatStatistics;
 
   private final RangeAttribute<Double> stamina;
   private int index;
@@ -52,24 +50,20 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private long resurrection;
 
   protected Player(PlayerConfiguration config) {
-    this.stamina = new RangeAttribute<>(Proficiency.get(config.getPlayerClass(), Trait.STAMINA), 0.0,
-        Proficiency.get(config.getPlayerClass(), Trait.STAMINA));
+    this.stamina = new RangeAttribute<>(Proficiency.get(config.getPlayerClass(), Trait.STAMINA), 0.0, Proficiency.get(config.getPlayerClass(), Trait.STAMINA));
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
+    this.combatStatistics = new PlayerCombatStatistics(this);
     this.dash = new Dash(this);
     this.bash = new Bash(this);
-    this.movement().onMovementCheck(e -> !this.isBlocking());
     this.setTurnOnMove(false);
-    this.updateAnimationController();
-    this.onCollision(this::handleCliffs);
     this.setScaling(false);
-    this.onDeath(e -> {
-      Game.world().environment().remove(this);
-      GameManager.playerDied(this);
-      this.lastDeath = Game.time().now();
-      this.setFalling(false);
-      this.setScaling(false);
-    });
+    this.updateAnimationController();
+
+    this.movement().onMovementCheck(e -> !this.isBlocking());
+    this.onCollision(this::handleCliffs);
+    this.onDeath(this::handleDeath);
+    this.onResurrect(this::handleResurrect);
   }
 
   @Override
@@ -137,6 +131,10 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     return configuration;
   }
 
+  public PlayerCombatStatistics getCombatStatistics() {
+    return combatStatistics;
+  }
+
   public PlayerClass getPlayerClass() {
     return this.getConfiguration().getPlayerClass();
   }
@@ -193,10 +191,6 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     }
   }
 
-  public void setConfiguration(PlayerConfiguration configuration) {
-    this.configuration = configuration;
-  }
-
   @Action(name = "DASH")
   public void useDash() {
     this.dash.cast();
@@ -244,9 +238,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   private void recoverStamina() {
     if (this.stamina.get() < this.stamina.getMax()) {
-      double recovery =
-          Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * Proficiency.get(this.getPlayerClass(), Trait.RECOVERY) * Game
-              .loop().getTimeScale();
+      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * Proficiency.get(this.getPlayerClass(), Trait.RECOVERY) * Game.loop().getTimeScale();
       if (this.stamina.get() + recovery > this.stamina.getMax()) {
         this.stamina.setToMax();
       } else {
@@ -257,9 +249,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   private void drainStaminaWhileBlocking() {
     if (this.stamina.get() > this.stamina.getMin()) {
-      double drain =
-          Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * (1.5 - Proficiency.get(this.getPlayerClass(), Trait.RECOVERY))
-              * Game.loop().getTimeScale();
+      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * (1.5 - Proficiency.get(this.getPlayerClass(), Trait.RECOVERY)) * Game.loop().getTimeScale();
       if (this.stamina.get() - drain <= this.stamina.getMin()) {
         this.stamina.setToMin();
       } else {
@@ -269,6 +259,10 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   }
 
   private void handleCliffs(CollisionEvent e) {
+    if (this.isFalling) {
+      return;
+    }
+
     for (ICollisionEntity entity : e.getInvolvedEntities()) {
       for (String tag : entity.getTags()) {
         if (tag != null && tag.equals("bounds")) {
@@ -292,5 +286,18 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
         }
       }
     }
+  }
+
+  private void handleDeath(ICombatEntity e) {
+    Game.world().environment().remove(this);
+    GameManager.playerDied(this);
+    this.lastDeath = Game.time().now();
+    this.setFalling(false);
+    this.setScaling(false);
+  }
+
+  private void handleResurrect(ICombatEntity entity) {
+    this.stamina.setToMax();
+    this.staminaDepleted = 0;
   }
 }
