@@ -59,6 +59,10 @@ public final class GameManager {
           }
         }
       });
+
+      Input.keyboard().onKeyTyped(KeyEvent.VK_F8, e -> {
+        Players.getAll().get(0).getProgress().grantEP(Game.random().nextInt(10,20));
+      });
     }
   }
 
@@ -74,6 +78,18 @@ public final class GameManager {
     }
 
     return spawn;
+  }
+
+  public static void unlockSurvivalSkill(Player player) {
+    System.out.println(player + " unlocked survival skill");
+  }
+
+  public static void buffTraits(Player player) {
+    System.out.println(player + " traits buffed");
+  }
+
+  public static void endGame(Player player) {
+    System.out.println(player + " end game");
   }
 
   private static void spawn(Player player) {

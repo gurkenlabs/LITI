@@ -23,6 +23,7 @@ import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 
 public abstract class Player extends Creature implements IUpdateable, IRenderable {
+
   public enum PlayerState {
     LOCKED, NORMAL
   }
@@ -33,6 +34,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   private final PlayerConfiguration configuration;
   private final PlayerCombatStatistics combatStatistics;
+  private final PlayerProgress playerProgress;
 
   private final RangeAttribute<Double> stamina;
   private int index;
@@ -58,6 +60,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
     this.combatStatistics = new PlayerCombatStatistics(this);
+    this.playerProgress = new PlayerProgress(this);
+
     this.dash = new Dash(this);
     this.bash = new Bash(this);
     this.setTurnOnMove(false);
@@ -158,13 +162,13 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     }
   }
 
-  public PlayerConfiguration getConfiguration() {
-    return configuration;
-  }
+  public PlayerConfiguration getConfiguration() { return configuration; }
 
   public PlayerCombatStatistics getCombatStatistics() {
     return combatStatistics;
   }
+
+  public PlayerProgress getProgress() { return playerProgress; }
 
   public PlayerClass getPlayerClass() {
     return this.getConfiguration().getPlayerClass();
