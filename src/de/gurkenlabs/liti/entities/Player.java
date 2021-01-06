@@ -12,6 +12,7 @@ import de.gurkenlabs.liti.abilities.SurvivalSkill;
 import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.entities.controllers.PlayerAnimationController;
+import de.gurkenlabs.liti.graphics.WalkDustSpawner;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameLoop;
 import de.gurkenlabs.litiengine.IUpdateable;
@@ -82,6 +83,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.onCollision(this::handleCliffs);
     this.onDeath(this::handleDeath);
     this.onResurrect(this::handleResurrect);
+    this.onMoved(new WalkDustSpawner());
 
     this.addEntityRenderListener(new EntityRenderListener() {
       @Override
