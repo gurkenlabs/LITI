@@ -96,10 +96,10 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
         final AffineTransform t = new AffineTransform();
 
-        t.translate(location.getX()- 8, location.getY()- (Player.this.getPlayerClass() == PlayerClass.WARRIOR ? 3.5 : 2.5));
+        t.translate(location.getX() - 8, location.getY() - (Player.this.getPlayerClass() == PlayerClass.WARRIOR ? 3.5 : 2.5));
         t.scale(.35, .35);
 
-        t.rotate(Math.toRadians(360- Player.this.getAngle()), 19.5, 17.5);
+        t.rotate(Math.toRadians(360 - Player.this.getAngle()), 19.5, 17.5);
 
         RenderingHints hints = event.getGraphics().getRenderingHints();
 
@@ -286,9 +286,17 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     return isDashing;
   }
 
+  private double preDashVelocity;
+
   public void setDashing(boolean dashing) {
     // DONT CALL THIS MANUALLY
     isDashing = dashing;
+
+    if (isDashing) {
+      this.preDashVelocity = this.movement().getVelocity();
+    } else {
+      this.movement().setVelocity(this.preDashVelocity);
+    }
   }
 
   public void setState(PlayerState playerState) {
