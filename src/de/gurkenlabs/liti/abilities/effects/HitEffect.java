@@ -7,6 +7,7 @@ import de.gurkenlabs.litiengine.abilities.effects.Effect;
 import de.gurkenlabs.litiengine.abilities.effects.EffectTarget;
 import de.gurkenlabs.litiengine.attributes.Modification;
 import de.gurkenlabs.litiengine.entities.ICombatEntity;
+import de.gurkenlabs.litiengine.entities.Prop;
 import de.gurkenlabs.litiengine.graphics.OverlayPixelsImageEffect;
 
 import java.awt.*;
@@ -41,5 +42,11 @@ public class HitEffect extends Effect {
     affectedEntity.hit(damage, this.getAbility());
     affectedEntity.animations().add(new OverlayPixelsImageEffect(120, new Color(255, 255, 255, 200)));
     Game.loop().perform(130, () -> affectedEntity.animations().add(new OverlayPixelsImageEffect(120, new Color(167, 16, 16, 170))));
+  }
+
+  @Override
+  protected boolean canAttackEntity(ICombatEntity entity) {
+    // cannot destroy props in LITI
+    return !(entity instanceof Prop) && super.canAttackEntity(entity);
   }
 }
