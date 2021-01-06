@@ -1,6 +1,8 @@
 package de.gurkenlabs.liti.entities;
 
-import java.awt.Graphics2D;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 
 import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.abilities.Bash;
@@ -16,9 +18,11 @@ import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.entities.*;
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
+import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.physics.CollisionEvent;
+import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 
@@ -37,6 +41,9 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private final PlayerProgress playerProgress;
 
   private final RangeAttribute<Double> stamina;
+
+  private final Image playerCircle;
+
   private int index;
   private PlayerState playerState;
   private Dash dash;
@@ -55,6 +62,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private Chicken currentChicken;
   private Egg channelledEgg;
 
+
+
   protected Player(PlayerConfiguration config) {
     this.stamina = new RangeAttribute<>(Proficiency.get(config.getPlayerClass(), Trait.STAMINA), 0.0, Proficiency.get(config.getPlayerClass(), Trait.STAMINA));
     this.playerState = PlayerState.NORMAL;
@@ -72,6 +81,31 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.onCollision(this::handleCliffs);
     this.onDeath(this::handleDeath);
     this.onResurrect(this::handleResurrect);
+
+    this.addEntityRenderListener(new EntityRenderListener() {
+      @Override
+      public void rendered(EntityRenderEvent event) {
+      }
+
+      @Override
+      public void rendering(EntityRenderEvent event) {
+        Point2D location = Game.world().camera().getViewportLocation(Player.this.getCollisionBoxCenter());
+
+        final AffineTransform t = new AffineTransform();
+
+        t.translate(location.getX()- 8, location.getY()- (Player.this.getPlayerClass() == PlayerClass.WARRIOR ? 3.5 : 2.5));
+        t.scale(.35, .35);
+
+        t.rotate(Math.toRadians(360- Player.this.getAngle()), 19.5, 17.5);
+
+        final Image circle = Resources.spritesheets().get("player-circle").getImage();
+
+        RenderingHints hints = event.getGraphics().getRenderingHints();
+
+        event.getGraphics().drawImage(circle, t, null);
+        event.getGraphics().setRenderingHints(hints);
+      }
+    });
   }
 
   @Override
@@ -153,7 +187,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   @Override
   public void render(Graphics2D g) {
-    this.bash.render(g);
+    // this.bash.render(g);
 
     if (this.currentChicken != null) {
       this.currentChicken.setRenderType(RenderType.NORMAL);
