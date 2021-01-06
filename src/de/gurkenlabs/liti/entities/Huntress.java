@@ -6,6 +6,8 @@ import de.gurkenlabs.litiengine.entities.CollisionInfo;
 import de.gurkenlabs.litiengine.entities.CombatInfo;
 import de.gurkenlabs.litiengine.entities.EntityInfo;
 import de.gurkenlabs.litiengine.entities.MovementInfo;
+import de.gurkenlabs.litiengine.graphics.animation.Animation;
+import de.gurkenlabs.litiengine.resources.Resources;
 
 @EntityInfo(width = 8, height = 23)
 @CollisionInfo(collision = true, collisionBoxWidth = 4, collisionBoxHeight = 6, valign = Valign.MIDDLE_DOWN)
@@ -14,6 +16,7 @@ import de.gurkenlabs.litiengine.entities.MovementInfo;
 public class Huntress extends Player {
   protected Huntress(PlayerConfiguration config) {
     super(config);
+    this.animations().add(new Animation(Resources.spritesheets().get("huntress-hit-left"), false));
   }
 
   @Override

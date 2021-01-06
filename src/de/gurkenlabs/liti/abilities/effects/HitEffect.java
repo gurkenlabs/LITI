@@ -15,8 +15,6 @@ import java.awt.*;
 public class HitEffect extends Effect {
   public HitEffect(Ability ability) {
     super(ability, EffectTarget.ENEMY);
-
-
   }
 
   @Override

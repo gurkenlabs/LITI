@@ -21,6 +21,7 @@ import de.gurkenlabs.litiengine.entities.*;
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.graphics.RenderType;
+import de.gurkenlabs.litiengine.graphics.animation.Animation;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.physics.CollisionEvent;
 import de.gurkenlabs.litiengine.resources.Resources;
@@ -321,7 +322,19 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
       this.currentChicken.drop();
     }
 
-    this.bash.cast();
+    final String hitAnimationName = this.getPlayerClass().toString().toLowerCase() + "-hit-left";
+    final Animation hitAnimation = this.animations().get(hitAnimationName);
+    if (hitAnimation != null) {
+      hitAnimation.onKeyFrameChanged((p, c) -> {
+        if (c.getSpriteIndex() == 1) {
+          this.bash.cast();
+        }
+      });
+
+      this.animations().play(hitAnimationName);
+    } else {
+      this.bash.cast();
+    }
   }
 
   @Action(name = "SURVIVALSKILL")
