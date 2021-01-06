@@ -10,6 +10,7 @@ import de.gurkenlabs.liti.abilities.Dash;
 import de.gurkenlabs.liti.abilities.Proficiency;
 import de.gurkenlabs.liti.abilities.SurvivalSkill;
 import de.gurkenlabs.liti.abilities.Trait;
+import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.entities.controllers.PlayerAnimationController;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameLoop;
@@ -18,13 +19,13 @@ import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.entities.*;
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
-import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.physics.CollisionEvent;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
+import de.gurkenlabs.litiengine.util.Imaging;
 
 public abstract class Player extends Creature implements IUpdateable, IRenderable {
 
@@ -44,7 +45,6 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   private final Image playerCircle;
 
-  private int index;
   private PlayerState playerState;
   private Dash dash;
   private Bash bash;
@@ -62,12 +62,13 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private Chicken currentChicken;
   private Egg channelledEgg;
 
-
-
   protected Player(PlayerConfiguration config) {
     this.stamina = new RangeAttribute<>(Proficiency.get(config.getPlayerClass(), Trait.STAMINA), 0.0, Proficiency.get(config.getPlayerClass(), Trait.STAMINA));
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
+    this.setTeam(this.configuration.getIndex());
+
+    this.playerCircle = Imaging.flashVisiblePixels(Resources.spritesheets().get("player-circle").getImage(), LitiColors.getPlayerColorMappings(this.getConfiguration().getIndex()).get(LitiColors.defaultMainOutfitColor));
     this.combatStatistics = new PlayerCombatStatistics(this);
     this.playerProgress = new PlayerProgress(this);
 
@@ -98,11 +99,9 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
         t.rotate(Math.toRadians(360- Player.this.getAngle()), 19.5, 17.5);
 
-        final Image circle = Resources.spritesheets().get("player-circle").getImage();
-
         RenderingHints hints = event.getGraphics().getRenderingHints();
 
-        event.getGraphics().drawImage(circle, t, null);
+        event.getGraphics().drawImage(Player.this.playerCircle, t, null);
         event.getGraphics().setRenderingHints(hints);
       }
     });
@@ -135,10 +134,6 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   public boolean isStaminaDepleted() {
     return this.staminaDepleted != 0 && Game.time().since(this.staminaDepleted) < STAMINA_DEPLETION_DELAY;
-  }
-
-  public int getIndex() {
-    return index;
   }
 
   public PlayerState getState() {
@@ -292,11 +287,6 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   public void setDashing(boolean dashing) {
     // DONT CALL THIS MANUALLY
     isDashing = dashing;
-  }
-
-  public void setIndex(int index) {
-    this.index = index;
-    this.setTeam(this.index);
   }
 
   public void setState(PlayerState playerState) {
