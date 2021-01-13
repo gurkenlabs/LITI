@@ -56,7 +56,6 @@ public final class Players {
       throw new IllegalArgumentException("unspecified player class.");
     }
 
-    player.setIndex(config.getIndex());
     InputManager.bindPlayerInput(player, config.getGamepad());
     getAll().add(player);
     return player;

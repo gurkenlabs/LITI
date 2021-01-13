@@ -1,14 +1,13 @@
 package de.gurkenlabs.liti;
 
 import de.gurkenlabs.liti.constants.Skins;
-import de.gurkenlabs.liti.entities.Player;
-import de.gurkenlabs.liti.entities.PlayerClass;
-import de.gurkenlabs.liti.entities.PlayerConfiguration;
-import de.gurkenlabs.liti.entities.Players;
+import de.gurkenlabs.liti.entities.*;
 import de.gurkenlabs.liti.gui.DynamicZoomCamera;
 import de.gurkenlabs.liti.input.InputManager;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
+import de.gurkenlabs.litiengine.environment.CreatureMapObjectLoader;
+import de.gurkenlabs.litiengine.environment.PropMapObjectLoader;
 import de.gurkenlabs.litiengine.input.Input;
 
 import java.awt.event.KeyEvent;
@@ -30,6 +29,9 @@ public final class GameManager {
   }
 
   public static void init() {
+    CreatureMapObjectLoader.registerCustomCreatureType(Chicken.class);
+    PropMapObjectLoader.registerCustomPropType(Egg.class);
+
     Game.loop().attach(GameManager::update);
     InputManager.init();
     Game.world().onLoaded(e -> {
@@ -57,6 +59,10 @@ public final class GameManager {
           }
         }
       });
+
+      Input.keyboard().onKeyTyped(KeyEvent.VK_F8, e -> {
+        Players.getAll().get(0).getProgress().grantEP(Game.random().nextInt(10,20));
+      });
     }
   }
 
@@ -65,7 +71,7 @@ public final class GameManager {
     player.setResurrection(resurrection);
   }
 
-  public static Spawnpoint getSpawn(Player player){
+  public static Spawnpoint getSpawn(Player player) {
     Spawnpoint spawn = Game.world().environment().getSpawnpoint("player-" + (player.getConfiguration().getIndex() + 1));
     if (spawn == null) {
       return null;
@@ -73,6 +79,19 @@ public final class GameManager {
 
     return spawn;
   }
+
+  public static void unlockSurvivalSkill(Player player) {
+    System.out.println(player + " unlocked survival skill");
+  }
+
+  public static void buffTraits(Player player) {
+    System.out.println(player + " traits buffed");
+  }
+
+  public static void endGame(Player player) {
+    System.out.println(player + " end game");
+  }
+
   private static void spawn(Player player) {
     Spawnpoint spawn = getSpawn(player);
     if (spawn == null) {

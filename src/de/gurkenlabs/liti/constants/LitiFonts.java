@@ -7,6 +7,7 @@ import java.awt.Font;
 public final class LitiFonts {
   public static final Font ETCHED = Resources.fonts().get("Etchstone-Regular.ttf");
   public static final Font ROUND = Resources.fonts().get("RobinGraffitiFilledin.ttf");
+  public static final Font NUMBERS = Resources.fonts().get("unifont.ttf").deriveFont(Font.BOLD);
 
   private LitiFonts() {
 
