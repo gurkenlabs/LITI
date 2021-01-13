@@ -13,6 +13,7 @@ import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.entities.controllers.PlayerAnimationController;
 import de.gurkenlabs.liti.graphics.WalkDustSpawner;
+import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameLoop;
 import de.gurkenlabs.litiengine.IUpdateable;
@@ -108,6 +109,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
         event.getGraphics().setRenderingHints(hints);
       }
     });
+
+    this.initBash();
   }
 
   @Override
@@ -322,18 +325,31 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
       this.currentChicken.drop();
     }
 
-    final String hitAnimationName = this.getPlayerClass().toString().toLowerCase() + "-hit-left";
-    final Animation hitAnimation = this.animations().get(hitAnimationName);
-    if (hitAnimation != null) {
-      hitAnimation.onKeyFrameChanged((p, c) -> {
-        if (c.getSpriteIndex() == 1) {
-          this.bash.cast();
-        }
-      });
+    if (!this.bash.canCast()) {
+      return;
+    }
 
-      this.animations().play(hitAnimationName);
-    } else {
-      this.bash.cast();
+    final Animation hitAnimation = this.findBashAnimation();
+    if (hitAnimation != null) {
+      System.out.println("play" + hitAnimation.getName());
+      this.animations().play(hitAnimation.getName());
+    }
+
+    this.bash.cast();
+  }
+
+  public Animation findBashAnimation(){
+    // hit animations are narrowed down to left and right, I think we can save some time here without loosing too much immersion could add up/down later
+    final String hitAnimationName = this.getPlayerClass().toString().toLowerCase() + "-hit-" + (this.getAngle() > Direction.UP.toAngle() % 360 ? "left": "right");
+    return this.animations().get(hitAnimationName);
+  }
+
+  private void initBash(){
+    // if there is any bash animation, delay the bash by the duration of the first frame
+    Animation hitAnimation = findBashAnimation();
+    if(hitAnimation != null){
+      // first effect is the HitEffect, no need for pretty code here ^^
+      this.bash.getEffects().get(0).setDelay(hitAnimation.getKeyFrameDurations()[0]);
     }
   }
 

@@ -16,7 +16,6 @@ import de.gurkenlabs.litiengine.resources.Resources;
 public class Huntress extends Player {
   protected Huntress(PlayerConfiguration config) {
     super(config);
-    this.animations().add(new Animation(Resources.spritesheets().get("huntress-hit-left"), false));
   }
 
   @Override
