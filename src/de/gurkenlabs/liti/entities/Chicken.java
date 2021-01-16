@@ -19,6 +19,7 @@ public class Chicken extends Creature implements IUpdateable {
   private long pickupStart;
 
   public Chicken() {
+    this.setIndestructible(true);
   }
 
   @Override
@@ -73,10 +74,9 @@ public class Chicken extends Creature implements IUpdateable {
 
   public void capture() {
     System.out.println(this.carryingPlayer + ": captured chicken " + this.getMapId());
+    this.carryingPlayer.getProgress().grantEP(PlayerProgress.EP_OBJECTIVE);
     this.drop();
     Game.world().environment().remove(this);
-
-    // TODO: grant EP
   }
 
   public boolean isPickedUpOrBeingPickedUp() {

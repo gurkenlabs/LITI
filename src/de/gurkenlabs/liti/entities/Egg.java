@@ -21,7 +21,7 @@ public class Egg extends Prop implements IUpdateable {
   public Egg(String spritesheetName) {
     super(spritesheetName);
 
-    System.out.println("egg");
+    this.setIndestructible(true);
   }
 
   public boolean isBeingChannelled(){
@@ -53,17 +53,21 @@ public class Egg extends Prop implements IUpdateable {
 
   @Override
   public void update() {
-    if (this.channelling != null && this.channelStart != 0 && Game.time().since(this.channelStart) > KILL_DURATION) {
-      this.destroy();
+    if(channelling != null){
+      this.channelling.getProgress().getInterval().inCombat();
+
+      if (this.channelStart != 0 && Game.time().since(this.channelStart) > KILL_DURATION) {
+        this.destroy();
+      }
     }
   }
 
   private void destroy() {
     System.out.println(this.channelling + ": destroyed egg " + this.getMapId());
+    this.channelling.getProgress().grantEP(PlayerProgress.EP_OBJECTIVE);
     this.release();
     Game.world().environment().remove(this);
 
     // TODO: animation
-    // TODO: grant EP
   }
 }

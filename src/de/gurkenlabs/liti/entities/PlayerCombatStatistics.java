@@ -88,15 +88,18 @@ public final class PlayerCombatStatistics {
 
   public void addDamageDealt(int damage) {
     this.damageDealt += damage;
+    this.player.getProgress().getInterval().inCombat();
   }
 
   public void addDamageBlocked(int damage){
     this.damageBlocked += damage;
+    this.player.getProgress().getInterval().inCombat();
   }
 
   private void trackKill() {
     this.kills++;
     this.killTimes.add(Game.time().now());
+    this.player.getProgress().grantEP(PlayerProgress.EP_KILL);
 
     System.out.println(this.player + ": kills: " + this.getKills() + ", deaths: " + this.getDeaths() + ", damage: " + this.getDamageDealt() + ", received: " + this.getDamageReceived() + ", blocked: " + this.getDamageBlocked());
   }
@@ -104,6 +107,7 @@ public final class PlayerCombatStatistics {
   private void handlePlayerHit(EntityHitEvent entityHitEvent) {
     entityHits.add(entityHitEvent);
     this.damageReceived += entityHitEvent.getDamage();
+    this.player.getProgress().getInterval().inCombat();
 
     if (entityHitEvent.getExecutor() instanceof Player) {
       Player executor = (Player) entityHitEvent.getExecutor();

@@ -127,6 +127,12 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
     if (this.isBlocking()) {
       this.drainStaminaWhileBlocking();
+      this.getProgress().getInterval().didSomething();
+    }
+
+    if(this.currentChicken != null){
+      // while a chicken is carried around, a player is considered to be in combat for extra EP gains per interval
+      this.getProgress().getInterval().inCombat();
     }
 
     if (this.getStamina().get() == this.getStamina().getMin()) {
@@ -269,6 +275,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
       if (chicken.getBoundingBox().intersects(this.getBoundingBox()) && this.doesFace(chicken)) {
         if (!chicken.isPickedUpOrBeingPickedUp()) {
           chicken.startPickup(this);
+          this.getProgress().getInterval().didSomething();
           this.lastInteract = Game.time().now();
           return;
         }
@@ -313,20 +320,26 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   @Action(name = "DASH")
   public void useDash() {
+    if (!this.dash.canCast()) {
+      return;
+    }
+
     if (this.currentChicken != null) {
       this.currentChicken.drop();
     }
+
     this.dash.cast();
+    this.getProgress().getInterval().didSomething();
   }
 
   @Action(name = "BASH")
   public void useBash() {
-    if (this.currentChicken != null) {
-      this.currentChicken.drop();
-    }
-
     if (!this.bash.canCast()) {
       return;
+    }
+
+    if (this.currentChicken != null) {
+      this.currentChicken.drop();
     }
 
     final Animation hitAnimation = this.findBashAnimation();
@@ -336,6 +349,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     }
 
     this.bash.cast();
+    this.getProgress().getInterval().didSomething();
   }
 
   public Animation findBashAnimation(){
