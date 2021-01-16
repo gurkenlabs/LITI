@@ -36,22 +36,22 @@ public class IngameScreen extends LitiScreen {
   }
 
   @Override public boolean canPressDirection(int player, Direction direction) {
-    return true;
+    return false;
   }
 
   @Override public boolean canPressMenu(int player) {
-    return true;
+    return false;
   }
 
   @Override public boolean canPressInfo(int player) {
-    return true;
+    return false;
   }
 
   @Override public boolean canPressConfirm(int player) {
-    return true;
+    return false;
   }
 
   @Override public boolean canPressCancel(int player) {
-    return true;
+    return false;
   }
 }
