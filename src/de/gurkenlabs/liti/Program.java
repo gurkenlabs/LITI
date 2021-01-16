@@ -2,6 +2,7 @@ package de.gurkenlabs.liti;
 
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.gui.IngameScreen;
+import de.gurkenlabs.liti.gui.LoadingScreen;
 import de.gurkenlabs.liti.gui.LobbyScreen;
 import de.gurkenlabs.liti.gui.ScoreScreen;
 import de.gurkenlabs.litiengine.Game;
@@ -38,6 +39,7 @@ public class Program {
     // Game.screens().add(new SplashScreen());
     // Game.screens().add(new MenuScreen());
     Game.screens().add(new LobbyScreen());
+    Game.screens().add(new LoadingScreen());
     Game.screens().add(new IngameScreen());
     Game.screens().add(new ScoreScreen());
 

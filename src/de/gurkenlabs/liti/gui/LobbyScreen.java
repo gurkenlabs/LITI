@@ -1,17 +1,21 @@
 package de.gurkenlabs.liti.gui;
 
+import de.gurkenlabs.liti.entities.PlayerConfiguration;
+import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.resources.Resources;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 public class LobbyScreen extends LitiScreen {
   private CharacterSelectionComponent[] charSelects;
   private static final BufferedImage TITLE = Resources.images().get("lobby-title.png");
   private static final BufferedImage BACKGROUND = Resources.images().get("lobby-background.png");
+  private CountdownComponent countdown;
 
   public LobbyScreen() {
     super("LOBBY");
@@ -26,7 +30,19 @@ public class LobbyScreen extends LitiScreen {
     ImageRenderer.render(g, TITLE, Game.window().getCenter().getX() - TITLE.getWidth() / 2d,
         titleRefY - TITLE.getHeight() / 2d + offsetY);
     g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+    if (countdown.isActive() && countdown.hasFinished()) {
+      startGame();
+    }
+  }
 
+  public boolean allPlayersReady() {
+    int readyPlayers = 0;
+    for (PlayerConfiguration c : Players.getConfigurations()) {
+      if (charSelects[c.getIndex()].isReady()) {
+        readyPlayers++;
+      }
+    }
+    return readyPlayers > 1;
   }
 
   @Override public boolean canPressDirection(int player, Direction direction) {
@@ -61,6 +77,9 @@ public class LobbyScreen extends LitiScreen {
 
     } else if (charSelect.isReady()) {
       charSelect.unready();
+      if (countdown.isActive()) {
+        countdown.stop();
+      }
     }
   }
 
@@ -69,7 +88,6 @@ public class LobbyScreen extends LitiScreen {
       return;
     }
     super.dispatchMenu(player);
-
   }
 
   @Override
@@ -85,6 +103,9 @@ public class LobbyScreen extends LitiScreen {
 
     } else if (!charSelect.isReady()) {
       charSelect.ready();
+      if (allPlayersReady()) {
+        countdown.start();
+      }
     }
   }
 
@@ -133,5 +154,13 @@ public class LobbyScreen extends LitiScreen {
       charSelects[i] = new CharacterSelectionComponent(compWidth / 2 + i * (compWidth * 2d), compY, compWidth, compHeight, i);
       this.getComponents().add(charSelects[i]);
     }
+
+    countdown = new CountdownComponent(Game.window().getCenter().getX() - compHeight / 2d, Game.window().getCenter().getY() - compHeight / 2d,
+        compHeight, compHeight, 5000);
+    this.getComponents().add(countdown);
+  }
+
+  private void startGame() {
+    Game.screens().display("LOADING");
   }
 }

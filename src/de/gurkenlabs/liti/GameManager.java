@@ -44,8 +44,8 @@ public final class GameManager {
 
       System.out.println(Players.joinedPlayers() + " players joined...");
       for (PlayerConfiguration config : Players.getConfigurations()) {
-        // config.setPlayerClass(Game.random().next(PlayerClass.class));
-        // config.setSkin(Skins.getRandom());
+        //         config.setPlayerClass(Game.random().next(PlayerClass.class));
+        //         config.setSkin(Skins.getRandom());
         Player player = Players.join(config);
         spawn(player);
       }
@@ -61,7 +61,7 @@ public final class GameManager {
       });
 
       Input.keyboard().onKeyTyped(KeyEvent.VK_F8, e -> {
-        Players.getAll().get(0).getProgress().grantEP(Game.random().nextInt(10,20));
+        Players.getAll().get(0).getProgress().grantEP(Game.random().nextInt(10, 20));
       });
     }
   }
