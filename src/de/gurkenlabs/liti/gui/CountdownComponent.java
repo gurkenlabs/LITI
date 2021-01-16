@@ -10,6 +10,7 @@ import de.gurkenlabs.litiengine.util.TimeUtilities;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 public class CountdownComponent extends GuiComponent {
   private final int duration;
@@ -35,6 +36,11 @@ public class CountdownComponent extends GuiComponent {
   }
 
   @Override public void render(Graphics2D g) {
+    if (this.isActive()) {
+      g.setColor(new Color(0, 0, 0, 100));
+      g.fill(new Rectangle(0, 0, (int) Game.window().getResolution().getWidth(), (int) Game.window().getResolution().getHeight()));
+    }
+
     super.render(g);
     if (this.getRemainingTime() == 0 && this.isActive()) {
       return;
