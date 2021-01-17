@@ -9,11 +9,16 @@ import de.gurkenlabs.litiengine.entities.CollisionInfo;
 import de.gurkenlabs.litiengine.entities.EntityInfo;
 import de.gurkenlabs.litiengine.entities.Prop;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 @AnimationInfo(spritePrefix = "prop-egg")
 @EntityInfo(width = 31, height = 29)
 @CollisionInfo(collision = true, collisionBoxWidth = 18, collisionBoxHeight = 14, align = Align.CENTER, valign = Valign.MIDDLE)
-public class Egg extends Prop implements IUpdateable {
+public class Egg extends Prop implements IUpdateable, IObjective {
   private static final int KILL_DURATION = 5000;
+
+  private final List<Runnable> finishedListeners = new CopyOnWriteArrayList<>();
 
   private Player channelling;
   private long channelStart;
@@ -68,6 +73,15 @@ public class Egg extends Prop implements IUpdateable {
     this.release();
     Game.world().environment().remove(this);
 
+    for(Runnable listener : this.finishedListeners){
+      listener.run();
+    }
+
     // TODO: animation
+  }
+
+  @Override
+  public void onFinished(Runnable runnable) {
+    finishedListeners.add(runnable);
   }
 }

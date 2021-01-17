@@ -274,17 +274,6 @@
       <property name="spritesheetName" value="stone3"/>
      </properties>
     </object>
-    <object id="141" type="CREATURE" x="326" y="273" width="14" height="11">
-     <properties>
-      <property name="addShadow" type="bool" value="true"/>
-      <property name="collision" type="bool" value="true"/>
-      <property name="collisionboxHeight" type="float" value="4.4"/>
-      <property name="collisionboxWidth" type="float" value="5.6000000000000005"/>
-      <property name="indestructible" type="bool" value="false"/>
-      <property name="spawnDirection" value="LEFT"/>
-      <property name="spritesheetName" value="rooster"/>
-     </properties>
-    </object>
     <object id="142" name="player-1" type="AREA" x="0" y="112" width="125" height="100">
      <properties>
       <property name="tags" value="base"/>
