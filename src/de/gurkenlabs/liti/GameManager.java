@@ -33,6 +33,8 @@ public final class GameManager {
   private static final List<Spawnpoint> spawnPoints = new CopyOnWriteArrayList<>();
   private static MapArea chickenArea;
 
+  private static Player winner;
+
   private static GameState state = GameState.NONE;
 
   private GameManager() {
@@ -66,6 +68,7 @@ public final class GameManager {
         return;
       }
 
+      winner = null;
       baseAreas.clear();
       baseAreas.addAll(e.getByTag(MapArea.class, "base"));
 
@@ -140,6 +143,10 @@ public final class GameManager {
     return chickenArea;
   }
 
+  public static Player getWinner(){
+    return winner;
+  }
+
   public static void stage1Reached(Player player) {
     System.out.println(player + " unlocked survival skill");
   }
@@ -150,6 +157,7 @@ public final class GameManager {
 
   public static void stage3Reached(Player player) {
     System.out.println(player + " end game");
+    winner = player;
     setGameState(GameState.FINISHED);
 
     Game.world().camera().pan(player.getCenter(), (int)Game.time().toTicks(2000));

@@ -9,6 +9,7 @@ import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
+import de.gurkenlabs.litiengine.graphics.TextRenderer;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
@@ -40,7 +41,20 @@ public final class Hud extends GuiComponent implements IRenderable {
 
     if(this.preGameCountdown.hasFinished()){
       this.preGameCountdown.stop();
+
+      // TODO: reset for consequtive games after game is finished or before a new one is started
     }
+
+    this.renderWinner(g);
+  }
+
+  private void renderWinner(Graphics2D g) {
+    if(GameManager.getGameState() == GameManager.GameState.FINISHED){
+
+      // TODO: component for this + animation via tweening
+      TextRenderer.render(g, "Player " + (GameManager.getWinner().getConfiguration().getIndex()  +1)+ " won!", Game.window().getCenter());
+    }
+
   }
 
   public CountdownComponent getPregameCountdown(){
