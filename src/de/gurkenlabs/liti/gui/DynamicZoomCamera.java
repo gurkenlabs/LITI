@@ -1,5 +1,6 @@
 package de.gurkenlabs.liti.gui;
 
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Collection;
 
@@ -7,14 +8,15 @@ import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.graphics.Camera;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 
 public class DynamicZoomCamera extends Camera {
 
-  private static float minZoom = .71f;
-  private static float maxZoom = 1.4f;
+  public static float minZoom = .71f;
+  public static float maxZoom = 1.4f;
   private static short padding = 20;
 
   public DynamicZoomCamera() {
@@ -25,10 +27,19 @@ public class DynamicZoomCamera extends Camera {
   @Override
   public void update() {
     super.update();
+
+    if(GameManager.getGameState() == GameManager.GameState.FINISHED){
+      return;
+    }
+
     this.determineFocusAndZoom();
   }
 
   private void determineFocusAndZoom() {
+    if (GameManager.getGameState() == GameManager.GameState.PREGAME){
+      return;
+    }
+
     Collection<Player> players = Players.getAll();
     double minX = 0;
     double maxX = 0;
@@ -56,6 +67,7 @@ public class DynamicZoomCamera extends Camera {
     Rectangle2D bounds = new Rectangle2D.Double(minX - padding, minY - padding, maxX - minX + 2 * padding, maxY - minY + 2 * padding);
     this.setFocus(bounds.getCenterX(), bounds.getCenterY());
     double rel = Math.min(Game.world().environment().getMap().getSizeInPixels().getWidth() / bounds.getWidth() / 2, Game.world().environment().getMap().getSizeInPixels().getHeight() / bounds.getHeight() / 2);
+
     float targetZoom = MathUtilities.clamp((float) rel, minZoom, maxZoom);
     this.setZoom(targetZoom, 100);
   }

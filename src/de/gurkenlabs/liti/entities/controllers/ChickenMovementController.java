@@ -1,5 +1,6 @@
 package de.gurkenlabs.liti.entities.controllers;
 
+import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.entities.Chicken;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.physics.MovementController;
@@ -33,6 +34,10 @@ public class ChickenMovementController extends MovementController<Chicken> {
     }
 
     if (!this.canMove() || (this.idlePause && Game.time().since(this.lastAngleChange) < this.nextAngleChange)) {
+      return;
+    }
+
+    if(GameManager.getGameState() != GameManager.GameState.INGAME){
       return;
     }
 
