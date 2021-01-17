@@ -115,9 +115,9 @@ public class PlayerProgress implements IUpdateable {
 
   public static class Stage {
     public static Stage STAGE0 = new Stage(0, 0, player -> {}, 3);
-    public static Stage STAGE1 = new Stage(1, 1000, GameManager::unlockSurvivalSkill, 5);
-    public static Stage STAGE2 = new Stage(2, 2000, GameManager::buffTraits, 8);
-    public static Stage STAGE3 = new Stage(3, 2000, GameManager::endGame, 8);
+    public static Stage STAGE1 = new Stage(1, 1000, GameManager::stage1Reached, 5);
+    public static Stage STAGE2 = new Stage(2, 2000, GameManager::stage2Reached, 8);
+    public static Stage STAGE3 = new Stage(3, 2000, GameManager::stage3Reached, 8);
 
     private final int index;
     private final int requiredEP;
@@ -129,6 +129,13 @@ public class PlayerProgress implements IUpdateable {
       this.requiredEP = requiredEP;
       this.stageReached = stageReached;
       this.respawn = respawn;
+    }
+    public int getIndex(){
+      return this.index;
+    }
+
+    public int getRequiredEP(){
+      return this.requiredEP;
     }
 
     public Stage next() {

@@ -17,9 +17,4 @@ public class Huntress extends Player {
   protected Huntress(PlayerConfiguration config) {
     super(config);
   }
-
-  @Override
-  public SurvivalSkill getSurvivalSkill() {
-    return null;
-  }
 }

@@ -52,6 +52,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private PlayerState playerState;
   private Dash dash;
   private Bash bash;
+  private SurvivalSkill survivalSkill;
 
   private boolean isBlocking;
   private boolean isFalling;
@@ -381,6 +382,11 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   @Action(name = "SURVIVALSKILL")
   public void useSurvivalSkill() {
+    // a player must reach stage 1 in order to use the survival skill
+    if(this.getProgress().getCurrentStage().getIndex() < 1){
+      return;
+    }
+
     if (this.getSurvivalSkill() != null) {
       if (this.currentChicken != null) {
         this.currentChicken.drop();
@@ -395,7 +401,13 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     return "Player " + (this.getConfiguration().getIndex() + 1) + " (#" + this.getMapId() + ")";
   }
 
-  public abstract SurvivalSkill getSurvivalSkill();
+  public SurvivalSkill getSurvivalSkill(){
+    return this.survivalSkill;
+  }
+
+  protected void setSurvivalSkill(SurvivalSkill survivalSkill){
+    this.survivalSkill = survivalSkill;
+  }
 
   @Override
   public void updateAnimationController() {

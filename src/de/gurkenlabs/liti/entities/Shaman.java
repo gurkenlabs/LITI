@@ -15,9 +15,4 @@ public class Shaman extends Player {
   protected Shaman(PlayerConfiguration config) {
     super(config);
   }
-
-  @Override
-  public SurvivalSkill getSurvivalSkill() {
-    return null;
-  }
 }

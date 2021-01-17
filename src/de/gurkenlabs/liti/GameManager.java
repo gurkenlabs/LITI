@@ -103,15 +103,15 @@ public final class GameManager {
     return base.get();
   }
 
-  public static void unlockSurvivalSkill(Player player) {
+  public static void stage1Reached(Player player) {
     System.out.println(player + " unlocked survival skill");
   }
 
-  public static void buffTraits(Player player) {
+  public static void stage2Reached(Player player) {
     System.out.println(player + " traits buffed");
   }
 
-  public static void endGame(Player player) {
+  public static void stage3Reached(Player player) {
     System.out.println(player + " end game");
   }
 

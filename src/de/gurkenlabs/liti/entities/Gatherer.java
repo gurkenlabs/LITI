@@ -15,9 +15,4 @@ public class Gatherer extends Player {
   public Gatherer(PlayerConfiguration config) {
     super(config);
   }
-
-  @Override
-  public SurvivalSkill getSurvivalSkill() {
-    return null;
-  }
 }
