@@ -3,8 +3,6 @@ package de.gurkenlabs.liti.gui;
 import de.gurkenlabs.liti.constants.LitiFonts;
 import de.gurkenlabs.liti.constants.LitiSounds;
 import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.entities.EntityRenderListener;
-import de.gurkenlabs.litiengine.entities.EntityRenderedListener;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
@@ -22,7 +20,7 @@ public class CountdownComponent extends GuiComponent {
   private long lastStart;
   private boolean active;
   private boolean playSounds;
-  private boolean pulsating;
+  private boolean secondPassed;
   private final Collection<CountdownListener> countdownListeners = ConcurrentHashMap.newKeySet();
 
   protected CountdownComponent(double x, double y, double width, double height, int duration, boolean playSounds) {
@@ -55,7 +53,7 @@ public class CountdownComponent extends GuiComponent {
     g.fill(new Rectangle(0, 0, (int) Game.window().getResolution().getWidth(), (int) Game.window().getResolution().getHeight()));
     super.render(g);
     this.setText(this.getRemainingTimeString());
-    this.pulsate();
+    this.passSecond();
   }
 
   public void start() {
@@ -101,20 +99,23 @@ public class CountdownComponent extends GuiComponent {
     return String.format(TimeUtilities.toTimerFormat(this.getRemainingTime(), TimeUtilities.TimerFormat.S_0));
   }
 
-  private void pulsate() {
-    if (this.getRemainingTimeString().charAt(2) != '0' || this.pulsating) {
+  private void passSecond() {
+    if (this.getRemainingTimeString().charAt(2) != '0' || this.secondPassed) {
       return;
     }
-    pulsating = true;
 
     if (playSounds) {
       Game.audio().playSound(this.getRemainingTimeString().charAt(0) != '0' ? LitiSounds.COUNTDOWN_RUNNING : LitiSounds.COUNTDOWN_FINISHED);
     }
+    Game.tweens().reset(this, TweenType.FONTSIZE);
     Game.tweens().begin(this, TweenType.FONTSIZE, 500).target(this.getFont().getSize2D() * 2 / 3f).ease(TweenFunction.EXPO_OUT);
-    Game.loop().perform(999, () -> {
-      pulsating = false;
-      Game.tweens().reset(this, TweenType.FONTSIZE);
-    });
+
+    for (final CountdownListener listener : this.countdownListeners) {
+      listener.secondPassed();
+    }
+
+    this.secondPassed = true;
+    Game.loop().perform(999, () -> this.secondPassed = false);
   }
 
   public void addListener(final CountdownListener listener) {
