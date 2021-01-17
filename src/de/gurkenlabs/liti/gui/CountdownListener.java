@@ -9,4 +9,7 @@ public interface CountdownListener extends EventListener {
 
   default void stopped() {
   }
+
+  default void secondPassed() {
+  }
 }
