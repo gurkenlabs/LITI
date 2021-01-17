@@ -103,7 +103,7 @@ public final class Hud extends GuiComponent implements IRenderable {
       }
 
       final double width = 16;
-      final double height = 2;
+      final double height = 1.5;
       final double staminaWidth = 14;
       final double staminaHeight = .75;
       final double staminaBgHeight = .5;
