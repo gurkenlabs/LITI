@@ -80,7 +80,7 @@ public class PlayerProgress implements IUpdateable {
 
   @Override
   public void update() {
-    if(!this.player.isLoaded()){
+    if(!this.player.isLoaded() || GameManager.getGameState() != GameManager.GameState.INGAME){
       return;
     }
 

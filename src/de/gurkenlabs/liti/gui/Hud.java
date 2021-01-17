@@ -25,6 +25,8 @@ public final class Hud extends GuiComponent implements IRenderable {
   private static final int UI_INPUT_DELAY = 250;
   private static final Map<Integer, Long> lastInputs = new ConcurrentHashMap<>();
 
+  private CountdownComponent preGameCountdown;
+
   Hud() {
     super(0, 0);
   }
@@ -35,6 +37,14 @@ public final class Hud extends GuiComponent implements IRenderable {
 
     this.renderHealthAndStaminaBars(g);
     this.renderRespawnTimer(g);
+
+    if(this.preGameCountdown.hasFinished()){
+      this.preGameCountdown.stop();
+    }
+  }
+
+  public CountdownComponent getPregameCountdown(){
+    return preGameCountdown;
   }
 
   public static void cancel(int player) {
@@ -78,6 +88,18 @@ public final class Hud extends GuiComponent implements IRenderable {
 
     getLitiScreen().dispatchInfo(player);
     lastInputs.put(player, Game.time().now());
+  }
+
+  @Override
+  protected void initializeComponents() {
+    super.initializeComponents();
+    double compWidth = Game.window().getResolution().getWidth() * 1 / 8d;
+    double compHeight = Game.window().getResolution().getHeight() * 1 / 3d;
+
+    this.preGameCountdown = new CountdownComponent(Game.window().getCenter().getX() - compHeight / 2d, Game.window().getCenter().getY() - compHeight / 2d,
+            compHeight, compHeight, GameManager.DURATION_PREGAME, true);
+
+    this.getComponents().add(this.preGameCountdown);
   }
 
   private static LitiScreen getLitiScreen() {

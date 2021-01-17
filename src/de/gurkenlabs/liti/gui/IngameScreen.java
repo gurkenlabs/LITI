@@ -8,9 +8,21 @@ import java.awt.*;
 public class IngameScreen extends LitiScreen {
   private Hud hud;
 
-  public IngameScreen() {
+  private static IngameScreen instance;
+  private IngameScreen() {
     super("INGAME");
+  }
 
+  public static IngameScreen instance(){
+    if(instance == null){
+      instance = new IngameScreen();
+    }
+
+    return instance;
+  }
+
+  public Hud getHud(){
+    return this.hud;
   }
 
   @Override

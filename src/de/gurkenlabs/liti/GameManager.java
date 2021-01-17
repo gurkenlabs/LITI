@@ -3,6 +3,7 @@ package de.gurkenlabs.liti;
 import de.gurkenlabs.liti.constants.Skins;
 import de.gurkenlabs.liti.entities.*;
 import de.gurkenlabs.liti.gui.DynamicZoomCamera;
+import de.gurkenlabs.liti.gui.IngameScreen;
 import de.gurkenlabs.liti.input.InputManager;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.MapArea;
@@ -17,13 +18,31 @@ import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class GameManager {
+  public enum GameState {
+    NONE,
+    PREGAME,
+    PAUSED,
+    INGAME,
+    FINISHED,
+  }
 
-  private static int DEFAULT_DEATH_DURATION = 5000;
+  public static int DURATION_DEFAULT_DEATH = 5000;
+  public static int DURATION_PREGAME = 5000;
 
   private static final List<MapArea> baseAreas = new CopyOnWriteArrayList<>();
   private static final List<Spawnpoint> spawnPoints = new CopyOnWriteArrayList<>();
 
+  private static GameState state = GameState.NONE;
+
   private GameManager() {
+  }
+
+  public static GameState getGameState(){
+    return state;
+  }
+
+  public static void setGameState(GameState gameState){
+    state = gameState;
   }
 
   public static void update() {
@@ -53,6 +72,8 @@ public final class GameManager {
       spawnPoints.addAll(e.getSpawnPoints("playerspawn"));
       Game.graphics().setBaseRenderScale(4f);
       Game.world().setCamera(new DynamicZoomCamera());
+      Game.world().camera().setZoom(DynamicZoomCamera.maxZoom * 2, 0);
+      Game.world().camera().setZoom(DynamicZoomCamera.minZoom, 5000);
 
       System.out.println(Players.joinedPlayers() + " players joined...");
       for (PlayerConfiguration config : Players.getConfigurations()) {
@@ -61,6 +82,15 @@ public final class GameManager {
         Player player = Players.join(config);
         spawn(player);
       }
+
+      state = GameState.PREGAME;
+      IngameScreen.instance().getHud().getPregameCountdown().start();
+      Game.loop().perform(DURATION_PREGAME, () -> {
+        state = GameState.INGAME;
+        for(Player player : Players.getAll()) {
+          player.setState(Player.PlayerState.NORMAL);
+        }
+      });
     });
 
     if (Game.isDebug()) {
@@ -73,13 +103,13 @@ public final class GameManager {
       });
 
       Input.keyboard().onKeyTyped(KeyEvent.VK_F8, e -> {
-        Players.getAll().get(0).getProgress().grantEP(Game.random().nextInt(10, 20));
+        Players.getAll().get(0).getProgress().grantEP(Game.random().nextInt(100, 200));
       });
     }
   }
 
   public static void playerDied(Player player) {
-    long resurrection = DEFAULT_DEATH_DURATION;
+    long resurrection = DURATION_DEFAULT_DEATH;
     player.setResurrection(resurrection);
   }
 
@@ -113,6 +143,24 @@ public final class GameManager {
 
   public static void stage3Reached(Player player) {
     System.out.println(player + " end game");
+    setGameState(GameState.FINISHED);
+
+    Game.world().camera().pan(player.getCenter(), (int)Game.time().toTicks(2000));
+    Game.loop().perform(2000, () -> {
+      Game.world().camera().setZoom(DynamicZoomCamera.maxZoom, 1000);
+
+      Game.loop().perform(2000, () -> {
+        Game.window().getRenderComponent().fadeOut(3000);
+        Game.loop().perform(3000, () -> {
+          Game.screens().display("SCORE");
+          Game.window().getRenderComponent().fadeIn(2000);
+        });
+      });
+    });
+
+    for(Player p : Players.getAll()){
+      p.setState(Player.PlayerState.LOCKED);
+    }
   }
 
   private static void spawn(Player player) {
@@ -124,6 +172,6 @@ public final class GameManager {
 
     System.out.println("Spawning player " + player);
     spawn.spawn(player);
-    player.setState(Player.PlayerState.NORMAL);
+    player.setState(Player.PlayerState.LOCKED);
   }
 }
