@@ -348,10 +348,26 @@
 </data>
    </layer>
    <objectgroup id="4" name="spawns" visible="1">
-    <object id="1" name="player-1" type="SPAWNPOINT" x="102" y="172" width="16" height="16"/>
-    <object id="2" name="player-2" type="SPAWNPOINT" x="572" y="173" width="16" height="16"/>
-    <object id="3" name="player-3" type="SPAWNPOINT" x="105" y="401" width="16" height="16"/>
-    <object id="4" name="player-4" type="SPAWNPOINT" x="561" y="404" width="16" height="16"/>
+    <object id="1" name="player-1" type="SPAWNPOINT" x="102" y="172" width="16" height="16">
+     <properties>
+      <property name="tags" value="playerspawn"/>
+     </properties>
+    </object>
+    <object id="2" name="player-2" type="SPAWNPOINT" x="572" y="173" width="16" height="16">
+     <properties>
+      <property name="tags" value="playerspawn"/>
+     </properties>
+    </object>
+    <object id="3" name="player-3" type="SPAWNPOINT" x="105" y="401" width="16" height="16">
+     <properties>
+      <property name="tags" value="playerspawn"/>
+     </properties>
+    </object>
+    <object id="4" name="player-4" type="SPAWNPOINT" x="561" y="404" width="16" height="16">
+     <properties>
+      <property name="tags" value="playerspawn"/>
+     </properties>
+    </object>
    </objectgroup>
    <objectgroup id="0" name="props" visible="1">
     <object id="6" type="COLLISIONBOX" x="208" y="216" width="12" height="21">

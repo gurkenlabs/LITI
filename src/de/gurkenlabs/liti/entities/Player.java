@@ -39,6 +39,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private static final int INTERACT_COOLDOWN = 1000;
   private static final int STAMINA_DEPLETION_DELAY = 3000;
   private static final int BLOCK_COOLDOWN = 500;
+  private final int HEALTH_RECOVER_INTERVAL;
 
   private final PlayerConfiguration configuration;
   private final PlayerCombatStatistics combatStatistics;
@@ -61,6 +62,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private long lastDeath;
   private long lastInteract;
   private long resurrection;
+  private long lastHealthRecovery;
 
   private Chicken currentChicken;
   private Egg channelledEgg;
@@ -69,6 +71,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.stamina = new RangeAttribute<>(Proficiency.get(config.getPlayerClass(), Trait.STAMINA), 0.0, Proficiency.get(config.getPlayerClass(), Trait.STAMINA));
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
+    this.HEALTH_RECOVER_INTERVAL = (int)(1.0/this.getHitPoints().getMax() * 10000);
     this.setTeam(this.configuration.getIndex());
 
     this.playerCircle = Imaging.flashVisiblePixels(Resources.spritesheets().get("player-circle").getImage(), LitiColors.getPlayerColorMappings(this.getConfiguration().getIndex()).get(LitiColors.defaultMainOutfitColor));
@@ -142,6 +145,15 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     if (!this.isBlocking()) {
       this.recoverStamina();
     }
+
+    if(this.isInBase()){
+      this.recoverHealth();
+    }
+  }
+
+  private boolean isInBase() {
+    MapArea base = GameManager.getBase(this);
+    return base != null && base.getBoundingBox().intersects(this.getBoundingBox());
   }
 
   public boolean isStaminaDepleted() {
@@ -413,6 +425,22 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
         this.stamina.setToMax();
       } else {
         this.stamina.setBaseValue(this.stamina.get() + recovery);
+      }
+    }
+  }
+
+  private void recoverHealth() {
+    if(Game.time().since(this.lastHealthRecovery) < HEALTH_RECOVER_INTERVAL){
+      return;
+    }
+
+    this.lastHealthRecovery = Game.time().now();
+    if (this.getHitPoints().get() < this.getHitPoints().getMax()) {
+      int recovery = 1;
+      if (this.getHitPoints().get() + recovery > this.getHitPoints().getMax()) {
+        this.getHitPoints().setToMax();
+      } else {
+        this.getHitPoints().setBaseValue(this.getHitPoints().get() + recovery);
       }
     }
   }
