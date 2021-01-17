@@ -1,5 +1,6 @@
 package de.gurkenlabs.liti.gui;
 
+import de.gurkenlabs.liti.constants.Timings;
 import de.gurkenlabs.liti.entities.PlayerConfiguration;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.litiengine.Direction;
@@ -8,7 +9,6 @@ import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.resources.Resources;
 
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 public class LobbyScreen extends LitiScreen {
@@ -30,7 +30,6 @@ public class LobbyScreen extends LitiScreen {
       double titleRefY = Game.window().getHeight() / 11d;
       ImageRenderer.render(g, TITLE, Game.window().getCenter().getX() - TITLE.getWidth() / 2d,
           titleRefY - TITLE.getHeight() / 2d + offsetY);
-      //    g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
     }
   }
 
@@ -162,7 +161,7 @@ public class LobbyScreen extends LitiScreen {
     }
 
     countdown = new CountdownComponent(Game.window().getCenter().getX() - compHeight / 2d, Game.window().getCenter().getY() - compHeight / 2d,
-        compHeight, compHeight, 5000, true);
+        compHeight, compHeight, Timings.COUNTDOWN_LOBBY, true);
 
     countdown.addListener(new CountdownListener() {
       @Override public void stopped() {
