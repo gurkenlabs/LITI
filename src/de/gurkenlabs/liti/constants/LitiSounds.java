@@ -16,6 +16,9 @@ public final class LitiSounds {
   public static final Sound UI_INFO = Resources.sounds().get("UI_info");
   public static final Sound UI_MENU = Resources.sounds().get("UI_menu");
 
+  public static final Sound COUNTDOWN_RUNNING = Resources.sounds().get("countdown_running");
+  public static final Sound COUNTDOWN_FINISHED = Resources.sounds().get("countdown_finished");
+
   private LitiSounds() {
 
   }

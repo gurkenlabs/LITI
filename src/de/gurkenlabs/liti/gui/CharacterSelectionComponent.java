@@ -223,7 +223,7 @@ public class CharacterSelectionComponent extends GuiComponent {
     this.showInfoPrompt(false);
     this.showArrows(false);
     this.info.setVisible(false);
-    this.readyText.setVisible(true);
+    this.showReadyText(true);
     this.updateClassName();
   }
 
@@ -231,8 +231,12 @@ public class CharacterSelectionComponent extends GuiComponent {
     this.ready = false;
     this.showInfoPrompt(true);
     this.showArrows(true);
-    this.readyText.setVisible(false);
+    this.showReadyText(false);
     this.updateClassName();
+  }
+
+  public void showReadyText(boolean visible) {
+    this.readyText.setVisible(visible);
   }
 
   public void info() {

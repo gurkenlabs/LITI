@@ -25,12 +25,13 @@ public class LobbyScreen extends LitiScreen {
   public void render(Graphics2D g) {
     ImageRenderer.render(g, BACKGROUND, 0, 0);
     super.render(g);
-    double offsetY = TITLE.getHeight() / 4d * Math.sin(Game.time().sinceEnvironmentLoad() / 600.0);
-    double titleRefY = Game.window().getHeight() / 11d;
-    ImageRenderer.render(g, TITLE, Game.window().getCenter().getX() - TITLE.getWidth() / 2d,
-        titleRefY - TITLE.getHeight() / 2d + offsetY);
-    g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-    if (countdown.isActive() && countdown.hasFinished()) {
+    if (!countdown.isActive()) {
+      double offsetY = TITLE.getHeight() / 4d * Math.sin(Game.time().sinceEnvironmentLoad() / 600.0);
+      double titleRefY = Game.window().getHeight() / 11d;
+      ImageRenderer.render(g, TITLE, Game.window().getCenter().getX() - TITLE.getWidth() / 2d,
+          titleRefY - TITLE.getHeight() / 2d + offsetY);
+      //    g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+    } else if (countdown.isActive() && countdown.hasFinished()) {
       startGame();
     }
   }
@@ -79,6 +80,9 @@ public class LobbyScreen extends LitiScreen {
       charSelect.unready();
       if (countdown.isActive()) {
         countdown.stop();
+        for (CharacterSelectionComponent c : this.charSelects) {
+          c.showReadyText(c.isReady());
+        }
       }
     }
   }
@@ -104,7 +108,11 @@ public class LobbyScreen extends LitiScreen {
     } else if (!charSelect.isReady()) {
       charSelect.ready();
       if (allPlayersReady()) {
+        for (CharacterSelectionComponent c : this.charSelects) {
+          c.showReadyText(false);
+        }
         countdown.start();
+
       }
     }
   }
@@ -156,7 +164,7 @@ public class LobbyScreen extends LitiScreen {
     }
 
     countdown = new CountdownComponent(Game.window().getCenter().getX() - compHeight / 2d, Game.window().getCenter().getY() - compHeight / 2d,
-        compHeight, compHeight, 5000);
+        compHeight, compHeight, 5000, true);
     this.getComponents().add(countdown);
   }
 

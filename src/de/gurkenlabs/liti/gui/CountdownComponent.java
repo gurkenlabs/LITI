@@ -1,6 +1,7 @@
 package de.gurkenlabs.liti.gui;
 
 import de.gurkenlabs.liti.constants.LitiFonts;
+import de.gurkenlabs.liti.constants.LitiSounds;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
@@ -16,10 +17,13 @@ public class CountdownComponent extends GuiComponent {
   private final int duration;
   private long lastStart;
   private boolean active;
+  private boolean playSounds;
+  private boolean pulsating;
 
-  protected CountdownComponent(double x, double y, double width, double height, int duration) {
+  protected CountdownComponent(double x, double y, double width, double height, int duration, boolean playSounds) {
     super(x, y, width, height);
     this.duration = duration;
+    this.playSounds = playSounds;
   }
 
   @Override public void prepare() {
@@ -46,9 +50,7 @@ public class CountdownComponent extends GuiComponent {
       return;
     }
     this.setText(this.getRemainingTimeString());
-    if (this.getRemainingTimeString().charAt(2) == '0') {
-      this.pulsate();
-    }
+    this.pulsate();
   }
 
   public void start() {
@@ -87,6 +89,18 @@ public class CountdownComponent extends GuiComponent {
   }
 
   private void pulsate() {
-    Game.tweens().begin(this, TweenType.FONTSIZE, 1000).target(this.getFont().getSize2D() * 2 / 3f).ease(TweenFunction.EXPO_OUT);
+    if (this.getRemainingTimeString().charAt(2) != '0' || this.pulsating) {
+      return;
+    }
+    pulsating = true;
+
+    if (playSounds) {
+      Game.audio().playSound(this.getRemainingTimeString().charAt(0) != '0' ? LitiSounds.COUNTDOWN_RUNNING : LitiSounds.COUNTDOWN_FINISHED);
+    }
+    Game.tweens().begin(this, TweenType.FONTSIZE, 500).target(this.getFont().getSize2D() * 2 / 3f).ease(TweenFunction.EXPO_OUT);
+    Game.loop().perform(999, () -> {
+      pulsating = false;
+      Game.tweens().reset(this, TweenType.FONTSIZE);
+    });
   }
 }
