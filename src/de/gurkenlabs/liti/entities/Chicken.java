@@ -9,11 +9,17 @@ import de.gurkenlabs.litiengine.entities.*;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.physics.IMovementController;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 @EntityInfo(width = 14, height = 11)
 @AnimationInfo(spritePrefix = "rooster")
 @MovementInfo(velocity = 10)
-public class Chicken extends Creature implements IUpdateable {
+public class Chicken extends Creature implements IUpdateable, IObjective  {
   private static final int PICKUP_DURATION = 1000;
+
+  private final List<Runnable> finishedListeners = new CopyOnWriteArrayList<>();
+
   private Player carryingPlayer;
   private Player pickupStarted;
   private long pickupStart;
@@ -77,6 +83,10 @@ public class Chicken extends Creature implements IUpdateable {
     this.carryingPlayer.getProgress().grantEP(PlayerProgress.EP_OBJECTIVE);
     this.drop();
     Game.world().environment().remove(this);
+
+    for(Runnable listener : this.finishedListeners){
+      listener.run();
+    }
   }
 
   public boolean isPickedUpOrBeingPickedUp() {
@@ -85,6 +95,11 @@ public class Chicken extends Creature implements IUpdateable {
 
   public boolean isPickedUp() {
     return this.carryingPlayer != null;
+  }
+
+  @Override
+  public void onFinished(Runnable runnable) {
+    finishedListeners.add(runnable);
   }
 
   @Override
