@@ -3,7 +3,11 @@ package de.gurkenlabs.liti.entities.controllers;
 import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.entities.Chicken;
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.entities.MapArea;
 import de.gurkenlabs.litiengine.physics.MovementController;
+import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+
+import java.awt.geom.Point2D;
 
 public class ChickenMovementController extends MovementController<Chicken> {
   private static final int ANGLE_CHANGE_MIN_DELAY = 2000;
@@ -46,6 +50,8 @@ public class ChickenMovementController extends MovementController<Chicken> {
 
 
   protected void walkAroundLikeMotherfucker() {
+
+    final MapArea chickenArea = GameManager.getChickenArea();
     // WALK AROUND LIKE MOTHERFUCKERS
     float pixelsPerTick = this.getEntity().getTickVelocity();
     final long currentTick = Game.loop().getTicks();
@@ -65,6 +71,13 @@ public class ChickenMovementController extends MovementController<Chicken> {
     }
 
     this.getEntity().setAngle(this.angle);
+    final Point2D newPosition = GeometricUtilities.project(this.getEntity().getLocation(), angle, pixelsPerTick);
+
+    if(chickenArea != null && !chickenArea.getBoundingBox().contains(newPosition)){
+      this.lastAngleChange = 0;
+      return;
+    }
+
     Game.physics().move(this.getEntity(), this.getEntity().getAngle(), pixelsPerTick);
   }
 

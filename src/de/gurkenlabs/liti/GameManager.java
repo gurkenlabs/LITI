@@ -31,6 +31,7 @@ public final class GameManager {
 
   private static final List<MapArea> baseAreas = new CopyOnWriteArrayList<>();
   private static final List<Spawnpoint> spawnPoints = new CopyOnWriteArrayList<>();
+  private static MapArea chickenArea;
 
   private static GameState state = GameState.NONE;
 
@@ -70,6 +71,8 @@ public final class GameManager {
 
       spawnPoints.clear();
       spawnPoints.addAll(e.getSpawnPoints("playerspawn"));
+
+      chickenArea = e.getArea("area-chicken");
       Game.graphics().setBaseRenderScale(4f);
       Game.world().setCamera(new DynamicZoomCamera());
       Game.world().camera().setZoom(DynamicZoomCamera.maxZoom * 2, 0);
@@ -131,6 +134,10 @@ public final class GameManager {
     }
 
     return base.get();
+  }
+
+  public static MapArea getChickenArea(){
+    return chickenArea;
   }
 
   public static void stage1Reached(Player player) {
