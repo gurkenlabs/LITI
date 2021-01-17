@@ -3,6 +3,8 @@ package de.gurkenlabs.liti.gui;
 import de.gurkenlabs.liti.constants.LitiFonts;
 import de.gurkenlabs.liti.constants.LitiSounds;
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.entities.EntityRenderListener;
+import de.gurkenlabs.litiengine.entities.EntityRenderedListener;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
@@ -12,6 +14,8 @@ import de.gurkenlabs.litiengine.util.TimeUtilities;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.Collection;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CountdownComponent extends GuiComponent {
   private final int duration;
@@ -19,6 +23,7 @@ public class CountdownComponent extends GuiComponent {
   private boolean active;
   private boolean playSounds;
   private boolean pulsating;
+  private final Collection<CountdownListener> countdownListeners = ConcurrentHashMap.newKeySet();
 
   protected CountdownComponent(double x, double y, double width, double height, int duration, boolean playSounds) {
     super(x, y, width, height);
@@ -40,15 +45,15 @@ public class CountdownComponent extends GuiComponent {
   }
 
   @Override public void render(Graphics2D g) {
-    if (this.isActive()) {
-      g.setColor(new Color(0, 0, 0, 100));
-      g.fill(new Rectangle(0, 0, (int) Game.window().getResolution().getWidth(), (int) Game.window().getResolution().getHeight()));
-    }
-
-    super.render(g);
-    if (this.getRemainingTime() == 0 && this.isActive()) {
+    if (!this.isActive()) {
       return;
     }
+    if (this.hasFinished()) {
+      this.stop();
+    }
+    g.setColor(new Color(0, 0, 0, 100));
+    g.fill(new Rectangle(0, 0, (int) Game.window().getResolution().getWidth(), (int) Game.window().getResolution().getHeight()));
+    super.render(g);
     this.setText(this.getRemainingTimeString());
     this.pulsate();
   }
@@ -57,11 +62,19 @@ public class CountdownComponent extends GuiComponent {
     this.lastStart = Game.time().now();
     this.active = true;
     this.setVisible(true);
+
+    for (final CountdownListener listener : this.countdownListeners) {
+      listener.started();
+    }
   }
 
   public void stop() {
     this.active = false;
     this.setVisible(false);
+
+    for (final CountdownListener listener : this.countdownListeners) {
+      listener.stopped();
+    }
   }
 
   public boolean isActive() {
@@ -102,5 +115,9 @@ public class CountdownComponent extends GuiComponent {
       pulsating = false;
       Game.tweens().reset(this, TweenType.FONTSIZE);
     });
+  }
+
+  public void addListener(final CountdownListener listener) {
+    this.countdownListeners.add(listener);
   }
 }

@@ -31,8 +31,6 @@ public class LobbyScreen extends LitiScreen {
       ImageRenderer.render(g, TITLE, Game.window().getCenter().getX() - TITLE.getWidth() / 2d,
           titleRefY - TITLE.getHeight() / 2d + offsetY);
       //    g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-    } else if (countdown.isActive() && countdown.hasFinished()) {
-      startGame();
     }
   }
 
@@ -165,6 +163,12 @@ public class LobbyScreen extends LitiScreen {
 
     countdown = new CountdownComponent(Game.window().getCenter().getX() - compHeight / 2d, Game.window().getCenter().getY() - compHeight / 2d,
         compHeight, compHeight, 5000, true);
+
+    countdown.addListener(new CountdownListener() {
+      @Override public void stopped() {
+        startGame();
+      }
+    });
     this.getComponents().add(countdown);
   }
 
