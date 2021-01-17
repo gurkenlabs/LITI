@@ -1,11 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <litidata version="1.0">
  <maps>
+  <map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1" name="loadingScreen">
+   <layer id="1" name="Tile Layer 1" width="10" height="10">
+    <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0
+</data>
+   </layer>
+   <objectgroup id="0" name="default" visible="1">
+    <object id="1" type="EMITTER" x="40" y="0" width="80" height="96">
+     <properties>
+      <property name="collisionType" value="NONE"/>
+      <property name="emitterAlphaVariance" value="0.7999999992549419"/>
+      <property name="emitterColorVariance" value="0.650000000745058"/>
+      <property name="emitterColors" value="#ffc91b,#ff6e00,#a1b70007,#fff47a"/>
+      <property name="emitterDuration" type="int" value="0"/>
+      <property name="emitterMaxParticles" type="int" value="400"/>
+      <property name="emitterOriginAlign" value="CENTER"/>
+      <property name="emitterOriginValign" value="DOWN"/>
+      <property name="emitterParticleType" value="DIAMOND"/>
+      <property name="emitterSpawnAmount" value="10"/>
+      <property name="emitterSpawnRate" value="100"/>
+      <property name="emitterUpdateDelay" type="int" value="40"/>
+      <property name="particleAnimateSprite" type="bool" value="false"/>
+      <property name="particleAntiAliasing" type="bool" value="false"/>
+      <property name="particleFade" type="bool" value="true"/>
+      <property name="particleFadeOnCollision" type="bool" value="false"/>
+      <property name="particleLoopSprite" type="bool" value="true"/>
+      <property name="particleMaxAccelerationX" value="2.2351741811588166E-10"/>
+      <property name="particleMaxAccelerationY" value="2.2351741811588166E-10"/>
+      <property name="particleMaxAngle" type="float" value="360.0"/>
+      <property name="particleMaxDeltaAngle" value="7.450580569168253E-10"/>
+      <property name="particleMaxDeltaHeight" value="0.0"/>
+      <property name="particleMaxDeltaWidth" value="0.01"/>
+      <property name="particleMaxOffsetX" type="float" value="4.0"/>
+      <property name="particleMaxOffsetY" value="0.0"/>
+      <property name="particleMaxStartHeight" type="float" value="6.0"/>
+      <property name="particleMaxStartWidth" value="6.0"/>
+      <property name="particleMaxTTL" type="float" value="1500.0"/>
+      <property name="particleMaxVelocityX" type="float" value="0.10000000149011612"/>
+      <property name="particleMaxVelocityY" type="float" value="0.10000000149011612"/>
+      <property name="particleMinAccelerationX" value="0.0"/>
+      <property name="particleMinAccelerationY" value="-0.07000000022351742"/>
+      <property name="particleMinAngle" type="float" value="0.0"/>
+      <property name="particleMinDeltaAngle" value="-0.10000000074505806"/>
+      <property name="particleMinDeltaHeight" value="-0.09999999977648258"/>
+      <property name="particleMinDeltaWidth" value="-0.09999999977648258"/>
+      <property name="particleMinOffsetX" type="float" value="-4.0"/>
+      <property name="particleMinOffsetY" value="0.0"/>
+      <property name="particleMinStartHeight" type="float" value="2.0"/>
+      <property name="particleMinStartWidth" value="2.0"/>
+      <property name="particleMinTTL" type="float" value="400.0"/>
+      <property name="particleMinVelocityX" type="float" value="-0.10000000149011612"/>
+      <property name="particleMinVelocityY" type="float" value="-0.10000000149011612"/>
+      <property name="particleOutlineOnly" type="bool" value="false"/>
+      <property name="particleTexts" value="LITI"/>
+      <property name="requiredQuality" value="VERYLOW"/>
+      <property name="spritesheetName" value="walk-grass"/>
+     </properties>
+    </object>
+   </objectgroup>
+  </map>
   <map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="42" height="34" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="5" name="plateau2">
    <properties>
     <property name="AMBIENTLIGHT" value="#14333030"/>
     <property name="GRAVITY" type="int" value="0"/>
    </properties>
+   <objectgroup id="0" name="Emitters" visible="1"/>
    <objectgroup id="0" name="collision" visible="1">
     <object id="101" name="bound" type="COLLISIONBOX" x="59" y="71" width="21" height="27">
      <properties>
@@ -1144,6 +1214,43 @@
    <offsetX maxValue="0.0" minValue="0.0"/>
    <offsetY maxValue="0.0" minValue="0.0"/>
   </emitter>
+  <emitter emitterDuration="0" height="96.0" maxParticles="400" name="fire" particleType="DIAMOND" spawnAmount="10" spawnRate="100" updateRate="40" width="80.0">
+   <alphaVariance>0.8</alphaVariance>
+   <animateSprite>false</animateSprite>
+   <loopSprite>true</loopSprite>
+   <collisionType>NONE</collisionType>
+   <requiredQuality>VERYLOW</requiredQuality>
+   <colorVariance>0.65</colorVariance>
+   <colors>
+    <color>#ffc91b</color>
+    <color>#ff6e00</color>
+    <color>#a1b70007</color>
+    <color>#fff47a</color>
+   </colors>
+   <deltaHeight maxValue="0.0" minValue="-0.10000000149011612"/>
+   <deltaWidth maxValue="0.009999999776482582" minValue="-0.10000000149011612"/>
+   <velocityX maxValue="0.10000000149011612" minValue="-0.10000000149011612"/>
+   <velocityY maxValue="0.10000000149011612" minValue="-0.10000000149011612"/>
+   <fade>true</fade>
+   <fadeOnCollision>false</fadeOnCollision>
+   <outlineOnly>false</outlineOnly>
+   <antiAliasing>false</antiAliasing>
+   <accelerationX maxValue="2.2351741291171123E-10" minValue="0.0"/>
+   <accelerationY maxValue="2.2351741291171123E-10" minValue="-0.07000000029802322"/>
+   <angle maxValue="360.0" minValue="0.0"/>
+   <deltaAngle maxValue="7.450580707946131E-10" minValue="-0.10000000149011612"/>
+   <originAlign>center</originAlign>
+   <originValign>bottom</originValign>
+   <particleHeight maxValue="6.0" minValue="2.0"/>
+   <particleTTL maxValue="1500.0" minValue="400.0"/>
+   <texts>
+    <text>LITI</text>
+   </texts>
+   <particleWidth maxValue="6.0" minValue="2.0"/>
+   <spritesheet>walk-grass</spritesheet>
+   <offsetX maxValue="4.0" minValue="-4.0"/>
+   <offsetY maxValue="0.0" minValue="0.0"/>
+  </emitter>
   <emitter emitterDuration="700" height="32.0" maxParticles="20" name="stone-particle" particleType="SPRITE" spawnAmount="20" spawnRate="20" updateRate="40" width="32.0">
    <alphaVariance>0.0</alphaVariance>
    <animateSprite>false</animateSprite>
@@ -1298,6 +1405,59 @@
      <property name="particleTexts" value="LITI"/>
      <property name="requiredQuality" value="VERYLOW"/>
      <property name="spritesheetName" value="crack"/>
+    </properties>
+   </object>
+  </blueprint>
+  <blueprint id="0" name="fire" type="AREA" width="80" height="96">
+   <object id="151" type="EMITTER" x="0" y="0" width="80" height="96">
+    <properties>
+     <property name="collisionType" value="NONE"/>
+     <property name="emitterAlphaVariance" value="0.7999999992549419"/>
+     <property name="emitterColorVariance" value="0.650000000745058"/>
+     <property name="emitterColors" value="#ffc91b,#ff6e00,#a1b70007,#fff47a"/>
+     <property name="emitterDuration" type="int" value="0"/>
+     <property name="emitterMaxParticles" type="int" value="400"/>
+     <property name="emitterOriginAlign" value="CENTER"/>
+     <property name="emitterOriginValign" value="DOWN"/>
+     <property name="emitterParticleType" value="DIAMOND"/>
+     <property name="emitterSpawnAmount" value="10"/>
+     <property name="emitterSpawnRate" value="100"/>
+     <property name="emitterUpdateDelay" type="int" value="40"/>
+     <property name="particleAnimateSprite" type="bool" value="false"/>
+     <property name="particleAntiAliasing" type="bool" value="false"/>
+     <property name="particleFade" type="bool" value="true"/>
+     <property name="particleFadeOnCollision" type="bool" value="false"/>
+     <property name="particleLoopSprite" type="bool" value="true"/>
+     <property name="particleMaxAccelerationX" value="2.2351741811588166E-10"/>
+     <property name="particleMaxAccelerationY" value="2.2351741811588166E-10"/>
+     <property name="particleMaxAngle" type="float" value="360.0"/>
+     <property name="particleMaxDeltaAngle" value="7.450580569168253E-10"/>
+     <property name="particleMaxDeltaHeight" value="0.0"/>
+     <property name="particleMaxDeltaWidth" value="0.01"/>
+     <property name="particleMaxOffsetX" type="float" value="4.0"/>
+     <property name="particleMaxOffsetY" value="0.0"/>
+     <property name="particleMaxStartHeight" type="float" value="6.0"/>
+     <property name="particleMaxStartWidth" value="6.0"/>
+     <property name="particleMaxTTL" type="float" value="1500.0"/>
+     <property name="particleMaxVelocityX" type="float" value="0.10000000149011612"/>
+     <property name="particleMaxVelocityY" type="float" value="0.10000000149011612"/>
+     <property name="particleMinAccelerationX" value="0.0"/>
+     <property name="particleMinAccelerationY" value="-0.07000000022351742"/>
+     <property name="particleMinAngle" type="float" value="0.0"/>
+     <property name="particleMinDeltaAngle" value="-0.10000000074505806"/>
+     <property name="particleMinDeltaHeight" value="-0.09999999977648258"/>
+     <property name="particleMinDeltaWidth" value="-0.09999999977648258"/>
+     <property name="particleMinOffsetX" type="float" value="-4.0"/>
+     <property name="particleMinOffsetY" value="0.0"/>
+     <property name="particleMinStartHeight" type="float" value="2.0"/>
+     <property name="particleMinStartWidth" value="2.0"/>
+     <property name="particleMinTTL" type="float" value="400.0"/>
+     <property name="particleMinVelocityX" type="float" value="-0.10000000149011612"/>
+     <property name="particleMinVelocityY" type="float" value="-0.10000000149011612"/>
+     <property name="particleOutlineOnly" type="bool" value="false"/>
+     <property name="particleTexts" value="LITI"/>
+     <property name="requiredQuality" value="VERYLOW"/>
+     <property name="spritesheetName" value="walk-grass"/>
     </properties>
    </object>
   </blueprint>

@@ -39,8 +39,8 @@ public class Program {
     // Game.screens().add(new SplashScreen());
     // Game.screens().add(new MenuScreen());
 
-    // Game.screens().add(new LobbyScreen());
-    //Game.screens().add(new LoadingScreen());
+    Game.screens().add(new LobbyScreen());
+    Game.screens().add(new LoadingScreen());
     Game.screens().add(IngameScreen.instance());
     Game.screens().add(new ScoreScreen());
 

@@ -1,5 +1,6 @@
 package de.gurkenlabs.liti;
 
+import de.gurkenlabs.liti.constants.Skins;
 import de.gurkenlabs.liti.constants.Timings;
 import de.gurkenlabs.liti.entities.*;
 import de.gurkenlabs.liti.gui.DynamicZoomCamera;
@@ -81,7 +82,7 @@ public final class GameManager {
       System.out.println(Players.joinedPlayers() + " players joined...");
       for (PlayerConfiguration config : Players.getConfigurations()) {
         //         config.setPlayerClass(Game.random().next(PlayerClass.class));
-        //         config.setSkin(Skins.getRandom());
+                 config.setSkin(Skins.getRandom());
         Player player = Players.join(config);
         spawn(player);
       }

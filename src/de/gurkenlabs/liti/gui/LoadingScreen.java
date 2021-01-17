@@ -4,6 +4,7 @@ import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.constants.Timings;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
+import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
 import de.gurkenlabs.litiengine.gui.screens.Screen;
 import de.gurkenlabs.litiengine.resources.Resources;
 
@@ -22,7 +23,9 @@ public class LoadingScreen extends Screen {
     //    ImageRenderer.render(g, BACKGROUND, 0, 0);
     g.setColor(LitiColors.LOADING_BACKGROUND);
     g.fill(new Rectangle(0, 0, (int) Game.window().getResolution().getWidth(), (int) Game.window().getResolution().getHeight()));
+    Game.world().environment().render(g);
     super.render(g);
+
   }
 
   @Override protected void initializeComponents() {
@@ -35,8 +38,10 @@ public class LoadingScreen extends Screen {
 
     Game.loop().perform(Timings.LOADING_DURATION, () -> {
       Game.screens().display("INGAME");
-      Game.window().getRenderComponent().fadeOut(1000);
     });
+    Game.world().loadEnvironment("loadingScreen");
+    Game.world().camera().setFocus(Game.world().environment().getCenter());
+
   }
 
   @Override public void suspend() {
