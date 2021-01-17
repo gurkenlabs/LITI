@@ -18,6 +18,7 @@ public final class LitiColors {
   public static final Color TRAIT_MEDIUM = ColorHelper.decode("#ffcf00");
   public static final Color TRAIT_GOOD = ColorHelper.decode("#8fef6e");
 
+  public static final Color LOADING_BACKGROUND = new Color(196, 190, 155);
 
   public static final Color COLOR_HEALTH_BG = new Color(40, 42, 43, 200);
   public static final Color COLOR_HEALTH = new Color(231, 69, 78);
@@ -45,28 +46,28 @@ public final class LitiColors {
     Map<Color, Color> colorMappings = new HashMap<>();
 
     switch (playerIndex) {
-      case 0:
-        colorMappings.put(defaultMainOutfitColor, ColorHelper.decode("#66ced6"));
-        colorMappings.put(defaultDarkOutfitColor, colorMappings.get(defaultMainOutfitColor).darker());
-        colorMappings.put(defaultBrightOutfitColor, colorMappings.get(defaultMainOutfitColor).brighter());
-        break;
-      case 1:
-        colorMappings.put(defaultMainOutfitColor, ColorHelper.decode("#9b5de5"));
-        colorMappings.put(defaultDarkOutfitColor, colorMappings.get(defaultMainOutfitColor).darker());
-        colorMappings.put(defaultBrightOutfitColor, colorMappings.get(defaultMainOutfitColor).brighter());
-        break;
-      case 2:
-        colorMappings.put(defaultMainOutfitColor, ColorHelper.decode("#ffcf00"));
-        colorMappings.put(defaultDarkOutfitColor, colorMappings.get(defaultMainOutfitColor).darker());
-        colorMappings.put(defaultBrightOutfitColor, colorMappings.get(defaultMainOutfitColor).brighter());
-        break;
-      case 3:
-        colorMappings.put(defaultMainOutfitColor, ColorHelper.decode("#ee6123"));
-        colorMappings.put(defaultDarkOutfitColor, colorMappings.get(defaultMainOutfitColor).darker());
-        colorMappings.put(defaultBrightOutfitColor, colorMappings.get(defaultMainOutfitColor).brighter());
-        break;
-      default:
-        break;
+    case 0:
+      colorMappings.put(defaultMainOutfitColor, ColorHelper.decode("#66ced6"));
+      colorMappings.put(defaultDarkOutfitColor, colorMappings.get(defaultMainOutfitColor).darker());
+      colorMappings.put(defaultBrightOutfitColor, colorMappings.get(defaultMainOutfitColor).brighter());
+      break;
+    case 1:
+      colorMappings.put(defaultMainOutfitColor, ColorHelper.decode("#9b5de5"));
+      colorMappings.put(defaultDarkOutfitColor, colorMappings.get(defaultMainOutfitColor).darker());
+      colorMappings.put(defaultBrightOutfitColor, colorMappings.get(defaultMainOutfitColor).brighter());
+      break;
+    case 2:
+      colorMappings.put(defaultMainOutfitColor, ColorHelper.decode("#ffcf00"));
+      colorMappings.put(defaultDarkOutfitColor, colorMappings.get(defaultMainOutfitColor).darker());
+      colorMappings.put(defaultBrightOutfitColor, colorMappings.get(defaultMainOutfitColor).brighter());
+      break;
+    case 3:
+      colorMappings.put(defaultMainOutfitColor, ColorHelper.decode("#ee6123"));
+      colorMappings.put(defaultDarkOutfitColor, colorMappings.get(defaultMainOutfitColor).darker());
+      colorMappings.put(defaultBrightOutfitColor, colorMappings.get(defaultMainOutfitColor).brighter());
+      break;
+    default:
+      break;
     }
     return colorMappings;
   }

@@ -19,7 +19,7 @@ public class CountdownComponent extends GuiComponent {
   private final int duration;
   private long lastStart;
   private boolean active;
-  private boolean playSounds;
+  private final boolean playSounds;
   private boolean secondPassed;
   private final Collection<CountdownListener> countdownListeners = ConcurrentHashMap.newKeySet();
 
@@ -96,7 +96,7 @@ public class CountdownComponent extends GuiComponent {
   }
 
   private String getRemainingTimeString() {
-    return String.format(TimeUtilities.toTimerFormat(this.getRemainingTime(), TimeUtilities.TimerFormat.S_0));
+    return TimeUtilities.toTimerFormat(this.getRemainingTime(), TimeUtilities.TimerFormat.S_0);
   }
 
   private void passSecond() {

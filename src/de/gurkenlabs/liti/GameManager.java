@@ -1,6 +1,6 @@
 package de.gurkenlabs.liti;
 
-import de.gurkenlabs.liti.constants.Skins;
+import de.gurkenlabs.liti.constants.Timings;
 import de.gurkenlabs.liti.entities.*;
 import de.gurkenlabs.liti.gui.DynamicZoomCamera;
 import de.gurkenlabs.liti.gui.IngameScreen;
@@ -26,9 +26,6 @@ public final class GameManager {
     FINISHED,
   }
 
-  public static int DURATION_DEFAULT_DEATH = 5000;
-  public static int DURATION_PREGAME = 5000;
-
   private static final List<MapArea> baseAreas = new CopyOnWriteArrayList<>();
   private static final List<Spawnpoint> spawnPoints = new CopyOnWriteArrayList<>();
   private static MapArea chickenArea;
@@ -38,11 +35,11 @@ public final class GameManager {
   private GameManager() {
   }
 
-  public static GameState getGameState(){
+  public static GameState getGameState() {
     return state;
   }
 
-  public static void setGameState(GameState gameState){
+  public static void setGameState(GameState gameState) {
     state = gameState;
   }
 
@@ -88,9 +85,9 @@ public final class GameManager {
 
       state = GameState.PREGAME;
       IngameScreen.instance().getHud().getPregameCountdown().start();
-      Game.loop().perform(DURATION_PREGAME, () -> {
+      Game.loop().perform(Timings.COUNTDOWN_PREGAME, () -> {
         state = GameState.INGAME;
-        for(Player player : Players.getAll()) {
+        for (Player player : Players.getAll()) {
           player.setState(Player.PlayerState.NORMAL);
         }
       });
@@ -112,13 +109,12 @@ public final class GameManager {
   }
 
   public static void playerDied(Player player) {
-    long resurrection = DURATION_DEFAULT_DEATH;
-    player.setResurrection(resurrection);
+    player.setResurrection(Timings.COUNTDOWN_RESPAWN);
   }
 
   public static Spawnpoint getSpawn(Player player) {
     Optional<Spawnpoint> spawn = spawnPoints.stream().filter(
-            x -> x.getName() != null && x.getName().equals("player-" + (player.getConfiguration().getIndex() + 1))).findFirst();
+        x -> x.getName() != null && x.getName().equals("player-" + (player.getConfiguration().getIndex() + 1))).findFirst();
     if (!spawn.isPresent()) {
       return null;
     }
@@ -128,7 +124,7 @@ public final class GameManager {
 
   public static MapArea getBase(Player player) {
     Optional<MapArea> base = baseAreas.stream().filter(
-            x -> x.getName() != null && x.getName().equals("player-" + (player.getConfiguration().getIndex() + 1))).findFirst();
+        x -> x.getName() != null && x.getName().equals("player-" + (player.getConfiguration().getIndex() + 1))).findFirst();
     if (!base.isPresent()) {
       return null;
     }
@@ -136,7 +132,7 @@ public final class GameManager {
     return base.get();
   }
 
-  public static MapArea getChickenArea(){
+  public static MapArea getChickenArea() {
     return chickenArea;
   }
 
@@ -152,7 +148,7 @@ public final class GameManager {
     System.out.println(player + " end game");
     setGameState(GameState.FINISHED);
 
-    Game.world().camera().pan(player.getCenter(), (int)Game.time().toTicks(2000));
+    Game.world().camera().pan(player.getCenter(), (int) Game.time().toTicks(2000));
     Game.loop().perform(2000, () -> {
       Game.world().camera().setZoom(DynamicZoomCamera.maxZoom, 1000);
 
@@ -165,7 +161,7 @@ public final class GameManager {
       });
     });
 
-    for(Player p : Players.getAll()){
+    for (Player p : Players.getAll()) {
       p.setState(Player.PlayerState.LOCKED);
     }
   }

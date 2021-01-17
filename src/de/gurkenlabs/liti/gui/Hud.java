@@ -3,6 +3,7 @@ package de.gurkenlabs.liti.gui;
 import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.constants.LitiSounds;
+import de.gurkenlabs.liti.constants.Timings;
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.litiengine.Direction;
@@ -38,12 +39,12 @@ public final class Hud extends GuiComponent implements IRenderable {
     this.renderHealthAndStaminaBars(g);
     this.renderRespawnTimer(g);
 
-    if(this.preGameCountdown.hasFinished()){
+    if (this.preGameCountdown.hasFinished()) {
       this.preGameCountdown.stop();
     }
   }
 
-  public CountdownComponent getPregameCountdown(){
+  public CountdownComponent getPregameCountdown() {
     return preGameCountdown;
   }
 
@@ -96,8 +97,9 @@ public final class Hud extends GuiComponent implements IRenderable {
     double compWidth = Game.window().getResolution().getWidth() * 1 / 8d;
     double compHeight = Game.window().getResolution().getHeight() * 1 / 3d;
 
-    this.preGameCountdown = new CountdownComponent(Game.window().getCenter().getX() - compHeight / 2d, Game.window().getCenter().getY() - compHeight / 2d,
-            compHeight, compHeight, GameManager.DURATION_PREGAME, true);
+    this.preGameCountdown = new CountdownComponent(Game.window().getCenter().getX() - compHeight / 2d,
+        Game.window().getCenter().getY() - compHeight / 2d,
+        compHeight, compHeight, Timings.COUNTDOWN_PREGAME, true);
 
     this.getComponents().add(this.preGameCountdown);
   }
@@ -141,7 +143,8 @@ public final class Hud extends GuiComponent implements IRenderable {
       Game.graphics().renderShape(g, rect);
 
       if (player.getCombatStatistics().getRecentDamageReceived() > 0) {
-        final double previousWidth = width * Math.min(1, (player.getHitPoints().get() + player.getCombatStatistics().getRecentDamageReceived()) / (double) player.getHitPoints().getMax());
+        final double previousWidth = width * Math
+            .min(1, (player.getHitPoints().get() + player.getCombatStatistics().getRecentDamageReceived()) / (double) player.getHitPoints().getMax());
         RoundRectangle2D previousHealthbar = new RoundRectangle2D.Double(x, y, previousWidth, height, 1.5, 1.5);
 
         g.setColor(LitiColors.COLOR_HEALTH_HIT);
