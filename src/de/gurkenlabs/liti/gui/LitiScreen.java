@@ -29,20 +29,20 @@ public abstract class LitiScreen extends Screen {
       return;
     }
     switch (direction) {
-    case DOWN:
-      Game.audio().playSound(LitiSounds.UI_DIRECTION_DOWN);
-      break;
-    case LEFT:
-      Game.audio().playSound(LitiSounds.UI_DIRECTION_LEFT);
-      break;
-    case RIGHT:
-      Game.audio().playSound(LitiSounds.UI_DIRECTION_RIGHT);
-      break;
-    case UP:
-      Game.audio().playSound(LitiSounds.UI_DIRECTION_UP);
-      break;
-    default:
-      break;
+      case DOWN:
+        Game.audio().playSound(LitiSounds.UI_DIRECTION_DOWN);
+        break;
+      case LEFT:
+        Game.audio().playSound(LitiSounds.UI_DIRECTION_LEFT);
+        break;
+      case RIGHT:
+        Game.audio().playSound(LitiSounds.UI_DIRECTION_RIGHT);
+        break;
+      case UP:
+        Game.audio().playSound(LitiSounds.UI_DIRECTION_UP);
+        break;
+      default:
+        break;
     }
   }
 

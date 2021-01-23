@@ -1,7 +1,10 @@
 package de.gurkenlabs.liti.gui;
 
+import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.constants.Timings;
+import de.gurkenlabs.liti.entities.PlayerConfiguration;
+import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
@@ -36,8 +39,15 @@ public class LoadingScreen extends Screen {
     super.prepare();
     Game.window().getRenderComponent().fadeIn(1000);
 
+    GameManager.init();
+
+    for (PlayerConfiguration config : Players.getConfigurations()) {
+      Players.join(config);
+    }
+
     Game.loop().perform(Timings.LOADING_DURATION, () -> {
       Game.screens().display("INGAME");
+      GameManager.init();
     });
     Game.world().loadEnvironment("loadingScreen");
     Game.world().camera().setFocus(Game.world().environment().getCenter());

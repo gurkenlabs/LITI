@@ -225,6 +225,10 @@ public class CharacterSelectionComponent extends GuiComponent {
     this.info.setVisible(false);
     this.showReadyText(true);
     this.updateClassName();
+    if (Players.getConfigurations().size() > this.getPlayerIndex()) {
+      Players.getConfiguration(this.getPlayerIndex()).setPlayerClass(this.getCurrentPlayerClass());
+      Players.getConfiguration(this.getPlayerIndex()).setSkin(this.getCurrentSkin());
+    }
   }
 
   public void unready() {
@@ -276,9 +280,6 @@ public class CharacterSelectionComponent extends GuiComponent {
     this.currentClass = newClass;
     this.updateClassName();
     this.info.setClass(newClass);
-    if (Players.getConfigurations().size() > this.getPlayerIndex()) {
-      Players.getConfiguration(this.getPlayerIndex()).setPlayerClass(this.getCurrentPlayerClass());
-    }
   }
 
   private void setSkin(Skin newSkin) {

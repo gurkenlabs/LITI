@@ -23,45 +23,45 @@ public final class InputManager {
 
   public static void bindUiInput(int index, Gamepad gamepad) {
     if (gamepad != null) {
-      InputBinding.bind(value -> Hud.cancel(index), InputConfiguration.GAMEPAD_CANCEL, gamepad);
-      InputBinding.bind(value -> Hud.confirm(index), InputConfiguration.UI_GAMEPAD_CONFIRM, gamepad);
-      InputBinding.bind(value -> Hud.menu(index), InputConfiguration.UI_GAMEPAD_MENU, gamepad);
-      InputBinding.bind(value -> Hud.info(index), InputConfiguration.UI_GAMEPAD_INFO, gamepad);
-      InputBinding.bind(value -> Hud.direction(index, Direction.UP), InputConfiguration.GAMEPAD_UP, gamepad);
-      InputBinding.bind(value -> Hud.direction(index, Direction.DOWN), InputConfiguration.GAMEPAD_DOWN, gamepad);
-      InputBinding.bind(value -> Hud.direction(index, Direction.LEFT), InputConfiguration.GAMEPAD_LEFT, gamepad);
-      InputBinding.bind(value -> Hud.direction(index, Direction.RIGHT), InputConfiguration.GAMEPAD_RIGHT, gamepad);
+      InputBinding.bind(value -> UIInput.cancel(index), InputConfiguration.GAMEPAD_CANCEL, gamepad);
+      InputBinding.bind(value -> UIInput.confirm(index), InputConfiguration.UI_GAMEPAD_CONFIRM, gamepad);
+      InputBinding.bind(value -> UIInput.menu(index), InputConfiguration.UI_GAMEPAD_MENU, gamepad);
+      InputBinding.bind(value -> UIInput.info(index), InputConfiguration.UI_GAMEPAD_INFO, gamepad);
+      InputBinding.bind(value -> UIInput.direction(index, Direction.UP), InputConfiguration.GAMEPAD_UP, gamepad);
+      InputBinding.bind(value -> UIInput.direction(index, Direction.DOWN), InputConfiguration.GAMEPAD_DOWN, gamepad);
+      InputBinding.bind(value -> UIInput.direction(index, Direction.LEFT), InputConfiguration.GAMEPAD_LEFT, gamepad);
+      InputBinding.bind(value -> UIInput.direction(index, Direction.RIGHT), InputConfiguration.GAMEPAD_RIGHT, gamepad);
       InputBinding.bind(value -> {
         if (value.floatValue() == Gamepad.DPad.UP) {
-          Hud.direction(index, Direction.UP);
+          UIInput.direction(index, Direction.UP);
         }
       }, InputConfiguration.GAMEPAD_POV, gamepad);
       InputBinding.bind(value -> {
         if (value.floatValue() == Gamepad.DPad.DOWN) {
-          Hud.direction(index, Direction.DOWN);
+          UIInput.direction(index, Direction.DOWN);
         }
       }, InputConfiguration.GAMEPAD_POV, gamepad);
       InputBinding.bind(value -> {
         if (value.floatValue() == Gamepad.DPad.LEFT) {
-          Hud.direction(index, Direction.LEFT);
+          UIInput.direction(index, Direction.LEFT);
         }
       }, InputConfiguration.GAMEPAD_POV, gamepad);
       InputBinding.bind(value -> {
         if (value.floatValue() == Gamepad.DPad.RIGHT) {
-          Hud.direction(index, Direction.RIGHT);
+          UIInput.direction(index, Direction.RIGHT);
         }
       }, InputConfiguration.GAMEPAD_POV, gamepad);
       return;
     }
 
-    InputBinding.bind(value -> Hud.cancel(index), InputConfiguration.KEYBOARD_CANCEL, null);
-    InputBinding.bind(value -> Hud.confirm(index), InputConfiguration.UI_KEYBOARD_CONFIRM, null);
-    InputBinding.bind(value -> Hud.menu(index), InputConfiguration.UI_KEYBOARD_MENU, null);
-    InputBinding.bind(value -> Hud.info(index), InputConfiguration.UI_KEYBOARD_INFO, null);
-    InputBinding.bind(value -> Hud.direction(index, Direction.UP), InputConfiguration.KEYBOARD_UP, null);
-    InputBinding.bind(value -> Hud.direction(index, Direction.DOWN), InputConfiguration.KEYBOARD_DOWN, null);
-    InputBinding.bind(value -> Hud.direction(index, Direction.LEFT), InputConfiguration.KEYBOARD_LEFT, null);
-    InputBinding.bind(value -> Hud.direction(index, Direction.RIGHT), InputConfiguration.KEYBOARD_RIGHT, null);
+    InputBinding.bind(value -> UIInput.cancel(index), InputConfiguration.KEYBOARD_CANCEL, null);
+    InputBinding.bind(value -> UIInput.confirm(index), InputConfiguration.UI_KEYBOARD_CONFIRM, null);
+    InputBinding.bind(value -> UIInput.menu(index), InputConfiguration.UI_KEYBOARD_MENU, null);
+    InputBinding.bind(value -> UIInput.info(index), InputConfiguration.UI_KEYBOARD_INFO, null);
+    InputBinding.bind(value -> UIInput.direction(index, Direction.UP), InputConfiguration.KEYBOARD_UP, null);
+    InputBinding.bind(value -> UIInput.direction(index, Direction.DOWN), InputConfiguration.KEYBOARD_DOWN, null);
+    InputBinding.bind(value -> UIInput.direction(index, Direction.LEFT), InputConfiguration.KEYBOARD_LEFT, null);
+    InputBinding.bind(value -> UIInput.direction(index, Direction.RIGHT), InputConfiguration.KEYBOARD_RIGHT, null);
   }
 
   public static void bindPlayerInput(Player player, Gamepad gamepad) {
@@ -97,7 +97,7 @@ public final class InputManager {
 
       // INTERACT
       InputBinding.bind(value -> {
-          player.interact();
+        player.interact();
       }, InputConfiguration.GAMEPAD_INTERACT, gamepad);
 
       // DASH
@@ -198,7 +198,7 @@ public final class InputManager {
 
     // INTERACT
     InputBinding.bind(value -> {
-        player.interact();
+      player.interact();
     }, InputConfiguration.KEYBOARD_INTERACT, gamepad);
 
     // DASH
@@ -250,9 +250,7 @@ public final class InputManager {
     Game.loop().attach(InputManager::update);
 
     if (Game.config().input().isGamepadSupport()) {
-      // TODO: also display error message if input device gets lost during the
-      // game:
-      // "missing gamepad for player X"
+      // TODO: also display error message if input device gets lost during the game: "missing gamepad for player X"
       Input.gamepads().onRemoved(l ->
           System.out.println(String.format("Gamepad %d (%s) removed.", l.getId(), l.getName()))
       );

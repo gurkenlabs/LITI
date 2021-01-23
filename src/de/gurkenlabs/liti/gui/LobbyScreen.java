@@ -8,7 +8,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.resources.Resources;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class LobbyScreen extends LitiScreen {
@@ -40,26 +40,31 @@ public class LobbyScreen extends LitiScreen {
         readyPlayers++;
       }
     }
-    return readyPlayers > 1;
+    return readyPlayers > 0;
   }
 
-  @Override public boolean canPressDirection(int player, Direction direction) {
+  @Override
+  public boolean canPressDirection(int player, Direction direction) {
     return this.charSelects[player].hasPlayerAssigned() && !this.charSelects[player].isReady();
   }
 
-  @Override public boolean canPressMenu(int player) {
+  @Override
+  public boolean canPressMenu(int player) {
     return !this.charSelects[player].hasPlayerAssigned();
   }
 
-  @Override public boolean canPressInfo(int player) {
+  @Override
+  public boolean canPressInfo(int player) {
     return this.charSelects[player].hasPlayerAssigned() && !this.charSelects[player].isReady();
   }
 
-  @Override public boolean canPressConfirm(int player) {
+  @Override
+  public boolean canPressConfirm(int player) {
     return !this.charSelects[player].isReady();
   }
 
-  @Override public boolean canPressCancel(int player) {
+  @Override
+  public boolean canPressCancel(int player) {
     return this.charSelects[player].hasPlayerAssigned();
   }
 
@@ -84,7 +89,8 @@ public class LobbyScreen extends LitiScreen {
     }
   }
 
-  @Override public void dispatchMenu(int player) {
+  @Override
+  public void dispatchMenu(int player) {
     if (!this.canPressMenu(player)) {
       return;
     }
@@ -130,20 +136,20 @@ public class LobbyScreen extends LitiScreen {
       return;
     }
     switch (direction) {
-    case UP:
-      this.charSelects[player].previousSkin();
-      break;
-    case DOWN:
-      this.charSelects[player].nextSkin();
-      break;
-    case LEFT:
-      this.charSelects[player].previousClass();
-      break;
-    case RIGHT:
-      this.charSelects[player].nextClass();
-      break;
-    default:
-      break;
+      case UP:
+        this.charSelects[player].previousSkin();
+        break;
+      case DOWN:
+        this.charSelects[player].nextSkin();
+        break;
+      case LEFT:
+        this.charSelects[player].previousClass();
+        break;
+      case RIGHT:
+        this.charSelects[player].nextClass();
+        break;
+      default:
+        break;
     }
 
   }
@@ -164,7 +170,8 @@ public class LobbyScreen extends LitiScreen {
         compHeight, compHeight, Timings.COUNTDOWN_LOBBY, true);
 
     countdown.addListener(new CountdownListener() {
-      @Override public void stopped() {
+      @Override
+      public void stopped() {
         startGame();
       }
     });
