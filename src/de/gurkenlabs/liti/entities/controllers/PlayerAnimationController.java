@@ -9,6 +9,8 @@ import de.gurkenlabs.litiengine.graphics.animation.CreatureAnimationController;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
 
+import java.awt.image.BufferedImage;
+
 public class PlayerAnimationController extends CreatureAnimationController<Player> {
 
   public PlayerAnimationController(Player entity) {
@@ -18,7 +20,9 @@ public class PlayerAnimationController extends CreatureAnimationController<Playe
     this.addPlayerAnimations();
 
     this.getAll().forEach(an -> {
-      Spritesheet replaced = new Spritesheet(Imaging.replaceColors(an.getSpritesheet().getImage(), this.getEntity().getConfiguration().getSkin().getColorMappings()), an.getSpritesheet().getName(), an.getSpritesheet().getSpriteWidth(), an.getSpritesheet().getSpriteHeight());
+      BufferedImage replacedImg = Imaging.replaceColors(an.getSpritesheet().getImage(), this.getEntity().getConfiguration().getSkin().getSkinColorMappings());
+      replacedImg = Imaging.replaceColors(replacedImg, LitiColors.getPlayerColorMappings(this.getEntity().getConfiguration().getIndex()));
+      Spritesheet replaced = new Spritesheet(replacedImg, an.getSpritesheet().getName(), an.getSpritesheet().getSpriteWidth(), an.getSpritesheet().getSpriteHeight());
       boolean def = this.get(an.getName()).equals(this.getDefault());
 
       Animation newAnimation = new Animation(replaced, an.isLooping(), an.getKeyFrameDurations());
@@ -29,15 +33,17 @@ public class PlayerAnimationController extends CreatureAnimationController<Playe
       }
     });
   }
+
   @Override
   public void update() {
-    if(this.getEntity().getCurrentEgg() != null){
+    if (this.getEntity().getCurrentEgg() != null) {
       this.play(this.getEntity().findBashAnimation().getName());
     }
 
     super.update();
 
   }
+
   private void addPlayerAnimations() {
     final String hitLeftName = this.getEntity().getConfiguration().getPlayerClass().toString().toLowerCase() + "-hit-left";
     final String hitRightName = this.getEntity().getConfiguration().getPlayerClass().toString().toLowerCase() + "-hit-right";

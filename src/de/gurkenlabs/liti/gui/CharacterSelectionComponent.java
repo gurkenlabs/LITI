@@ -267,7 +267,7 @@ public class CharacterSelectionComponent extends GuiComponent {
       return opt.get();
     }
     BufferedImage defaultPortrait = Resources.images().get(defaultPortraitName, true);
-    BufferedImage replacedSkin = Imaging.replaceColors(defaultPortrait, this.getCurrentSkin().getColorMappings());
+    BufferedImage replacedSkin = Imaging.replaceColors(defaultPortrait, this.getCurrentSkin().getSkinColorMappings());
     BufferedImage replacedPlayer = Imaging.replaceColors(replacedSkin, LitiColors.getPlayerColorMappings(this.getPlayerIndex()));
     BufferedImage scaled = Imaging.scale(replacedPlayer, (int) (this.characterPortrait.getBoundingBox().getWidth() * 2 / 3d),
         (int) (this.characterPortrait.getBoundingBox().getHeight() * 2 / 3d), true);
