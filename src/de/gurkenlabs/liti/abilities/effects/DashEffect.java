@@ -23,11 +23,7 @@ public class DashEffect extends Effect {
     final long deltaTime = Game.loop().getDeltaTime();
     final double maxPixelsPerTick = this.getAbility().getAttributes().value().get() / 1000.0 * Math.min(deltaTime, 50);
 
-
-    final Point2D oldLocation = this.getAbility().getExecutor().getLocation();
-
     Game.physics().move(this.getAbility().getExecutor(), this.angle, maxPixelsPerTick);
-    this.getAbility().getExecutor().fireMovedEvent(new EntityMovedEvent(this.getAbility().getExecutor(), this.getAbility().getExecutor().getX() - oldLocation.getX(), this.getAbility().getExecutor().getY() - oldLocation.getY()));
     super.update();
   }
   
