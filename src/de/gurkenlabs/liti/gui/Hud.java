@@ -10,6 +10,7 @@ import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.graphics.TextRenderer;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
+import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 
 import java.awt.*;
@@ -60,9 +61,7 @@ public final class Hud extends GuiComponent implements IRenderable {
     super.initializeComponents();
     double countdownSize = Game.window().getResolution().getHeight() * 1 / 3d;
 
-    this.preGameCountdown = new CountdownComponent(Game.window().getCenter().getX() - countdownSize / 2d,
-        Game.window().getCenter().getY() - countdownSize / 2d,
-        countdownSize, countdownSize, Timings.COUNTDOWN_PREGAME, true);
+    this.preGameCountdown = new CountdownComponent(Game.window().getCenter().getX() - countdownSize / 2d, Game.window().getCenter().getY() - countdownSize / 2d, countdownSize, countdownSize, Timings.COUNTDOWN_PREGAME, true);
 
     this.getComponents().add(this.preGameCountdown);
   }
@@ -74,25 +73,34 @@ public final class Hud extends GuiComponent implements IRenderable {
         continue;
       }
 
-      final double width = 16;
-      final double height = 1.5;
+      double width = 16;
+      double height = 1.5;
       final double staminaWidth = 14;
       final double staminaHeight = .75;
       final double staminaBgHeight = .5;
 
       double x = player.getX() - (width - player.getWidth()) / 2.0;
       double y = player.getY() - height * 3;
+
+      if (player.wasHit(100)) {
+        x += Game.random().nextInt(-2, 2);
+        x -= 1;
+        y -= 1;
+        width += 2;
+        height += 2;
+      }
+
+      g.setColor(LitiColors.COLOR_HEALTH_BG);
       RoundRectangle2D rect = new RoundRectangle2D.Double(x, y, width, height, 1.5, 1.5);
 
       final double currentWidth = width * (player.getHitPoints().get() / (double) player.getHitPoints().getMax());
       RoundRectangle2D healthbar = new RoundRectangle2D.Double(x, y, currentWidth, height, 1.5, 1.5);
 
-      g.setColor(LitiColors.COLOR_HEALTH_BG);
+
       Game.graphics().renderShape(g, rect);
 
       if (player.getCombatStatistics().getRecentDamageReceived() > 0) {
-        final double previousWidth = width * Math
-            .min(1, (player.getHitPoints().get() + player.getCombatStatistics().getRecentDamageReceived()) / (double) player.getHitPoints().getMax());
+        final double previousWidth = width * Math.min(1, (player.getHitPoints().get() + player.getCombatStatistics().getRecentDamageReceived()) / (double) player.getHitPoints().getMax());
         RoundRectangle2D previousHealthbar = new RoundRectangle2D.Double(x, y, previousWidth, height, 1.5, 1.5);
 
         g.setColor(LitiColors.COLOR_HEALTH_HIT);
@@ -108,8 +116,7 @@ public final class Hud extends GuiComponent implements IRenderable {
       Game.graphics().renderShape(g, healthbar);
 
       g.setColor(player.isStaminaDepleted() ? Color.getHSBColor(.9f, 0.785f, (Game.time().now() % 100) / 100f) : LitiColors.COLOR_HEALTH_BG);
-      Rectangle2D staminaRect = new Rectangle2D.Double(x + (width - staminaWidth) / 2.0, y + height + 1 + (staminaHeight - staminaBgHeight) / 2.0,
-          staminaWidth, staminaBgHeight);
+      Rectangle2D staminaRect = new Rectangle2D.Double(x + (width - staminaWidth) / 2.0, y + height + 1 + (staminaHeight - staminaBgHeight) / 2.0, staminaWidth, staminaBgHeight);
       Game.graphics().renderShape(g, staminaRect);
 
       if (!player.isStaminaDepleted()) {
