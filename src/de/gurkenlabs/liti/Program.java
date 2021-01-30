@@ -5,6 +5,7 @@ import de.gurkenlabs.liti.gui.IngameScreen;
 import de.gurkenlabs.liti.gui.LoadingScreen;
 import de.gurkenlabs.liti.gui.LobbyScreen;
 import de.gurkenlabs.liti.gui.ScoreScreen;
+import de.gurkenlabs.liti.input.InputManager;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.gui.GuiProperties;
 import de.gurkenlabs.litiengine.resources.Resources;
@@ -32,10 +33,10 @@ public class Program {
 
     // init the game infrastructure
     Game.init(args);
+    InputManager.init();
 
     Resources.load("game.litidata");
 
-    GameManager.init();
     // Game.screens().add(new SplashScreen());
     // Game.screens().add(new MenuScreen());
 

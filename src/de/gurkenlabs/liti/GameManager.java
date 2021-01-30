@@ -74,7 +74,6 @@ public final class GameManager {
     PropMapObjectLoader.registerCustomPropType(Egg.class);
 
     Game.loop().attach(GameManager::update);
-    InputManager.init();
     Game.world().onLoaded(e -> {
       if (!e.getMap().getName().equals("plateau2")) {
         return;
@@ -99,10 +98,7 @@ public final class GameManager {
       Game.world().camera().setZoom(DynamicZoomCamera.maxZoom * 2, 0);
       Game.world().camera().setZoom(DynamicZoomCamera.minZoom, 5000);
 
-      System.out.println(Players.joinedPlayers() + " players joined...");
       for (PlayerConfiguration config : Players.getConfigurations()) {
-        //         config.setPlayerClass(Game.random().next(PlayerClass.class));
-                 config.setSkin(Skins.getRandom());
         Player player = Players.join(config);
         spawn(player);
       }
@@ -160,7 +156,7 @@ public final class GameManager {
     return chickenArea;
   }
 
-  public static Player getWinner(){
+  public static Player getWinner() {
     return winner;
   }
 
@@ -195,10 +191,10 @@ public final class GameManager {
     }
   }
 
-  private static void nextObjective(){
+  private static void nextObjective() {
     nextObjectiveRequested = Game.time().now();
 
-    if(currentObjective == Objective.CHICKEN){
+    if (currentObjective == Objective.CHICKEN) {
       nextObjective = Objective.EGG;
     } else {
       nextObjective = Objective.CHICKEN;
@@ -208,11 +204,11 @@ public final class GameManager {
   }
 
   private static void spawnNextObjective() {
-    if(nextObjectiveRequested == 0 || nextObjective == null || getGameState() != GameState.INGAME){
+    if (nextObjectiveRequested == 0 || nextObjective == null || getGameState() != GameState.INGAME) {
       return;
     }
 
-    if(Game.time().since(nextObjectiveRequested) < OBJECTIVE_COOLDOWN){
+    if (Game.time().since(nextObjectiveRequested) < OBJECTIVE_COOLDOWN) {
       return;
     }
 
@@ -240,19 +236,20 @@ public final class GameManager {
     private final Supplier<IObjective> init;
 
     private IObjective spawnedEntity;
-    Objective(Supplier<IObjective> init){
+
+    Objective(Supplier<IObjective> init) {
       this.init = init;
     }
 
-    public void start(){
+    public void start() {
       this.spawnedEntity = this.init.get();
-      if(this.spawnedEntity != null){
+      if (this.spawnedEntity != null) {
         this.spawnedEntity.onFinished(() -> GameManager.nextObjective());
       }
     }
 
-    private static IObjective spawnChicken(){
-      if(chickenSpawn == null){
+    private static IObjective spawnChicken() {
+      if (chickenSpawn == null) {
         System.out.println("NO SPAWN FOR CHICKEN FOUND!");
         return null;
       }
@@ -263,7 +260,7 @@ public final class GameManager {
     }
 
     private static IObjective spawnEgg() {
-      if(eggSpawn == null){
+      if (eggSpawn == null) {
         System.out.println("NO SPAWN FOR EGG FOUND!");
         return null;
       }

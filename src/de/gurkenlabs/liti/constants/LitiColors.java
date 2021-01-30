@@ -1,7 +1,9 @@
 package de.gurkenlabs.liti.constants;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.gurkenlabs.litiengine.util.ColorHelper;
@@ -34,9 +36,16 @@ public final class LitiColors {
   public static final Color defaultMainHairColor = ColorHelper.decode("#353535");
   public static final Color defaultDarkHairColor = ColorHelper.decode("#212121");
   public static final Color defaultBrightHairColor = ColorHelper.decode("#434343");
+
   public static final Color defaultMainOutfitColor = ColorHelper.decode("#a400aa");
   public static final Color defaultDarkOutfitColor = ColorHelper.decode("#800085");
   public static final Color defaultBrightOutfitColor = ColorHelper.decode("#c900d0");
+
+  public static final Color player0OutfitColor = new Color(102, 206, 214);
+  public static final Color player1OutfitColor = new Color(155, 93, 229);
+  public static final Color player2OutfitColor = new Color(255, 207, 0);
+  public static final Color player3OutfitColor = new Color(238, 97, 35);
+
 
   private LitiColors() {
 
@@ -46,28 +55,28 @@ public final class LitiColors {
     Map<Color, Color> colorMappings = new HashMap<>();
 
     switch (playerIndex) {
-    case 0:
-      colorMappings.put(defaultMainOutfitColor, ColorHelper.decode("#66ced6"));
-      colorMappings.put(defaultDarkOutfitColor, colorMappings.get(defaultMainOutfitColor).darker());
-      colorMappings.put(defaultBrightOutfitColor, colorMappings.get(defaultMainOutfitColor).brighter());
-      break;
-    case 1:
-      colorMappings.put(defaultMainOutfitColor, ColorHelper.decode("#9b5de5"));
-      colorMappings.put(defaultDarkOutfitColor, colorMappings.get(defaultMainOutfitColor).darker());
-      colorMappings.put(defaultBrightOutfitColor, colorMappings.get(defaultMainOutfitColor).brighter());
-      break;
-    case 2:
-      colorMappings.put(defaultMainOutfitColor, ColorHelper.decode("#ffcf00"));
-      colorMappings.put(defaultDarkOutfitColor, colorMappings.get(defaultMainOutfitColor).darker());
-      colorMappings.put(defaultBrightOutfitColor, colorMappings.get(defaultMainOutfitColor).brighter());
-      break;
-    case 3:
-      colorMappings.put(defaultMainOutfitColor, ColorHelper.decode("#ee6123"));
-      colorMappings.put(defaultDarkOutfitColor, colorMappings.get(defaultMainOutfitColor).darker());
-      colorMappings.put(defaultBrightOutfitColor, colorMappings.get(defaultMainOutfitColor).brighter());
-      break;
-    default:
-      break;
+      case 0:
+        colorMappings.put(defaultMainOutfitColor, player0OutfitColor);
+        colorMappings.put(defaultDarkOutfitColor, player0OutfitColor.darker());
+        colorMappings.put(defaultBrightOutfitColor, player0OutfitColor.brighter());
+        break;
+      case 1:
+        colorMappings.put(defaultMainOutfitColor, player1OutfitColor);
+        colorMappings.put(defaultDarkOutfitColor, player1OutfitColor.darker());
+        colorMappings.put(defaultBrightOutfitColor, player1OutfitColor.brighter());
+        break;
+      case 2:
+        colorMappings.put(defaultMainOutfitColor, player2OutfitColor);
+        colorMappings.put(defaultDarkOutfitColor, player2OutfitColor.darker());
+        colorMappings.put(defaultBrightOutfitColor, player2OutfitColor.brighter());
+        break;
+      case 3:
+        colorMappings.put(defaultMainOutfitColor, player3OutfitColor);
+        colorMappings.put(defaultDarkOutfitColor, player3OutfitColor.darker());
+        colorMappings.put(defaultBrightOutfitColor, player3OutfitColor.brighter());
+        break;
+      default:
+        break;
     }
     return colorMappings;
   }

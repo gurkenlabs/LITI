@@ -36,7 +36,8 @@ public class Skin {
     this.colorMappings.put(LitiColors.defaultBrightHairColor, hairBrightShadeColor);
   }
 
-  public Map<Color, Color> getColorMappings() {
+
+  public Map<Color, Color> getSkinColorMappings() {
     return colorMappings;
   }
 

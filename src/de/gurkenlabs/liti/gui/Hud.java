@@ -2,30 +2,22 @@ package de.gurkenlabs.liti.gui;
 
 import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.constants.LitiColors;
-import de.gurkenlabs.liti.constants.LitiSounds;
 import de.gurkenlabs.liti.constants.Timings;
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.Players;
-import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.graphics.TextRenderer;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
-import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-//TODO: dispatching delay
 public final class Hud extends GuiComponent implements IRenderable {
 
-  private static final int UI_INPUT_DELAY = 250;
-  private static final Map<Integer, Long> lastInputs = new ConcurrentHashMap<>();
 
   private CountdownComponent preGameCountdown;
 
@@ -50,10 +42,10 @@ public final class Hud extends GuiComponent implements IRenderable {
   }
 
   private void renderWinner(Graphics2D g) {
-    if(GameManager.getGameState() == GameManager.GameState.FINISHED){
+    if (GameManager.getGameState() == GameManager.GameState.FINISHED) {
 
       // TODO: component for this + animation via tweening
-      TextRenderer.render(g, "Player " + (GameManager.getWinner().getConfiguration().getIndex()  +1)+ " won!", Game.window().getCenter());
+      TextRenderer.render(g, "Player " + (GameManager.getWinner().getConfiguration().getIndex() + 1) + " won!", Game.window().getCenter());
     }
 
   }
@@ -62,77 +54,19 @@ public final class Hud extends GuiComponent implements IRenderable {
     return preGameCountdown;
   }
 
-  public static void cancel(int player) {
-    if (!checkInputDelay(player)) {
-      return;
-    }
-
-    getLitiScreen().dispatchCancel(player);
-    lastInputs.put(player, Game.time().now());
-  }
-
-  public static void confirm(int player) {
-    if (!checkInputDelay(player)) {
-      return;
-    }
-
-    getLitiScreen().dispatchConfirm(player);
-    lastInputs.put(player, Game.time().now());
-  }
-
-  public static void menu(int player) {
-    if (!checkInputDelay(player)) {
-      return;
-    }
-
-    getLitiScreen().dispatchMenu(player);
-  }
-
-  public static void direction(int player, Direction direction) {
-    if (!checkInputDelay(player)) {
-      return;
-    }
-    getLitiScreen().dispatchDirection(player, direction);
-    lastInputs.put(player, Game.time().now());
-  }
-
-  public static void info(int player) {
-    if (!checkInputDelay(player)) {
-      return;
-    }
-
-    getLitiScreen().dispatchInfo(player);
-    lastInputs.put(player, Game.time().now());
-  }
 
   @Override
   protected void initializeComponents() {
     super.initializeComponents();
-    double compWidth = Game.window().getResolution().getWidth() * 1 / 8d;
-    double compHeight = Game.window().getResolution().getHeight() * 1 / 3d;
+    double countdownSize = Game.window().getResolution().getHeight() * 1 / 3d;
 
-    this.preGameCountdown = new CountdownComponent(Game.window().getCenter().getX() - compHeight / 2d,
-        Game.window().getCenter().getY() - compHeight / 2d,
-        compHeight, compHeight, Timings.COUNTDOWN_PREGAME, true);
+    this.preGameCountdown = new CountdownComponent(Game.window().getCenter().getX() - countdownSize / 2d,
+        Game.window().getCenter().getY() - countdownSize / 2d,
+        countdownSize, countdownSize, Timings.COUNTDOWN_PREGAME, true);
 
     this.getComponents().add(this.preGameCountdown);
   }
 
-  private static LitiScreen getLitiScreen() {
-    if (Game.screens().current() instanceof LitiScreen) {
-      return (LitiScreen) Game.screens().current();
-    }
-
-    throw new IllegalArgumentException("Screens need to inherit from LitiScreen!");
-  }
-
-  private static boolean checkInputDelay(int player) {
-    if (!lastInputs.containsKey(player)) {
-      return true;
-    }
-
-    return Game.time().since(lastInputs.get(player)) > UI_INPUT_DELAY;
-  }
 
   private void renderHealthAndStaminaBars(Graphics2D g) {
     for (Player player : Players.getAll()) {
@@ -205,8 +139,7 @@ public final class Hud extends GuiComponent implements IRenderable {
         continue;
       }
 
-      String timeRemaining = TimeUtilities
-          .toTimerFormat(player.getResurrection() - Game.time().since(player.getLastDeath()), TimeUtilities.TimerFormat.S_0);
+      String timeRemaining = TimeUtilities.toTimerFormat(player.getResurrection() - Game.time().since(player.getLastDeath()), TimeUtilities.TimerFormat.S_0);
       Game.graphics().renderText(g, timeRemaining, spawn.getCenter());
     }
   }
