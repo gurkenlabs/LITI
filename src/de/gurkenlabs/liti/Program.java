@@ -10,13 +10,17 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.gui.GuiProperties;
 import de.gurkenlabs.litiengine.resources.Resources;
 
+import java.util.Arrays;
+
 public class Program {
   /**
    * The main entry point for the Game.
    *
-   * @param args The command line arguments.
+   * @param args
+   *         The command line arguments.
    */
   public static void main(String[] args) {
+    parseArguments(args);
 
     // Locate libvlc dlls for video playback.
 
@@ -39,12 +43,24 @@ public class Program {
 
     // Game.screens().add(new SplashScreen());
     // Game.screens().add(new MenuScreen());
+    if (GameManager.DBG_SKIP_TO_INGAME) {
+      GameManager.init();
+    } else {
+      Game.screens().add(new LobbyScreen());
+      Game.screens().add(new LoadingScreen());
+    }
 
-    Game.screens().add(new LobbyScreen());
-    Game.screens().add(new LoadingScreen());
     Game.screens().add(IngameScreen.instance());
     Game.screens().add(new ScoreScreen());
 
     Game.start();
+  }
+
+  private static void parseArguments(String[] args) {
+    if (Game.isDebug()) {
+      if (Arrays.stream(args).anyMatch(x -> x.equals("--skiptoingame"))) {
+        GameManager.DBG_SKIP_TO_INGAME = true;
+      }
+    }
   }
 }

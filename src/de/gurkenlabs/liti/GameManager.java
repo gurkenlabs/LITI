@@ -28,9 +28,11 @@ public final class GameManager {
     FINISHED,
   }
 
-  public static int DURATION_DEFAULT_DEATH = 5000;
-  public static int DURATION_PREGAME = 5000;
-  public static int OBJECTIVE_COOLDOWN = 20000;
+  public static final int DURATION_DEFAULT_DEATH = 5000;
+  public static final int DURATION_PREGAME = 5000;
+  public static final int OBJECTIVE_COOLDOWN = 20000;
+
+  public static boolean DBG_SKIP_TO_INGAME = false;
 
   private static final List<MapArea> baseAreas = new CopyOnWriteArrayList<>();
   private static final List<Spawnpoint> spawnPoints = new CopyOnWriteArrayList<>();
@@ -70,6 +72,9 @@ public final class GameManager {
   }
 
   public static void init() {
+
+    Timings.COUNTDOWN_PREGAME = GameManager.DBG_SKIP_TO_INGAME ? 500 : Timings.COUNTDOWN_PREGAME;
+
     CreatureMapObjectLoader.registerCustomCreatureType(Chicken.class);
     PropMapObjectLoader.registerCustomPropType(Egg.class);
 
@@ -96,10 +101,17 @@ public final class GameManager {
       Game.graphics().setBaseRenderScale(4f);
       Game.world().setCamera(new DynamicZoomCamera());
       Game.world().camera().setZoom(DynamicZoomCamera.maxZoom * 2, 0);
-      Game.world().camera().setZoom(DynamicZoomCamera.minZoom, 5000);
+
+      Game.world().camera().setZoom(DynamicZoomCamera.minZoom, Timings.COUNTDOWN_PREGAME);
 
       for (PlayerConfiguration config : Players.getConfigurations()) {
+        if(DBG_SKIP_TO_INGAME) {
+          config.setPlayerClass(Game.random().next(PlayerClass.class));
+          config.setSkin(Skins.getRandom());
+        }
+
         Player player = Players.join(config);
+
         spawn(player);
       }
 
