@@ -328,7 +328,6 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   public void setState(PlayerState playerState) {
     this.playerState = playerState;
-    System.out.println(this + " -- " + playerState);
 
     if (this.playerState == PlayerState.LOCKED) {
       this.movement().setVelocity(0);
@@ -361,7 +360,6 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
     final Animation hitAnimation = this.findBashAnimation();
     if (hitAnimation != null) {
-      System.out.println("play" + hitAnimation.getName());
       this.animations().play(hitAnimation.getName());
     }
 
@@ -515,7 +513,6 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     }
 
     Game.loop().perform(removeDelay, () -> {
-      System.out.println("remove");
       Game.world().environment().remove(this);
       GameManager.playerDied(this);
       this.lastDeath = Game.time().now();

@@ -66,7 +66,6 @@ public final class GameManager {
         player.resurrect();
         spawn(player);
         player.setState(Player.PlayerState.NORMAL);
-        System.out.println("res + spawn");
       }
     }
 
