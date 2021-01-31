@@ -69,7 +69,7 @@ public final class Hud extends GuiComponent implements IRenderable {
 
   private void renderHealthAndStaminaBars(Graphics2D g) {
     for (Player player : Players.getAll()) {
-      if (!player.isLoaded() || player.isFalling()) {
+      if (!player.isLoaded() || player.isFalling() || player.isDead()) {
         continue;
       }
 
@@ -137,7 +137,7 @@ public final class Hud extends GuiComponent implements IRenderable {
 
   private void renderRespawnTimer(Graphics2D g) {
     for (Player player : Players.getAll()) {
-      if (!player.isDead()) {
+      if (!player.isDead() || player.isLoaded()) {
         continue;
       }
 

@@ -62,9 +62,11 @@ public final class GameManager {
 
   public static void update() {
     for (Player player : Players.getAll()) {
-      if (player.isDead() && Game.time().since(player.getLastDeath()) > player.getResurrection()) {
+      if (!player.isLoaded() && player.isDead() && player.getLastDeath() != 0 && Game.time().since(player.getLastDeath()) > player.getResurrection()) {
         player.resurrect();
         spawn(player);
+        player.setState(Player.PlayerState.NORMAL);
+        System.out.println("res + spawn");
       }
     }
 

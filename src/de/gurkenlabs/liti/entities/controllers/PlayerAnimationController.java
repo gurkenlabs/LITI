@@ -13,8 +13,12 @@ import java.awt.image.BufferedImage;
 
 public class PlayerAnimationController extends CreatureAnimationController<Player> {
 
+  private final String dieAnimationName;
+
   public PlayerAnimationController(Player entity) {
     super(entity, true);
+    this.dieAnimationName = this.getEntity().getConfiguration().getPlayerClass().toString().toLowerCase() + "-die";
+    ;
     this.add(new CreatureShadowImageEffect(entity, LitiColors.SHADOW_COLOR).setOffsetY(1));
 
     this.addPlayerAnimations();
@@ -34,6 +38,10 @@ public class PlayerAnimationController extends CreatureAnimationController<Playe
     });
   }
 
+  public String getDieAnimationName() {
+    return this.dieAnimationName;
+  }
+
   @Override
   public void update() {
     if (this.getEntity().getCurrentEgg() != null) {
@@ -41,18 +49,23 @@ public class PlayerAnimationController extends CreatureAnimationController<Playe
     }
 
     super.update();
-
   }
 
   private void addPlayerAnimations() {
     final String hitLeftName = this.getEntity().getConfiguration().getPlayerClass().toString().toLowerCase() + "-hit-left";
     final String hitRightName = this.getEntity().getConfiguration().getPlayerClass().toString().toLowerCase() + "-hit-right";
-    Spritesheet hitLeft = Resources.spritesheets().get(hitLeftName);
 
+    Spritesheet hitLeft = Resources.spritesheets().get(hitLeftName);
     if (hitLeft != null) {
       Animation hitLeftAnimation = new Animation(hitLeft, false);
       this.add(hitLeftAnimation);
       this.add(flipAnimation(hitLeftAnimation, hitRightName));
+    }
+
+    Spritesheet die = Resources.spritesheets().get(this.dieAnimationName);
+    if (die != null) {
+      Animation dieAnimation = new Animation(die, false);
+      this.add(dieAnimation);
     }
   }
 

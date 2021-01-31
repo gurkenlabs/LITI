@@ -47,10 +47,12 @@ public class DynamicZoomCamera extends Camera {
     double maxY = 0;
     for (Player p : players) {
       Spawnpoint spawn = GameManager.getSpawn(p);
-      double playerMinX = p.isDead() ? spawn.getX(): p.getX();
-      double playerMinY = p.isDead() ? spawn.getY(): p.getY() - 6; //6 accounts for the healthbar
-      double playerMaxX = p.isDead() ? spawn.getBoundingBox().getMaxX() : p.getBoundingBox().getMaxX();
-      double playerMaxY = p.isDead() ? spawn.getBoundingBox().getMaxY(): p.getBoundingBox().getMaxY();
+      final boolean isNotVisible = p.isDead() && !p.isLoaded();
+
+      double playerMinX = isNotVisible ? spawn.getX(): p.getX();
+      double playerMinY = isNotVisible ? spawn.getY(): p.getY() - 6; //6 accounts for the healthbar
+      double playerMaxX = isNotVisible ? spawn.getBoundingBox().getMaxX() : p.getBoundingBox().getMaxX();
+      double playerMaxY = isNotVisible ? spawn.getBoundingBox().getMaxY(): p.getBoundingBox().getMaxY();
       if (minX == 0 || playerMinX < minX) {
         minX = playerMinX;
       }

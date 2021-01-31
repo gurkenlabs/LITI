@@ -38,8 +38,11 @@ public class HitEffect extends Effect {
     }
 
     affectedEntity.hit(damage, this.getAbility());
-    affectedEntity.animations().add(new OverlayPixelsImageEffect(120, new Color(255, 255, 255, 200)));
-    Game.loop().perform(130, () -> affectedEntity.animations().add(new OverlayPixelsImageEffect(120, new Color(167, 16, 16, 170))));
+
+    if (!affectedEntity.isDead()) {
+      affectedEntity.animations().add(new OverlayPixelsImageEffect(120, new Color(255, 255, 255, 200)));
+      Game.loop().perform(130, () -> affectedEntity.animations().add(new OverlayPixelsImageEffect(120, new Color(167, 16, 16, 170))));
+    }
   }
 
   @Override

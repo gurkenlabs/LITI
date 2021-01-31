@@ -72,7 +72,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.stamina = new RangeAttribute<>(Proficiency.get(config.getPlayerClass(), Trait.STAMINA), 0.0, Proficiency.get(config.getPlayerClass(), Trait.STAMINA));
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
-    this.HEALTH_RECOVER_INTERVAL = (int)(1.0/this.getHitPoints().getMax() * 10000);
+    this.HEALTH_RECOVER_INTERVAL = (int) (1.0 / this.getHitPoints().getMax() * 10000);
     this.setTeam(this.configuration.getIndex());
 
     this.playerCircle = Imaging.flashVisiblePixels(Resources.spritesheets().get("player-circle").getImage(), LitiColors.getPlayerColorMappings(this.getConfiguration().getIndex()).get(LitiColors.defaultMainOutfitColor));
@@ -98,8 +98,11 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
       @Override
       public void rendering(EntityRenderEvent event) {
-        Point2D location = Game.world().camera().getViewportLocation(Player.this.getCollisionBoxCenter());
+        if(Player.this.isDead()){
+          return;
+        }
 
+        final Point2D location = Game.world().camera().getViewportLocation(Player.this.getCollisionBoxCenter());
         final AffineTransform t = new AffineTransform();
 
         t.translate(location.getX() - 8, location.getY() - (Player.this.getPlayerClass() == PlayerClass.WARRIOR ? 3.5 : 2.5));
@@ -134,7 +137,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
       this.getProgress().getInterval().didSomething();
     }
 
-    if(this.currentChicken != null){
+    if (this.currentChicken != null) {
       // while a chicken is carried around, a player is considered to be in combat for extra EP gains per interval
       this.getProgress().getInterval().inCombat();
     }
@@ -147,7 +150,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
       this.recoverStamina();
     }
 
-    if(this.isInBase()){
+    if (this.isInBase()) {
       this.recoverHealth();
     }
   }
@@ -325,6 +328,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   public void setState(PlayerState playerState) {
     this.playerState = playerState;
+    System.out.println(this + " -- " + playerState);
 
     if (this.playerState == PlayerState.LOCKED) {
       this.movement().setVelocity(0);
@@ -365,16 +369,20 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.getProgress().getInterval().didSomething();
   }
 
-  public Animation findBashAnimation(){
+  public Animation findBashAnimation() {
     // hit animations are narrowed down to left and right, I think we can save some time here without loosing too much immersion could add up/down later
-    final String hitAnimationName = this.getPlayerClass().toString().toLowerCase() + "-hit-" + (this.getAngle() > Direction.UP.toAngle() % 360 ? "left": "right");
+    final String hitAnimationName = this.getPlayerClass().toString().toLowerCase() + "-hit-" + (this.getAngle() > Direction.UP.toAngle() % 360 ? "left" : "right");
     return this.animations().get(hitAnimationName);
   }
 
-  private void initBash(){
+  public Animation findDieAnimation() {
+    return this.animations().get(((PlayerAnimationController) this.animations()).getDieAnimationName());
+  }
+
+  private void initBash() {
     // if there is any bash animation, delay the bash by the duration of the first frame
     Animation hitAnimation = findBashAnimation();
-    if(hitAnimation != null){
+    if (hitAnimation != null) {
       // first effect is the HitEffect, no need for pretty code here ^^
       this.bash.getEffects().get(0).setDelay(hitAnimation.getKeyFrameDurations()[0]);
     }
@@ -383,7 +391,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   @Action(name = "SURVIVALSKILL")
   public void useSurvivalSkill() {
     // a player must reach stage 1 in order to use the survival skill
-    if(this.getProgress().getCurrentStage().getIndex() < 1){
+    if (this.getProgress().getCurrentStage().getIndex() < 1) {
       return;
     }
 
@@ -401,11 +409,11 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     return "Player " + (this.getConfiguration().getIndex() + 1) + " (#" + this.getMapId() + ")";
   }
 
-  public SurvivalSkill getSurvivalSkill(){
+  public SurvivalSkill getSurvivalSkill() {
     return this.survivalSkill;
   }
 
-  protected void setSurvivalSkill(SurvivalSkill survivalSkill){
+  protected void setSurvivalSkill(SurvivalSkill survivalSkill) {
     this.survivalSkill = survivalSkill;
   }
 
@@ -442,7 +450,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   }
 
   private void recoverHealth() {
-    if(Game.time().since(this.lastHealthRecovery) < HEALTH_RECOVER_INTERVAL){
+    if (this.isDead() || !this.isLoaded() || Game.time().since(this.lastHealthRecovery) < HEALTH_RECOVER_INTERVAL) {
       return;
     }
 
@@ -499,11 +507,21 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   }
 
   private void handleDeath(ICombatEntity e) {
-    Game.world().environment().remove(this);
-    GameManager.playerDied(this);
-    this.lastDeath = Game.time().now();
-    this.setFalling(false);
-    this.setScaling(false);
+    int removeDelay = 600;
+    final Animation dieAnimation = this.findDieAnimation();
+    if(dieAnimation != null) {
+      removeDelay = dieAnimation.getTotalDuration();
+      this.animations().play(dieAnimation.getName());
+    }
+
+    Game.loop().perform(removeDelay, () -> {
+      System.out.println("remove");
+      Game.world().environment().remove(this);
+      GameManager.playerDied(this);
+      this.lastDeath = Game.time().now();
+      this.setFalling(false);
+      this.setScaling(false);
+    });
   }
 
   private void handleResurrect(ICombatEntity entity) {
