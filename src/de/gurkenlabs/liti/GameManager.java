@@ -1,17 +1,22 @@
 package de.gurkenlabs.liti;
 
-import de.gurkenlabs.liti.constants.Skins;
-import de.gurkenlabs.liti.constants.Timings;
-import de.gurkenlabs.liti.entities.*;
-import de.gurkenlabs.liti.gui.DynamicZoomCamera;
-import de.gurkenlabs.liti.gui.IngameScreen;
-import de.gurkenlabs.liti.input.InputManager;
 import com.litiengine.Game;
 import com.litiengine.entities.MapArea;
 import com.litiengine.entities.Spawnpoint;
 import com.litiengine.environment.CreatureMapObjectLoader;
 import com.litiengine.environment.PropMapObjectLoader;
 import com.litiengine.input.Input;
+import de.gurkenlabs.liti.constants.Skins;
+import de.gurkenlabs.liti.constants.Timings;
+import de.gurkenlabs.liti.entities.Chicken;
+import de.gurkenlabs.liti.entities.Egg;
+import de.gurkenlabs.liti.entities.IObjective;
+import de.gurkenlabs.liti.entities.Player;
+import de.gurkenlabs.liti.entities.PlayerClass;
+import de.gurkenlabs.liti.entities.PlayerConfiguration;
+import de.gurkenlabs.liti.entities.Players;
+import de.gurkenlabs.liti.gui.DynamicZoomCamera;
+import de.gurkenlabs.liti.gui.IngameScreen;
 
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -27,10 +32,6 @@ public final class GameManager {
     INGAME,
     FINISHED,
   }
-
-  public static final int DURATION_DEFAULT_DEATH = 5000;
-  public static final int DURATION_PREGAME = 5000;
-  public static final int OBJECTIVE_COOLDOWN = 20000;
 
   public static boolean DBG_SKIP_TO_INGAME = false;
 
@@ -62,7 +63,8 @@ public final class GameManager {
 
   public static void update() {
     for (Player player : Players.getAll()) {
-      if (!player.isLoaded() && player.isDead() && player.getLastDeath() != 0 && Game.time().since(player.getLastDeath()) > player.getResurrection()) {
+      if (!player.isLoaded() && player.isDead() && player.getLastDeath() != 0 && Game.time().since(player.getLastDeath()) > player
+          .getResurrection()) {
         player.resurrect();
         spawn(player);
         player.setState(Player.PlayerState.NORMAL);
@@ -74,7 +76,7 @@ public final class GameManager {
 
   public static void init() {
 
-    Timings.COUNTDOWN_PREGAME = GameManager.DBG_SKIP_TO_INGAME ? 500 : Timings.COUNTDOWN_PREGAME;
+    Timings.COUNTDOWN_PREGAME = GameManager.DBG_SKIP_TO_INGAME ? Timings.COUNTDOWN_PREGAME_DEBUG : Timings.COUNTDOWN_PREGAME;
 
     CreatureMapObjectLoader.registerCustomCreatureType(Chicken.class);
     PropMapObjectLoader.registerCustomPropType(Egg.class);
@@ -106,7 +108,7 @@ public final class GameManager {
       Game.world().camera().setZoom(DynamicZoomCamera.minZoom, Timings.COUNTDOWN_PREGAME);
 
       for (PlayerConfiguration config : Players.getConfigurations()) {
-        if(DBG_SKIP_TO_INGAME) {
+        if (DBG_SKIP_TO_INGAME) {
           config.setPlayerClass(Game.random().next(PlayerClass.class));
           config.setSkin(Skins.getRandom());
         }
@@ -135,9 +137,8 @@ public final class GameManager {
         }
       });
 
-      Input.keyboard().onKeyTyped(KeyEvent.VK_F8, e -> {
-        Players.getAll().get(0).getProgress().grantEP(Game.random().nextInt(100, 200));
-      });
+      Input.keyboard().onKeyTyped(KeyEvent.VK_F8, e -> Players.getAll().get(0).getProgress().grantEP(Game.random().nextInt(100, 200)));
+      Input.keyboard().onKeyTyped(KeyEvent.VK_F9, e -> Players.getAll().get(0).die());
     }
   }
 
@@ -148,21 +149,15 @@ public final class GameManager {
   public static Spawnpoint getSpawn(Player player) {
     Optional<Spawnpoint> spawn = spawnPoints.stream().filter(
         x -> x.getName() != null && x.getName().equals("player-" + (player.getConfiguration().getIndex() + 1))).findFirst();
-    if (!spawn.isPresent()) {
-      return null;
-    }
 
-    return spawn.get();
+    return spawn.orElse(null);
   }
 
   public static MapArea getBase(Player player) {
     Optional<MapArea> base = baseAreas.stream().filter(
         x -> x.getName() != null && x.getName().equals("player-" + (player.getConfiguration().getIndex() + 1))).findFirst();
-    if (!base.isPresent()) {
-      return null;
-    }
 
-    return base.get();
+    return base.orElse(null);
   }
 
   public static MapArea getChickenArea() {
@@ -221,7 +216,7 @@ public final class GameManager {
       return;
     }
 
-    if (Game.time().since(nextObjectiveRequested) < OBJECTIVE_COOLDOWN) {
+    if (Game.time().since(nextObjectiveRequested) < Timings.COOLDOWN_OBJECTIVE) {
       return;
     }
 
@@ -257,7 +252,7 @@ public final class GameManager {
     public void start() {
       this.spawnedEntity = this.init.get();
       if (this.spawnedEntity != null) {
-        this.spawnedEntity.onFinished(() -> GameManager.nextObjective());
+        this.spawnedEntity.onFinished(GameManager::nextObjective);
       }
     }
 
