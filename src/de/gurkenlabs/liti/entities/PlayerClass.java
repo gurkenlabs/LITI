@@ -1,6 +1,6 @@
 package de.gurkenlabs.liti.entities;
 
-import de.gurkenlabs.litiengine.resources.Resources;
+import com.litiengine.resources.Resources;
 
 public enum PlayerClass {
   WARRIOR,

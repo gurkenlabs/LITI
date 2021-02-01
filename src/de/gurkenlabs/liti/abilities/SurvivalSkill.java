@@ -1,10 +1,10 @@
 package de.gurkenlabs.liti.abilities;
 
 import de.gurkenlabs.liti.entities.Player;
-import de.gurkenlabs.litiengine.abilities.Ability;
-import de.gurkenlabs.litiengine.abilities.AbilityExecution;
-import de.gurkenlabs.litiengine.attributes.AttributeModifier;
-import de.gurkenlabs.litiengine.attributes.Modification;
+import com.litiengine.abilities.Ability;
+import com.litiengine.abilities.AbilityExecution;
+import com.litiengine.attributes.AttributeModifier;
+import com.litiengine.attributes.Modification;
 
 public class SurvivalSkill extends Ability {
   private final Player player;

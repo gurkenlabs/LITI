@@ -1,14 +1,14 @@
 package de.gurkenlabs.liti.abilities.effects;
 
 import de.gurkenlabs.liti.entities.Player;
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.abilities.Ability;
-import de.gurkenlabs.litiengine.abilities.effects.Effect;
-import de.gurkenlabs.litiengine.abilities.effects.EffectTarget;
-import de.gurkenlabs.litiengine.attributes.Modification;
-import de.gurkenlabs.litiengine.entities.ICombatEntity;
-import de.gurkenlabs.litiengine.entities.Prop;
-import de.gurkenlabs.litiengine.graphics.OverlayPixelsImageEffect;
+import com.litiengine.Game;
+import com.litiengine.abilities.Ability;
+import com.litiengine.abilities.effects.Effect;
+import com.litiengine.abilities.effects.EffectTarget;
+import com.litiengine.attributes.Modification;
+import com.litiengine.entities.ICombatEntity;
+import com.litiengine.entities.Prop;
+import com.litiengine.graphics.OverlayPixelsImageEffect;
 
 import java.awt.*;
 

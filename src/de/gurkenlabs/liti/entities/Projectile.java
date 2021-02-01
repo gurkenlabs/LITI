@@ -1,8 +1,8 @@
 package de.gurkenlabs.liti.entities;
 
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.entities.Creature;
-import de.gurkenlabs.litiengine.physics.Collision;
+import com.litiengine.Game;
+import com.litiengine.entities.Creature;
+import com.litiengine.physics.Collision;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;

@@ -1,7 +1,7 @@
 package de.gurkenlabs.liti.constants;
 
-import de.gurkenlabs.litiengine.resources.Resources;
-import de.gurkenlabs.litiengine.sound.Sound;
+import com.litiengine.resources.Resources;
+import com.litiengine.sound.Sound;
 
 import java.awt.*;
 

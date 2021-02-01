@@ -6,12 +6,12 @@ import de.gurkenlabs.liti.entities.*;
 import de.gurkenlabs.liti.gui.DynamicZoomCamera;
 import de.gurkenlabs.liti.gui.IngameScreen;
 import de.gurkenlabs.liti.input.InputManager;
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.entities.MapArea;
-import de.gurkenlabs.litiengine.entities.Spawnpoint;
-import de.gurkenlabs.litiengine.environment.CreatureMapObjectLoader;
-import de.gurkenlabs.litiengine.environment.PropMapObjectLoader;
-import de.gurkenlabs.litiengine.input.Input;
+import com.litiengine.Game;
+import com.litiengine.entities.MapArea;
+import com.litiengine.entities.Spawnpoint;
+import com.litiengine.environment.CreatureMapObjectLoader;
+import com.litiengine.environment.PropMapObjectLoader;
+import com.litiengine.input.Input;
 
 import java.awt.event.KeyEvent;
 import java.util.List;

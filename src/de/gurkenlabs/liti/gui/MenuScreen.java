@@ -1,6 +1,6 @@
 package de.gurkenlabs.liti.gui;
 
-import de.gurkenlabs.litiengine.Direction;
+import com.litiengine.Direction;
 
 import java.awt.*;
 

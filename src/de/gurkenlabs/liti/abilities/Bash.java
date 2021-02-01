@@ -2,9 +2,9 @@ package de.gurkenlabs.liti.abilities;
 
 import de.gurkenlabs.liti.abilities.effects.HitEffect;
 import de.gurkenlabs.liti.entities.Player;
-import de.gurkenlabs.litiengine.abilities.Ability;
-import de.gurkenlabs.litiengine.abilities.AbilityInfo;
-import de.gurkenlabs.litiengine.entities.EntityPivotType;
+import com.litiengine.abilities.Ability;
+import com.litiengine.abilities.AbilityInfo;
+import com.litiengine.entities.EntityPivotType;
 
 @AbilityInfo(name = "Bash", cooldown = 700, range = 0, impact = 15, impactAngle = 90, value = 20, duration = 300, multiTarget = true, origin = EntityPivotType.DIMENSION_CENTER)
 public class Bash extends Ability {

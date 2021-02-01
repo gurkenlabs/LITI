@@ -13,22 +13,22 @@ import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.entities.controllers.PlayerAnimationController;
 import de.gurkenlabs.liti.graphics.WalkDustSpawner;
-import de.gurkenlabs.litiengine.Direction;
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.GameLoop;
-import de.gurkenlabs.litiengine.IUpdateable;
-import de.gurkenlabs.litiengine.attributes.RangeAttribute;
-import de.gurkenlabs.litiengine.entities.*;
-import de.gurkenlabs.litiengine.environment.Environment;
-import de.gurkenlabs.litiengine.graphics.IRenderable;
-import de.gurkenlabs.litiengine.graphics.RenderType;
-import de.gurkenlabs.litiengine.graphics.animation.Animation;
-import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
-import de.gurkenlabs.litiengine.physics.CollisionEvent;
-import de.gurkenlabs.litiengine.resources.Resources;
-import de.gurkenlabs.litiengine.tweening.TweenFunction;
-import de.gurkenlabs.litiengine.tweening.TweenType;
-import de.gurkenlabs.litiengine.util.Imaging;
+import com.litiengine.Direction;
+import com.litiengine.Game;
+import com.litiengine.GameLoop;
+import com.litiengine.IUpdateable;
+import com.litiengine.attributes.RangeAttribute;
+import com.litiengine.entities.*;
+import com.litiengine.environment.Environment;
+import com.litiengine.graphics.IRenderable;
+import com.litiengine.graphics.RenderType;
+import com.litiengine.graphics.animation.Animation;
+import com.litiengine.graphics.animation.IEntityAnimationController;
+import com.litiengine.physics.CollisionEvent;
+import com.litiengine.resources.Resources;
+import com.litiengine.tweening.TweenFunction;
+import com.litiengine.tweening.TweenType;
+import com.litiengine.util.Imaging;
 
 public abstract class Player extends Creature implements IUpdateable, IRenderable {
 

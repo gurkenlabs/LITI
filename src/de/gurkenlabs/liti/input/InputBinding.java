@@ -1,12 +1,12 @@
 package de.gurkenlabs.liti.input;
 
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.entities.IEntity;
-import de.gurkenlabs.litiengine.input.Gamepad;
-import de.gurkenlabs.litiengine.input.Gamepad.Axis;
-import de.gurkenlabs.litiengine.input.Gamepad.Buttons;
-import de.gurkenlabs.litiengine.input.Input;
-import de.gurkenlabs.litiengine.util.ReflectionUtilities;
+import com.litiengine.Game;
+import com.litiengine.entities.IEntity;
+import com.litiengine.input.Gamepad;
+import com.litiengine.input.Gamepad.Axis;
+import com.litiengine.input.Gamepad.Buttons;
+import com.litiengine.input.Input;
+import com.litiengine.util.ReflectionUtilities;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;

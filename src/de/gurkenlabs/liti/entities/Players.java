@@ -2,7 +2,7 @@ package de.gurkenlabs.liti.entities;
 
 import de.gurkenlabs.liti.input.InputBinding;
 import de.gurkenlabs.liti.input.InputManager;
-import de.gurkenlabs.litiengine.input.Gamepad;
+import com.litiengine.input.Gamepad;
 
 import java.util.List;
 import java.util.Map;

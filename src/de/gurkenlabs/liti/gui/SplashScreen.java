@@ -1,7 +1,7 @@
 package de.gurkenlabs.liti.gui;
 
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.gui.screens.Screen;
+import com.litiengine.Game;
+import com.litiengine.gui.screens.Screen;
 import uk.co.caprica.vlcj.factory.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.base.MediaPlayer;
 import uk.co.caprica.vlcj.player.base.MediaPlayerEventAdapter;

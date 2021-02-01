@@ -2,10 +2,10 @@ package de.gurkenlabs.liti.entities.controllers;
 
 import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.entities.Chicken;
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.entities.MapArea;
-import de.gurkenlabs.litiengine.physics.MovementController;
-import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import com.litiengine.Game;
+import com.litiengine.entities.MapArea;
+import com.litiengine.physics.MovementController;
+import com.litiengine.util.geom.GeometricUtilities;
 
 import java.awt.geom.Point2D;
 

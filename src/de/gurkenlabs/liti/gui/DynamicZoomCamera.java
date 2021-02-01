@@ -7,11 +7,11 @@ import java.util.Collection;
 import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.Players;
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.entities.IEntity;
-import de.gurkenlabs.litiengine.entities.Spawnpoint;
-import de.gurkenlabs.litiengine.graphics.Camera;
-import de.gurkenlabs.litiengine.util.MathUtilities;
+import com.litiengine.Game;
+import com.litiengine.entities.IEntity;
+import com.litiengine.entities.Spawnpoint;
+import com.litiengine.graphics.Camera;
+import com.litiengine.util.MathUtilities;
 
 public class DynamicZoomCamera extends Camera {
 

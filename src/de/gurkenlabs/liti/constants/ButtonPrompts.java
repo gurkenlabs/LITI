@@ -2,7 +2,7 @@ package de.gurkenlabs.liti.constants;
 
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.liti.input.InputBinding;
-import de.gurkenlabs.litiengine.resources.Resources;
+import com.litiengine.resources.Resources;
 
 import java.awt.image.BufferedImage;
 
