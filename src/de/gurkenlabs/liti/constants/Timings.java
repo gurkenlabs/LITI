@@ -11,6 +11,8 @@ public class Timings {
 
   public static final int DELAY_UI_INPUT = 250;
 
+  public static final int DURATION_MUSHROOMFRENZY = 5000;
+
   private Timings() {
 
   }

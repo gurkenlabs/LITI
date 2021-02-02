@@ -27,7 +27,7 @@
       <property name="emitterMaxParticles" type="int" value="400"/>
       <property name="emitterOriginAlign" value="CENTER"/>
       <property name="emitterOriginValign" value="DOWN"/>
-      <property name="emitterParticleType" value="DIAMOND"/>
+      <property name="emitterParticleType" value="RECTANGLE"/>
       <property name="emitterSpawnAmount" value="10"/>
       <property name="emitterSpawnRate" value="100"/>
       <property name="emitterUpdateDelay" type="int" value="40"/>
@@ -1080,6 +1080,10 @@
   <sprite width="16" height="19" imageformat="PNG" name="gatherer-idle-down">
    <image>iVBORw0KGgoAAAANSUhEUgAAAEAAAAATCAYAAAAgcwuHAAABoklEQVR42t2VMU7EMBBFXVJtAw0XoKYJFwjX4AApcwFEs5wgHdJWVIQLIHEBKrgDV6AP+pZ+NPHaycQTrwSWRp6N/X7+TJyNc4lRVdUgw/2xYfIPoK7rSawVsTbQwpv8E+66zkff9z7WGLE20MKb/IdwGFgr3UALb/ZPAYzzi8uhaRoPIsdYErAa2IrP9T8K7NvWBwX4m+ulGwiOAZ65ls/yz0XMqSegbYC1gTn8Fv4dBWIicq2EgS0KsPg/EkDw6Gk/R3MGpM4p+Bz/LnVz+QS0PI9vmJfmU941/o8EcOPPt0f/GcoxQOOn4mOnZg0/ijy7Fx8o/uf73c8f7kslIPkHt/czWA1PkxYeTczlRxGACBQum6BtAHnZSMzaAiQPlnlpflIAC399an2sOQGy81IHa3f1zTDHYpbmyd5eX5n4VScgBCGoMSBfgbCBzLEnpUGDc6yF1/h33BgWj3zJQMgjyCM/HM6G+90uaSJkeX/k4Cy8yr/slvwTQQFaAzGeGgwNuyWv9T8K4fMRXl8ysMTHrsXY1F4rr/U/eZeWrv0H/he+X2xfvkHKUAAAAABJRU5ErkJggg==</image>
   </sprite>
+  <sprite width="16" height="19" imageformat="PNG" name="gatherer-idle-left">
+   <image>iVBORw0KGgoAAAANSUhEUgAAAEAAAAATCAYAAAAgcwuHAAABoUlEQVR42t2VPU7EMBCFXVJtszRcgJomXCBcgwOkzAUQze4J0iFtRUW4ABIXoII7cAX6oDfSiwYLJzPrLI6wNHJ27W9+3jhxCIlRVdUAq+t6tOAYuXzREScO439/wRdtAoGu68T6vhfTzk7JF28CNjH52OjklHzxJmBD0zSjwQGfrQJszy8GDPL87RGgSBOozq5txVgAf3M95SCXX0rErCbqoxObpYBcvngTuJg6OrQpAXL44k3QSUK995f9j8Qtx0/zMA+/iiYQRvFfn68yawU9H7GYtfL6Hdbm/QYgvpcPSPYxPAkci2C5gzUPFleQR0DyMM1ab4Gp+GYBCD8/tGJv4cMlAMWjefn7sBOj+OStAqbiW/jRAQqHkkgEs6WA38Tjs1dAMCxgifhcn02AybILUM/aQexh4GN4Fq6T9wqQim8SQCtGEE5uri4lgdv6ephidXAvTx+YyaP4JeJDQGsOgUefxx8gnrk+lwTmY3mOJeNDBPjQ+2ZzwJVBR4DvNpvhcDiT2VLAmniK6PIRvytwQLN+yNbEQxCvj0mH/4X/BnSEB+TqNV1rAAAAAElFTkSuQmCC</image>
+   <keyframes>120,200,120,230</keyframes>
+  </sprite>
   <sprite width="16" height="19" imageformat="PNG" name="gatherer-idle-up">
    <image>iVBORw0KGgoAAAANSUhEUgAAAEAAAAATCAYAAAAgcwuHAAABY0lEQVR42t2VMW7CQBBFt0zFMVKnMRdwrpEDuOQCEQ03cIdERRXlCFyALnfIFegdjaWPhtHsejYfIxlLq10M78/bYTEpZa6maQY90sIuyl+Atm1vRm0I20CGp/xtYYyaELaBDE/744MWjIawAizP+tMBi+YtvLQN0P5eQM1RZAXm4Kt+Sl5Re0/mRzawhmf9Qw+hUgArcI8NMP5ugAYj/8mswL35Wv/U9/3kMXxkA2t5yl9gmc/p51+bjwigxpx8yb/I481j+nK/haniyLB87QZKvPaM8vrBmWU/2vUo9/72OnbQdnGbdpPyyLBsSCDII+N7vxlKvOefrS+gfi0dFEBCUFzueUW9DPBaQO7lxKP85fc0DsmRWWd5vPXP1hf4c7UaDoeXcUYHEYK1LZrL0AwEZC1sLiPKg9XrEq/XpfpJjj4GOqjnqROgM3I8xBl+zvrXq+u6IXLvWXn3QRH5B1gi/wfEXWMDHYuUqwAAAABJRU5ErkJggg==</image>
   </sprite>
@@ -1118,6 +1122,9 @@
   </sprite>
   <sprite width="30" height="30" imageformat="PNG" name="proficiency-levels">
    <image>iVBORw0KGgoAAAANSUhEUgAAAFoAAAAeCAYAAACsYQl4AAACl0lEQVR42u1YPWgUQRg98Q8RNOrt5lSQE2ePFBaBgMmehVdIgkKCcCJaeEYQIaKHEBBBAmoRxIBpxM4fEFJYeJVYXiOIWFxhZSEWgu11tp/zFle+2XC5nVlzS+L34BU37PHYN99835stFAQCgUAgEAgEA8ZE4M1WK/59zlAVW2HgLbPftydUsWZwpFQW91Kb7N+58ugUzb06a/Bu+yI138z8/X3t6Wmq3xozODUTkN6Mbqi8RXGyD7RR3xe/XaflbtOJSz9vRGaLkykqerpxnBY+XY748MtVa7NR3Wgl4mY/s5V3QVdl+w87msSJjeAt49K90GgztZNHqFYeGhInM6IaeKN8CIYV/xwfnONH/eFN8ZJ5VEteuoM8vsaxbZ7fR9PjRb7WZcc8ojblJeLXGaV2/itdtAu0hPXSzXP6t7+2thF1Cmvy18cthOc4PzzfQa8f7KZqUHzmooshmCZdxAMz5vy7ehT7XHTzM1pfEDor2/savRZR+bbHHbrIzK7xDtxQw7Cq/Em89MLsXgIf39xDraVdBrERvJJ/vN9qGI3/2casWLdXoogvL7ySkxFwQ8a7XpOdXYvbvaJYliOcl65gUFWV3FVM2IhsLfmRBZFIdC1E54JheqJKBl+ogxH5Gp7jbAS+81GCLnpssi8jUYB8Le7jMREBs+iixyb7MhIFyNeSH5UQAZ1bB3YRhn4+dtiZMNx2t6ELQ7OkDhjuogtDs6QOGG5d3WHlwIkpvUsr2uy36lBEW6NR7ThqtrqIZzxZ2BqNanfRRTzjycLWaFS7ra4RediUNW5NdV2xybbBW4pLRafRbUzuX9U2eEtxqeg0uvjunGwbvKU4VXSqvjZSKq8aDOYgGV2XIf2f6QoEAoFAsCnwGwP8EcpP8Vj7AAAAAElFTkSuQmCC</image>
+  </sprite>
+  <sprite width="6" height="6" imageformat="PNG" name="projectile-mushroom">
+   <image>iVBORw0KGgoAAAANSUhEUgAAABgAAAAGCAYAAADZq14TAAAApElEQVR42mNgAIIdfHz//x89+h9EgzADFAiumfwfhF8+swbTMPFdsif+z1/0/z+IBmGYeNFu9/9Xraz+g2gQZoAZftrSEo5hFoEM1H59Fo5hloAMPJ12BY5hFoEM7r4ei4LBlqC7HoaRXY6M0V0PwzBXwzDMJzDfMcyxlf6/L9EeIUBA/Gpv8f8V2aFEi8MNAtGExEEGYDMIlziKYcSK4zIEXRwACCDYxkr0qH0AAAAASUVORK5CYII=</image>
   </sprite>
   <sprite width="21" height="41" imageformat="PNG" name="projectile-stone">
    <image>iVBORw0KGgoAAAANSUhEUgAAAH4AAAApCAYAAADzqJ3HAAACbUlEQVR42u2ZQU4FIQyG32XcvEu4cqdx607PYFx4DD3xGBJJGgK0hf4MDG1C8gx5/8zjK+Uv3m4nxMfn9xHHzWO+oIDSgdC0SARPKCD01sV9fHo9nt/eDxR8ZEJtEVJA2gWNumF8/f6YJxW6mmwDXgJIuqBU0xq+9H2drCGgMBeGRDenbaGreV8nrASULmYEQ/8uad7vD1lNK11NQrXAv3wC1QBFSCkYKaAwLHUlmj2VJARXkS6TBNxicgsxUleiSROKJhYHnmpz0LcDTz+H71iBt9RtSVJOt1RJtoCfLmr8DqdJj5HcMzSaaPDaI2R5z8BByr20FBI1YgjNUkJZVpEe8NN7Bg2kOC/dnVG3RzPOpUnKJZOmOlmCX8Yz1CBRKOEz/Y5WM92pFppWVUQLvgZsGc8ghdSimdupvZrce0orU6qn8Q0ceKRnMAefQqILrIWU06UXRshkklaR3G9NE0B7N4D0DEPg5+bO1sxppQnaU0G4HR+Bx7kzwZslTw2S5PzldEtzWq2W50h/M3cxFI8QDry1Z4B3Cq07e2RV6pmvga/t+tIY5Rm2vF0cdcTR//xJLrRGeYatbxdHVpJa6U+N4wjPsFynsDp4zlSO8gxLdgqrJ0GLx7D0DA5+IgM50jOM6hQ8JvMM6E7BY1LPgO4UPCb1DOhOwWMBz2DdKXgscsFk3Sl4bHa76LFxp+CxaafgsWmn4IGLF2Z0af/DRWg7IADsnucgtbcCNQsYyTOQ2sUHIEChyicSEhJM7RlIbfOSd3YZRUG6HHjEWWGtaVnaEOVy2VI/+463TiaEQVrW3M1+xo9OpmnbuRbtP433KBQF/BC1AAAAAElFTkSuQmCC</image>
@@ -1218,7 +1225,7 @@
    <offsetX maxValue="0.0" minValue="0.0"/>
    <offsetY maxValue="0.0" minValue="0.0"/>
   </emitter>
-  <emitter emitterDuration="0" height="96.0" maxParticles="400" name="fire" particleType="DIAMOND" spawnAmount="10" spawnRate="100" updateRate="40" width="80.0">
+  <emitter emitterDuration="0" height="96.0" maxParticles="400" name="fire" particleType="RECTANGLE" spawnAmount="10" spawnRate="100" updateRate="40" width="80.0">
    <alphaVariance>0.8</alphaVariance>
    <animateSprite>false</animateSprite>
    <loopSprite>true</loopSprite>
@@ -1254,6 +1261,40 @@
    <spritesheet>walk-grass</spritesheet>
    <offsetX maxValue="4.0" minValue="-4.0"/>
    <offsetY maxValue="0.0" minValue="0.0"/>
+  </emitter>
+  <emitter emitterDuration="0" height="16.0" maxParticles="50" name="mushrooms" particleType="SPRITE" spawnAmount="3" spawnRate="100" updateRate="40" width="16.0">
+   <alphaVariance>0.0</alphaVariance>
+   <animateSprite>false</animateSprite>
+   <loopSprite>true</loopSprite>
+   <collisionType>ANY</collisionType>
+   <requiredQuality>VERYLOW</requiredQuality>
+   <colorVariance>0.0</colorVariance>
+   <colors>
+    <color>#cc00a5bc</color>
+   </colors>
+   <deltaHeight maxValue="0.0" minValue="0.0"/>
+   <deltaWidth maxValue="0.0" minValue="0.0"/>
+   <velocityX maxValue="1.0" minValue="-1.0"/>
+   <velocityY maxValue="1.0" minValue="-1.0"/>
+   <fade>false</fade>
+   <fadeOnCollision>true</fadeOnCollision>
+   <outlineOnly>false</outlineOnly>
+   <antiAliasing>false</antiAliasing>
+   <accelerationX maxValue="0.009999999776482582" minValue="-0.009999999776482582"/>
+   <accelerationY maxValue="0.009999999776482582" minValue="-0.009999999776482582"/>
+   <angle maxValue="360.0" minValue="0.0"/>
+   <deltaAngle maxValue="1.0" minValue="-1.0"/>
+   <originAlign>center</originAlign>
+   <originValign>center</originValign>
+   <particleHeight maxValue="6.0" minValue="6.0"/>
+   <particleTTL maxValue="1000.0" minValue="800.0"/>
+   <texts>
+    <text>LITI</text>
+   </texts>
+   <particleWidth maxValue="6.0" minValue="6.0"/>
+   <spritesheet>projectile-mushroom</spritesheet>
+   <offsetX maxValue="4.0" minValue="-4.0"/>
+   <offsetY maxValue="4.0" minValue="-4.0"/>
   </emitter>
   <emitter emitterDuration="700" height="32.0" maxParticles="20" name="stone-particle" particleType="SPRITE" spawnAmount="20" spawnRate="20" updateRate="40" width="32.0">
    <alphaVariance>0.0</alphaVariance>
@@ -1413,7 +1454,7 @@
    </object>
   </blueprint>
   <blueprint id="0" name="fire" type="AREA" width="80" height="96">
-   <object id="151" type="EMITTER" x="0" y="0" width="80" height="96">
+   <object id="2" type="EMITTER" x="0" y="0" width="80" height="96">
     <properties>
      <property name="collisionType" value="NONE"/>
      <property name="emitterAlphaVariance" value="0.7999999992549419"/>
@@ -1423,7 +1464,7 @@
      <property name="emitterMaxParticles" type="int" value="400"/>
      <property name="emitterOriginAlign" value="CENTER"/>
      <property name="emitterOriginValign" value="DOWN"/>
-     <property name="emitterParticleType" value="DIAMOND"/>
+     <property name="emitterParticleType" value="RECTANGLE"/>
      <property name="emitterSpawnAmount" value="10"/>
      <property name="emitterSpawnRate" value="100"/>
      <property name="emitterUpdateDelay" type="int" value="40"/>
@@ -1462,6 +1503,60 @@
      <property name="particleTexts" value="LITI"/>
      <property name="requiredQuality" value="VERYLOW"/>
      <property name="spritesheetName" value="walk-grass"/>
+    </properties>
+   </object>
+  </blueprint>
+  <blueprint id="0" name="mushrooms" type="AREA" width="16" height="16">
+   <object id="3" type="EMITTER" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="collisionType" value="ANY"/>
+     <property name="emitterAlphaVariance" type="float" value="0.0"/>
+     <property name="emitterColorVariance" type="float" value="0.0"/>
+     <property name="emitterColors" value="#cc00a5bc"/>
+     <property name="emitterDuration" type="int" value="0"/>
+     <property name="emitterMaxParticles" value="50"/>
+     <property name="emitterOriginAlign" value="CENTER"/>
+     <property name="emitterOriginValign" value="MIDDLE"/>
+     <property name="emitterParticleType" value="SPRITE"/>
+     <property name="emitterSpawnAmount" value="3"/>
+     <property name="emitterSpawnRate" value="100"/>
+     <property name="emitterUpdateDelay" type="int" value="40"/>
+     <property name="particleAnimateSprite" type="bool" value="false"/>
+     <property name="particleAntiAliasing" type="bool" value="false"/>
+     <property name="particleFade" type="bool" value="false"/>
+     <property name="particleFadeOnCollision" type="bool" value="true"/>
+     <property name="particleLoopSprite" type="bool" value="true"/>
+     <property name="particleMaxAccelerationX" type="float" value="0.009999999776482582"/>
+     <property name="particleMaxAccelerationY" type="float" value="0.009999999776482582"/>
+     <property name="particleMaxAngle" type="float" value="360.0"/>
+     <property name="particleMaxDeltaAngle" type="float" value="1.0"/>
+     <property name="particleMaxDeltaHeight" value="0.0"/>
+     <property name="particleMaxDeltaWidth" value="0.0"/>
+     <property name="particleMaxOffsetX" type="float" value="4.0"/>
+     <property name="particleMaxOffsetY" type="float" value="4.0"/>
+     <property name="particleMaxStartHeight" type="float" value="6.0"/>
+     <property name="particleMaxStartWidth" type="float" value="6.0"/>
+     <property name="particleMaxTTL" value="1000.0"/>
+     <property name="particleMaxVelocityX" value="1.0"/>
+     <property name="particleMaxVelocityY" value="1.0"/>
+     <property name="particleMinAccelerationX" type="float" value="-0.009999999776482582"/>
+     <property name="particleMinAccelerationY" type="float" value="-0.009999999776482582"/>
+     <property name="particleMinAngle" type="float" value="0.0"/>
+     <property name="particleMinDeltaAngle" type="float" value="-1.0"/>
+     <property name="particleMinDeltaHeight" value="0.0"/>
+     <property name="particleMinDeltaWidth" value="0.0"/>
+     <property name="particleMinOffsetX" type="float" value="-4.0"/>
+     <property name="particleMinOffsetY" type="float" value="-4.0"/>
+     <property name="particleMinStartHeight" value="6.0"/>
+     <property name="particleMinStartWidth" value="6.0"/>
+     <property name="particleMinTTL" value="800.0"/>
+     <property name="particleMinVelocityX" value="-1.0"/>
+     <property name="particleMinVelocityY" value="-1.0"/>
+     <property name="particleOutlineOnly" type="bool" value="false"/>
+     <property name="particleTexts" value="LITI"/>
+     <property name="renderType" value="OVERLAY"/>
+     <property name="requiredQuality" value="VERYLOW"/>
+     <property name="spritesheetName" value="projectile-mushroom"/>
     </properties>
    </object>
   </blueprint>

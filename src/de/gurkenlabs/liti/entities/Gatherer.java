@@ -1,5 +1,7 @@
 package de.gurkenlabs.liti.entities;
 
+import de.gurkenlabs.liti.abilities.ForceOfNature;
+import de.gurkenlabs.liti.abilities.MushroomFrenzy;
 import de.gurkenlabs.liti.abilities.SurvivalSkill;
 import com.litiengine.Valign;
 import com.litiengine.entities.CollisionInfo;
@@ -14,5 +16,6 @@ import com.litiengine.entities.MovementInfo;
 public class Gatherer extends Player {
   public Gatherer(PlayerConfiguration config) {
     super(config);
+    this.setSurvivalSkill(new MushroomFrenzy(this));
   }
 }

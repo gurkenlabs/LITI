@@ -107,16 +107,15 @@ public final class GameManager {
 
       Game.world().camera().setZoom(DynamicZoomCamera.minZoom, Timings.COUNTDOWN_PREGAME);
 
-      for (PlayerConfiguration config : Players.getConfigurations()) {
-        if (DBG_SKIP_TO_INGAME) {
-          config.setPlayerClass(Game.random().next(PlayerClass.class));
-          config.setSkin(Skins.getRandom());
-        }
-
-        Player player = Players.join(config);
-
-        spawn(player);
+      if (DBG_SKIP_TO_INGAME) {
+        Players.getConfigurations().forEach(c -> {
+          c.setPlayerClass(Game.random().next(PlayerClass.class));
+          c.setSkin(Skins.getRandom());
+          Players.join(c);
+        });
       }
+
+      Players.getAll().forEach(p -> spawn(p));
 
       state = GameState.PREGAME;
       IngameScreen.instance().getHud().getPregameCountdown().start();
