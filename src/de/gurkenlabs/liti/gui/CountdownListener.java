@@ -7,6 +7,9 @@ public interface CountdownListener extends EventListener {
   default void started() {
   }
 
+  default void finished() {
+  }
+
   default void stopped() {
   }
 

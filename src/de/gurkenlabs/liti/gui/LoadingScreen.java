@@ -43,6 +43,9 @@ public class LoadingScreen extends Screen {
     GameManager.init();
 
     for (PlayerConfiguration config : Players.getConfigurations()) {
+      if (config.getPlayerClass() == null) {
+        continue;
+      }
       Players.join(config);
     }
 

@@ -40,7 +40,7 @@ public class LobbyScreen extends LitiScreen {
         readyPlayers++;
       }
     }
-    return readyPlayers > 0;
+    return readyPlayers >= Players.getConfigurations().size();
   }
 
   @Override
@@ -136,20 +136,20 @@ public class LobbyScreen extends LitiScreen {
       return;
     }
     switch (direction) {
-      case UP:
-        this.charSelects[player].previousSkin();
-        break;
-      case DOWN:
-        this.charSelects[player].nextSkin();
-        break;
-      case LEFT:
-        this.charSelects[player].previousClass();
-        break;
-      case RIGHT:
-        this.charSelects[player].nextClass();
-        break;
-      default:
-        break;
+    case UP:
+      this.charSelects[player].previousSkin();
+      break;
+    case DOWN:
+      this.charSelects[player].nextSkin();
+      break;
+    case LEFT:
+      this.charSelects[player].previousClass();
+      break;
+    case RIGHT:
+      this.charSelects[player].nextClass();
+      break;
+    default:
+      break;
     }
 
   }
@@ -171,7 +171,7 @@ public class LobbyScreen extends LitiScreen {
 
     countdown.addListener(new CountdownListener() {
       @Override
-      public void stopped() {
+      public void finished() {
         startGame();
       }
     });

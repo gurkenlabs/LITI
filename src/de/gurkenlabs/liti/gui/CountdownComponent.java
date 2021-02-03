@@ -47,7 +47,7 @@ public class CountdownComponent extends GuiComponent {
       return;
     }
     if (this.hasFinished()) {
-      this.stop();
+      this.finish();
     }
     g.setColor(new Color(0, 0, 0, 100));
     g.fill(new Rectangle(0, 0, (int) Game.window().getResolution().getWidth(), (int) Game.window().getResolution().getHeight()));
@@ -72,6 +72,13 @@ public class CountdownComponent extends GuiComponent {
 
     for (final CountdownListener listener : this.countdownListeners) {
       listener.stopped();
+    }
+  }
+
+  public void finish() {
+    this.stop();
+    for (final CountdownListener listener : this.countdownListeners) {
+      listener.finished();
     }
   }
 

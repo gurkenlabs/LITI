@@ -12,6 +12,7 @@ public class Timings {
   public static final int DELAY_UI_INPUT = 250;
 
   public static final int DURATION_MUSHROOMFRENZY = 5000;
+  public static final int DELAY_HIT_MUSHROOMPROJECTILE = 100;
 
   private Timings() {
 
