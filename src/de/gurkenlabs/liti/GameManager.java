@@ -1,22 +1,17 @@
 package de.gurkenlabs.liti;
 
-import com.litiengine.Game;
-import com.litiengine.entities.MapArea;
-import com.litiengine.entities.Spawnpoint;
-import com.litiengine.environment.CreatureMapObjectLoader;
-import com.litiengine.environment.PropMapObjectLoader;
-import com.litiengine.input.Input;
 import de.gurkenlabs.liti.constants.Skins;
 import de.gurkenlabs.liti.constants.Timings;
-import de.gurkenlabs.liti.entities.Chicken;
-import de.gurkenlabs.liti.entities.Egg;
-import de.gurkenlabs.liti.entities.IObjective;
-import de.gurkenlabs.liti.entities.Player;
-import de.gurkenlabs.liti.entities.PlayerClass;
-import de.gurkenlabs.liti.entities.PlayerConfiguration;
-import de.gurkenlabs.liti.entities.Players;
+import de.gurkenlabs.liti.entities.*;
 import de.gurkenlabs.liti.gui.DynamicZoomCamera;
 import de.gurkenlabs.liti.gui.IngameScreen;
+import de.gurkenlabs.liti.input.InputManager;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.entities.MapArea;
+import de.gurkenlabs.litiengine.entities.Spawnpoint;
+import de.gurkenlabs.litiengine.environment.CreatureMapObjectLoader;
+import de.gurkenlabs.litiengine.environment.PropMapObjectLoader;
+import de.gurkenlabs.litiengine.input.Input;
 
 import java.awt.event.KeyEvent;
 import java.util.List;

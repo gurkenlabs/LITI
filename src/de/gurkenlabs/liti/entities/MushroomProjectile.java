@@ -1,16 +1,16 @@
 package de.gurkenlabs.liti.entities;
 
-import com.litiengine.Game;
-import com.litiengine.IUpdateable;
-import com.litiengine.entities.ICombatEntity;
-import com.litiengine.graphics.RenderType;
-import com.litiengine.graphics.animation.Animation;
-import com.litiengine.graphics.animation.AnimationListener;
-import com.litiengine.graphics.animation.EntityAnimationController;
-import com.litiengine.graphics.animation.IEntityAnimationController;
-import com.litiengine.graphics.emitters.Emitter;
-import com.litiengine.resources.Resources;
-import com.litiengine.util.geom.GeometricUtilities;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.IUpdateable;
+import de.gurkenlabs.litiengine.entities.ICombatEntity;
+import de.gurkenlabs.litiengine.graphics.RenderType;
+import de.gurkenlabs.litiengine.graphics.animation.Animation;
+import de.gurkenlabs.litiengine.graphics.animation.AnimationListener;
+import de.gurkenlabs.litiengine.graphics.animation.EntityAnimationController;
+import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
+import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
+import de.gurkenlabs.litiengine.resources.Resources;
+import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 import de.gurkenlabs.liti.abilities.Proficiency;
 import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.liti.constants.Animations;

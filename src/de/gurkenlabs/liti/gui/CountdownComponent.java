@@ -2,12 +2,12 @@ package de.gurkenlabs.liti.gui;
 
 import de.gurkenlabs.liti.constants.LitiFonts;
 import de.gurkenlabs.liti.constants.LitiSounds;
-import com.litiengine.Game;
-import com.litiengine.gui.GuiComponent;
-import com.litiengine.tweening.TweenFunction;
-import com.litiengine.tweening.TweenType;
-import com.litiengine.util.MathUtilities;
-import com.litiengine.util.TimeUtilities;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.gui.GuiComponent;
+import de.gurkenlabs.litiengine.tweening.TweenFunction;
+import de.gurkenlabs.litiengine.tweening.TweenType;
+import de.gurkenlabs.litiengine.util.MathUtilities;
+import de.gurkenlabs.litiengine.util.TimeUtilities;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

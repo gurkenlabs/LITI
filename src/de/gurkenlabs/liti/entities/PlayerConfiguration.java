@@ -1,7 +1,7 @@
 package de.gurkenlabs.liti.entities;
 
 import de.gurkenlabs.liti.input.InputBinding;
-import com.litiengine.input.Gamepad;
+import de.gurkenlabs.litiengine.input.Gamepad;
 
 public class PlayerConfiguration {
   private int index;

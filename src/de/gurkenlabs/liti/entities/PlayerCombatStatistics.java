@@ -1,7 +1,7 @@
 package de.gurkenlabs.liti.entities;
 
-import com.litiengine.Game;
-import com.litiengine.entities.EntityHitEvent;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.entities.EntityHitEvent;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

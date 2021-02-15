@@ -3,11 +3,11 @@ package de.gurkenlabs.liti.entities;
 import de.gurkenlabs.liti.abilities.Proficiency;
 import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.liti.entities.controllers.ChickenMovementController;
-import com.litiengine.Game;
-import com.litiengine.IUpdateable;
-import com.litiengine.entities.*;
-import com.litiengine.graphics.RenderType;
-import com.litiengine.physics.IMovementController;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.IUpdateable;
+import de.gurkenlabs.litiengine.entities.*;
+import de.gurkenlabs.litiengine.graphics.RenderType;
+import de.gurkenlabs.litiengine.physics.IMovementController;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

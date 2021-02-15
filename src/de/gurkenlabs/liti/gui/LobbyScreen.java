@@ -3,10 +3,10 @@ package de.gurkenlabs.liti.gui;
 import de.gurkenlabs.liti.constants.Timings;
 import de.gurkenlabs.liti.entities.PlayerConfiguration;
 import de.gurkenlabs.liti.entities.Players;
-import com.litiengine.Direction;
-import com.litiengine.Game;
-import com.litiengine.graphics.ImageRenderer;
-import com.litiengine.resources.Resources;
+import de.gurkenlabs.litiengine.Direction;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.graphics.ImageRenderer;
+import de.gurkenlabs.litiengine.resources.Resources;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

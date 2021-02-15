@@ -2,8 +2,8 @@ package de.gurkenlabs.liti.input;
 
 import de.gurkenlabs.liti.constants.Timings;
 import de.gurkenlabs.liti.gui.LitiScreen;
-import com.litiengine.Direction;
-import com.litiengine.Game;
+import de.gurkenlabs.litiengine.Direction;
+import de.gurkenlabs.litiengine.Game;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

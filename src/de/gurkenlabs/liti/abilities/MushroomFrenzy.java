@@ -1,12 +1,12 @@
 package de.gurkenlabs.liti.abilities;
 
-import com.litiengine.Direction;
-import com.litiengine.Game;
-import com.litiengine.abilities.AbilityExecution;
-import com.litiengine.graphics.animation.Animation;
-import com.litiengine.graphics.animation.KeyFrame;
-import com.litiengine.graphics.emitters.Emitter;
-import com.litiengine.util.geom.GeometricUtilities;
+import de.gurkenlabs.litiengine.Direction;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.abilities.AbilityExecution;
+import de.gurkenlabs.litiengine.graphics.animation.Animation;
+import de.gurkenlabs.litiengine.graphics.animation.KeyFrame;
+import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
+import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 import de.gurkenlabs.liti.constants.Animations;
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.StoneProjectile;

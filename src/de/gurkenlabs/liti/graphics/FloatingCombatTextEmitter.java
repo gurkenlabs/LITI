@@ -5,14 +5,14 @@ import java.awt.Font;
 import java.awt.geom.Point2D;
 
 import de.gurkenlabs.liti.constants.LitiFonts;
-import com.litiengine.entities.EmitterInfo;
-import com.litiengine.entities.EntityInfo;
-import com.litiengine.graphics.RenderType;
-import com.litiengine.graphics.emitters.Emitter;
-import com.litiengine.graphics.emitters.particles.Particle;
-import com.litiengine.graphics.emitters.particles.ParticleType;
-import com.litiengine.graphics.emitters.particles.TextParticle;
-import com.litiengine.graphics.emitters.xml.ParticleParameter;
+import de.gurkenlabs.litiengine.entities.EmitterInfo;
+import de.gurkenlabs.litiengine.entities.EntityInfo;
+import de.gurkenlabs.litiengine.graphics.RenderType;
+import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
+import de.gurkenlabs.litiengine.graphics.emitters.particles.Particle;
+import de.gurkenlabs.litiengine.graphics.emitters.particles.ParticleType;
+import de.gurkenlabs.litiengine.graphics.emitters.particles.TextParticle;
+import de.gurkenlabs.litiengine.graphics.emitters.xml.ParticleParameter;
 
 @EmitterInfo(maxParticles = 1, spawnAmount = 1, duration = 1200, particleType = ParticleType.TEXT)
 @EntityInfo(renderType = RenderType.OVERLAY)

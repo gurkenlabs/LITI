@@ -1,13 +1,13 @@
 package de.gurkenlabs.liti.entities;
 
-import com.litiengine.Align;
-import com.litiengine.Game;
-import com.litiengine.IUpdateable;
-import com.litiengine.Valign;
-import com.litiengine.entities.AnimationInfo;
-import com.litiengine.entities.CollisionInfo;
-import com.litiengine.entities.EntityInfo;
-import com.litiengine.entities.Prop;
+import de.gurkenlabs.litiengine.Align;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.IUpdateable;
+import de.gurkenlabs.litiengine.Valign;
+import de.gurkenlabs.litiengine.entities.AnimationInfo;
+import de.gurkenlabs.litiengine.entities.CollisionInfo;
+import de.gurkenlabs.litiengine.entities.EntityInfo;
+import de.gurkenlabs.litiengine.entities.Prop;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

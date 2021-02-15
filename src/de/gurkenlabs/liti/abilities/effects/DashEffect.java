@@ -1,13 +1,13 @@
 package de.gurkenlabs.liti.abilities.effects;
 
 import de.gurkenlabs.liti.entities.Player;
-import com.litiengine.Game;
-import com.litiengine.abilities.Ability;
-import com.litiengine.abilities.effects.Effect;
-import com.litiengine.abilities.effects.EffectApplication;
-import com.litiengine.abilities.effects.EffectTarget;
-import com.litiengine.entities.EntityMovedEvent;
-import com.litiengine.entities.ICombatEntity;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.abilities.Ability;
+import de.gurkenlabs.litiengine.abilities.effects.Effect;
+import de.gurkenlabs.litiengine.abilities.effects.EffectApplication;
+import de.gurkenlabs.litiengine.abilities.effects.EffectTarget;
+import de.gurkenlabs.litiengine.entities.EntityMovedEvent;
+import de.gurkenlabs.litiengine.entities.ICombatEntity;
 
 import java.awt.geom.Point2D;
 

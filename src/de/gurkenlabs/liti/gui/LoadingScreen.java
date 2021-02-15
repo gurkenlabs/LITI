@@ -1,13 +1,15 @@
 package de.gurkenlabs.liti.gui;
 
-import com.litiengine.Game;
-import com.litiengine.gui.screens.Screen;
-import com.litiengine.resources.Resources;
 import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.constants.Timings;
 import de.gurkenlabs.liti.entities.PlayerConfiguration;
 import de.gurkenlabs.liti.entities.Players;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.graphics.ImageRenderer;
+import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
+import de.gurkenlabs.litiengine.gui.screens.Screen;
+import de.gurkenlabs.litiengine.resources.Resources;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;

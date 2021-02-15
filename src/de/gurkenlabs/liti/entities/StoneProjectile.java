@@ -1,29 +1,29 @@
 package de.gurkenlabs.liti.entities;
 
-import com.litiengine.Game;
-import com.litiengine.IUpdateable;
-import com.litiengine.Valign;
-import com.litiengine.entities.AnimationInfo;
-import com.litiengine.entities.CollisionInfo;
-import com.litiengine.entities.EntityInfo;
-import com.litiengine.entities.ICombatEntity;
-import com.litiengine.entities.MovementInfo;
-import com.litiengine.graphics.RenderType;
-import com.litiengine.graphics.animation.Animation;
-import com.litiengine.graphics.animation.AnimationListener;
-import com.litiengine.graphics.animation.EntityAnimationController;
-import com.litiengine.graphics.animation.IEntityAnimationController;
-import com.litiengine.graphics.emitters.Emitter;
-import com.litiengine.resources.Resources;
-import com.litiengine.util.geom.GeometricUtilities;
-import de.gurkenlabs.liti.abilities.Proficiency;
-import de.gurkenlabs.liti.abilities.Trait;
-import de.gurkenlabs.liti.constants.Animations;
-
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import de.gurkenlabs.liti.abilities.Proficiency;
+import de.gurkenlabs.liti.abilities.Trait;
+import de.gurkenlabs.liti.constants.Animations;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.IUpdateable;
+import de.gurkenlabs.litiengine.Valign;
+import de.gurkenlabs.litiengine.entities.AnimationInfo;
+import de.gurkenlabs.litiengine.entities.CollisionInfo;
+import de.gurkenlabs.litiengine.entities.EntityInfo;
+import de.gurkenlabs.litiengine.entities.ICombatEntity;
+import de.gurkenlabs.litiengine.entities.MovementInfo;
+import de.gurkenlabs.litiengine.graphics.RenderType;
+import de.gurkenlabs.litiengine.graphics.animation.Animation;
+import de.gurkenlabs.litiengine.graphics.animation.AnimationListener;
+import de.gurkenlabs.litiengine.graphics.animation.EntityAnimationController;
+import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
+import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
+import de.gurkenlabs.litiengine.resources.Resources;
+import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 
 @EntityInfo(width = 21, height = 41)
 @AnimationInfo(spritePrefix = "projectile-stone")

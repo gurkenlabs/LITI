@@ -1,12 +1,12 @@
 package de.gurkenlabs.liti.entities;
 
 import de.gurkenlabs.liti.GameManager;
-import com.litiengine.Game;
-import com.litiengine.IUpdateable;
-import com.litiengine.entities.EntityListener;
-import com.litiengine.entities.ICombatEntity;
-import com.litiengine.entities.IEntity;
-import com.litiengine.environment.Environment;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.IUpdateable;
+import de.gurkenlabs.litiengine.entities.EntityListener;
+import de.gurkenlabs.litiengine.entities.ICombatEntity;
+import de.gurkenlabs.litiengine.entities.IEntity;
+import de.gurkenlabs.litiengine.environment.Environment;
 
 import java.util.function.Consumer;
 

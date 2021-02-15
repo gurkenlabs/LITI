@@ -6,12 +6,12 @@ import java.awt.image.BufferedImage;
 
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.entities.Player;
-import com.litiengine.Game;
-import com.litiengine.entities.EntityMovedEvent;
-import com.litiengine.entities.IMobileEntity.EntityMovedListener;
-import com.litiengine.graphics.Spritesheet;
-import com.litiengine.graphics.emitters.Emitter;
-import com.litiengine.resources.Resources;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.entities.EntityMovedEvent;
+import de.gurkenlabs.litiengine.entities.IMobileEntity.EntityMovedListener;
+import de.gurkenlabs.litiengine.graphics.Spritesheet;
+import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
+import de.gurkenlabs.litiengine.resources.Resources;
 
 public class WalkDustSpawner implements EntityMovedListener {
   private long lastWalkDust;

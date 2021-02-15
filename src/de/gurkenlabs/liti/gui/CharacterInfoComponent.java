@@ -4,12 +4,12 @@ import de.gurkenlabs.liti.abilities.Proficiency;
 import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.liti.constants.LitiFonts;
 import de.gurkenlabs.liti.entities.PlayerClass;
-import com.litiengine.Game;
-import com.litiengine.gui.GuiComponent;
-import com.litiengine.gui.ImageComponent;
-import com.litiengine.resources.Resources;
-import com.litiengine.tweening.TweenFunction;
-import com.litiengine.tweening.TweenType;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.gui.GuiComponent;
+import de.gurkenlabs.litiengine.gui.ImageComponent;
+import de.gurkenlabs.litiengine.resources.Resources;
+import de.gurkenlabs.litiengine.tweening.TweenFunction;
+import de.gurkenlabs.litiengine.tweening.TweenType;
 
 public class CharacterInfoComponent extends GuiComponent {
   private TraitComponent[] traits;

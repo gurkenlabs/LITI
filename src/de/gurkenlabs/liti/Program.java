@@ -6,9 +6,9 @@ import de.gurkenlabs.liti.gui.LoadingScreen;
 import de.gurkenlabs.liti.gui.LobbyScreen;
 import de.gurkenlabs.liti.gui.ScoreScreen;
 import de.gurkenlabs.liti.input.InputManager;
-import com.litiengine.Game;
-import com.litiengine.gui.GuiProperties;
-import com.litiengine.resources.Resources;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.gui.GuiProperties;
+import de.gurkenlabs.litiengine.resources.Resources;
 
 import java.util.Arrays;
 

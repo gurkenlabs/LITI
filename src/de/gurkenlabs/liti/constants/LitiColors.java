@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.litiengine.util.ColorHelper;
+import de.gurkenlabs.litiengine.util.ColorHelper;
 
 public final class LitiColors {
   public static final Color MAP_DARKGRASS = new Color(90, 123, 70);

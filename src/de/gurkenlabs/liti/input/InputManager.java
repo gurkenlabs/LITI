@@ -7,11 +7,11 @@ import java.util.function.Consumer;
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.liti.gui.Hud;
-import com.litiengine.Direction;
-import com.litiengine.Game;
-import com.litiengine.input.Gamepad;
-import com.litiengine.input.Input;
-import com.litiengine.util.geom.GeometricUtilities;
+import de.gurkenlabs.litiengine.Direction;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.input.Gamepad;
+import de.gurkenlabs.litiengine.input.Input;
+import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 
 public final class InputManager {
 

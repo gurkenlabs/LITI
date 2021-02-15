@@ -1,6 +1,6 @@
 package de.gurkenlabs.liti.constants;
 
-import com.litiengine.resources.Resources;
+import de.gurkenlabs.litiengine.resources.Resources;
 
 import java.awt.Font;
 

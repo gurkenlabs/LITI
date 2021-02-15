@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import de.gurkenlabs.liti.entities.Skin;
-import com.litiengine.Game;
-import com.litiengine.resources.Resources;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.resources.Resources;
 
 public final class Skins {
   private static final String[] skinStrings;

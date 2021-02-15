@@ -1,14 +1,14 @@
 package de.gurkenlabs.liti.graphics;
 
-import com.litiengine.Game;
-import com.litiengine.entities.EmitterInfo;
-import com.litiengine.graphics.RenderType;
-import com.litiengine.graphics.Spritesheet;
-import com.litiengine.graphics.emitters.Emitter;
-import com.litiengine.graphics.emitters.particles.Particle;
-import com.litiengine.graphics.emitters.xml.ParticleParameter;
-import com.litiengine.physics.Collision;
-import com.litiengine.resources.Resources;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.entities.EmitterInfo;
+import de.gurkenlabs.litiengine.graphics.RenderType;
+import de.gurkenlabs.litiengine.graphics.Spritesheet;
+import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
+import de.gurkenlabs.litiengine.graphics.emitters.particles.Particle;
+import de.gurkenlabs.litiengine.graphics.emitters.xml.ParticleParameter;
+import de.gurkenlabs.litiengine.physics.Collision;
+import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.liti.abilities.Proficiency;
 import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.liti.constants.Timings;

@@ -1,8 +1,8 @@
 package de.gurkenlabs.liti.graphics;
 
-import com.litiengine.Game;
-import com.litiengine.graphics.Spritesheet;
-import com.litiengine.graphics.emitters.particles.SpriteParticle;
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.graphics.Spritesheet;
+import de.gurkenlabs.litiengine.graphics.emitters.particles.SpriteParticle;
 import de.gurkenlabs.liti.constants.Timings;
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.Players;
