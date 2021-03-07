@@ -44,7 +44,7 @@ public class PlayerAnimationController extends CreatureAnimationController<Playe
 
   @Override
   public void update() {
-    if (this.getEntity().getCurrentEgg() != null) {
+    if (this.getEntity().getCurrentEgg() != null && this.getEntity().findBashAnimation() != null) {
       this.play(this.getEntity().findBashAnimation().getName());
     }
 
