@@ -1,5 +1,6 @@
 package de.gurkenlabs.liti.entities;
 
+import de.gurkenlabs.liti.events.KillEvent;
 import de.gurkenlabs.liti.gameplay.PlayerProgress;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.EntityHitEvent;
@@ -54,7 +55,7 @@ public final class PlayerCombatStatistics {
     return damage;
   }
 
-  public int getRecentKills(){
+  public int getRecentKills() {
     int kills = 0;
     for (int i = this.killTimes.size() - 1; i > 0; i--) {
       if (Game.time().since(this.killTimes.get(i)) > RECENT_KILL_PERIOD) {
@@ -92,7 +93,7 @@ public final class PlayerCombatStatistics {
     this.player.getProgress().getInterval().inCombat();
   }
 
-  public void addDamageBlocked(int damage){
+  public void addDamageBlocked(int damage) {
     this.damageBlocked += damage;
     this.player.getProgress().getInterval().inCombat();
   }
@@ -102,7 +103,9 @@ public final class PlayerCombatStatistics {
     this.killTimes.add(Game.time().now());
     this.player.getProgress().grantEP(PlayerProgress.EP_KILL);
 
-    System.out.println(this.player + ": kills: " + this.getKills() + ", deaths: " + this.getDeaths() + ", damage: " + this.getDamageDealt() + ", received: " + this.getDamageReceived() + ", blocked: " + this.getDamageBlocked());
+    System.out.println(
+        this.player + ": kills: " + this.getKills() + ", deaths: " + this.getDeaths() + ", damage: " + this.getDamageDealt() + ", received: " + this
+            .getDamageReceived() + ", blocked: " + this.getDamageBlocked());
   }
 
   private void handlePlayerHit(EntityHitEvent entityHitEvent) {
@@ -116,6 +119,7 @@ public final class PlayerCombatStatistics {
 
       if (entityHitEvent.wasKilled()) {
         executor.getCombatStatistics().trackKill();
+        new KillEvent(executor, (Player) entityHitEvent.getHitEntity());
       }
     }
   }
