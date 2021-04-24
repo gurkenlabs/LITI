@@ -5,9 +5,15 @@ import de.gurkenlabs.liti.entities.Player;
 
 import java.util.function.Consumer;
 
+/**
+ * The goal is to reach the third evolution stage as the first player.
+ * Deaths will cause the player to respawn at their base. <br>
+ * Players spawn in S0 in a locked state. After a countdown (5s) the game starts and the players are unlocked.
+ */
 public class Stage {
   public static Stage STAGE0 = new Stage(0, 0, player -> {
   }, 3);
+
   public static Stage STAGE1 = new Stage(1, 1000, Stage::stage1Reached, 5);
   public static Stage STAGE2 = new Stage(2, 2000, Stage::stage2Reached, 8);
   public static Stage STAGE3 = new Stage(3, 2000, Stage::stage3Reached, 8);

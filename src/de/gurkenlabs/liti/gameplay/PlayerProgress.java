@@ -24,6 +24,7 @@ public class PlayerProgress implements IUpdateable {
   private EvolutionInterval interval;
 
   private Stage currentStage = Stage.STAGE0;
+
   private int evolutionPoints = 0;
 
   private long lastPeriodicEP;
@@ -43,6 +44,21 @@ public class PlayerProgress implements IUpdateable {
     this.interval = new EvolutionInterval(this.player);
   }
 
+  /**
+   * Evolution Points (EP)
+   * <p>
+   * A player starts with 0 EP. Upon reaching a stage, EP will be reset to 0. Upon reaching a new stage the player is healed to 100%
+   *</p>
+   * <p>
+   * Level up by collecting Evolution Points for certain events:
+   * </p>
+   * <ul>
+   *   <li>Kill Foe</li>
+   *   <li>Hitting a player x seconds before a fall into a cliff grants a kill</li>
+   *   <li>Finish Objective</li>
+   * </ul>
+   * EP are instantly awarded and visibly increase the size of the EP bar.
+   */
   public int getEvolutionPoints() {
     return this.evolutionPoints;
   }
@@ -115,6 +131,17 @@ public class PlayerProgress implements IUpdateable {
 
   public EvolutionInterval getInterval() { return interval; }
 
+  /**
+   * <b>EP intervals</b>
+   * <p>
+   * Every 5 seconds, EP are granted for players that participated in the fight/objective.
+   * If a player was at any time during that interval close to an enemy or an objective and either moved or tagged an objective,
+   * the player will be granted 20 EP. In addition, if a player actively participated in the fight by
+   * (1) dealing damage,
+   * (2) blocking damage,
+   * (3) receiving damage he will be granted an additional 10 EP.
+   * </p>
+   */
   public static class EvolutionInterval implements IUpdateable {
     private final Player player;
     private boolean didSomething;
