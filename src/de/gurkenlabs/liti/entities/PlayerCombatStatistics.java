@@ -1,7 +1,9 @@
 package de.gurkenlabs.liti.entities;
 
+import de.gurkenlabs.liti.events.GameEvent;
 import de.gurkenlabs.liti.events.KillEvent;
 import de.gurkenlabs.liti.gameplay.PlayerProgress;
+import de.gurkenlabs.liti.gui.IngameScreen;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.EntityHitEvent;
 
@@ -119,7 +121,8 @@ public final class PlayerCombatStatistics {
 
       if (entityHitEvent.wasKilled()) {
         executor.getCombatStatistics().trackKill();
-        new KillEvent(executor, (Player) entityHitEvent.getHitEntity());
+        GameEvent event = new KillEvent(executor, (Player) entityHitEvent.getHitEntity());
+        IngameScreen.instance().getHud().getGameLog().logEvent(event);
       }
     }
   }

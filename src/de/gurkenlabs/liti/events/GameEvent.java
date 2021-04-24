@@ -11,7 +11,6 @@ public abstract class GameEvent {
   protected GameEvent() {
     this.tick = Game.time().now();
     this.messageFormat = Resources.strings().get(getClass().getSimpleName().toLowerCase());
-    IngameScreen.instance().getHud().getGameLog().logEvent(this);
   }
 
   public long getTick() {

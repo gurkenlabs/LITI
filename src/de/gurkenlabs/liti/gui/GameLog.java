@@ -49,6 +49,7 @@ public class GameLog extends ImageComponentList {
   }
 
   public void logEvent(GameEvent evt) {
+    setVisible(true);
     for (int i = 0; i < getCellComponents().size() - 1; i++) {
       ImageComponent comp = getCellComponents().get(i);
       comp.setText(getCellComponents().get(i + 1).getText());
