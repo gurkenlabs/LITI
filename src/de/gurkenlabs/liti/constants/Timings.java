@@ -14,6 +14,8 @@ public class Timings {
   public static final int DURATION_MUSHROOMFRENZY = 5000;
   public static final int DELAY_HIT_MUSHROOMPROJECTILE = 100;
 
+  public static final int EP_GAIN_INTERVAL = 5000;
+
   private Timings() {
 
   }

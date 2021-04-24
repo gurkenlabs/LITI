@@ -60,13 +60,23 @@ public abstract class LitiScreen extends Screen {
     Game.audio().playSound(LitiSounds.UI_MENU);
   }
 
-  public abstract boolean canPressDirection(int player, Direction direction);
+  public boolean canPressDirection(int player, Direction direction) {
+    return false;
+  }
 
-  public abstract boolean canPressMenu(int player);
+  public boolean canPressMenu(int player) {
+    return false;
+  }
 
-  public abstract boolean canPressInfo(int player);
+  public boolean canPressInfo(int player) {
+    return false;
+  }
 
-  public abstract boolean canPressConfirm(int player);
+  public boolean canPressConfirm(int player) {
+    return false;
+  }
 
-  public abstract boolean canPressCancel(int player);
+  public boolean canPressCancel(int player) {
+    return false;
+  }
 }

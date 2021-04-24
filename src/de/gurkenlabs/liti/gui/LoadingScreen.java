@@ -15,7 +15,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public class LoadingScreen extends Screen {
+public class LoadingScreen extends LitiScreen {
   private static final BufferedImage BACKGROUND = Resources.images().get("lobby-background.png");
 
   public LoadingScreen() {

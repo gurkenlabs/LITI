@@ -1,5 +1,6 @@
 package de.gurkenlabs.liti.entities;
 
+import de.gurkenlabs.liti.gameplay.PlayerProgress;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;

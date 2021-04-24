@@ -5,6 +5,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.Collection;
 
 import de.gurkenlabs.liti.GameManager;
+import de.gurkenlabs.liti.GameState;
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.litiengine.Game;
@@ -28,7 +29,7 @@ public class DynamicZoomCamera extends Camera {
   public void update() {
     super.update();
 
-    if(GameManager.getGameState() == GameManager.GameState.FINISHED){
+    if(GameManager.getGameState() == GameState.FINISHED){
       return;
     }
 
@@ -36,7 +37,7 @@ public class DynamicZoomCamera extends Camera {
   }
 
   private void determineFocusAndZoom() {
-    if (GameManager.getGameState() == GameManager.GameState.PREGAME){
+    if (GameManager.getGameState() == GameState.PREGAME){
       return;
     }
 

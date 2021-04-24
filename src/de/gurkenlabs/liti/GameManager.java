@@ -3,6 +3,7 @@ package de.gurkenlabs.liti;
 import de.gurkenlabs.liti.constants.Skins;
 import de.gurkenlabs.liti.constants.Timings;
 import de.gurkenlabs.liti.entities.*;
+import de.gurkenlabs.liti.gameplay.Objective;
 import de.gurkenlabs.liti.gui.DynamicZoomCamera;
 import de.gurkenlabs.liti.gui.IngameScreen;
 import de.gurkenlabs.liti.input.InputManager;
@@ -20,30 +21,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Supplier;
 
 public final class GameManager {
-  public enum GameState {
-    NONE,
-    PREGAME,
-    PAUSED,
-    INGAME,
-    FINISHED,
-  }
 
   public static boolean DBG_SKIP_TO_INGAME = false;
 
   private static final List<MapArea> baseAreas = new CopyOnWriteArrayList<>();
   private static final List<Spawnpoint> spawnPoints = new CopyOnWriteArrayList<>();
-  private static MapArea chickenArea;
-  private static Spawnpoint chickenSpawn;
-  private static Spawnpoint eggSpawn;
+
 
   private static Player winner;
 
   private static GameState state = GameState.NONE;
-
-  private static Objective currentObjective;
-  private static Objective nextObjective;
-
-  private static long nextObjectiveRequested;
 
   private GameManager() {
   }
@@ -66,7 +53,7 @@ public final class GameManager {
       }
     }
 
-    spawnNextObjective();
+    Objective.spawnNextObjective();
   }
 
   public static void init() {
@@ -89,12 +76,7 @@ public final class GameManager {
       spawnPoints.clear();
       spawnPoints.addAll(e.getSpawnpoints("playerspawn"));
 
-      chickenArea = e.getArea("area-chicken");
-      chickenSpawn = e.getSpawnpoint("spawn-chicken");
-      eggSpawn = e.getSpawnpoint("spawn-egg");
-
-      currentObjective = Objective.CHICKEN;
-      currentObjective.start();
+      Objective.plateauMapLoaded(e);
 
       Game.graphics().setBaseRenderScale(4f);
       Game.world().setCamera(new DynamicZoomCamera());
@@ -154,28 +136,16 @@ public final class GameManager {
     return base.orElse(null);
   }
 
-  public static MapArea getChickenArea() {
-    return chickenArea;
-  }
-
   public static Player getWinner() {
     return winner;
   }
 
-  public static void stage1Reached(Player player) {
-    System.out.println(player + " unlocked survival skill");
-  }
+  public static void endGame(Player winner) {
+    System.out.println(winner + " end game");
+    GameManager.winner = winner;
+    GameManager.setGameState(GameState.FINISHED);
 
-  public static void stage2Reached(Player player) {
-    System.out.println(player + " traits buffed");
-  }
-
-  public static void stage3Reached(Player player) {
-    System.out.println(player + " end game");
-    winner = player;
-    setGameState(GameState.FINISHED);
-
-    Game.world().camera().pan(player.getCenter(), (int) Game.time().toTicks(2000));
+    Game.world().camera().pan(winner.getCenter(), (int) Game.time().toTicks(2000));
     Game.loop().perform(2000, () -> {
       Game.world().camera().setZoom(DynamicZoomCamera.maxZoom, 1000);
 
@@ -193,32 +163,6 @@ public final class GameManager {
     }
   }
 
-  private static void nextObjective() {
-    nextObjectiveRequested = Game.time().now();
-
-    if (currentObjective == Objective.CHICKEN) {
-      nextObjective = Objective.EGG;
-    } else {
-      nextObjective = Objective.CHICKEN;
-    }
-
-    currentObjective = null;
-  }
-
-  private static void spawnNextObjective() {
-    if (nextObjectiveRequested == 0 || nextObjective == null || getGameState() != GameState.INGAME) {
-      return;
-    }
-
-    if (Game.time().since(nextObjectiveRequested) < Timings.COOLDOWN_OBJECTIVE) {
-      return;
-    }
-
-    currentObjective = nextObjective;
-    nextObjective = null;
-    currentObjective.start();
-  }
-
   private static void spawn(Player player) {
     Spawnpoint spawn = getSpawn(player);
     if (spawn == null) {
@@ -229,47 +173,5 @@ public final class GameManager {
     System.out.println("Spawning player " + player);
     spawn.spawn(player);
     player.setState(Player.PlayerState.LOCKED);
-  }
-
-  public static class Objective {
-    private static final Objective CHICKEN = new Objective(Objective::spawnChicken);
-    private static final Objective EGG = new Objective(Objective::spawnEgg);
-
-    private final Supplier<IObjective> init;
-
-    private IObjective spawnedEntity;
-
-    Objective(Supplier<IObjective> init) {
-      this.init = init;
-    }
-
-    public void start() {
-      this.spawnedEntity = this.init.get();
-      if (this.spawnedEntity != null) {
-        this.spawnedEntity.onFinished(GameManager::nextObjective);
-      }
-    }
-
-    private static IObjective spawnChicken() {
-      if (chickenSpawn == null) {
-        System.out.println("NO SPAWN FOR CHICKEN FOUND!");
-        return null;
-      }
-
-      Chicken chicken = new Chicken();
-      chickenSpawn.spawn(chicken);
-      return chicken;
-    }
-
-    private static IObjective spawnEgg() {
-      if (eggSpawn == null) {
-        System.out.println("NO SPAWN FOR EGG FOUND!");
-        return null;
-      }
-
-      Egg egg = new Egg("egg");
-      eggSpawn.spawn(egg);
-      return egg;
-    }
   }
 }

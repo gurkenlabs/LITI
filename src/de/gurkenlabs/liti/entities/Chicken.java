@@ -3,6 +3,7 @@ package de.gurkenlabs.liti.entities;
 import de.gurkenlabs.liti.abilities.Proficiency;
 import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.liti.entities.controllers.ChickenMovementController;
+import de.gurkenlabs.liti.gameplay.PlayerProgress;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.entities.*;

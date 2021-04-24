@@ -1,6 +1,7 @@
 package de.gurkenlabs.liti.gui;
 
 import de.gurkenlabs.liti.GameManager;
+import de.gurkenlabs.liti.GameState;
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.constants.Timings;
 import de.gurkenlabs.liti.entities.Player;
@@ -43,7 +44,7 @@ public final class Hud extends GuiComponent implements IRenderable {
   }
 
   private void renderWinner(Graphics2D g) {
-    if (GameManager.getGameState() == GameManager.GameState.FINISHED) {
+    if (GameManager.getGameState() == GameState.FINISHED) {
 
       // TODO: component for this + animation via tweening
       TextRenderer.render(g, "Player " + (GameManager.getWinner().getConfiguration().getIndex() + 1) + " won!", Game.window().getCenter());

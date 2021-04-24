@@ -9,7 +9,7 @@ import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
 import java.awt.*;
 
-public class SplashScreen extends Screen {
+public class SplashScreen extends LitiScreen {
   private EmbeddedMediaPlayer mediaPlayer;
 
   public SplashScreen() {

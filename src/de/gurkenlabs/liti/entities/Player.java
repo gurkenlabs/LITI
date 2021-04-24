@@ -12,6 +12,7 @@ import de.gurkenlabs.liti.abilities.SurvivalSkill;
 import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.entities.controllers.PlayerAnimationController;
+import de.gurkenlabs.liti.gameplay.PlayerProgress;
 import de.gurkenlabs.liti.graphics.WalkDustSpawner;
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;

@@ -1,7 +1,9 @@
 package de.gurkenlabs.liti.entities.controllers;
 
 import de.gurkenlabs.liti.GameManager;
+import de.gurkenlabs.liti.GameState;
 import de.gurkenlabs.liti.entities.Chicken;
+import de.gurkenlabs.liti.gameplay.Objective;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.MapArea;
 import de.gurkenlabs.litiengine.physics.MovementController;
@@ -41,7 +43,7 @@ public class ChickenMovementController extends MovementController<Chicken> {
       return;
     }
 
-    if(GameManager.getGameState() != GameManager.GameState.INGAME){
+    if(GameManager.getGameState() != GameState.INGAME){
       return;
     }
 
@@ -51,7 +53,7 @@ public class ChickenMovementController extends MovementController<Chicken> {
 
   protected void walkAroundLikeMotherfucker() {
 
-    final MapArea chickenArea = GameManager.getChickenArea();
+    final MapArea chickenArea = Objective.getChickenArea();
     // WALK AROUND LIKE MOTHERFUCKERS
     float pixelsPerTick = this.getEntity().getTickVelocity();
     final long currentTick = Game.loop().getTicks();

@@ -1,6 +1,11 @@
-package de.gurkenlabs.liti.entities;
+package de.gurkenlabs.liti.gameplay;
 
 import de.gurkenlabs.liti.GameManager;
+import de.gurkenlabs.liti.GameState;
+import de.gurkenlabs.liti.constants.Timings;
+import de.gurkenlabs.liti.entities.Chicken;
+import de.gurkenlabs.liti.entities.Egg;
+import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.entities.EntityListener;
@@ -8,10 +13,7 @@ import de.gurkenlabs.litiengine.entities.ICombatEntity;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.environment.Environment;
 
-import java.util.function.Consumer;
-
 public class PlayerProgress implements IUpdateable {
-  public static final int EP_GAIN_INTERVAL = 5000;
   public static final int EP_KILL = 200;
   public static final int EP_OBJECTIVE = 500;
   private static final int EP_GAIN_COMBAT_DISTANCE = 50;
@@ -55,8 +57,8 @@ public class PlayerProgress implements IUpdateable {
       return;
     }
 
-    if (this.getCurrentStage().next() != null && this.getEvolutionPoints() + points > this.getCurrentStage().next().requiredEP) {
-      int remaining = this.getEvolutionPoints() + points - this.getCurrentStage().next().requiredEP;
+    if (this.getCurrentStage().next() != null && this.getEvolutionPoints() + points > this.getCurrentStage().next().getRequiredEP()) {
+      int remaining = this.getEvolutionPoints() + points - this.getCurrentStage().next().getRequiredEP();
       this.transitionToNextStage();
       this.grantEP(remaining);
       return;
@@ -68,23 +70,23 @@ public class PlayerProgress implements IUpdateable {
   }
 
   public double getRelativeEP() {
-    return this.getCurrentStage().next() == null ? 0 : this.evolutionPoints / (double)this.getCurrentStage().next().requiredEP;
+    return this.getCurrentStage().next() == null ? 0 : this.evolutionPoints / (double)this.getCurrentStage().next().getRequiredEP();
   }
 
   private void transitionToNextStage() {
     this.currentStage = this.currentStage.next();
     this.evolutionPoints = 0;
-    this.currentStage.stageReached.accept(this.player);
-    System.out.println(this.player + " reached stage " + this.currentStage.index);
+    this.currentStage.uponStageReached().accept(this.player);
+    System.out.println(this.player + " reached stage " + this.currentStage.getIndex());
   }
 
   @Override
   public void update() {
-    if(!this.player.isLoaded() || GameManager.getGameState() != GameManager.GameState.INGAME){
+    if(!this.player.isLoaded() || GameManager.getGameState() != GameState.INGAME){
       return;
     }
 
-    if(Game.time().since(this.lastPeriodicEP) > EP_GAIN_INTERVAL){
+    if(Game.time().since(this.lastPeriodicEP) > Timings.EP_GAIN_INTERVAL){
       this.awardPeriodicEP();
     } else{
       this.getInterval().update();
@@ -112,45 +114,6 @@ public class PlayerProgress implements IUpdateable {
   }
 
   public EvolutionInterval getInterval() { return interval; }
-
-  public static class Stage {
-    public static Stage STAGE0 = new Stage(0, 0, player -> {}, 3);
-    public static Stage STAGE1 = new Stage(1, 1000, GameManager::stage1Reached, 5);
-    public static Stage STAGE2 = new Stage(2, 2000, GameManager::stage2Reached, 8);
-    public static Stage STAGE3 = new Stage(3, 2000, GameManager::stage3Reached, 8);
-
-    private final int index;
-    private final int requiredEP;
-    private final Consumer<Player> stageReached;
-    private final int respawn;
-
-    private Stage(int index, int requiredEP, Consumer<Player> stageReached, int respawn) {
-      this.index = index;
-      this.requiredEP = requiredEP;
-      this.stageReached = stageReached;
-      this.respawn = respawn;
-    }
-    public int getIndex(){
-      return this.index;
-    }
-
-    public int getRequiredEP(){
-      return this.requiredEP;
-    }
-
-    public Stage next() {
-      switch (this.index) {
-        case 0:
-          return STAGE1;
-        case 1:
-          return STAGE2;
-        case 2:
-          return STAGE3;
-        default:
-          return null;
-      }
-    }
-  }
 
   public static class EvolutionInterval implements IUpdateable {
     private final Player player;
