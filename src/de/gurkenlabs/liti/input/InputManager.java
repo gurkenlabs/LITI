@@ -23,34 +23,40 @@ public final class InputManager {
 
   public static void bindUiInput(int index, Gamepad gamepad) {
     if (gamepad != null) {
-      InputBinding.bind(value -> UIInput.cancel(index), InputConfiguration.GAMEPAD_CANCEL, gamepad);
-      InputBinding.bind(value -> UIInput.confirm(index), InputConfiguration.UI_GAMEPAD_CONFIRM, gamepad);
-      InputBinding.bind(value -> UIInput.menu(index), InputConfiguration.UI_GAMEPAD_MENU, gamepad);
-      InputBinding.bind(value -> UIInput.info(index), InputConfiguration.UI_GAMEPAD_INFO, gamepad);
-      InputBinding.bind(value -> UIInput.direction(index, Direction.UP), InputConfiguration.GAMEPAD_UP, gamepad);
-      InputBinding.bind(value -> UIInput.direction(index, Direction.DOWN), InputConfiguration.GAMEPAD_DOWN, gamepad);
-      InputBinding.bind(value -> UIInput.direction(index, Direction.LEFT), InputConfiguration.GAMEPAD_LEFT, gamepad);
-      InputBinding.bind(value -> UIInput.direction(index, Direction.RIGHT), InputConfiguration.GAMEPAD_RIGHT, gamepad);
+      for(String s : gamepad.getComponents()){
+        System.out.println(s);
+      }
+
+      InputBinding.bind(value -> UIInput.cancel(index), gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_CANCEL : InputConfiguration.Xbox.GAMEPAD_CANCEL, gamepad);
+      InputBinding.bind(value -> UIInput.confirm(index), gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.UI_GAMEPAD_CONFIRM : InputConfiguration.Xbox.UI_GAMEPAD_CONFIRM, gamepad);
+      InputBinding.bind(value -> UIInput.menu(index), gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.UI_GAMEPAD_MENU : InputConfiguration.Xbox.UI_GAMEPAD_MENU, gamepad);
+      InputBinding.bind(value -> UIInput.info(index), gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.UI_GAMEPAD_INFO : InputConfiguration.Xbox.UI_GAMEPAD_INFO, gamepad);
+      InputBinding.bind(value -> UIInput.direction(index, Direction.UP), gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_UP : InputConfiguration.Xbox.GAMEPAD_UP, gamepad);
+      InputBinding.bind(value -> UIInput.direction(index, Direction.DOWN), gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_DOWN : InputConfiguration.Xbox.GAMEPAD_DOWN, gamepad);
+      InputBinding.bind(value -> UIInput.direction(index, Direction.LEFT), gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_LEFT : InputConfiguration.Xbox.GAMEPAD_LEFT, gamepad);
+      InputBinding.bind(value -> UIInput.direction(index, Direction.RIGHT), gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_RIGHT : InputConfiguration.Xbox.GAMEPAD_RIGHT, gamepad);
+      String pov = gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_POV : InputConfiguration.Xbox.GAMEPAD_POV;
+
       InputBinding.bind(value -> {
         if (value.floatValue() == Gamepad.DPad.UP) {
           UIInput.direction(index, Direction.UP);
         }
-      }, InputConfiguration.GAMEPAD_POV, gamepad);
+      }, pov, gamepad);
       InputBinding.bind(value -> {
         if (value.floatValue() == Gamepad.DPad.DOWN) {
           UIInput.direction(index, Direction.DOWN);
         }
-      }, InputConfiguration.GAMEPAD_POV, gamepad);
+      }, pov, gamepad);
       InputBinding.bind(value -> {
         if (value.floatValue() == Gamepad.DPad.LEFT) {
           UIInput.direction(index, Direction.LEFT);
         }
-      }, InputConfiguration.GAMEPAD_POV, gamepad);
+      }, pov, gamepad);
       InputBinding.bind(value -> {
         if (value.floatValue() == Gamepad.DPad.RIGHT) {
           UIInput.direction(index, Direction.RIGHT);
         }
-      }, InputConfiguration.GAMEPAD_POV, gamepad);
+      }, pov, gamepad);
       return;
     }
 
@@ -72,72 +78,72 @@ public final class InputManager {
         if (player.getState() != Player.PlayerState.LOCKED) {
           player.movement().setDy(value);
         }
-      }, InputConfiguration.GAMEPAD_UP, gamepad);
+      }, gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_UP : InputConfiguration.Xbox.GAMEPAD_UP, gamepad);
 
       // WALK DOWN
       InputBinding.bind(value -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
           player.movement().setDy(value);
         }
-      }, InputConfiguration.GAMEPAD_DOWN, gamepad);
+      }, gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_DOWN : InputConfiguration.Xbox.GAMEPAD_DOWN, gamepad);
 
       // WALK LEFT
       InputBinding.bind(value -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
           player.movement().setDx(value);
         }
-      }, InputConfiguration.GAMEPAD_LEFT, gamepad);
+      }, gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_LEFT : InputConfiguration.Xbox.GAMEPAD_LEFT, gamepad);
 
       // WALK RIGHT
       InputBinding.bind(value -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
           player.movement().setDx(value);
         }
-      }, InputConfiguration.GAMEPAD_RIGHT, gamepad);
+      }, gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_RIGHT : InputConfiguration.Xbox.GAMEPAD_RIGHT, gamepad);
 
       // INTERACT
       InputBinding.bind(value -> {
         player.interact();
-      }, InputConfiguration.GAMEPAD_INTERACT, gamepad);
+      }, gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_INTERACT : InputConfiguration.Xbox.GAMEPAD_INTERACT, gamepad);
 
       // DASH
       InputBinding.bind(value -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
           player.perform("DASH");
         }
-      }, InputConfiguration.GAMEPAD_DASH, gamepad);
+      }, gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_DASH : InputConfiguration.Xbox.GAMEPAD_DASH, gamepad);
 
       // BASH
       InputBinding.bind(value -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
           player.perform("BASH");
         }
-      }, InputConfiguration.GAMEPAD_BASH, gamepad);
+      }, gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_BASH : InputConfiguration.Xbox.GAMEPAD_BASH, gamepad);
 
       // ULTIMATE
       InputBinding.bind(value -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
           player.perform("SURVIVALSKILL");
         }
-      }, InputConfiguration.GAMEPAD_SURVIVALSKILL, gamepad);
+      }, gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_SURVIVALSKILL : InputConfiguration.Xbox.GAMEPAD_SURVIVALSKILL, gamepad);
 
       // BLOCK START
       InputBinding.bind(value -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
           player.setBlocking(true);
         }
-      }, InputConfiguration.GAMEPAD_BLOCK_START, gamepad);
+      }, gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_BLOCK_START : InputConfiguration.Xbox.GAMEPAD_BLOCK_START, gamepad);
 
       // BLOCK STOP
       InputBinding.bind(value -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
           player.setBlocking(false);
         }
-      }, InputConfiguration.GAMEPAD_BLOCK_STOP, gamepad);
+      }, gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_BLOCK_STOP : InputConfiguration.Xbox.GAMEPAD_BLOCK_STOP, gamepad);
 
       // AIM
-      InputBinding bindingAimX = InputBinding.getBinding(InputConfiguration.GAMEPAD_AIMX);
-      InputBinding bindingAimY = InputBinding.getBinding(InputConfiguration.GAMEPAD_AIMY);
+      InputBinding bindingAimX = InputBinding.getBinding(gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_AIMX : InputConfiguration.Xbox.GAMEPAD_AIMX);
+      InputBinding bindingAimY = InputBinding.getBinding(gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_AIMY : InputConfiguration.Xbox.GAMEPAD_AIMY);
 
       Consumer<Float> aim = value -> {
         if (player.getState() != Player.PlayerState.LOCKED) {
