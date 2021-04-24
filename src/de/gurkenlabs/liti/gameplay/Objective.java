@@ -14,7 +14,20 @@ import de.gurkenlabs.litiengine.environment.Environment;
 import java.util.function.Supplier;
 
 public class Objective {
+  /**
+   * <b>Capture the chicken</b>
+   * <p>Chicken spawns and walks around.
+   * Channel a chicken for 1s to capture it and bring it to the base and gain EP.
+   * The player cannot dash, block, or hit anything.
+   * Performing these actions will drop the chicken.
+   * Fixed velocity while the chicken is carried around (not class-specific).</p>
+   */
   private static final Objective CHICKEN = new Objective(Objective::spawnChicken);
+
+  /**
+   * <b>Smash dinosaur egg</b>
+   * <p>Channel the egg for 4 seconds to destroy it and gain EP</p>
+   */
   private static final Objective EGG = new Objective(Objective::spawnEgg);
 
   private static Objective currentObjective;
