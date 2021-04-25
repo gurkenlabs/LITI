@@ -5,59 +5,65 @@ import de.gurkenlabs.liti.gui.LitiScreen;
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class UIInput {
-  private static final Map<Integer, Long> lastPlayerSpecificInputs = new ConcurrentHashMap<>();
+  private static final List<UIInputEvent> lastPlayerSpecificInputs = new CopyOnWriteArrayList<>();
 
-  //TODO: dispatching delay
   private UIInput() {
 
   }
 
   public static void cancel(int player) {
-    if (!checkInputDelay(player)) {
+    if (!checkInputDelay(player, "cancel")) {
       return;
     }
 
     getLitiScreen().dispatchCancel(player);
-    lastPlayerSpecificInputs.put(player, Game.time().now());
+    trackEvent(player, "cancel");
+  }
+
+  private static void trackEvent(int player, String action) {
+    lastPlayerSpecificInputs.removeIf(e -> e.player == player && e.action.equals(action));
+    lastPlayerSpecificInputs.add(new UIInputEvent(player, "cancel"));
   }
 
   public static void confirm(int player) {
-    if (!checkInputDelay(player)) {
+    if (!checkInputDelay(player, "confirm")) {
       return;
     }
 
     getLitiScreen().dispatchConfirm(player);
-    lastPlayerSpecificInputs.put(player, Game.time().now());
+    trackEvent(player, "confirm");
   }
 
   public static void menu(int player) {
-    if (!checkInputDelay(player)) {
+    if (!checkInputDelay(player, "menu")) {
       return;
     }
 
     getLitiScreen().dispatchMenu(player);
-    lastPlayerSpecificInputs.put(player, Game.time().now());
+    trackEvent(player, "menu");
   }
 
   public static void direction(int player, Direction direction) {
-    if (!checkInputDelay(player)) {
+    if (!checkInputDelay(player, "direction_" + direction)) {
       return;
     }
     getLitiScreen().dispatchDirection(player, direction);
-    lastPlayerSpecificInputs.put(player, Game.time().now());
+    trackEvent(player, "direction_" + direction);
   }
 
   public static void info(int player) {
-    if (!checkInputDelay(player)) {
+    if (!checkInputDelay(player, "info")) {
       return;
     }
 
     getLitiScreen().dispatchInfo(player);
-    lastPlayerSpecificInputs.put(player, Game.time().now());
+    trackEvent(player, "info");
   }
 
 
@@ -69,11 +75,29 @@ public class UIInput {
     throw new IllegalArgumentException("Screens need to inherit from LitiScreen!");
   }
 
-  private static boolean checkInputDelay(int player) {
-    if (!lastPlayerSpecificInputs.containsKey(player)) {
-      return true;
+  private static boolean checkInputDelay(int player, String action) {
+    for(UIInputEvent event : lastPlayerSpecificInputs){
+      if(event.player == player && event.action.equals(action)){
+        if(Game.time().since(event.tick) > Timings.DELAY_UI_INPUT){
+          return true;
+        } else {
+          return false;
+        }
+      }
     }
 
-    return Game.time().since(lastPlayerSpecificInputs.get(player)) > Timings.DELAY_UI_INPUT;
+    return true;
+   }
+
+  private static class UIInputEvent{
+    private int player;
+    private long tick;
+    private String action;
+
+    UIInputEvent(int player, String action){
+      this.player = player;
+      this.action = action;
+      this.tick = Game.time().now();
+    }
   }
 }
