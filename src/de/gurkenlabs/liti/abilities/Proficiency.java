@@ -8,11 +8,18 @@ import de.gurkenlabs.liti.entities.PlayerClass;
 public final class Proficiency {
   private static final Map<PlayerClass, Map<Trait, Double>> classProficiencies = new EnumMap<>(PlayerClass.class);
 
+  private static final Map<PlayerClass, Map<Trait, Double>> buffedClassProficiencies = new EnumMap<>(PlayerClass.class);
+
   static {
     classProficiencies.put(PlayerClass.GATHERER, new EnumMap<>(Trait.class));
     classProficiencies.put(PlayerClass.WARRIOR, new EnumMap<>(Trait.class));
     classProficiencies.put(PlayerClass.HUNTRESS, new EnumMap<>(Trait.class));
     classProficiencies.put(PlayerClass.SHAMAN, new EnumMap<>(Trait.class));
+
+    buffedClassProficiencies.put(PlayerClass.GATHERER, new EnumMap<>(Trait.class));
+    buffedClassProficiencies.put(PlayerClass.WARRIOR, new EnumMap<>(Trait.class));
+    buffedClassProficiencies.put(PlayerClass.HUNTRESS, new EnumMap<>(Trait.class));
+    buffedClassProficiencies.put(PlayerClass.SHAMAN, new EnumMap<>(Trait.class));
 
     set(PlayerClass.WARRIOR, Trait.DAMAGE, 20);
     set(PlayerClass.WARRIOR, Trait.STAMINA, 100);
@@ -41,6 +48,20 @@ public final class Proficiency {
     set(PlayerClass.GATHERER, Trait.RANGE, 30);
     set(PlayerClass.GATHERER, Trait.RECOVERY, .90);
     set(PlayerClass.GATHERER, Trait.MOBILITY, 80);
+
+    setBuffed(PlayerClass.GATHERER, Trait.HEALTH, 150);
+  }
+
+  public static Map<Trait, Double> getTraits(PlayerClass playerClass){
+    return classProficiencies.get(playerClass);
+  }
+
+  public static Map<Trait, Double> getBuffedTraits(PlayerClass playerClass){
+    return buffedClassProficiencies.get(playerClass);
+  }
+
+  public static void update(PlayerClass playerClass, Trait trait, double value){
+    classProficiencies.get(playerClass).put(trait, value);
   }
 
   public static double get(PlayerClass playerClass, Trait trait) {
@@ -106,5 +127,9 @@ public final class Proficiency {
 
   private static void set(PlayerClass playerClass, Trait trait, double value) {
     classProficiencies.get(playerClass).put(trait, value);
+  }
+
+  private static void setBuffed(PlayerClass playerClass, Trait trait, double value) {
+    buffedClassProficiencies.get(playerClass).put(trait, value);
   }
 }

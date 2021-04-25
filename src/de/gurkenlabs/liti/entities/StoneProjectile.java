@@ -85,7 +85,7 @@ public class StoneProjectile extends Projectile implements IUpdateable {
           for (ICombatEntity entity : Game.world().environment().findCombatEntities(
               new Ellipse2D.Double(impactCenter.getX() - impactSize / 2.0, impactCenter.getY() - impactSize / 2.0, impactSize, impactSize),
               e -> (e instanceof Player) && !e.equals(StoneProjectile.this.executor) && !StoneProjectile.this.hitEntities.contains(e))) {
-            entity.hit((int) (Proficiency.get(StoneProjectile.this.executor.getPlayerClass(), Trait.DAMAGE) * 2));
+            entity.hit(executor.traits().damage().get() * 2);
             StoneProjectile.this.hitEntities.add(entity);
           }
         });
@@ -99,7 +99,7 @@ public class StoneProjectile extends Projectile implements IUpdateable {
     this.setLocation(GeometricUtilities.project(this.getLocation(), this.getAngle(), vel));
     for (ICombatEntity entity : Game.world().environment().findCombatEntities(this.getCollisionBox(),
         e -> (e instanceof Player) && !e.equals(this.executor) && !this.hitEntities.contains(e))) {
-      entity.hit((int) (Proficiency.get(StoneProjectile.this.executor.getPlayerClass(), Trait.DAMAGE) * 2));
+      entity.hit(executor.traits().damage().get() * 2);
 
       Player player = (Player)entity;
       player.setState(Player.PlayerState.LOCKED);

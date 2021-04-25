@@ -26,7 +26,7 @@ public class SurvivalSkill extends Ability {
 
   @Override
   public boolean canCast() {
-    return !this.player.isBlocking() && this.player.getStamina().get() >= this.getRequiredStamina() && super.canCast();
+    return !this.player.isBlocking() && this.player.traits().stamina().get() >= this.getRequiredStamina() && super.canCast();
   }
 
   @Override
@@ -37,7 +37,7 @@ public class SurvivalSkill extends Ability {
     }
 
     this.player.getProgress().getInterval().didSomething();
-    this.player.getStamina().modifyBaseValue(this.modifier);
+    this.player.traits().stamina().modifyBaseValue(this.modifier);
     return execution;
   }
 

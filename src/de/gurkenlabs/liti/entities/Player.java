@@ -7,9 +7,7 @@ import java.awt.geom.Point2D;
 import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.abilities.Bash;
 import de.gurkenlabs.liti.abilities.Dash;
-import de.gurkenlabs.liti.abilities.Proficiency;
 import de.gurkenlabs.liti.abilities.SurvivalSkill;
-import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.entities.controllers.PlayerAnimationController;
 import de.gurkenlabs.liti.gameplay.PlayerProgress;
@@ -18,7 +16,6 @@ import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameLoop;
 import de.gurkenlabs.litiengine.IUpdateable;
-import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.entities.*;
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
@@ -45,14 +42,13 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private final PlayerConfiguration configuration;
   private final PlayerCombatStatistics combatStatistics;
   private final PlayerProgress playerProgress;
-
-  private final RangeAttribute<Double> stamina;
+  private final PlayerTraits playerTraits;
 
   private final Image playerCircle;
 
   private PlayerState playerState;
-  private Dash dash;
-  private Bash bash;
+  private final Dash dash;
+  private final Bash bash;
   private SurvivalSkill survivalSkill;
 
   private boolean isBlocking;
@@ -70,9 +66,13 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private Egg channelledEgg;
 
   protected Player(PlayerConfiguration config) {
-    this.stamina = new RangeAttribute<>(Proficiency.get(config.getPlayerClass(), Trait.STAMINA), 0.0, Proficiency.get(config.getPlayerClass(), Trait.STAMINA));
+
+
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
+    this.playerTraits = new PlayerTraits(this);
+    this.playerTraits.init();
+
     this.HEALTH_RECOVER_INTERVAL = (int) (1.0 / this.getHitPoints().getMax() * 10000);
     this.setTeam(this.configuration.getIndex());
 
@@ -143,7 +143,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
       this.getProgress().getInterval().inCombat();
     }
 
-    if (this.getStamina().get() == this.getStamina().getMin()) {
+    if (this.traits().stamina().get() == this.traits().stamina().getMin()) {
       this.staminaDepleted = Game.time().now();
     }
 
@@ -156,21 +156,12 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     }
   }
 
-  private boolean isInBase() {
-    MapArea base = GameManager.getBase(this);
-    return base != null && base.getBoundingBox().intersects(this.getBoundingBox());
-  }
-
   public boolean isStaminaDepleted() {
     return this.staminaDepleted != 0 && Game.time().since(this.staminaDepleted) < STAMINA_DEPLETION_DELAY;
   }
 
   public PlayerState getState() {
     return playerState;
-  }
-
-  public Dash getDash() {
-    return dash;
   }
 
   public boolean isFalling() {
@@ -228,12 +219,12 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   public PlayerProgress getProgress() { return playerProgress; }
 
-  public PlayerClass getPlayerClass() {
-    return this.getConfiguration().getPlayerClass();
+  public PlayerTraits traits() {
+    return this.playerTraits;
   }
 
-  public RangeAttribute<Double> getStamina() {
-    return stamina;
+  public PlayerClass getPlayerClass() {
+    return this.getConfiguration().getPlayerClass();
   }
 
   public boolean isBlocking() {
@@ -245,7 +236,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
       return;
     }
 
-    if (blocking && (this.getStamina().get() < 0.20 * this.getStamina().getMax() || this.isStaminaDepleted())) {
+    if (blocking && (this.traits().stamina().get() < 0.20 * this.traits().stamina().getMax() || this.isStaminaDepleted())) {
       return;
     }
 
@@ -260,7 +251,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.isBlocking = blocking;
     if (this.isBlocking) {
       this.movement().setVelocity(0);
-      this.getStamina().setBaseValue(this.getStamina().get() - this.getStamina().getMax() * 0.2);
+      this.traits().stamina().setBaseValue(this.traits().stamina().get() - this.traits().stamina().getMax() * 0.2);
     } else {
       this.lastBlock = Game.time().now();
     }
@@ -378,15 +369,6 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     return this.animations().get(((PlayerAnimationController) this.animations()).getDieAnimationName());
   }
 
-  private void initBash() {
-    // if there is any bash animation, delay the bash by the duration of the first frame
-    Animation hitAnimation = findBashAnimation();
-    if (hitAnimation != null) {
-      // first effect is the HitEffect, no need for pretty code here ^^
-      this.bash.getEffects().get(0).setDelay(hitAnimation.getKeyFrameDurations()[0]);
-    }
-  }
-
   @Action(name = "SURVIVALSKILL")
   public void useSurvivalSkill() {
     // a player must reach stage 1 in order to use the survival skill
@@ -412,10 +394,6 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     return this.survivalSkill;
   }
 
-  protected void setSurvivalSkill(SurvivalSkill survivalSkill) {
-    this.survivalSkill = survivalSkill;
-  }
-
   @Override
   public void updateAnimationController() {
     if (this.getConfiguration() == null || this.getConfiguration().getSkin() == null) {
@@ -432,18 +410,38 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     super.loaded(environment);
   }
 
+  protected Bash getBash(){
+    return this.bash;
+  }
+  protected Dash getDash() {
+    return dash;
+  }
+
+  protected void setSurvivalSkill(SurvivalSkill survivalSkill) {
+    this.survivalSkill = survivalSkill;
+  }
+
   @Override
   protected IEntityAnimationController<?> createAnimationController() {
     return new PlayerAnimationController(this);
   }
 
+  private void initBash() {
+    // if there is any bash animation, delay the bash by the duration of the first frame
+    Animation hitAnimation = findBashAnimation();
+    if (hitAnimation != null) {
+      // first effect is the HitEffect, no need for pretty code here ^^
+      this.bash.getEffects().get(0).setDelay(hitAnimation.getKeyFrameDurations()[0]);
+    }
+  }
+
   private void recoverStamina() {
-    if (this.stamina.get() < this.stamina.getMax()) {
-      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * Proficiency.get(this.getPlayerClass(), Trait.RECOVERY) * Game.loop().getTimeScale();
-      if (this.stamina.get() + recovery > this.stamina.getMax()) {
-        this.stamina.setToMax();
+    if (this.traits().stamina().get() < this.traits().stamina().getMax()) {
+      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * this.traits().recovery().get() * Game.loop().getTimeScale();
+      if (this.traits().stamina().get() + recovery > this.traits().stamina().getMax()) {
+        this.traits().stamina().setToMax();
       } else {
-        this.stamina.setBaseValue(this.stamina.get() + recovery);
+        this.traits().stamina().setBaseValue(this.traits().stamina().get() + recovery);
       }
     }
   }
@@ -465,12 +463,12 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   }
 
   private void drainStaminaWhileBlocking() {
-    if (this.stamina.get() > this.stamina.getMin()) {
-      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * (1.5 - Proficiency.get(this.getPlayerClass(), Trait.RECOVERY)) * Game.loop().getTimeScale();
-      if (this.stamina.get() - drain <= this.stamina.getMin()) {
-        this.stamina.setToMin();
+    if (this.traits().stamina().get() > this.traits().stamina().getMin()) {
+      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * (1.5 - this.traits().recovery().get()) * Game.loop().getTimeScale();
+      if (this.traits().stamina().get() - drain <= this.traits().stamina().getMin()) {
+        this.traits().stamina().setToMin();
       } else {
-        this.stamina.setBaseValue(this.stamina.get() - drain);
+        this.traits().stamina().setBaseValue(this.traits().stamina().get() - drain);
       }
     }
   }
@@ -523,11 +521,11 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   }
 
   private void handleResurrect(ICombatEntity entity) {
-    this.stamina.setToMax();
+    this.traits().stamina().setToMax();
     this.staminaDepleted = 0;
   }
 
-  public boolean doesFace(Entity entity) {
+  private boolean doesFace(Entity entity) {
     boolean facesTrigger = false;
     switch (this.getFacingDirection()) {
       case DOWN:
@@ -555,5 +553,10 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     }
 
     return facesTrigger;
+  }
+
+  private boolean isInBase() {
+    MapArea base = GameManager.getBase(this);
+    return base != null && base.getBoundingBox().intersects(this.getBoundingBox());
   }
 }

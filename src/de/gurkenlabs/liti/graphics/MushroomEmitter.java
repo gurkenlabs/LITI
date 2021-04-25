@@ -39,7 +39,7 @@ public class MushroomEmitter extends Emitter {
       return null;
     }
     CollidingSpriteParticle sp = new CollidingSpriteParticle(sprite, this.getPlayer(),
-        (int) Math.round(Proficiency.get(this.getPlayer().getPlayerClass(), Trait.DAMAGE) / 6d));
+        (int) Math.round(this.getPlayer().traits().damage().get() / 6d));
     sp.setAnimateSprite(this.data().isAnimatingSprite());
     sp.setLoopSprite(this.data().isLoopingSprite());
     sp.init(this.data());

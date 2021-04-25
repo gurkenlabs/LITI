@@ -11,8 +11,6 @@ import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
-import de.gurkenlabs.liti.abilities.Proficiency;
-import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.liti.constants.Animations;
 
 import java.awt.geom.Point2D;
@@ -60,7 +58,7 @@ public class MushroomProjectile extends Projectile implements IUpdateable {
     this.setLocation(GeometricUtilities.project(this.getLocation(), this.getAngle(), vel));
     for (ICombatEntity entity : Game.world().environment().findCombatEntities(this.getCollisionBox(),
         e -> (e instanceof Player) && !e.equals(this.executor) && !this.hitEntities.contains(e))) {
-      entity.hit((int) (Proficiency.get(MushroomProjectile.this.executor.getPlayerClass(), Trait.DAMAGE) * 2));
+      entity.hit(executor.traits().damage().get() * 2);
       this.hitEntities.add(entity);
     }
   }

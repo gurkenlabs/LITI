@@ -70,7 +70,7 @@ public class Chicken extends Creature implements IUpdateable, IObjective  {
 
   public void drop() {
     if (this.carryingPlayer != null) {
-      this.carryingPlayer.setVelocity((float) Proficiency.get(this.carryingPlayer.getPlayerClass(), Trait.MOBILITY));
+      this.carryingPlayer.setVelocity(this.carryingPlayer.traits().mobility().get());
       this.carryingPlayer.setCurrentChicken(null);
     }
 

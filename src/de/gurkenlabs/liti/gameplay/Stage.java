@@ -35,7 +35,7 @@ public class Stage {
   }
 
   public static void stage2Reached(Player player) {
-    System.out.println(player + " traits buffed");
+    player.traits().buff();
   }
 
   public static void stage3Reached(Player player) {

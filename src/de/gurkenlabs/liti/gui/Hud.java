@@ -130,7 +130,7 @@ public final class Hud extends GuiComponent implements IRenderable {
       if (!player.isStaminaDepleted()) {
         g.setColor(LitiColors.COLOR_STAMINA);
 
-        double currentStaminaWidth = player.getStamina().getRelativeCurrentValue() * staminaWidth;
+        double currentStaminaWidth = player.traits().stamina().getRelativeCurrentValue() * staminaWidth;
         double staminaX = x + (width - staminaWidth) / 2.0 + (staminaWidth - currentStaminaWidth) / 2.0;
         Rectangle2D stamina = new Rectangle2D.Double(staminaX, y + height + 1, currentStaminaWidth, staminaHeight);
 
