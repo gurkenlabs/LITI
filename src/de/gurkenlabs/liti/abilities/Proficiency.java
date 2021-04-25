@@ -28,27 +28,38 @@ public final class Proficiency {
     set(PlayerClass.WARRIOR, Trait.RECOVERY, .75);
     set(PlayerClass.WARRIOR, Trait.MOBILITY, 60);
 
-    set(PlayerClass.SHAMAN, Trait.DAMAGE, 20);
+    setBuffed(PlayerClass.WARRIOR, Trait.DAMAGE, 30);
+    setBuffed(PlayerClass.WARRIOR, Trait.STAMINA, 120);
+    setBuffed(PlayerClass.WARRIOR, Trait.HEALTH, 120);
+
+    set(PlayerClass.SHAMAN, Trait.DAMAGE, 18);
     set(PlayerClass.SHAMAN, Trait.STAMINA, 60);
     set(PlayerClass.SHAMAN, Trait.HEALTH, 70);
     set(PlayerClass.SHAMAN, Trait.RANGE, 50);
     set(PlayerClass.SHAMAN, Trait.RECOVERY, .90);
     set(PlayerClass.SHAMAN, Trait.MOBILITY, 60);
 
+    setBuffed(PlayerClass.SHAMAN, Trait.DAMAGE, 20);
+    setBuffed(PlayerClass.SHAMAN, Trait.RANGE, 60);
+
     set(PlayerClass.HUNTRESS, Trait.DAMAGE, 13);
     set(PlayerClass.HUNTRESS, Trait.STAMINA, 100);
     set(PlayerClass.HUNTRESS, Trait.HEALTH, 70);
     set(PlayerClass.HUNTRESS, Trait.RANGE, 40);
     set(PlayerClass.HUNTRESS, Trait.RECOVERY, 1.25);
-    set(PlayerClass.HUNTRESS, Trait.MOBILITY, 90);
+    set(PlayerClass.HUNTRESS, Trait.MOBILITY, 80);
 
-    set(PlayerClass.GATHERER, Trait.DAMAGE, 15);
+    setBuffed(PlayerClass.HUNTRESS, Trait.DAMAGE, 18);
+    setBuffed(PlayerClass.HUNTRESS, Trait.MOBILITY, 90);
+
+    set(PlayerClass.GATHERER, Trait.DAMAGE, 12);
     set(PlayerClass.GATHERER, Trait.STAMINA, 80);
     set(PlayerClass.GATHERER, Trait.HEALTH, 120);
     set(PlayerClass.GATHERER, Trait.RANGE, 30);
     set(PlayerClass.GATHERER, Trait.RECOVERY, .90);
-    set(PlayerClass.GATHERER, Trait.MOBILITY, 80);
+    set(PlayerClass.GATHERER, Trait.MOBILITY, 70);
 
+    setBuffed(PlayerClass.GATHERER, Trait.DAMAGE, 14);
     setBuffed(PlayerClass.GATHERER, Trait.HEALTH, 150);
   }
 
