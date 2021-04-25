@@ -16,6 +16,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @EntityInfo(width = 14, height = 11)
 @AnimationInfo(spritePrefix = "rooster")
 @MovementInfo(velocity = 10)
+@CollisionInfo(collision = false, collisionBoxWidth = 10, collisionBoxHeight = 5)
 public class Chicken extends Creature implements IUpdateable, IObjective  {
   private static final int PICKUP_DURATION = 1000;
 
