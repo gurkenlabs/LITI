@@ -504,6 +504,14 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   }
 
   private void handleDeath(ICombatEntity e) {
+    if (this.currentChicken != null) {
+      this.currentChicken.drop();
+    }
+
+    if (this.channelledEgg != null) {
+      this.channelledEgg.release();
+    }
+    
     int removeDelay = 600;
     final Animation dieAnimation = this.findDieAnimation();
     if(dieAnimation != null) {
