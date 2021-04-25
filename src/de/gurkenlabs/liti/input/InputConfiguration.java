@@ -45,12 +45,12 @@ public class InputConfiguration {
     public static final String GAMEPAD_LEFT = "GAMEPAD_AXIS-X_-_PRESSED";
     public static final String GAMEPAD_RIGHT = "GAMEPAD_AXIS-X_+_PRESSED";
     public static final String GAMEPAD_POV = "GAMEPAD_AXIS-POV_+_PRESSED";
-    public static final String GAMEPAD_BLOCK_START = "GAMEPAD_BUTTON-0_PRESSED";
-    public static final String GAMEPAD_BLOCK_STOP = "GAMEPAD_BUTTON-0_RELEASED";
+    public static final String GAMEPAD_BLOCK_START = "GAMEPAD_BUTTON-4_PRESSED";
+    public static final String GAMEPAD_BLOCK_STOP = "GAMEPAD_BUTTON-4_RELEASED";
     public static final String GAMEPAD_INTERACT = "GAMEPAD_BUTTON-1_PRESSED";
     public static final String GAMEPAD_CANCEL = "GAMEPAD_BUTTON-2_PRESSED";
     public static final String GAMEPAD_DASH = "GAMEPAD_AXIS-RX_+_PRESSED";
-    public static final String GAMEPAD_SURVIVALSKILL = "GAMEPAD_BUTTON-2_PRESSED";
+    public static final String GAMEPAD_SURVIVALSKILL = "GAMEPAD_BUTTON-5_PRESSED";
     public static final String GAMEPAD_BASH = "GAMEPAD_AXIS-RY_+_PRESSED";
     public static final String GAMEPAD_AIMX = "GAMEPAD_AXIS-Z_CHANGED";
     public static final String GAMEPAD_AIMY = "GAMEPAD_AXIS-RZ_CHANGED";
