@@ -1,24 +1,29 @@
 package de.gurkenlabs.liti.entities;
 
 import java.awt.Color;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import de.gurkenlabs.liti.constants.LitiColors;
 
 public class Skin {
-
-  private Color mainSkinColor;
-  private Color skinDetailColor;
-  private Color skinDarkShadeColor;
-  private Color skinBrightShadeColor;
-  private Color mainHairColor;
-  private Color hairDarkShadeColor;
-  private Color hairBrightShadeColor;
+  private final String colorString;
   private final Map<Color, Color> colorMappings;
+  private final Color mainSkinColor;
+  private final Color skinDetailColor;
+  private final Color skinDarkShadeColor;
+  private final Color skinBrightShadeColor;
+  private final Color mainHairColor;
+  private final Color hairDarkShadeColor;
+  private final Color hairBrightShadeColor;
 
-  public Skin(List<Color> colors) {
+
+  public Skin(String colorString) {
+    this.colorString = colorString;
+    List<Color> colors = Arrays.asList(colorString.split(",")).stream().map(Color::decode).collect(Collectors.toList());
     this.mainSkinColor = colors.get(0);
     this.skinDetailColor = colors.get(1);
     this.skinDarkShadeColor = colors.get(2);
@@ -69,4 +74,8 @@ public class Skin {
     return hairBrightShadeColor;
   }
 
+  @Override
+  public String toString() {
+    return this.colorString;
+  }
 }

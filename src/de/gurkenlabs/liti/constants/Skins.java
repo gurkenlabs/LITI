@@ -22,7 +22,7 @@ public final class Skins {
     skinStrings = Resources.strings().getList("skins.txt");
     skinInstances = new ArrayList<>();
     for (int i = 0; i < skinStrings.length; i++) {
-      skinInstances.add(new Skin(Arrays.asList(skinStrings[i].split(",")).stream().map(Color::decode).collect(Collectors.toList())));
+      skinInstances.add(new Skin(skinStrings[i]));
     }
   }
 

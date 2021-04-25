@@ -2,6 +2,8 @@ package de.gurkenlabs.liti.entities.controllers;
 
 import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.entities.Player;
+import de.gurkenlabs.litiengine.Direction;
+import de.gurkenlabs.litiengine.graphics.CreatureAnimationState;
 import de.gurkenlabs.litiengine.graphics.CreatureShadowImageEffect;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.graphics.animation.Animation;
@@ -26,10 +28,11 @@ public class PlayerAnimationController extends CreatureAnimationController<Playe
     this.getAll().forEach(an -> {
       BufferedImage replacedImg = Imaging.replaceColors(an.getSpritesheet().getImage(), this.getEntity().getConfiguration().getSkin().getSkinColorMappings());
       replacedImg = Imaging.replaceColors(replacedImg, LitiColors.getPlayerColorMappings(this.getEntity().getConfiguration().getIndex()));
-      Spritesheet replaced = new Spritesheet(replacedImg, an.getSpritesheet().getName(), an.getSpritesheet().getSpriteWidth(), an.getSpritesheet().getSpriteHeight());
+
+      Spritesheet replaced = new Spritesheet(replacedImg, appendIndexAndSkin(an.getSpritesheet().getName()), an.getSpritesheet().getSpriteWidth(), an.getSpritesheet().getSpriteHeight());
       boolean def = this.get(an.getName()).equals(this.getDefault());
 
-      Animation newAnimation = new Animation(replaced, an.isLooping(), an.getKeyFrameDurations());
+      Animation newAnimation = new Animation(an.getName(), replaced, an.isLooping(), an.getKeyFrameDurations());
       this.add(newAnimation);
 
       if (def) {
@@ -49,6 +52,15 @@ public class PlayerAnimationController extends CreatureAnimationController<Playe
     }
 
     super.update();
+  }
+
+  private String appendIndexAndSkin(String spriteName){
+    StringBuilder sb = new StringBuilder(spriteName);
+    sb.append("__");
+    sb.append(this.getEntity().getConfiguration().getIndex());
+    sb.append("__");
+    sb.append(this.getEntity().getConfiguration().getSkin());
+    return sb.toString();
   }
 
   private void addPlayerAnimations() {
