@@ -23,10 +23,6 @@ public final class InputManager {
 
   public static void bindUiInput(int index, Gamepad gamepad) {
     if (gamepad != null) {
-      for(String s : gamepad.getComponents()){
-        System.out.println(s);
-      }
-
       InputBinding.bind(value -> UIInput.cancel(index), gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.GAMEPAD_CANCEL : InputConfiguration.Xbox.GAMEPAD_CANCEL, gamepad);
       InputBinding.bind(value -> UIInput.confirm(index), gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.UI_GAMEPAD_CONFIRM : InputConfiguration.Xbox.UI_GAMEPAD_CONFIRM, gamepad);
       InputBinding.bind(value -> UIInput.menu(index), gamepad.getType().equals(Gamepad.DualShock4.GAMEPAD_TYPE) ? InputConfiguration.DualShock.UI_GAMEPAD_MENU : InputConfiguration.Xbox.UI_GAMEPAD_MENU, gamepad);
