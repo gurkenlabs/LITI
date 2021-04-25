@@ -3,8 +3,14 @@ package de.gurkenlabs.liti.events;
 import de.gurkenlabs.liti.abilities.Bash;
 import de.gurkenlabs.liti.abilities.ForceOfNature;
 import de.gurkenlabs.liti.abilities.MushroomFrenzy;
+import de.gurkenlabs.liti.constants.LitiColors;
+import de.gurkenlabs.liti.constants.LitiIcons;
 import de.gurkenlabs.liti.entities.Player;
+import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.abilities.Ability;
+import de.gurkenlabs.litiengine.gui.FontIcon;
+
+import java.awt.Color;
 
 public class KillEvent extends GameEvent {
   private final Player killer;
@@ -26,31 +32,48 @@ public class KillEvent extends GameEvent {
     return killed;
   }
 
-  @Override public String getMessage() {
-    int killerIndex = killer.getConfiguration().getIndex();
-    int killedIndex = killed.getConfiguration().getIndex();
-    String killerClass = killer.getPlayerClass().name();
-    String killedClass = killed.getPlayerClass().name();
-    return String.format(getMessageFormat(), killerIndex, killerClass, getKillAbilityIcon(), killedIndex, killedClass);
+  @Override
+  public String getMessage() {
+    int killerIndex = killer.getConfiguration().getIndex() + 1;
+    int killedIndex = killed.getConfiguration().getIndex() + 1;
+    String killerClass = killer.getPlayerClass().name().substring(0, 1) + killer.getPlayerClass().name().substring(1).toLowerCase();
+    String killedClass = killed.getPlayerClass().name().substring(0, 1) + killed.getPlayerClass().name().substring(1).toLowerCase();
+    return String.format(getMessageFormat(), killerIndex, killedIndex);
   }
 
-  private String getKillAbilityIcon() {
+  @Override
+  public FontIcon getIcon() {
     if (ability instanceof ForceOfNature) {
-      return "\ue801";
+      return LitiIcons.ABILITY_FORCEOFNATURE;
     } else if (ability instanceof MushroomFrenzy) {
-      return "\ue804";
+      return LitiIcons.ABILITY_MUSHROOMFRENZY;
     } else if (ability instanceof Bash) {
       switch (killer.getPlayerClass()) {
       case WARRIOR:
-        return "\ue800";
+        return LitiIcons.ABILITY_BASH_WARRIOR;
       case SHAMAN:
-        return "\ue806";
+        return LitiIcons.ABILITY_BASH_SHAMAN;
       case HUNTRESS:
-        return "\ue805";
+        return LitiIcons.ABILITY_BASH_HUNTRESS;
       case GATHERER:
-        return "\ue809";
+        return LitiIcons.ABILITY_BASH_GATHERER;
       }
     }
-    return "has killed";
+    return null;
+  }
+
+  @Override
+  public Color getColor() {
+    return LitiColors.getPlayerColorMappings(killer.getConfiguration().getIndex()).get(LitiColors.defaultMainOutfitColor);
+  }
+
+  @Override
+  public Align getTextAlign() {
+    return Align.CENTER;
+  }
+
+  @Override
+  public Align getIconAlign() {
+    return Align.CENTER;
   }
 }

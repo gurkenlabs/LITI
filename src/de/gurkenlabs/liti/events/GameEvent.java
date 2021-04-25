@@ -1,8 +1,12 @@
 package de.gurkenlabs.liti.events;
 
 import de.gurkenlabs.liti.gui.IngameScreen;
+import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.gui.FontIcon;
 import de.gurkenlabs.litiengine.resources.Resources;
+
+import java.awt.Color;
 
 public abstract class GameEvent {
   private long tick;
@@ -20,6 +24,18 @@ public abstract class GameEvent {
   public String getMessageFormat() {
     return messageFormat;
   }
+
+  public Align getIconAlign() {
+    return Align.LEFT;
+  }
+
+  public Align getTextAlign() {
+    return Align.CENTER;
+  }
+
+  public abstract FontIcon getIcon();
+
+  public abstract Color getColor();
 
   public abstract String getMessage();
 }
