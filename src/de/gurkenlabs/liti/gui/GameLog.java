@@ -1,6 +1,7 @@
 package de.gurkenlabs.liti.gui;
 
 import de.gurkenlabs.liti.constants.LitiColors;
+import de.gurkenlabs.liti.constants.LitiFonts;
 import de.gurkenlabs.liti.constants.Timings;
 import de.gurkenlabs.liti.events.GameEvent;
 import de.gurkenlabs.litiengine.Game;
@@ -36,6 +37,7 @@ public class GameLog extends ImageComponentList {
     super.prepare();
     for (int i = 0; i < getCellComponents().size(); i++) {
       ImageComponent comp = getCellComponents().get(i);
+      comp.setFont(LitiFonts.ABILITIES);
       comp.getAppearanceDisabled().setTransparentBackground(false);
       comp.getAppearanceDisabled().setBackgroundColor1(rowColors[i]);
       comp.getAppearanceDisabled().setForeColor(LitiColors.TEXT_BRIGHT);
