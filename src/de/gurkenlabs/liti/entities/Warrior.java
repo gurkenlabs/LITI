@@ -19,10 +19,6 @@ public class Warrior extends Player {
 
   public Warrior(PlayerConfiguration config) {
     super(config);
-    this.animations().add(new Animation(Resources.spritesheets().get(Animations.WARRIOR_FORCEOFNATURE_RIGHT), false));
-    this.animations()
-        .add(AnimationController.flipAnimation(this.animations().get(Animations.WARRIOR_FORCEOFNATURE_RIGHT), Animations.WARRIOR_FORCEOFNATURE_LEFT));
-
     this.setSurvivalSkill(new ForceOfNature(this));
   }
 }
