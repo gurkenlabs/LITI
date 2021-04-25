@@ -28,7 +28,7 @@ public class UIInput {
 
   private static void trackEvent(int player, String action) {
     lastPlayerSpecificInputs.removeIf(e -> e.player == player && e.action.equals(action));
-    lastPlayerSpecificInputs.add(new UIInputEvent(player, "cancel"));
+    lastPlayerSpecificInputs.add(new UIInputEvent(player, action));
   }
 
   public static void confirm(int player) {
