@@ -16,8 +16,7 @@ public class Program {
   /**
    * The main entry point for the Game.
    *
-   * @param args
-   *         The command line arguments.
+   * @param args The command line arguments.
    */
   public static void main(String[] args) {
     parseArguments(args);
@@ -34,6 +33,8 @@ public class Program {
     Game.info().setVersion("v1.0.0");
 
     GuiProperties.getDefaultAppearance().setForeColor(LitiColors.TEXT_DARK);
+    GuiProperties.setDefaultTextShadowColor(LitiColors.TEXT_OUTLINE);
+    GuiProperties.setDefaultTextShadowRadius(2f);
 
     // init the game infrastructure
     Game.init(args);

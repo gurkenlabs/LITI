@@ -67,7 +67,6 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   protected Player(PlayerConfiguration config) {
 
-
     this.playerState = PlayerState.NORMAL;
     this.configuration = config;
     this.playerTraits = new PlayerTraits(this);
@@ -76,7 +75,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.HEALTH_RECOVER_INTERVAL = (int) (1.0 / this.getHitPoints().getMax() * 10000);
     this.setTeam(this.configuration.getIndex());
 
-    this.playerCircle = Imaging.flashVisiblePixels(Resources.spritesheets().get("player-circle").getImage(), LitiColors.getPlayerColorMappings(this.getConfiguration().getIndex()).get(LitiColors.defaultMainOutfitColor));
+    this.playerCircle = Imaging.flashVisiblePixels(Resources.spritesheets().get("player-circle").getImage(),
+        LitiColors.getPlayerColorMappings(this.getConfiguration().getIndex()).get(LitiColors.defaultMainOutfitColor));
     this.combatStatistics = new PlayerCombatStatistics(this);
     this.playerProgress = new PlayerProgress(this);
 
@@ -99,7 +99,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
       @Override
       public void rendering(EntityRenderEvent event) {
-        if(Player.this.isDead()){
+        if (Player.this.isDead()) {
           return;
         }
 
@@ -211,13 +211,21 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     }
   }
 
-  public PlayerConfiguration getConfiguration() { return configuration; }
+  public PlayerConfiguration getConfiguration() {
+    return configuration;
+  }
+
+  public Color getColor() {
+    return LitiColors.getPlayerColorMappings(getConfiguration().getIndex()).get(LitiColors.defaultMainOutfitColor);
+  }
 
   public PlayerCombatStatistics getCombatStatistics() {
     return combatStatistics;
   }
 
-  public PlayerProgress getProgress() { return playerProgress; }
+  public PlayerProgress getProgress() {
+    return playerProgress;
+  }
 
   public PlayerTraits traits() {
     return this.playerTraits;
@@ -361,7 +369,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   public Animation findBashAnimation() {
     // hit animations are narrowed down to left and right, I think we can save some time here without loosing too much immersion could add up/down later
-    final String hitAnimationName = this.getPlayerClass().toString().toLowerCase() + "-hit-" + (this.getAngle() > Direction.UP.toAngle() % 360 ? "left" : "right");
+    final String hitAnimationName =
+        this.getPlayerClass().toString().toLowerCase() + "-hit-" + (this.getAngle() > Direction.UP.toAngle() % 360 ? "left" : "right");
     return this.animations().get(hitAnimationName);
   }
 
@@ -410,9 +419,10 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     super.loaded(environment);
   }
 
-  protected Bash getBash(){
+  protected Bash getBash() {
     return this.bash;
   }
+
   protected Dash getDash() {
     return dash;
   }
@@ -437,7 +447,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   private void recoverStamina() {
     if (this.traits().stamina().get() < this.traits().stamina().getMax()) {
-      double recovery = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * this.traits().recovery().get() * Game.loop().getTimeScale();
+      double recovery =
+          Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * this.traits().recovery().get() * Game.loop().getTimeScale();
       if (this.traits().stamina().get() + recovery > this.traits().stamina().getMax()) {
         this.traits().stamina().setToMax();
       } else {
@@ -464,7 +475,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   private void drainStaminaWhileBlocking() {
     if (this.traits().stamina().get() > this.traits().stamina().getMin()) {
-      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * (1.5 - this.traits().recovery().get()) * Game.loop().getTimeScale();
+      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * (1.5 - this.traits().recovery().get()) * Game.loop()
+          .getTimeScale();
       if (this.traits().stamina().get() - drain <= this.traits().stamina().getMin()) {
         this.traits().stamina().setToMin();
       } else {
@@ -511,10 +523,10 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     if (this.channelledEgg != null) {
       this.channelledEgg.release();
     }
-    
+
     int removeDelay = 600;
     final Animation dieAnimation = this.findDieAnimation();
-    if(dieAnimation != null) {
+    if (dieAnimation != null) {
       removeDelay = dieAnimation.getTotalDuration();
       this.animations().play(dieAnimation.getName());
     }
@@ -536,28 +548,28 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private boolean doesFace(Entity entity) {
     boolean facesTrigger = false;
     switch (this.getFacingDirection()) {
-      case DOWN:
-        if (entity.getCenter().getY() > this.getCollisionBox().getMinY()) {
-          facesTrigger = true;
-        }
-        break;
-      case UP:
-        if (entity.getCenter().getY() < this.getCollisionBox().getMaxY()) {
-          facesTrigger = true;
-        }
-        break;
-      case LEFT:
-        if (entity.getCenter().getX() < this.getCollisionBox().getMaxX()) {
-          facesTrigger = true;
-        }
-        break;
-      case RIGHT:
-        if (entity.getCenter().getX() > this.getCollisionBox().getMinX()) {
-          facesTrigger = true;
-        }
-        break;
-      default:
-        break;
+    case DOWN:
+      if (entity.getCenter().getY() > this.getCollisionBox().getMinY()) {
+        facesTrigger = true;
+      }
+      break;
+    case UP:
+      if (entity.getCenter().getY() < this.getCollisionBox().getMaxY()) {
+        facesTrigger = true;
+      }
+      break;
+    case LEFT:
+      if (entity.getCenter().getX() < this.getCollisionBox().getMaxX()) {
+        facesTrigger = true;
+      }
+      break;
+    case RIGHT:
+      if (entity.getCenter().getX() > this.getCollisionBox().getMinX()) {
+        facesTrigger = true;
+      }
+      break;
+    default:
+      break;
     }
 
     return facesTrigger;

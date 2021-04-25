@@ -29,20 +29,22 @@ public class CountdownComponent extends GuiComponent {
     this.playSounds = playSounds;
   }
 
-  @Override public void prepare() {
+  @Override
+  public void prepare() {
     super.prepare();
     this.setVisible(false);
   }
 
-  @Override protected void initializeComponents() {
+  @Override
+  protected void initializeComponents() {
     super.initializeComponents();
-    this.setTextAntialiasing(true);
     this.setFont(LitiFonts.ROUND.deriveFont((float) (this.getHeight() * 2 / 3d)));
-    this.getAppearance().setForeColor(Color.WHITE);
+    this.getAppearanceDisabled().setForeColor(Color.WHITE);
 
   }
 
-  @Override public void render(Graphics2D g) {
+  @Override
+  public void render(Graphics2D g) {
     if (!this.isActive()) {
       return;
     }
@@ -60,6 +62,7 @@ public class CountdownComponent extends GuiComponent {
     this.lastStart = Game.time().now();
     this.active = true;
     this.setVisible(true);
+    this.setEnabled(false);
 
     for (final CountdownListener listener : this.countdownListeners) {
       listener.started();

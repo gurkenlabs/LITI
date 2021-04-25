@@ -12,9 +12,16 @@ public abstract class GameEvent {
   private long tick;
   private String messageFormat;
 
-  protected GameEvent() {
+  private GameEventType type;
+
+  protected GameEvent(GameEventType type) {
     this.tick = Game.time().now();
     this.messageFormat = Resources.strings().get(getClass().getSimpleName().toLowerCase());
+    this.type = type;
+  }
+
+  public GameEventType getType() {
+    return type;
   }
 
   public long getTick() {
@@ -34,8 +41,6 @@ public abstract class GameEvent {
   }
 
   public abstract FontIcon getIcon();
-
-  public abstract Color getColor();
 
   public abstract String getMessage();
 }

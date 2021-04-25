@@ -37,7 +37,6 @@ public class TraitComponent extends GuiComponent {
     this.name.setFont(LitiFonts.ETCHED.deriveFont((float) (this.name.getHeight() * 3 / 5d)));
     this.name.setTextAlign(Align.CENTER);
     this.name.setTextValign(Valign.MIDDLE);
-    this.name.setTextAntialiasing(true);
     this.name.setSpriteSheet(Resources.spritesheets().get("frame-proficiency"));
     double padding = this.getHeight() * 1 / 10;
     this.value = new ImageComponent(this.getX() + this.getWidth() * 4 / 6d + padding, this.getY() + padding / 2d, this.getWidth() * 1 / 6d - padding,

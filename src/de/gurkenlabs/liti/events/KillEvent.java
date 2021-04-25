@@ -18,7 +18,7 @@ public class KillEvent extends GameEvent {
   private final Player killed;
 
   public KillEvent(Player killer, Ability ability, Player killed) {
-    super();
+    super(GameEventType.KILL);
     this.killer = killer;
     this.ability = ability;
     this.killed = killed;
@@ -60,11 +60,6 @@ public class KillEvent extends GameEvent {
       }
     }
     return null;
-  }
-
-  @Override
-  public Color getColor() {
-    return LitiColors.getPlayerColorMappings(killer.getConfiguration().getIndex()).get(LitiColors.defaultMainOutfitColor);
   }
 
   @Override

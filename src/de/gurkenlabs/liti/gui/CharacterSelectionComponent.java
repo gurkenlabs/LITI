@@ -92,11 +92,9 @@ public class CharacterSelectionComponent extends GuiComponent {
     this.className = new ImageComponent(this.getX(), this.getY(), this.getWidth(), textHeight);
     this.className.setTextShadow(true);
     this.className.setFont(LitiFonts.ROUND.deriveFont((float) (this.className.getHeight() * 2 / 3d)));
-    this.className.setTextShadowColor(LitiColors.TEXT_OUTLINE);
-    this.className.setTextShadowStroke(3f);
+    this.className.setTextShadowRadius(3f);
     this.className.setTextValign(Valign.MIDDLE);
     this.className.setTextAlign(Align.CENTER);
-    this.className.setTextAntialiasing(true);
 
     this.characterPortrait = new ImageComponent(this.getX(), this.getY() + this.className.getHeight(), this.getWidth(), portraitHeight);
     this.characterPortrait.setSpriteSheet(Resources.spritesheets().get("frame-portrait"));
@@ -132,9 +130,7 @@ public class CharacterSelectionComponent extends GuiComponent {
     this.readyText.getAppearance().setForeColor(LitiColors.TRAIT_GOOD);
     this.readyText.setFont(LitiFonts.ROUND.deriveFont((float) textHeight));
     this.readyText.setTextShadow(true);
-    this.readyText.setTextShadowColor(LitiColors.TEXT_OUTLINE);
-    this.readyText.setTextShadowStroke(3f);
-    this.readyText.setTextAntialiasing(true);
+    this.readyText.setTextShadowRadius(3f);
     this.readyText.setTextValign(Valign.MIDDLE);
     this.readyText.setTextAlign(Align.CENTER);
 

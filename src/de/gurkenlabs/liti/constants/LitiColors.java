@@ -30,11 +30,7 @@ public final class LitiColors {
   public static final Color COLOR_STAMINA = new Color(232, 230, 215);
   public static final Color COLOR_STAMINA_DEPLETED = new Color(135, 29, 68);
 
-  public static final Color GAMELOG_ROW1 = new Color(0, 0, 0, 30);
-  public static final Color GAMELOG_ROW2 = new Color(0, 0, 0, 60);
-  public static final Color GAMELOG_ROW3 = new Color(0, 0, 0, 90);
-  public static final Color GAMELOG_ROW4 = new Color(0, 0, 0, 120);
-  public static final Color GAMELOG_ROW5 = new Color(0, 0, 0, 150);
+  public static final Color GAMELOG_BG = new Color(0, 0, 0, 150);
 
   public static final Color defaultMainSkinColor = ColorHelper.decode("#949494");
   public static final Color defaultSkinDetailColor = ColorHelper.decode("#857171");
