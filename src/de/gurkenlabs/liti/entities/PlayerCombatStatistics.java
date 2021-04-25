@@ -121,7 +121,7 @@ public final class PlayerCombatStatistics {
 
       if (entityHitEvent.wasKilled()) {
         executor.getCombatStatistics().trackKill();
-        GameEvent event = new KillEvent(executor, (Player) entityHitEvent.getHitEntity());
+        GameEvent event = new KillEvent(executor, entityHitEvent.getAbility(), (Player) entityHitEvent.getHitEntity());
         IngameScreen.instance().getHud().getGameLog().logEvent(event);
       }
     }

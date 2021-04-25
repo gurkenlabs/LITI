@@ -100,6 +100,15 @@ public class StoneProjectile extends Projectile implements IUpdateable {
     for (ICombatEntity entity : Game.world().environment().findCombatEntities(this.getCollisionBox(),
         e -> (e instanceof Player) && !e.equals(this.executor) && !this.hitEntities.contains(e))) {
       entity.hit((int) (Proficiency.get(StoneProjectile.this.executor.getPlayerClass(), Trait.DAMAGE) * 2));
+
+      Player player = (Player)entity;
+      player.setState(Player.PlayerState.LOCKED);
+      player.movement().setVelocity(0);
+
+      Game.loop().perform(1200, () -> {
+        player.setState(Player.PlayerState.NORMAL);
+      });
+
       this.hitEntities.add(entity);
     }
   }
