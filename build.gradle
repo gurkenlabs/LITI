@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    implementation project(':litiengine')
+    implementation 'de.gurkenlabs:litiengine'
     implementation 'uk.co.caprica:vlcj:4.7.0'
 }
 
