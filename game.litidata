@@ -1213,8 +1213,8 @@
    <accelerationY maxValue="0.0" minValue="0.0"/>
    <angle maxValue="360.0" minValue="0.0"/>
    <deltaAngle maxValue="0.0" minValue="0.0"/>
-   <originAlign>center</originAlign>
-   <originValign>center</originValign>
+   <originAlign>CENTER</originAlign>
+   <originValign>MIDDLE</originValign>
    <particleHeight maxValue="0.0" minValue="0.0"/>
    <particleTTL maxValue="3000.0" minValue="3000.0"/>
    <texts>
@@ -1250,8 +1250,8 @@
    <accelerationY maxValue="2.2351741291171123E-10" minValue="-0.07000000029802322"/>
    <angle maxValue="360.0" minValue="0.0"/>
    <deltaAngle maxValue="7.450580707946131E-10" minValue="-0.10000000149011612"/>
-   <originAlign>center</originAlign>
-   <originValign>bottom</originValign>
+   <originAlign>CENTER</originAlign>
+   <originValign>DOWN</originValign>
    <particleHeight maxValue="6.0" minValue="2.0"/>
    <particleTTL maxValue="1500.0" minValue="400.0"/>
    <texts>
@@ -1284,8 +1284,8 @@
    <accelerationY maxValue="0.009999999776482582" minValue="-0.009999999776482582"/>
    <angle maxValue="360.0" minValue="0.0"/>
    <deltaAngle maxValue="1.0" minValue="-1.0"/>
-   <originAlign>center</originAlign>
-   <originValign>center</originValign>
+   <originAlign>CENTER</originAlign>
+   <originValign>MIDDLE</originValign>
    <particleHeight maxValue="6.0" minValue="6.0"/>
    <particleTTL maxValue="1000.0" minValue="800.0"/>
    <texts>
@@ -1318,8 +1318,8 @@
    <accelerationY maxValue="0.15000000596046448" minValue="-0.15000000596046448"/>
    <angle maxValue="0.0" minValue="0.0"/>
    <deltaAngle maxValue="0.0" minValue="0.0"/>
-   <originAlign>center</originAlign>
-   <originValign>center</originValign>
+   <originAlign>CENTER</originAlign>
+   <originValign>MIDDLE</originValign>
    <particleHeight maxValue="0.0" minValue="0.0"/>
    <particleTTL maxValue="700.0" minValue="700.0"/>
    <texts>
@@ -1352,8 +1352,8 @@
    <accelerationY maxValue="0.0" minValue="0.0"/>
    <angle maxValue="360.0" minValue="0.0"/>
    <deltaAngle maxValue="1.0" minValue="-1.0"/>
-   <originAlign>center</originAlign>
-   <originValign>center</originValign>
+   <originAlign>CENTER</originAlign>
+   <originValign>MIDDLE</originValign>
    <particleHeight maxValue="6.0" minValue="2.0"/>
    <particleTTL maxValue="1000.0" minValue="1000.0"/>
    <texts>
@@ -1386,8 +1386,8 @@
    <accelerationY maxValue="0.0" minValue="0.0"/>
    <angle maxValue="360.0" minValue="0.0"/>
    <deltaAngle maxValue="1.0" minValue="-1.0"/>
-   <originAlign>center</originAlign>
-   <originValign>center</originValign>
+   <originAlign>CENTER</originAlign>
+   <originValign>MIDDLE</originValign>
    <particleHeight maxValue="6.0" minValue="2.0"/>
    <particleTTL maxValue="1000.0" minValue="1000.0"/>
    <texts>

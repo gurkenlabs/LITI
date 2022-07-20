@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
     implementation 'de.gurkenlabs:litiengine'
-    implementation 'uk.co.caprica:vlcj:4.7.0'
+    implementation 'uk.co.caprica:vlcj:4.7.3'
 }
 
 sourceSets {

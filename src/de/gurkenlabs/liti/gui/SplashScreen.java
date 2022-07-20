@@ -20,7 +20,6 @@ public class SplashScreen extends LitiScreen {
   public void prepare() {
     super.prepare();
     mediaPlayer.controls().play();
-
   }
 
   @Override
