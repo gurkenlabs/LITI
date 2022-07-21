@@ -41,6 +41,8 @@ public class Program {
     InputManager.init();
 
     Resources.load("game.litidata");
+    Game.window().setIcon(Resources.images().get("fire-logox64.png"));
+
 
     // Game.screens().add(new SplashScreen());
     // Game.screens().add(new MenuScreen());
