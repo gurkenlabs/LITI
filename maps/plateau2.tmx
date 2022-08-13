@@ -4,6 +4,7 @@
   <property name="AMBIENTLIGHT" value="#14333030"/>
   <property name="GRAVITY" type="int" value="0"/>
  </properties>
+ <objectgroup color="#c01b1b" id="0" name="Emitters" visible="1"/>
  <objectgroup id="0" name="collision" visible="1">
   <object id="101" name="bound" type="COLLISIONBOX" x="59" y="71" width="21" height="27">
    <properties>
@@ -272,17 +273,6 @@
     <property name="spritesheetName" value="stone3"/>
    </properties>
   </object>
-  <object id="141" type="CREATURE" x="329" y="283.5" width="14" height="11">
-   <properties>
-    <property name="addShadow" type="bool" value="true"/>
-    <property name="collision" type="bool" value="true"/>
-    <property name="collisionboxHeight" type="float" value="4.4"/>
-    <property name="collisionboxWidth" type="float" value="5.6000000000000005"/>
-    <property name="indestructible" type="bool" value="false"/>
-    <property name="spawnDirection" value="LEFT"/>
-    <property name="spritesheetName" value="rooster"/>
-   </properties>
-  </object>
   <object id="142" name="player-1" type="AREA" x="0" y="112" width="125" height="100">
    <properties>
     <property name="tags" value="base"/>
@@ -303,6 +293,9 @@
     <property name="tags" value="base"/>
    </properties>
   </object>
+  <object id="147" name="spawn-chicken" type="SPAWNPOINT" x="326" y="273" width="4" height="4"/>
+  <object id="148" name="spawn-egg" type="SPAWNPOINT" x="319" y="123" width="4" height="4"/>
+  <object id="149" name="area-chicken" type="AREA" x="230" y="184" width="211" height="137"/>
  </objectgroup>
  <imagelayer id="2" name="background" offsetx="-7" offsety="-4">
   <image source="plateau.png" width="686" height="555"/>
@@ -346,10 +339,26 @@
 </data>
  </layer>
  <objectgroup id="4" name="spawns" visible="1">
-  <object id="1" name="player-1" type="SPAWNPOINT" x="102" y="172" width="16" height="16"/>
-  <object id="2" name="player-2" type="SPAWNPOINT" x="572" y="173" width="16" height="16"/>
-  <object id="3" name="player-3" type="SPAWNPOINT" x="105" y="401" width="16" height="16"/>
-  <object id="4" name="player-4" type="SPAWNPOINT" x="561" y="404" width="16" height="16"/>
+  <object id="1" name="player-1" type="SPAWNPOINT" x="102" y="172" width="16" height="16">
+   <properties>
+    <property name="tags" value="playerspawn"/>
+   </properties>
+  </object>
+  <object id="2" name="player-2" type="SPAWNPOINT" x="572" y="173" width="16" height="16">
+   <properties>
+    <property name="tags" value="playerspawn"/>
+   </properties>
+  </object>
+  <object id="3" name="player-3" type="SPAWNPOINT" x="105" y="401" width="16" height="16">
+   <properties>
+    <property name="tags" value="playerspawn"/>
+   </properties>
+  </object>
+  <object id="4" name="player-4" type="SPAWNPOINT" x="561" y="404" width="16" height="16">
+   <properties>
+    <property name="tags" value="playerspawn"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="0" name="props" visible="1">
   <object id="6" type="COLLISIONBOX" x="208" y="216" width="12" height="21">
@@ -912,21 +921,9 @@
     <property name="spritesheetName" value="tent"/>
    </properties>
   </object>
-  <object id="146" type="PROP" x="319" y="123" width="31" height="29">
-   <properties>
-    <property name="addShadow" type="bool" value="false"/>
-    <property name="collision" type="bool" value="true"/>
-    <property name="collisionAlign" value="CENTER"/>
-    <property name="collisionValign" value="MIDDLE"/>
-    <property name="collisionboxHeight" value="14.0"/>
-    <property name="collisionboxWidth" value="18.0"/>
-    <property name="indestructible" type="bool" value="false"/>
-    <property name="spritesheetName" value="egg"/>
-   </properties>
-  </object>
  </objectgroup>
  <objectgroup id="0" name="lights" visible="1">
-  <object id="96" type="LIGHTSOURCE" x="205" y="159" width="240" height="240">
+  <object id="96" type="LIGHTSOURCE" x="215" y="144" width="240" height="240">
    <properties>
     <property name="collisionAlign" value="CENTER"/>
     <property name="collisionType" value="DYNAMIC"/>
