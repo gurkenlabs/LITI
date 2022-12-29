@@ -46,7 +46,7 @@ public class KillEventFloater extends GameEventFloater {
 
   @Override
   protected void beginTween() {
-    Game.tweens().begin(this, TweenType.POSITION_Y, Timings.DELAY_UI_LOGEVENT).targetRelative((float) (-getHeight() * 6))
+    Game.tweens().begin(this, TweenType.LOCATION_Y, Timings.DELAY_UI_LOGEVENT).targetRelative((float) (-getHeight() * 6))
         .ease(TweenFunction.CIRCLE_IN);
     Game.tweens().begin(p1, TweenType.OPACITY, Timings.DELAY_UI_LOGEVENT).target(0, 0, 0, 0, 0);
     Game.tweens().begin(p2, TweenType.OPACITY, Timings.DELAY_UI_LOGEVENT).target(0, 0, 0, 0, 0);

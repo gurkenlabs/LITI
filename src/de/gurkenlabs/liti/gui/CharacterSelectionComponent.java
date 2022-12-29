@@ -169,33 +169,33 @@ public class CharacterSelectionComponent extends GuiComponent {
 
   public void nextSkin() {
     setSkin(Skins.getAll().get((Skins.getAll().indexOf(this.getCurrentSkin()) + 1) % Skins.getAll().size()));
-    Game.tweens().begin(this.arrowDown, TweenType.POSITION_Y, 150).targetRelative(+10).ease(TweenFunction.BACK_OUT);
+    Game.tweens().begin(this.arrowDown, TweenType.LOCATION_Y, 150).targetRelative(+10).ease(TweenFunction.BACK_OUT);
     Game.loop().perform(150, () -> {
-      Game.tweens().begin(this.arrowDown, TweenType.POSITION_Y, 150).targetRelative(0);
+      Game.tweens().begin(this.arrowDown, TweenType.LOCATION_Y, 150).targetRelative(0);
     });
   }
 
   public void previousSkin() {
     setSkin(Skins.getAll().get(Math.floorMod(Skins.getAll().indexOf(this.getCurrentSkin()) - 1, Skins.getAll().size())));
-    Game.tweens().begin(this.arrowUp, TweenType.POSITION_Y, 150).targetRelative(-10).ease(TweenFunction.BACK_OUT);
+    Game.tweens().begin(this.arrowUp, TweenType.LOCATION_Y, 150).targetRelative(-10).ease(TweenFunction.BACK_OUT);
     Game.loop().perform(150, () -> {
-      Game.tweens().begin(this.arrowUp, TweenType.POSITION_Y, 150).targetRelative(0);
+      Game.tweens().begin(this.arrowUp, TweenType.LOCATION_Y, 150).targetRelative(0);
     });
   }
 
   public void nextClass() {
     setClass(PlayerClass.values()[(currentClass.ordinal() + 1) % PlayerClass.values().length]);
-    Game.tweens().begin(this.arrowRight, TweenType.POSITION_X, 150).targetRelative(+10).ease(TweenFunction.BACK_OUT);
+    Game.tweens().begin(this.arrowRight, TweenType.LOCATION_X, 150).targetRelative(+10).ease(TweenFunction.BACK_OUT);
     Game.loop().perform(150, () -> {
-      Game.tweens().begin(this.arrowRight, TweenType.POSITION_X, 150).targetRelative(0);
+      Game.tweens().begin(this.arrowRight, TweenType.LOCATION_X, 150).targetRelative(0);
     });
   }
 
   public void previousClass() {
     setClass(PlayerClass.values()[Math.floorMod(currentClass.ordinal() - 1, PlayerClass.values().length)]);
-    Game.tweens().begin(this.arrowLeft, TweenType.POSITION_X, 150).targetRelative(-10).ease(TweenFunction.BACK_OUT);
+    Game.tweens().begin(this.arrowLeft, TweenType.LOCATION_X, 150).targetRelative(-10).ease(TweenFunction.BACK_OUT);
     Game.loop().perform(150, () -> {
-      Game.tweens().begin(this.arrowLeft, TweenType.POSITION_X, 150).targetRelative(0);
+      Game.tweens().begin(this.arrowLeft, TweenType.LOCATION_X, 150).targetRelative(0);
     });
   }
 
@@ -242,9 +242,9 @@ public class CharacterSelectionComponent extends GuiComponent {
   public void info() {
     this.showInfoPrompt(!this.infoFrame.isVisible());
     this.info.setVisible(!this.info.isVisible());
-    Game.tweens().begin(this.info, TweenType.POSITION_Y, 100).targetRelative(+10).ease(TweenFunction.BACK_OUT);
+    Game.tweens().begin(this.info, TweenType.LOCATION_Y, 100).targetRelative(+10).ease(TweenFunction.BACK_OUT);
     Game.loop().perform(100, () -> {
-      Game.tweens().begin(this.info, TweenType.POSITION_Y, 100).targetRelative(0);
+      Game.tweens().begin(this.info, TweenType.LOCATION_Y, 100).targetRelative(0);
     });
   }
 

@@ -499,13 +499,13 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
           this.setScaling(true);
           Game.tweens().begin(this, TweenType.SIZE_BOTH, 2000).targetRelative(-10, -10);
           if (entity.getCollisionBoxCenter().getY() > this.getCollisionBoxCenter().getY()) {
-            Game.tweens().begin(this, TweenType.POSITION_Y, 1500).targetRelative(+20);
+            Game.tweens().begin(this, TweenType.LOCATION_Y, 1500).targetRelative(+20);
           } else {
-            Game.tweens().begin(this, TweenType.POSITION_Y, 1500).targetRelative(-10).ease(TweenFunction.BACK_OUT);
+            Game.tweens().begin(this, TweenType.LOCATION_Y, 1500).targetRelative(-10).ease(TweenFunction.BACK_OUT);
           }
           Game.loop().perform(1500, () -> {
             this.die();
-            Game.tweens().remove(this, TweenType.POSITION_Y);
+            Game.tweens().remove(this, TweenType.LOCATION_Y);
             System.out.println("you fell off a cliff...");
           });
 

@@ -36,7 +36,7 @@ public abstract class GameEventFloater extends GuiComponent {
   }
 
   protected void beginTween() {
-    Game.tweens().begin(this, TweenType.POSITION_Y, Timings.DELAY_UI_LOGEVENT).targetRelative((float) (-getHeight() * 6))
+    Game.tweens().begin(this, TweenType.LOCATION_Y, Timings.DELAY_UI_LOGEVENT).targetRelative((float) (-getHeight() * 6))
         .ease(TweenFunction.CIRCLE_IN);
     Game.tweens().begin(this, TweenType.OPACITY, Timings.DELAY_UI_LOGEVENT).target(0, 0, 0, 0, 0);
   }
