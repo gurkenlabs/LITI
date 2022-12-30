@@ -2,23 +2,24 @@ package de.gurkenlabs.liti;
 
 import de.gurkenlabs.liti.constants.Skins;
 import de.gurkenlabs.liti.constants.Timings;
-import de.gurkenlabs.liti.entities.*;
+import de.gurkenlabs.liti.entities.Chicken;
+import de.gurkenlabs.liti.entities.Egg;
+import de.gurkenlabs.liti.entities.Player;
+import de.gurkenlabs.liti.entities.PlayerClass;
+import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.liti.gameplay.Objective;
 import de.gurkenlabs.liti.gui.DynamicZoomCamera;
 import de.gurkenlabs.liti.gui.IngameScreen;
-import de.gurkenlabs.liti.input.InputManager;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.MapArea;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.environment.CreatureMapObjectLoader;
 import de.gurkenlabs.litiengine.environment.PropMapObjectLoader;
 import de.gurkenlabs.litiengine.input.Input;
-
 import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.function.Supplier;
 
 public final class GameManager {
 
@@ -58,8 +59,6 @@ public final class GameManager {
 
   public static void init() {
 
-    Timings.COUNTDOWN_PREGAME = GameManager.DBG_SKIP_TO_INGAME ? Timings.COUNTDOWN_PREGAME_DEBUG : Timings.COUNTDOWN_PREGAME;
-
     CreatureMapObjectLoader.registerCustomCreatureType(Chicken.class);
     PropMapObjectLoader.registerCustomPropType(Egg.class);
 
@@ -92,7 +91,7 @@ public final class GameManager {
         });
       }
 
-      Players.getAll().forEach(p -> spawn(p));
+      Players.getAll().forEach(GameManager::spawn);
 
       state = GameState.PREGAME;
       IngameScreen.instance().getHud().getPregameCountdown().start();

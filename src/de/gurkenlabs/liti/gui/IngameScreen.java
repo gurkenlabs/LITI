@@ -7,19 +7,16 @@ import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.EntityYComparator;
 import de.gurkenlabs.litiengine.entities.ICollisionEntity;
-import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.entities.Prop;
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.RenderType;
-import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
-import de.gurkenlabs.litiengine.util.Imaging;
-
-import java.awt.*;
+import java.awt.AlphaComposite;
+import java.awt.Composite;
+import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -33,15 +30,15 @@ public class IngameScreen extends LitiScreen {
     super("INGAME");
   }
 
-  public static IngameScreen instance(){
-    if(instance == null){
+  public static IngameScreen instance() {
+    if (instance == null) {
       instance = new IngameScreen();
     }
 
     return instance;
   }
 
-  public Hud getHud(){
+  public Hud getHud() {
     return this.hud;
   }
 
@@ -92,27 +89,27 @@ public class IngameScreen extends LitiScreen {
     ArrayList<ICollisionEntity> entities = new ArrayList<>();
 
     boolean chickenAdded = false;
-    for(Player player : Players.getAll()){
-      if(!Game.graphics().canRender(player) || !player.isLoaded()){
+    for (Player player : Players.getAll()) {
+      if (!Game.graphics().canRender(player) || !player.isLoaded()) {
         continue;
       }
       entities.add(player);
-      if(player.getCurrentChicken() != null){
+      if (player.getCurrentChicken() != null) {
         entities.add(player.getCurrentChicken());
         chickenAdded = true;
       }
     }
 
-    if(!chickenAdded) {
+    if (!chickenAdded) {
       entities.addAll(Game.world().environment().getEntities(Chicken.class));
     }
 
-    for(ICollisionEntity entity : entities){
-      for(Prop prop : Game.world().environment().getProps()){
-        if(prop.getBoundingBox().intersects(entity.getBoundingBox())
-                && (prop.getCenter().distance(entity.getCenter()) < 10
-                || prop.getBoundingBox().contains(entity.getCollisionBox())
-                && this.entityComparator.compare(prop, entity) > 0)){
+    for (ICollisionEntity entity : entities) {
+      for (Prop prop : Game.world().environment().getProps()) {
+        if (prop.getBoundingBox().intersects(entity.getBoundingBox())
+            && (prop.getCenter().distance(entity.getCenter()) < 10
+            || prop.getBoundingBox().contains(entity.getCollisionBox())
+            && this.entityComparator.compare(prop, entity) > 0)) {
           final IEntityAnimationController<?> animationController = entity.animations();
           final BufferedImage img = animationController.getCurrentImage();
           if (img != null) {

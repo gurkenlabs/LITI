@@ -1,14 +1,11 @@
 package de.gurkenlabs.liti.entities;
 
-import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
-
 import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.abilities.Bash;
 import de.gurkenlabs.liti.abilities.Dash;
 import de.gurkenlabs.liti.abilities.SurvivalSkill;
 import de.gurkenlabs.liti.constants.LitiColors;
+import de.gurkenlabs.liti.constants.Timings;
 import de.gurkenlabs.liti.entities.controllers.PlayerAnimationController;
 import de.gurkenlabs.liti.gameplay.PlayerProgress;
 import de.gurkenlabs.liti.graphics.WalkDustSpawner;
@@ -16,8 +13,15 @@ import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameLoop;
 import de.gurkenlabs.litiengine.IUpdateable;
-import de.gurkenlabs.litiengine.entities.*;
-import de.gurkenlabs.litiengine.environment.Environment;
+import de.gurkenlabs.litiengine.entities.Action;
+import de.gurkenlabs.litiengine.entities.Creature;
+import de.gurkenlabs.litiengine.entities.Entity;
+import de.gurkenlabs.litiengine.entities.EntityRenderEvent;
+import de.gurkenlabs.litiengine.entities.EntityRenderListener;
+import de.gurkenlabs.litiengine.entities.ICollisionEntity;
+import de.gurkenlabs.litiengine.entities.ICombatEntity;
+import de.gurkenlabs.litiengine.entities.MapArea;
+import de.gurkenlabs.litiengine.entities.Prop;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.animation.Animation;
@@ -27,6 +31,13 @@ import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 import de.gurkenlabs.litiengine.util.Imaging;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+import java.util.Objects;
 
 public abstract class Player extends Creature implements IUpdateable, IRenderable {
 
@@ -34,9 +45,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     LOCKED, NORMAL
   }
 
-  private static final int INTERACT_COOLDOWN = 1000;
-  private static final int STAMINA_DEPLETION_DELAY = 3000;
-  private static final int BLOCK_COOLDOWN = 500;
+
   private final int HEALTH_RECOVER_INTERVAL;
 
   private final PlayerConfiguration configuration;
@@ -75,15 +84,17 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.HEALTH_RECOVER_INTERVAL = (int) (1.0 / this.getHitPoints().getMax() * 10000);
     this.setTeam(this.configuration.getIndex());
 
-    this.playerCircle = Imaging.flashVisiblePixels(Resources.spritesheets().get("player-circle").getImage(),
-        LitiColors.getPlayerColorMappings(this.getConfiguration().getIndex()).get(LitiColors.defaultMainOutfitColor));
+    this.playerCircle = Imaging.flashVisiblePixels(
+        Resources.spritesheets().get("player-circle").getImage(),
+        LitiColors.getPlayerColorMappings(this.getConfiguration().getIndex())
+            .get(LitiColors.defaultMainOutfitColor));
     this.combatStatistics = new PlayerCombatStatistics(this);
     this.playerProgress = new PlayerProgress(this);
 
     this.dash = new Dash(this);
     this.bash = new Bash(this);
     this.setTurnOnMove(false);
-    this.setScaling(false);
+    this.setScaling(true);
     this.updateAnimationController();
 
     this.movement().onMovementCheck(e -> !this.isBlocking());
@@ -99,14 +110,16 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
       @Override
       public void rendering(EntityRenderEvent event) {
-        if (Player.this.isDead()) {
+        if (isDead() || isFalling()) {
           return;
         }
 
-        final Point2D location = Game.world().camera().getViewportLocation(Player.this.getCollisionBoxCenter());
+        final Point2D location = Game.world().camera()
+            .getViewportLocation(Player.this.getCollisionBoxCenter());
         final AffineTransform t = new AffineTransform();
 
-        t.translate(location.getX() - 8, location.getY() - (Player.this.getPlayerClass() == PlayerClass.WARRIOR ? 3.5 : 2.5));
+        t.translate(location.getX() - 8,
+            location.getY() - (Player.this.getPlayerClass() == PlayerClass.WARRIOR ? 3.5 : 2.5));
         t.scale(.35, .35);
 
         t.rotate(Math.toRadians(360 - Player.this.getAngle()), 19.5, 17.5);
@@ -123,7 +136,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   @Override
   public boolean canCollideWith(final ICollisionEntity otherEntity) {
-    return !((otherEntity instanceof Chicken));
+    return !(otherEntity instanceof Chicken);
   }
 
   @Override
@@ -143,7 +156,7 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
       this.getProgress().getInterval().inCombat();
     }
 
-    if (this.traits().stamina().get() == this.traits().stamina().getMin()) {
+    if (Objects.equals(this.traits().stamina().get(), this.traits().stamina().getMin())) {
       this.staminaDepleted = Game.time().now();
     }
 
@@ -157,7 +170,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   }
 
   public boolean isStaminaDepleted() {
-    return this.staminaDepleted != 0 && Game.time().since(this.staminaDepleted) < STAMINA_DEPLETION_DELAY;
+    return this.staminaDepleted != 0
+        && Game.time().since(this.staminaDepleted) < Timings.STAMINA_DEPLETION_DELAY;
   }
 
   public PlayerState getState() {
@@ -216,7 +230,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   }
 
   public Color getColor() {
-    return LitiColors.getPlayerColorMappings(getConfiguration().getIndex()).get(LitiColors.defaultMainOutfitColor);
+    return LitiColors.getPlayerColorMappings(getConfiguration().getIndex())
+        .get(LitiColors.defaultMainOutfitColor);
   }
 
   public PlayerCombatStatistics getCombatStatistics() {
@@ -244,11 +259,13 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
       return;
     }
 
-    if (blocking && (this.traits().stamina().get() < 0.20 * this.traits().stamina().getMax() || this.isStaminaDepleted())) {
+    if (blocking && (this.traits().stamina().get() < 0.20 * this.traits().stamina().getMax()
+        || this.isStaminaDepleted())) {
       return;
     }
 
-    if (!this.isBlocking && (this.lastBlock != 0 && Game.time().since(this.lastBlock) < BLOCK_COOLDOWN)) {
+    if (!this.isBlocking && (this.lastBlock != 0
+        && Game.time().since(this.lastBlock) < Timings.BLOCK_COOLDOWN)) {
       return;
     }
 
@@ -259,14 +276,15 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     this.isBlocking = blocking;
     if (this.isBlocking) {
       this.movement().setVelocity(0);
-      this.traits().stamina().setBaseValue(this.traits().stamina().get() - this.traits().stamina().getMax() * 0.2);
+      this.traits().stamina()
+          .setBaseValue(this.traits().stamina().get() - this.traits().stamina().getMax() * 0.2);
     } else {
       this.lastBlock = Game.time().now();
     }
   }
 
   public void interact() {
-    if (Game.time().since(this.lastInteract) < INTERACT_COOLDOWN) {
+    if (Game.time().since(this.lastInteract) < Timings.INTERACT_COOLDOWN) {
       return;
     }
 
@@ -277,8 +295,10 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     }
 
     if (this.currentChicken != null) {
-      Prop base = Game.world().environment().getProp("player-" + (this.getConfiguration().getIndex() + 1));
-      if (base != null && base.getCollisionBoxCenter().distance(this.getCollisionBoxCenter()) < 20) {
+      Prop base = Game.world().environment()
+          .getProp("player-" + (this.getConfiguration().getIndex() + 1));
+      if (base != null
+          && base.getCollisionBoxCenter().distance(this.getCollisionBoxCenter()) < 20) {
         this.currentChicken.capture();
       } else {
         this.currentChicken.drop();
@@ -370,12 +390,14 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   public Animation findBashAnimation() {
     // hit animations are narrowed down to left and right, I think we can save some time here without loosing too much immersion could add up/down later
     final String hitAnimationName =
-        this.getPlayerClass().toString().toLowerCase() + "-hit-" + (this.getAngle() > Direction.UP.toAngle() % 360 ? "left" : "right");
+        this.getPlayerClass().toString().toLowerCase() + "-hit-" + (
+            this.getAngle() > Direction.UP.toAngle() % 360 ? "left" : "right");
     return this.animations().get(hitAnimationName);
   }
 
   public Animation findDieAnimation() {
-    return this.animations().get(((PlayerAnimationController) this.animations()).getDieAnimationName());
+    return this.animations()
+        .get(((PlayerAnimationController) this.animations()).getDieAnimationName());
   }
 
   @Action(name = "SURVIVALSKILL")
@@ -412,12 +434,6 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
     super.updateAnimationController();
   }
 
-  @Override
-  public void loaded(Environment environment) {
-    final EntityInfo info = this.getClass().getAnnotation(EntityInfo.class);
-    this.setSize(info.width(), info.height());
-    super.loaded(environment);
-  }
 
   protected Bash getBash() {
     return this.bash;
@@ -448,7 +464,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private void recoverStamina() {
     if (this.traits().stamina().get() < this.traits().stamina().getMax()) {
       double recovery =
-          Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * this.traits().recovery().get() * Game.loop().getTimeScale();
+          Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * this.traits()
+              .recovery().get() * Game.loop().getTimeScale();
       if (this.traits().stamina().get() + recovery > this.traits().stamina().getMax()) {
         this.traits().stamina().setToMax();
       } else {
@@ -458,7 +475,8 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   }
 
   private void recoverHealth() {
-    if (this.isDead() || !this.isLoaded() || Game.time().since(this.lastHealthRecovery) < HEALTH_RECOVER_INTERVAL) {
+    if (this.isDead() || !this.isLoaded()
+        || Game.time().since(this.lastHealthRecovery) < HEALTH_RECOVER_INTERVAL) {
       return;
     }
 
@@ -475,8 +493,10 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
 
   private void drainStaminaWhileBlocking() {
     if (this.traits().stamina().get() > this.traits().stamina().getMin()) {
-      double drain = Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * (1.5 - this.traits().recovery().get()) * Game.loop()
-          .getTimeScale();
+      double drain =
+          Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.02F * (1.5
+              - this.traits().recovery().get()) * Game.loop()
+              .getTimeScale();
       if (this.traits().stamina().get() - drain <= this.traits().stamina().getMin()) {
         this.traits().stamina().setToMin();
       } else {
@@ -486,34 +506,44 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   }
 
   private void handleCliffs(CollisionEvent e) {
-    if (this.isFalling) {
+    if (isFalling()) {
       return;
     }
 
-    for (ICollisionEntity entity : e.getInvolvedEntities()) {
-      for (String tag : entity.getTags()) {
-        if (tag != null && tag.equals("bounds")) {
-          this.setState(PlayerState.LOCKED);
-          System.out.println("bye bye!");
-          this.setFalling(true);
-          this.setScaling(true);
-          Game.tweens().begin(this, TweenType.SIZE_BOTH, 2000).targetRelative(-10, -10);
-          if (entity.getCollisionBoxCenter().getY() > this.getCollisionBoxCenter().getY()) {
-            Game.tweens().begin(this, TweenType.LOCATION_Y, 1500).targetRelative(+20);
-          } else {
-            Game.tweens().begin(this, TweenType.LOCATION_Y, 1500).targetRelative(-10).ease(TweenFunction.BACK_OUT);
-          }
-          Game.loop().perform(1500, () -> {
-            this.die();
-            Game.tweens().remove(this, TweenType.LOCATION_Y);
-            System.out.println("you fell off a cliff...");
-          });
+    e.getInvolvedEntities().stream().filter(c -> c.getTags().contains("bounds")).findAny().ifPresent(b -> {
+      this.setState(PlayerState.LOCKED);
+      System.out.println("bye bye!");
+      setFalling(true);
+      Game.tweens().begin(this, TweenType.SIZE_BOTH, Timings.CLIFF_FALL_DURATION).target(0, 0).ease(TweenFunction.LINEAR);
 
-          break;
-        }
+      float xMod = 0;
+      float yMod = 0;
+      // TODO find correct conditions to determine if the collision box is above, below, left or right
+      if (b.getCollisionBoxCenter().getY() < this.getCollisionBoxCenter().getY()) {
+        xMod = (float) (getWidth() / 2f);
+        yMod = (float) -getHeight();
+      } else if (b.getCollisionBoxCenter().getY() > this.getCollisionBoxCenter().getY()) {
+        xMod = (float) (getWidth() / 2f);
+        yMod = (float) getHeight() * 2;
+      } else if (b.getCollisionBoxCenter().getX() < this.getCollisionBoxCenter().getX()) {
+        xMod = (float) -getWidth();
+        yMod = 0;
+      } else if (b.getCollisionBoxCenter().getX() > this.getCollisionBoxCenter().getX()) {
+        xMod = (float) getWidth();
+        yMod = 0;
       }
-    }
+      Game.tweens().begin(this, TweenType.LOCATION_X, Timings.CLIFF_FALL_DURATION).targetRelative(xMod).ease(TweenFunction.LINEAR);
+      Game.tweens().begin(this, TweenType.LOCATION_Y, Timings.CLIFF_FALL_DURATION).targetRelative(yMod).ease(TweenFunction.LINEAR);
+      Game.loop().perform(Timings.CLIFF_FALL_DURATION, () -> {
+        this.die();
+        Game.tweens().reset(this, TweenType.SIZE_BOTH);
+        Game.tweens().remove(this, TweenType.LOCATION_X);
+        Game.tweens().remove(this, TweenType.LOCATION_Y);
+        System.out.println("you fell off a cliff...");
+      });
+    });
   }
+
 
   private void handleDeath(ICombatEntity e) {
     if (this.currentChicken != null) {
@@ -536,7 +566,6 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
       GameManager.playerDied(this);
       this.lastDeath = Game.time().now();
       this.setFalling(false);
-      this.setScaling(false);
     });
   }
 
@@ -548,28 +577,28 @@ public abstract class Player extends Creature implements IUpdateable, IRenderabl
   private boolean doesFace(Entity entity) {
     boolean facesTrigger = false;
     switch (this.getFacingDirection()) {
-    case DOWN:
-      if (entity.getCenter().getY() > this.getCollisionBox().getMinY()) {
-        facesTrigger = true;
+      case DOWN -> {
+        if (entity.getCenter().getY() > this.getCollisionBox().getMinY()) {
+          facesTrigger = true;
+        }
       }
-      break;
-    case UP:
-      if (entity.getCenter().getY() < this.getCollisionBox().getMaxY()) {
-        facesTrigger = true;
+      case UP -> {
+        if (entity.getCenter().getY() < this.getCollisionBox().getMaxY()) {
+          facesTrigger = true;
+        }
       }
-      break;
-    case LEFT:
-      if (entity.getCenter().getX() < this.getCollisionBox().getMaxX()) {
-        facesTrigger = true;
+      case LEFT -> {
+        if (entity.getCenter().getX() < this.getCollisionBox().getMaxX()) {
+          facesTrigger = true;
+        }
       }
-      break;
-    case RIGHT:
-      if (entity.getCenter().getX() > this.getCollisionBox().getMinX()) {
-        facesTrigger = true;
+      case RIGHT -> {
+        if (entity.getCenter().getX() > this.getCollisionBox().getMinX()) {
+          facesTrigger = true;
+        }
       }
-      break;
-    default:
-      break;
+      default -> {
+      }
     }
 
     return facesTrigger;
