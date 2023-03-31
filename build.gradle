@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 version 'v0.0.1'
@@ -12,12 +13,16 @@ repositories {
 
 dependencies {
     implementation 'de.gurkenlabs:litiengine'
-    implementation 'uk.co.caprica:vlcj:4.8.2'
+}
+
+javafx {
+    version = '20'
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.media', 'javafx.graphics', 'javafx.swing', 'javafx.base']
 }
 
 sourceSets {
     main.java.srcDir 'src'
-    main.resources.srcDirs = ['audio', 'images', 'localization', 'misc']
+    main.resources.srcDirs = ['audio', 'images', 'localization', 'misc', 'videos']
 }
 
 // copy native binaries to support gamepad input

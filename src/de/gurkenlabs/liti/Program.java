@@ -4,7 +4,9 @@ import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.gui.IngameScreen;
 import de.gurkenlabs.liti.gui.LoadingScreen;
 import de.gurkenlabs.liti.gui.LobbyScreen;
+import de.gurkenlabs.liti.gui.MenuScreen;
 import de.gurkenlabs.liti.gui.ScoreScreen;
+import de.gurkenlabs.liti.gui.SplashScreen;
 import de.gurkenlabs.liti.input.InputManager;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.gui.GuiProperties;
@@ -43,9 +45,8 @@ public class Program {
     Resources.load("game.litidata");
     Game.window().setIcon(Resources.images().get("fire-logox64.png"));
 
-
-    // Game.screens().add(new SplashScreen());
-    // Game.screens().add(new MenuScreen());
+    Game.screens().add(new SplashScreen());
+    Game.screens().add(new MenuScreen());
     if (GameManager.DBG_SKIP_TO_INGAME) {
       GameManager.init();
     } else {
