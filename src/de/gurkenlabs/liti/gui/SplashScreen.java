@@ -90,6 +90,7 @@ public class SplashScreen extends LitiScreen {
     fxPanel.setPreferredSize(Game.window().getSize());
     Scene scene = new Scene(new Group(mediaView));
     fxPanel.setScene(scene);
+    mediaPlayer.setOnEndOfMedia(this::endIntro);
   }
 
   private void playIntro() {

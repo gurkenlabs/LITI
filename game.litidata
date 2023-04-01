@@ -1292,8 +1292,8 @@
   <sprite width="21" height="17" imageformat="PNG" name="shaman-die">
    <image>iVBORw0KGgoAAAANSUhEUgAAAGkAAAARCAYAAADe84KWAAAAoklEQVR42u2WSw6AIAxEuf+RdYFbQsqvHWBM5iVuDGDtK4WUhBBCCCGEEDd5n5x7jzJELkjizroIS1Ia7dxR7qIVgYySUfH8QpJnfXTcO+aUY3bETiUJJcqaM7uLvZVfjkVIcs8/0e48oupKjrSbSIEgW1lINFLQqOJHsur3vR+LnIs0yb9xBbcSHF279T1vXK0zh17W7taGlD/7jVXJbNf7D3oIjUK0o9DaAAAAAElFTkSuQmCC</image>
   </sprite>
-  <sprite width="10" height="20" imageformat="PNG" name="shaman-walk-down">
-   <image>iVBORw0KGgoAAAANSUhEUgAAAAoAAAAUCAYAAAC07qxWAAAAqUlEQVR42q2RsQ1CMQxEvQM0lJEQHWWGyhY0bJARqNiEjo2MztJZjnEahKXTj33PtvIj8ku85K1RX8BDnlppabjJXaN2DQb23k25iXUDW2tKoTjG0Dmn5rpNRII4HE8O4oyA56uRwKzkqwmiQCOfHbxezg5nwcPN/fdUMCEDESiwgTclAM9fBglhXoLQAsKoXil6/ow7kN9lIlfFlcvE2ECoBPLk7aS/gh/GHReroZ6AcAAAAABJRU5ErkJggg==</image>
+  <sprite width="32" height="32" imageformat="PNG" name="shaman-walk-down">
+   <image>iVBORw0KGgoAAAANSUhEUgAAAIAAAAAgCAYAAADaInAlAAACaklEQVR4Xu2XMU4cQRBF5w4mcWJpJYSc4MgrESGfgJA7bOQrkBCT7BFw4sjXIIOIzAdw6py2/mj/qPiqRRbbXYVEPamk2Z7Z+f9Xd8/OTlNRFEVRFEVRFEVRFEVRFEVRFMUb4266b7b0/HsgvQcZBm6nn82rSA8kIz/Q7OE9UOEoA1fTdbOl+vSg3+uNakblB+k9yDQAvfV6PZf64PgobaK6mr1n/u+XX5stjIX3IN2AYbVaNRZ0NptN2263yxjH9XuHkJn/y/qsoS7OP8+FY806tAfpBqbnE4Am4/7QZEGbxzjXq/kgOz8yf3v4vRQ8hPYABiDqGQAfjj4uBnAMehrQCaA29LzqufvAS/lHTwC0P/341R7b01w4xnhoDzwTkQa48zkJ1IYGtfS4lzbIzM/s0Lz583e5X2gP2HxrItIAG8BJwCI4PTle9LVwDi9hep/Xkpkf2nz62XHoh/XAMxFqYHo+CdyBnj51e2tn5Ycus9tx6O/z0L0HnolQA9P+SeBOZPXWBdn5oav6ADraA+rinL32YDwTkQa8SYjUfwv5UXYsUn/GmsBvHURogi8/FB9hgJMADxn62flxf2rhn0a0/gxN2DGuQhavs9f0wtsJqj9KG2Tm19wkSn/GM+EZ0Cb1RCfBavf63d1HVn4+/XQcePoct9d1wTPCRw5r2Ooz2ImwusMefTv+Jz/GRvRAdYmnD0Z4cBtgf49wbM+NwvqI1M/Mr/8CSJT+ghoZ/thxsBNhV/qQVS9o/ih91SVR+gtqJNzADvrQRaefe6P5ozaA9/5BRr17uLxkJBJOROSiA5o/awN4HKL/D7s4nx6ANYe3AAAAAElFTkSuQmCC</image>
   </sprite>
   <sprite width="9" height="7" imageformat="PNG" name="stone-particle">
    <image>iVBORw0KGgoAAAANSUhEUgAAAEgAAAAHCAYAAACr4wv+AAAAfklEQVR42mNgGAXEgYSiiv8wPBoaaMAnIv5/ycQJ/4kNJHxqQObAMCEz8Kkhxgxy1JJlDiiAQBjmaHwWwtTYu/r/J5QS8QUkzE58kYbsHkpTPiE1MHmsdoE8C8LIAYXLMJhaQikSGZObqokxA9nNxJhHrjzc44Q8PwpGAQoAAEGMptiBgKj2AAAAAElFTkSuQmCC</image>
