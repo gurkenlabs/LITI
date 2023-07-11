@@ -46,7 +46,7 @@
       <property name="particleMaxOffsetY" value="0.0"/>
       <property name="particleMaxStartHeight" type="float" value="6.0"/>
       <property name="particleMaxStartWidth" value="6.0"/>
-      <property name="particleMaxTTL" type="float" value="1500.0"/>
+      <property name="particleMaxTTL" value="4100"/>
       <property name="particleMaxVelocityX" type="float" value="0.10000000149011612"/>
       <property name="particleMaxVelocityY" type="float" value="0.10000000149011612"/>
       <property name="particleMinAccelerationX" value="0.0"/>
@@ -59,9 +59,115 @@
       <property name="particleMinOffsetY" value="0.0"/>
       <property name="particleMinStartHeight" type="float" value="2.0"/>
       <property name="particleMinStartWidth" value="2.0"/>
-      <property name="particleMinTTL" type="float" value="400.0"/>
+      <property name="particleMinTTL" value="200"/>
       <property name="particleMinVelocityX" type="float" value="-0.10000000149011612"/>
       <property name="particleMinVelocityY" type="float" value="-0.10000000149011612"/>
+      <property name="particleOutlineOnly" type="bool" value="false"/>
+      <property name="particleTexts" value="LITI"/>
+      <property name="requiredQuality" value="VERYLOW"/>
+      <property name="spritesheetName" value="walk-grass"/>
+     </properties>
+    </object>
+    <object id="2" name="crack" type="EMITTER" x="96" y="80" width="64" height="80">
+     <properties>
+      <property name="collisionAlign" value="CENTER"/>
+      <property name="collisionType" value="NONE"/>
+      <property name="collisionValign" value="DOWN"/>
+      <property name="emitterAlphaVariance" type="Float" value="0.0"/>
+      <property name="emitterColorVariance" type="Float" value="0.0"/>
+      <property name="emitterColors" value="#cc00a5bc"/>
+      <property name="emitterDuration" value="3000"/>
+      <property name="emitterMaxParticles" value="1"/>
+      <property name="emitterOriginAlign" value="CENTER"/>
+      <property name="emitterOriginValign" value="MIDDLE"/>
+      <property name="emitterParticleType" value="SPRITE"/>
+      <property name="emitterSpawnAmount" value="1"/>
+      <property name="emitterSpawnRate" value="100"/>
+      <property name="emitterUpdateDelay" value="40"/>
+      <property name="particleAnimateSprite" type="bool" value="true"/>
+      <property name="particleAntiAliasing" type="bool" value="false"/>
+      <property name="particleFade" type="bool" value="true"/>
+      <property name="particleFadeOnCollision" type="bool" value="false"/>
+      <property name="particleLoopSprite" type="bool" value="true"/>
+      <property name="particleMaxAccelerationX" value="0"/>
+      <property name="particleMaxAccelerationY" value="0"/>
+      <property name="particleMaxAngle" value="360"/>
+      <property name="particleMaxDeltaAngle" value="0"/>
+      <property name="particleMaxDeltaHeight" value="0"/>
+      <property name="particleMaxDeltaWidth" value="0"/>
+      <property name="particleMaxOffsetX" value="0"/>
+      <property name="particleMaxOffsetY" value="0"/>
+      <property name="particleMaxStartHeight" value="0"/>
+      <property name="particleMaxStartWidth" value="0"/>
+      <property name="particleMaxTTL" value="3000"/>
+      <property name="particleMaxVelocityX" value="0"/>
+      <property name="particleMaxVelocityY" value="0"/>
+      <property name="particleMinAccelerationX" value="0"/>
+      <property name="particleMinAccelerationY" value="0"/>
+      <property name="particleMinAngle" value="0"/>
+      <property name="particleMinDeltaAngle" value="0"/>
+      <property name="particleMinDeltaHeight" value="0"/>
+      <property name="particleMinDeltaWidth" value="0"/>
+      <property name="particleMinOffsetX" value="0"/>
+      <property name="particleMinOffsetY" value="0"/>
+      <property name="particleMinStartHeight" value="0"/>
+      <property name="particleMinStartWidth" value="0"/>
+      <property name="particleMinTTL" value="3000"/>
+      <property name="particleMinVelocityX" value="0"/>
+      <property name="particleMinVelocityY" value="0"/>
+      <property name="particleOutlineOnly" type="bool" value="false"/>
+      <property name="particleTexts" value="LITI"/>
+      <property name="requiredQuality" value="VERYLOW"/>
+      <property name="spritesheetName" value="walk-grass"/>
+     </properties>
+    </object>
+    <object id="3" name="fire" type="EMITTER" x="0" y="32" width="80" height="96">
+     <properties>
+      <property name="collisionAlign" value="CENTER"/>
+      <property name="collisionType" value="NONE"/>
+      <property name="collisionValign" value="DOWN"/>
+      <property name="emitterAlphaVariance" type="Float" value="0.8"/>
+      <property name="emitterColorVariance" type="Float" value="0.65"/>
+      <property name="emitterColors" value="#ffc91b,#ff6e00,#a1b70007,#fff47a"/>
+      <property name="emitterDuration" value="0"/>
+      <property name="emitterMaxParticles" value="400"/>
+      <property name="emitterOriginAlign" value="CENTER"/>
+      <property name="emitterOriginValign" value="DOWN"/>
+      <property name="emitterParticleType" value="RECTANGLE"/>
+      <property name="emitterSpawnAmount" value="10"/>
+      <property name="emitterSpawnRate" value="100"/>
+      <property name="emitterUpdateDelay" value="40"/>
+      <property name="particleAnimateSprite" type="bool" value="false"/>
+      <property name="particleAntiAliasing" type="bool" value="false"/>
+      <property name="particleFade" type="bool" value="true"/>
+      <property name="particleFadeOnCollision" type="bool" value="false"/>
+      <property name="particleLoopSprite" type="bool" value="true"/>
+      <property name="particleMaxAccelerationX" value="2.2351741291171123E-10"/>
+      <property name="particleMaxAccelerationY" value="2.2351741291171123E-10"/>
+      <property name="particleMaxAngle" value="360"/>
+      <property name="particleMaxDeltaAngle" value="7.450580707946131E-10"/>
+      <property name="particleMaxDeltaHeight" value="0"/>
+      <property name="particleMaxDeltaWidth" value="0.009999999776482582"/>
+      <property name="particleMaxOffsetX" value="4"/>
+      <property name="particleMaxOffsetY" value="0"/>
+      <property name="particleMaxStartHeight" value="6"/>
+      <property name="particleMaxStartWidth" value="6"/>
+      <property name="particleMaxTTL" value="1500"/>
+      <property name="particleMaxVelocityX" value="0.10000000149011612"/>
+      <property name="particleMaxVelocityY" value="0.10000000149011612"/>
+      <property name="particleMinAccelerationX" value="0"/>
+      <property name="particleMinAccelerationY" value="-0.07000000029802322"/>
+      <property name="particleMinAngle" value="0"/>
+      <property name="particleMinDeltaAngle" value="-0.10000000149011612"/>
+      <property name="particleMinDeltaHeight" value="-0.10000000149011612"/>
+      <property name="particleMinDeltaWidth" value="-0.10000000149011612"/>
+      <property name="particleMinOffsetX" value="-4"/>
+      <property name="particleMinOffsetY" value="0"/>
+      <property name="particleMinStartHeight" value="2"/>
+      <property name="particleMinStartWidth" value="2"/>
+      <property name="particleMinTTL" value="400"/>
+      <property name="particleMinVelocityX" value="-0.10000000149011612"/>
+      <property name="particleMinVelocityY" value="-0.10000000149011612"/>
       <property name="particleOutlineOnly" type="bool" value="false"/>
       <property name="particleTexts" value="LITI"/>
       <property name="requiredQuality" value="VERYLOW"/>
@@ -1329,29 +1435,81 @@
    <colors>
     <color>#cc00a5bc</color>
    </colors>
-   <deltaHeight maxValue="0.0" minValue="0.0"/>
-   <deltaWidth maxValue="0.0" minValue="0.0"/>
-   <velocityX maxValue="0.0" minValue="0.0"/>
-   <velocityY maxValue="0.0" minValue="0.0"/>
+   <deltaHeight minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaHeight>
+   <deltaWidth minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaWidth>
+   <velocityX minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </velocityX>
+   <velocityY minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </velocityY>
    <fade>true</fade>
    <fadeOnCollision>false</fadeOnCollision>
    <outlineOnly>false</outlineOnly>
    <antiAliasing>false</antiAliasing>
-   <accelerationX maxValue="0.0" minValue="0.0"/>
-   <accelerationY maxValue="0.0" minValue="0.0"/>
-   <angle maxValue="360.0" minValue="0.0"/>
-   <deltaAngle maxValue="0.0" minValue="0.0"/>
+   <accelerationX minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </accelerationX>
+   <accelerationY minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </accelerationY>
+   <angle minValue="0" maxValue="360" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </angle>
+   <deltaAngle minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaAngle>
    <originAlign>CENTER</originAlign>
    <originValign>MIDDLE</originValign>
-   <particleHeight maxValue="0.0" minValue="0.0"/>
-   <particleTTL maxValue="3000.0" minValue="3000.0"/>
+   <particleHeight minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleHeight>
+   <particleTTL minValue="3000" maxValue="3000" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleTTL>
    <texts>
     <text>LITI</text>
    </texts>
-   <particleWidth maxValue="0.0" minValue="0.0"/>
+   <particleWidth minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleWidth>
    <spritesheet>crack</spritesheet>
-   <offsetX maxValue="0.0" minValue="0.0"/>
-   <offsetY maxValue="0.0" minValue="0.0"/>
+   <offsetX minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </offsetX>
+   <offsetY minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </offsetY>
   </emitter>
   <emitter emitterDuration="0" height="96.0" maxParticles="400" name="fire" particleType="RECTANGLE" spawnAmount="10" spawnRate="100" updateRate="40" width="80.0">
    <alphaVariance>0.8</alphaVariance>
@@ -1366,29 +1524,81 @@
     <color>#a1b70007</color>
     <color>#fff47a</color>
    </colors>
-   <deltaHeight maxValue="0.0" minValue="-0.10000000149011612"/>
-   <deltaWidth maxValue="0.009999999776482582" minValue="-0.10000000149011612"/>
-   <velocityX maxValue="0.10000000149011612" minValue="-0.10000000149011612"/>
-   <velocityY maxValue="0.10000000149011612" minValue="-0.10000000149011612"/>
+   <deltaHeight minValue="-0.10000000149011612" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaHeight>
+   <deltaWidth minValue="-0.10000000149011612" maxValue="0.009999999776482582" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaWidth>
+   <velocityX minValue="-0.10000000149011612" maxValue="0.10000000149011612" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </velocityX>
+   <velocityY minValue="-0.10000000149011612" maxValue="0.10000000149011612" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </velocityY>
    <fade>true</fade>
    <fadeOnCollision>false</fadeOnCollision>
    <outlineOnly>false</outlineOnly>
    <antiAliasing>false</antiAliasing>
-   <accelerationX maxValue="2.2351741291171123E-10" minValue="0.0"/>
-   <accelerationY maxValue="2.2351741291171123E-10" minValue="-0.07000000029802322"/>
-   <angle maxValue="360.0" minValue="0.0"/>
-   <deltaAngle maxValue="7.450580707946131E-10" minValue="-0.10000000149011612"/>
+   <accelerationX minValue="0" maxValue="2.2351741291171123E-10" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </accelerationX>
+   <accelerationY minValue="-0.07000000029802322" maxValue="2.2351741291171123E-10" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </accelerationY>
+   <angle minValue="0" maxValue="360" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </angle>
+   <deltaAngle minValue="-0.10000000149011612" maxValue="7.450580707946131E-10" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaAngle>
    <originAlign>CENTER</originAlign>
    <originValign>DOWN</originValign>
-   <particleHeight maxValue="6.0" minValue="2.0"/>
-   <particleTTL maxValue="1500.0" minValue="400.0"/>
+   <particleHeight minValue="2" maxValue="6" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleHeight>
+   <particleTTL minValue="400" maxValue="1500" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleTTL>
    <texts>
     <text>LITI</text>
    </texts>
-   <particleWidth maxValue="6.0" minValue="2.0"/>
+   <particleWidth minValue="2" maxValue="6" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleWidth>
    <spritesheet>walk-grass</spritesheet>
-   <offsetX maxValue="4.0" minValue="-4.0"/>
-   <offsetY maxValue="0.0" minValue="0.0"/>
+   <offsetX minValue="-4" maxValue="4" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </offsetX>
+   <offsetY minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </offsetY>
   </emitter>
   <emitter emitterDuration="0" height="16.0" maxParticles="50" name="mushrooms" particleType="SPRITE" spawnAmount="3" spawnRate="100" updateRate="40" width="16.0">
    <alphaVariance>0.0</alphaVariance>
@@ -1400,29 +1610,81 @@
    <colors>
     <color>#cc00a5bc</color>
    </colors>
-   <deltaHeight maxValue="0.0" minValue="0.0"/>
-   <deltaWidth maxValue="0.0" minValue="0.0"/>
-   <velocityX maxValue="1.0" minValue="-1.0"/>
-   <velocityY maxValue="1.0" minValue="-1.0"/>
+   <deltaHeight minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaHeight>
+   <deltaWidth minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaWidth>
+   <velocityX minValue="-1" maxValue="1" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </velocityX>
+   <velocityY minValue="-1" maxValue="1" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </velocityY>
    <fade>false</fade>
    <fadeOnCollision>true</fadeOnCollision>
    <outlineOnly>false</outlineOnly>
    <antiAliasing>false</antiAliasing>
-   <accelerationX maxValue="0.009999999776482582" minValue="-0.009999999776482582"/>
-   <accelerationY maxValue="0.009999999776482582" minValue="-0.009999999776482582"/>
-   <angle maxValue="360.0" minValue="0.0"/>
-   <deltaAngle maxValue="1.0" minValue="-1.0"/>
+   <accelerationX minValue="-0.009999999776482582" maxValue="0.009999999776482582" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </accelerationX>
+   <accelerationY minValue="-0.009999999776482582" maxValue="0.009999999776482582" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </accelerationY>
+   <angle minValue="0" maxValue="360" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </angle>
+   <deltaAngle minValue="-1" maxValue="1" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaAngle>
    <originAlign>CENTER</originAlign>
    <originValign>MIDDLE</originValign>
-   <particleHeight maxValue="6.0" minValue="6.0"/>
-   <particleTTL maxValue="1000.0" minValue="800.0"/>
+   <particleHeight minValue="6" maxValue="6" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleHeight>
+   <particleTTL minValue="800" maxValue="1000" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleTTL>
    <texts>
     <text>LITI</text>
    </texts>
-   <particleWidth maxValue="6.0" minValue="6.0"/>
+   <particleWidth minValue="6" maxValue="6" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleWidth>
    <spritesheet>projectile-mushroom</spritesheet>
-   <offsetX maxValue="4.0" minValue="-4.0"/>
-   <offsetY maxValue="4.0" minValue="-4.0"/>
+   <offsetX minValue="-4" maxValue="4" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </offsetX>
+   <offsetY minValue="-4" maxValue="4" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </offsetY>
   </emitter>
   <emitter emitterDuration="700" height="32.0" maxParticles="20" name="stone-particle" particleType="SPRITE" spawnAmount="20" spawnRate="20" updateRate="40" width="32.0">
    <alphaVariance>0.0</alphaVariance>
@@ -1434,29 +1696,81 @@
    <colors>
     <color>#cc00a5bc</color>
    </colors>
-   <deltaHeight maxValue="0.0" minValue="0.0"/>
-   <deltaWidth maxValue="0.0" minValue="0.0"/>
-   <velocityX maxValue="0.009999999776482582" minValue="-0.009999999776482582"/>
-   <velocityY maxValue="-0.009999999776482582" minValue="-0.009999999776482582"/>
+   <deltaHeight minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaHeight>
+   <deltaWidth minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaWidth>
+   <velocityX minValue="-0.009999999776482582" maxValue="0.009999999776482582" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </velocityX>
+   <velocityY minValue="-0.009999999776482582" maxValue="-0.009999999776482582" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </velocityY>
    <fade>false</fade>
    <fadeOnCollision>false</fadeOnCollision>
    <outlineOnly>false</outlineOnly>
    <antiAliasing>false</antiAliasing>
-   <accelerationX maxValue="0.15000000596046448" minValue="-0.15000000596046448"/>
-   <accelerationY maxValue="0.15000000596046448" minValue="-0.15000000596046448"/>
-   <angle maxValue="0.0" minValue="0.0"/>
-   <deltaAngle maxValue="0.0" minValue="0.0"/>
+   <accelerationX minValue="-0.15000000596046448" maxValue="0.15000000596046448" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </accelerationX>
+   <accelerationY minValue="-0.15000000596046448" maxValue="0.15000000596046448" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </accelerationY>
+   <angle minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </angle>
+   <deltaAngle minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaAngle>
    <originAlign>CENTER</originAlign>
    <originValign>MIDDLE</originValign>
-   <particleHeight maxValue="0.0" minValue="0.0"/>
-   <particleTTL maxValue="700.0" minValue="700.0"/>
+   <particleHeight minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleHeight>
+   <particleTTL minValue="700" maxValue="700" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleTTL>
    <texts>
     <text>LITI</text>
    </texts>
-   <particleWidth maxValue="0.0" minValue="0.0"/>
+   <particleWidth minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleWidth>
    <spritesheet>stone-particle</spritesheet>
-   <offsetX maxValue="5.0" minValue="-5.0"/>
-   <offsetY maxValue="5.0" minValue="-5.0"/>
+   <offsetX minValue="-5" maxValue="5" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </offsetX>
+   <offsetY minValue="-5" maxValue="5" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </offsetY>
   </emitter>
   <emitter emitterDuration="480" height="6.0" maxParticles="1" name="walk-dust" particleType="SPRITE" spawnAmount="1" spawnRate="100" updateRate="40" width="7.0">
    <alphaVariance>0.0</alphaVariance>
@@ -1468,29 +1782,81 @@
    <colors>
     <color>#cc00a5bc</color>
    </colors>
-   <deltaHeight maxValue="0.0" minValue="0.0"/>
-   <deltaWidth maxValue="0.0" minValue="0.0"/>
-   <velocityX maxValue="0.0" minValue="0.0"/>
-   <velocityY maxValue="0.0" minValue="0.0"/>
+   <deltaHeight minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaHeight>
+   <deltaWidth minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaWidth>
+   <velocityX minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </velocityX>
+   <velocityY minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </velocityY>
    <fade>true</fade>
    <fadeOnCollision>false</fadeOnCollision>
    <outlineOnly>false</outlineOnly>
    <antiAliasing>false</antiAliasing>
-   <accelerationX maxValue="0.0" minValue="0.0"/>
-   <accelerationY maxValue="0.0" minValue="0.0"/>
-   <angle maxValue="360.0" minValue="0.0"/>
-   <deltaAngle maxValue="1.0" minValue="-1.0"/>
+   <accelerationX minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </accelerationX>
+   <accelerationY minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </accelerationY>
+   <angle minValue="0" maxValue="360" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </angle>
+   <deltaAngle minValue="-1" maxValue="1" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaAngle>
    <originAlign>CENTER</originAlign>
    <originValign>MIDDLE</originValign>
-   <particleHeight maxValue="6.0" minValue="2.0"/>
-   <particleTTL maxValue="1000.0" minValue="1000.0"/>
+   <particleHeight minValue="2" maxValue="6" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleHeight>
+   <particleTTL minValue="1000" maxValue="1000" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleTTL>
    <texts>
     <text>LITI</text>
    </texts>
-   <particleWidth maxValue="6.0" minValue="2.0"/>
+   <particleWidth minValue="2" maxValue="6" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleWidth>
    <spritesheet>walk-dust</spritesheet>
-   <offsetX maxValue="1.0" minValue="-1.0"/>
-   <offsetY maxValue="1.0" minValue="-1.0"/>
+   <offsetX minValue="-1" maxValue="1" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </offsetX>
+   <offsetY minValue="-1" maxValue="1" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </offsetY>
   </emitter>
   <emitter emitterDuration="480" height="6.0" maxParticles="1" name="walk-grass" particleType="SPRITE" spawnAmount="1" spawnRate="100" updateRate="40" width="7.0">
    <alphaVariance>0.0</alphaVariance>
@@ -1502,29 +1868,81 @@
    <colors>
     <color>#cc00a5bc</color>
    </colors>
-   <deltaHeight maxValue="0.0" minValue="0.0"/>
-   <deltaWidth maxValue="0.0" minValue="0.0"/>
-   <velocityX maxValue="0.0" minValue="0.0"/>
-   <velocityY maxValue="0.0" minValue="0.0"/>
+   <deltaHeight minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaHeight>
+   <deltaWidth minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaWidth>
+   <velocityX minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </velocityX>
+   <velocityY minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </velocityY>
    <fade>true</fade>
    <fadeOnCollision>false</fadeOnCollision>
    <outlineOnly>false</outlineOnly>
    <antiAliasing>false</antiAliasing>
-   <accelerationX maxValue="0.0" minValue="0.0"/>
-   <accelerationY maxValue="0.0" minValue="0.0"/>
-   <angle maxValue="360.0" minValue="0.0"/>
-   <deltaAngle maxValue="1.0" minValue="-1.0"/>
+   <accelerationX minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </accelerationX>
+   <accelerationY minValue="0" maxValue="0" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </accelerationY>
+   <angle minValue="0" maxValue="360" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </angle>
+   <deltaAngle minValue="-1" maxValue="1" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </deltaAngle>
    <originAlign>CENTER</originAlign>
    <originValign>MIDDLE</originValign>
-   <particleHeight maxValue="6.0" minValue="2.0"/>
-   <particleTTL maxValue="1000.0" minValue="1000.0"/>
+   <particleHeight minValue="2" maxValue="6" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleHeight>
+   <particleTTL minValue="1000" maxValue="1000" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleTTL>
    <texts>
     <text>LITI</text>
    </texts>
-   <particleWidth maxValue="6.0" minValue="2.0"/>
+   <particleWidth minValue="2" maxValue="6" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </particleWidth>
    <spritesheet>walk-grass</spritesheet>
-   <offsetX maxValue="1.0" minValue="-1.0"/>
-   <offsetY maxValue="1.0" minValue="-1.0"/>
+   <offsetX minValue="-1" maxValue="1" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </offsetX>
+   <offsetY minValue="-1" maxValue="1" baseValue="">
+    <modifiers/>
+    <minModifiers/>
+    <maxModifiers/>
+   </offsetY>
   </emitter>
  </emitters>
  <blueprints>
@@ -1558,7 +1976,7 @@
      <property name="particleMaxOffsetY" value="0.0"/>
      <property name="particleMaxStartHeight" value="0.0"/>
      <property name="particleMaxStartWidth" value="0.0"/>
-     <property name="particleMaxTTL" value="3000.0"/>
+     <property name="particleMaxTTL" value="3000"/>
      <property name="particleMaxVelocityX" value="0.0"/>
      <property name="particleMaxVelocityY" value="0.0"/>
      <property name="particleMinAccelerationX" value="0.0"/>
@@ -1571,7 +1989,7 @@
      <property name="particleMinOffsetY" value="0.0"/>
      <property name="particleMinStartHeight" value="0.0"/>
      <property name="particleMinStartWidth" value="0.0"/>
-     <property name="particleMinTTL" value="3000.0"/>
+     <property name="particleMinTTL" value="3000"/>
      <property name="particleMinVelocityX" value="0.0"/>
      <property name="particleMinVelocityY" value="0.0"/>
      <property name="particleOutlineOnly" type="bool" value="false"/>
@@ -1611,7 +2029,7 @@
      <property name="particleMaxOffsetY" value="0.0"/>
      <property name="particleMaxStartHeight" type="float" value="6.0"/>
      <property name="particleMaxStartWidth" value="6.0"/>
-     <property name="particleMaxTTL" type="float" value="1500.0"/>
+     <property name="particleMaxTTL" type="long" value="1500"/>
      <property name="particleMaxVelocityX" type="float" value="0.10000000149011612"/>
      <property name="particleMaxVelocityY" type="float" value="0.10000000149011612"/>
      <property name="particleMinAccelerationX" value="0.0"/>
@@ -1624,7 +2042,7 @@
      <property name="particleMinOffsetY" value="0.0"/>
      <property name="particleMinStartHeight" type="float" value="2.0"/>
      <property name="particleMinStartWidth" value="2.0"/>
-     <property name="particleMinTTL" type="float" value="400.0"/>
+     <property name="particleMinTTL" type="long" value="400"/>
      <property name="particleMinVelocityX" type="float" value="-0.10000000149011612"/>
      <property name="particleMinVelocityY" type="float" value="-0.10000000149011612"/>
      <property name="particleOutlineOnly" type="bool" value="false"/>
@@ -1664,7 +2082,7 @@
      <property name="particleMaxOffsetY" type="float" value="4.0"/>
      <property name="particleMaxStartHeight" type="float" value="6.0"/>
      <property name="particleMaxStartWidth" type="float" value="6.0"/>
-     <property name="particleMaxTTL" value="1000.0"/>
+     <property name="particleMaxTTL" value="1000"/>
      <property name="particleMaxVelocityX" value="1.0"/>
      <property name="particleMaxVelocityY" value="1.0"/>
      <property name="particleMinAccelerationX" type="float" value="-0.009999999776482582"/>
@@ -1677,7 +2095,7 @@
      <property name="particleMinOffsetY" type="float" value="-4.0"/>
      <property name="particleMinStartHeight" value="6.0"/>
      <property name="particleMinStartWidth" value="6.0"/>
-     <property name="particleMinTTL" value="800.0"/>
+     <property name="particleMinTTL" value="800"/>
      <property name="particleMinVelocityX" value="-1.0"/>
      <property name="particleMinVelocityY" value="-1.0"/>
      <property name="particleOutlineOnly" type="bool" value="false"/>
@@ -1718,7 +2136,7 @@
      <property name="particleMaxOffsetY" type="float" value="5.0"/>
      <property name="particleMaxStartHeight" value="0.0"/>
      <property name="particleMaxStartWidth" value="0.0"/>
-     <property name="particleMaxTTL" value="700.0"/>
+     <property name="particleMaxTTL" value="700"/>
      <property name="particleMaxVelocityX" type="float" value="0.009999999776482582"/>
      <property name="particleMaxVelocityY" type="float" value="-0.009999999776482582"/>
      <property name="particleMinAccelerationX" value="-0.15"/>
@@ -1731,7 +2149,7 @@
      <property name="particleMinOffsetY" type="float" value="-5.0"/>
      <property name="particleMinStartHeight" value="0.0"/>
      <property name="particleMinStartWidth" value="0.0"/>
-     <property name="particleMinTTL" value="700.0"/>
+     <property name="particleMinTTL" value="700"/>
      <property name="particleMinVelocityX" type="float" value="-0.009999999776482582"/>
      <property name="particleMinVelocityY" type="float" value="-0.009999999776482582"/>
      <property name="particleOutlineOnly" type="bool" value="false"/>
@@ -1771,7 +2189,7 @@
      <property name="particleMaxOffsetY" type="float" value="4.0"/>
      <property name="particleMaxStartHeight" type="float" value="6.0"/>
      <property name="particleMaxStartWidth" type="float" value="6.0"/>
-     <property name="particleMaxTTL" value="1000.0"/>
+     <property name="particleMaxTTL" value="1000"/>
      <property name="particleMaxVelocityX" type="float" value="0.0"/>
      <property name="particleMaxVelocityY" type="float" value="0.0"/>
      <property name="particleMinAccelerationX" type="float" value="0.0"/>
@@ -1784,7 +2202,7 @@
      <property name="particleMinOffsetY" type="float" value="-4.0"/>
      <property name="particleMinStartHeight" type="float" value="2.0"/>
      <property name="particleMinStartWidth" type="float" value="2.0"/>
-     <property name="particleMinTTL" value="1000.0"/>
+     <property name="particleMinTTL" value="1000"/>
      <property name="particleMinVelocityX" type="float" value="0.0"/>
      <property name="particleMinVelocityY" type="float" value="0.0"/>
      <property name="particleOutlineOnly" type="bool" value="false"/>
