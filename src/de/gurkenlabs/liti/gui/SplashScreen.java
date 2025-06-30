@@ -2,7 +2,6 @@ package de.gurkenlabs.liti.gui;
 
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import javafx.application.Platform;
@@ -16,7 +15,7 @@ import javafx.scene.media.MediaView;
 public class SplashScreen extends LitiScreen {
 
   private MediaPlayer mediaPlayer;
-  private JFXPanel fxPanel;
+  private final JFXPanel fxPanel;
 
 
   public SplashScreen() {
@@ -72,9 +71,6 @@ public class SplashScreen extends LitiScreen {
 
   @Override protected void initializeComponents() {
     super.initializeComponents();
-    getAppearance().setBackgroundColor1(new Color(5, 67, 23, 10));
-    getAppearance().setBackgroundColor2(new Color(5, 67, 23, 120));
-    getAppearance().setTransparentBackground(true);
   }
 
   private void initVideoPlayer() {
@@ -87,7 +83,6 @@ public class SplashScreen extends LitiScreen {
 
     fxPanel.setPreferredSize(Game.window().getSize());
 
-    // Use StackPane instead of Group
     StackPane root = new StackPane();
     root.getChildren().add(mediaView);
     Scene scene = new Scene(root, Game.window().getWidth(), Game.window().getHeight());
