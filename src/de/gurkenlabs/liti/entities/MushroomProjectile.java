@@ -27,7 +27,7 @@ public class MushroomProjectile extends Projectile implements IUpdateable {
     super(angle, origin);
     this.executor = executor;
     this.setRenderType(RenderType.OVERLAY);
-    this.velocity = (1000d / Game.loop().getTickRate()) * 0.001f * this.getVelocity().get();
+    this.velocity = (1000d / Game.loop().getTickRate()) * 0.001f * getVelocity().getValue();
     this.setController(IEntityAnimationController.class,
         new EntityAnimationController<>(this, Resources.spritesheets().get(Animations.PROJECTILE_MUSHROOM)));
     this.animations().addListener(new AnimationListener() {
@@ -55,10 +55,10 @@ public class MushroomProjectile extends Projectile implements IUpdateable {
   @Override
   public void update() {
     final double vel = this.velocity * Game.loop().getTimeScale();
-    this.setLocation(GeometricUtilities.project(this.getLocation(), this.getAngle(), vel));
-    for (ICombatEntity entity : Game.world().environment().findCombatEntities(this.getCollisionBox(),
+    this.setLocation(GeometricUtilities.project(getLocation(), getAngle(), vel));
+    for (ICombatEntity entity : Game.world().environment().findCombatEntities(getCollisionBox(),
         e -> (e instanceof Player) && !e.equals(this.executor) && !this.hitEntities.contains(e))) {
-      entity.hit(executor.traits().damage().get() * 2);
+      entity.hit(executor.traits().damage().getValue() * 2);
       this.hitEntities.add(entity);
     }
   }

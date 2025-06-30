@@ -6,9 +6,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
-import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -29,32 +27,29 @@ public class CountdownComponent extends GuiComponent {
     this.playSounds = playSounds;
   }
 
-  @Override
-  public void prepare() {
+  @Override public void prepare() {
     super.prepare();
     this.setVisible(false);
   }
 
-  @Override
-  protected void initializeComponents() {
+  @Override protected void initializeComponents() {
     super.initializeComponents();
-    this.setFont(LitiFonts.ROUND.deriveFont((float) (this.getHeight() * 2 / 3d)));
-    this.getAppearanceDisabled().setForeColor(Color.WHITE);
+    this.setFont(LitiFonts.ROUND.deriveFont((float) (getHeight() * 2 / 3d)));
+    getAppearanceDisabled().setForeColor(Color.WHITE);
 
   }
 
-  @Override
-  public void render(Graphics2D g) {
-    if (!this.isActive()) {
+  @Override public void render(Graphics2D g) {
+    if (!isActive()) {
       return;
     }
-    if (this.hasFinished()) {
+    if (hasFinished()) {
       this.finish();
     }
     g.setColor(new Color(0, 0, 0, 100));
     g.fill(new Rectangle(0, 0, (int) Game.window().getResolution().getWidth(), (int) Game.window().getResolution().getHeight()));
     super.render(g);
-    this.setText(this.getRemainingTimeString());
+    this.setText(getRemainingTimeString());
     this.passSecond();
   }
 
@@ -98,27 +93,27 @@ public class CountdownComponent extends GuiComponent {
   }
 
   public boolean hasFinished() {
-    return this.getRemainingTime() == 0;
+    return getRemainingTime() == 0;
   }
 
   private long getRemainingTime() {
-    return MathUtilities.clamp(this.getDuration() - Game.time().since(this.getLastStart()), 0, this.getDuration());
+    return Math.clamp(getDuration() - Game.time().since(getLastStart()), 0, getDuration());
   }
 
   private String getRemainingTimeString() {
-    return TimeUtilities.toTimerFormat(this.getRemainingTime(), TimeUtilities.TimerFormat.S_0);
+    return TimeUtilities.toTimerFormat(getRemainingTime(), TimeUtilities.TimerFormat.S_0);
   }
 
   private void passSecond() {
-    if (this.getRemainingTimeString().charAt(2) != '0' || this.secondPassed) {
+    if (getRemainingTimeString().charAt(2) != '0' || this.secondPassed) {
       return;
     }
 
     if (playSounds) {
-      Game.audio().playSound(this.getRemainingTimeString().charAt(0) != '0' ? LitiSounds.COUNTDOWN_RUNNING : LitiSounds.COUNTDOWN_FINISHED);
+      Game.audio().playSound(getRemainingTimeString().charAt(0) != '0' ? LitiSounds.COUNTDOWN_RUNNING : LitiSounds.COUNTDOWN_FINISHED);
     }
     Game.tweens().reset(this, TweenType.FONTSIZE);
-    Game.tweens().begin(this, TweenType.FONTSIZE, 500).target(this.getFont().getSize2D() * 2 / 3f).ease(TweenFunction.EXPO_OUT);
+    Game.tweens().begin(this, TweenType.FONTSIZE, 500).target(getFont().getSize2D() * 2 / 3f).ease(TweenFunction.EXPO_OUT);
 
     for (final CountdownListener listener : this.countdownListeners) {
       listener.secondPassed();

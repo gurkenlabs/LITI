@@ -19,18 +19,21 @@
    <objectgroup id="0" name="default" visible="1">
     <object id="1" type="EMITTER" x="40" y="0" width="80" height="96">
      <properties>
+      <property name="collisionAlign" value="CENTER"/>
       <property name="collisionType" value="NONE"/>
+      <property name="collisionValign" value="DOWN"/>
       <property name="emitterAlphaVariance" value="0.7999999992549419"/>
       <property name="emitterColorVariance" value="0.650000000745058"/>
       <property name="emitterColors" value="#ffc91b,#ff6e00,#a1b70007,#fff47a"/>
       <property name="emitterDuration" type="int" value="0"/>
-      <property name="emitterMaxParticles" type="int" value="400"/>
+      <property name="emitterMaxParticles" value="53"/>
       <property name="emitterOriginAlign" value="CENTER"/>
       <property name="emitterOriginValign" value="DOWN"/>
-      <property name="emitterParticleType" value="RECTANGLE"/>
-      <property name="emitterSpawnAmount" value="10"/>
-      <property name="emitterSpawnRate" value="100"/>
-      <property name="emitterUpdateDelay" type="int" value="40"/>
+      <property name="emitterParticleType" value="DIAMOND"/>
+      <property name="emitterSpawnAmount" value="1"/>
+      <property name="emitterSpawnRate" value="10"/>
+      <property name="emitterUpdateDelay" value="40"/>
+      <property name="hitpoints" value="100"/>
       <property name="particleAnimateSprite" type="bool" value="false"/>
       <property name="particleAntiAliasing" type="bool" value="false"/>
       <property name="particleFade" type="bool" value="true"/>
@@ -2029,7 +2032,7 @@
      <property name="particleMaxOffsetY" value="0.0"/>
      <property name="particleMaxStartHeight" type="float" value="6.0"/>
      <property name="particleMaxStartWidth" value="6.0"/>
-     <property name="particleMaxTTL" type="long" value="1500"/>
+     <property name="particleMaxTTL" value="1500"/>
      <property name="particleMaxVelocityX" type="float" value="0.10000000149011612"/>
      <property name="particleMaxVelocityY" type="float" value="0.10000000149011612"/>
      <property name="particleMinAccelerationX" value="0.0"/>
@@ -2042,7 +2045,7 @@
      <property name="particleMinOffsetY" value="0.0"/>
      <property name="particleMinStartHeight" type="float" value="2.0"/>
      <property name="particleMinStartWidth" value="2.0"/>
-     <property name="particleMinTTL" type="long" value="400"/>
+     <property name="particleMinTTL" value="400"/>
      <property name="particleMinVelocityX" type="float" value="-0.10000000149011612"/>
      <property name="particleMinVelocityY" type="float" value="-0.10000000149011612"/>
      <property name="particleOutlineOnly" type="bool" value="false"/>

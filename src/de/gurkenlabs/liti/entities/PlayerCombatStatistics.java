@@ -6,7 +6,6 @@ import de.gurkenlabs.liti.gameplay.PlayerProgress;
 import de.gurkenlabs.liti.gui.IngameScreen;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.EntityHitEvent;
-
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -30,7 +29,7 @@ public final class PlayerCombatStatistics {
     this.killTimes = new CopyOnWriteArrayList<>();
 
     player.onHit(this::handlePlayerHit);
-    player.onDeath(e -> this.deaths++);
+    player.onDeath((_, _) -> this.deaths++);
   }
 
   public void reset() {

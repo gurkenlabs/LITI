@@ -1,15 +1,17 @@
 package de.gurkenlabs.liti.entities;
 
-import de.gurkenlabs.liti.abilities.Proficiency;
-import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.liti.entities.controllers.ChickenMovementController;
 import de.gurkenlabs.liti.gameplay.PlayerProgress;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
-import de.gurkenlabs.litiengine.entities.*;
+import de.gurkenlabs.litiengine.entities.AnimationInfo;
+import de.gurkenlabs.litiengine.entities.CollisionInfo;
+import de.gurkenlabs.litiengine.entities.Creature;
+import de.gurkenlabs.litiengine.entities.EntityInfo;
+import de.gurkenlabs.litiengine.entities.ICollisionEntity;
+import de.gurkenlabs.litiengine.entities.MovementInfo;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.physics.IMovementController;
-
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -71,7 +73,7 @@ public class Chicken extends Creature implements IUpdateable, IObjective  {
 
   public void drop() {
     if (this.carryingPlayer != null) {
-      this.carryingPlayer.setVelocity(this.carryingPlayer.traits().mobility().get());
+      this.carryingPlayer.setVelocity(this.carryingPlayer.traits().mobility().getModifiedValue());
       this.carryingPlayer.setCurrentChicken(null);
     }
 

@@ -19,8 +19,8 @@ public class Bash extends Ability {
   public Bash(Player executor) {
     super(executor);
     this.player = executor;
-    this.getAttributes().value().setBaseValue(executor.traits().damage().get());
-    this.getAttributes().impact().setBaseValue(executor.traits().range().get());
+    this.getAttributes().value().setValue(executor.traits().damage().getValue());
+    this.getAttributes().impact().setValue(executor.traits().range().getValue());
     this.addEffect(new HitEffect(this));
   }
 

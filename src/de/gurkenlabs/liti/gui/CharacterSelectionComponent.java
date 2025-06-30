@@ -97,7 +97,7 @@ public class CharacterSelectionComponent extends GuiComponent {
     this.className.setTextAlign(Align.CENTER);
 
     this.characterPortrait = new ImageComponent(this.getX(), this.getY() + this.className.getHeight(), this.getWidth(), portraitHeight);
-    this.characterPortrait.setSpriteSheet(Resources.spritesheets().get("frame-portrait"));
+    this.characterPortrait.setSpritesheet(Resources.spritesheets().get("frame-portrait"));
 
     double arrowWidth = this.getWidth() * 1 / 7d;
     double arrowHeight = this.getHeight() * 1 / 7d;
@@ -120,7 +120,7 @@ public class CharacterSelectionComponent extends GuiComponent {
     this.infoFrame = new ImageComponent(this.getX() + arrowWidth, characterPortrait.getY() + characterPortrait.getHeight(),
         this.getWidth() - 2 * arrowWidth,
         characterPortrait.getHeight() * 1 / 6d);
-    this.infoFrame.setSpriteSheet(Resources.spritesheets().get("frame-info.png"));
+    this.infoFrame.setSpritesheet(Resources.spritesheets().get("frame-info.png"));
     this.infoQuestionMark = new ImageComponent(infoFrame.getX(), infoFrame.getY(), infoFrame.getWidth() / 2d, infoFrame.getHeight(), QUESTION_MARK);
     this.infoButtonPrompt = new ImageComponent(infoFrame.getX() + infoFrame.getWidth() / 2d, infoFrame.getY(), infoFrame.getWidth() / 2d,
         infoFrame.getHeight());

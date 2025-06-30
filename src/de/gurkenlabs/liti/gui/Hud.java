@@ -12,7 +12,6 @@ import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.graphics.TextRenderer;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
@@ -100,21 +99,22 @@ public final class Hud extends GuiComponent implements IRenderable {
       g.setColor(LitiColors.COLOR_HEALTH_BG);
       RoundRectangle2D rect = new RoundRectangle2D.Double(x, y, width, height, 1.5, 1.5);
 
-      final double currentWidth = width * (player.getHitPoints().get() / (double) player.getHitPoints().getMax());
+      final double currentWidth = width * (player.getHitPoints().getValue() / (double) player.getHitPoints().getMax());
       RoundRectangle2D healthbar = new RoundRectangle2D.Double(x, y, currentWidth, height, 1.5, 1.5);
 
       Game.graphics().renderShape(g, rect);
 
       if (player.getCombatStatistics().getRecentDamageReceived() > 0) {
         final double previousWidth = width * Math
-            .min(1, (player.getHitPoints().get() + player.getCombatStatistics().getRecentDamageReceived()) / (double) player.getHitPoints().getMax());
+            .min(1, (player.getHitPoints().getValue() + player.getCombatStatistics().getRecentDamageReceived()) / (double) player.getHitPoints()
+                .getMax());
         RoundRectangle2D previousHealthbar = new RoundRectangle2D.Double(x, y, previousWidth, height, 1.5, 1.5);
 
         g.setColor(LitiColors.COLOR_HEALTH_HIT);
         Game.graphics().renderShape(g, previousHealthbar);
       }
 
-      if (player.getHitPoints().get() < 33) {
+      if (player.getHitPoints().getValue() < 33) {
         g.setColor(LitiColors.COLOR_HEALTH_LOW);
       } else {
         g.setColor(LitiColors.COLOR_HEALTH);
@@ -130,7 +130,7 @@ public final class Hud extends GuiComponent implements IRenderable {
       if (!player.isStaminaDepleted()) {
         g.setColor(LitiColors.COLOR_STAMINA);
 
-        double currentStaminaWidth = player.traits().stamina().getRelativeCurrentValue() * staminaWidth;
+        double currentStaminaWidth = player.traits().stamina().getModifiedValue() / player.traits().stamina().getModifiedMax() * staminaWidth;
         double staminaX = x + (width - staminaWidth) / 2.0 + (staminaWidth - currentStaminaWidth) / 2.0;
         Rectangle2D stamina = new Rectangle2D.Double(staminaX, y + height + 1, currentStaminaWidth, staminaHeight);
 

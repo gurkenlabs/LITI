@@ -1,24 +1,20 @@
 package de.gurkenlabs.liti.gui;
 
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.util.Collection;
-
 import de.gurkenlabs.liti.GameManager;
 import de.gurkenlabs.liti.GameState;
 import de.gurkenlabs.liti.entities.Player;
 import de.gurkenlabs.liti.entities.Players;
 import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.graphics.Camera;
-import de.gurkenlabs.litiengine.util.MathUtilities;
+import java.awt.geom.Rectangle2D;
+import java.util.Collection;
 
 public class DynamicZoomCamera extends Camera {
 
   public static float minZoom = .71f;
   public static float maxZoom = 1.4f;
-  private static short padding = 20;
+  private static final short padding = 20;
 
   public DynamicZoomCamera() {
     this.setClampToMap(true);
@@ -29,7 +25,7 @@ public class DynamicZoomCamera extends Camera {
   public void update() {
     super.update();
 
-    if(GameManager.getGameState() == GameState.FINISHED){
+    if (GameManager.getGameState() == GameState.FINISHED) {
       return;
     }
 
@@ -37,7 +33,7 @@ public class DynamicZoomCamera extends Camera {
   }
 
   private void determineFocusAndZoom() {
-    if (GameManager.getGameState() == GameState.PREGAME){
+    if (GameManager.getGameState() == GameState.PREGAME) {
       return;
     }
 
@@ -50,10 +46,10 @@ public class DynamicZoomCamera extends Camera {
       Spawnpoint spawn = GameManager.getSpawn(p);
       final boolean isNotVisible = p.isDead() && !p.isLoaded();
 
-      double playerMinX = isNotVisible ? spawn.getX(): p.getX();
-      double playerMinY = isNotVisible ? spawn.getY(): p.getY() - 6; //6 accounts for the healthbar
+      double playerMinX = isNotVisible ? spawn.getX() : p.getX();
+      double playerMinY = isNotVisible ? spawn.getY() : p.getY() - 6; //6 accounts for the healthbar
       double playerMaxX = isNotVisible ? spawn.getBoundingBox().getMaxX() : p.getBoundingBox().getMaxX();
-      double playerMaxY = isNotVisible ? spawn.getBoundingBox().getMaxY(): p.getBoundingBox().getMaxY();
+      double playerMaxY = isNotVisible ? spawn.getBoundingBox().getMaxY() : p.getBoundingBox().getMaxY();
       if (minX == 0 || playerMinX < minX) {
         minX = playerMinX;
       }
@@ -69,9 +65,10 @@ public class DynamicZoomCamera extends Camera {
     }
     Rectangle2D bounds = new Rectangle2D.Double(minX - padding, minY - padding, maxX - minX + 2 * padding, maxY - minY + 2 * padding);
     this.setFocus(bounds.getCenterX(), bounds.getCenterY());
-    double rel = Math.min(Game.world().environment().getMap().getSizeInPixels().getWidth() / bounds.getWidth() / 2, Game.world().environment().getMap().getSizeInPixels().getHeight() / bounds.getHeight() / 2);
+    double rel = Math.min(Game.world().environment().getMap().getSizeInPixels().getWidth() / bounds.getWidth() / 2,
+        Game.world().environment().getMap().getSizeInPixels().getHeight() / bounds.getHeight() / 2);
 
-    float targetZoom = MathUtilities.clamp((float) rel, minZoom, maxZoom);
+    float targetZoom = Math.clamp((float) rel, minZoom, maxZoom);
     this.setZoom(targetZoom, 100);
   }
 }

@@ -14,8 +14,7 @@ public class SurvivalSkill extends Ability {
   /**
    * Initializes a new instance of the {@code Ability} class.
    *
-   * @param executor
-   *         The executing entity
+   * @param executor The executing entity
    */
   protected SurvivalSkill(Player executor, int requiredStamina) {
     super(executor);
@@ -26,7 +25,7 @@ public class SurvivalSkill extends Ability {
 
   @Override
   public boolean canCast() {
-    return !this.player.isBlocking() && this.player.traits().stamina().get() >= this.getRequiredStamina() && super.canCast();
+    return !this.player.isBlocking() && this.player.traits().stamina().getValue() >= this.getRequiredStamina() && super.canCast();
   }
 
   @Override
@@ -37,7 +36,7 @@ public class SurvivalSkill extends Ability {
     }
 
     this.player.getProgress().getInterval().didSomething();
-    this.player.traits().stamina().modifyBaseValue(this.modifier);
+    this.player.traits().stamina().addModifier(this.modifier);
     return execution;
   }
 

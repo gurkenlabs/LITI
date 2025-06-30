@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
 version 'v0.0.1'
@@ -26,7 +26,7 @@ sourceSets {
 }
 
 // copy native binaries to support gamepad input
-task copyNativeLibs(type: Copy) {
+tasks.register('copyNativeLibs', Copy) {
     def litiengineLibs = '../litiengine/build/libs'
     def litiLibs = 'dist/libs'
     def buildFolder = new File(buildDir, 'libs')
@@ -48,6 +48,11 @@ task copyNativeLibs(type: Copy) {
 
 run {
     systemProperty "java.library.path", new File(buildDir, 'libs')
+    jvmArgs = [
+            '--add-opens=java.base/java.lang=ALL-UNNAMED',
+            '--enable-native-access=javafx.graphics',
+            '--enable-native-access=javafx.media'
+    ]
 }
 
 build.dependsOn copyNativeLibs

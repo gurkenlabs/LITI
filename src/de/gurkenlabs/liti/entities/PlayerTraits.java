@@ -4,7 +4,6 @@ import de.gurkenlabs.liti.abilities.Proficiency;
 import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.litiengine.attributes.Attribute;
 import de.gurkenlabs.litiengine.attributes.RangeAttribute;
-
 import java.util.Map;
 
 public class PlayerTraits {
@@ -15,15 +14,17 @@ public class PlayerTraits {
   private final Attribute<Integer> damage;
   private final Attribute<Integer> range;
 
-  PlayerTraits(Player player){
+  PlayerTraits(Player player) {
     this.player = player;
 
-    this.stamina = new RangeAttribute<>(Proficiency.get(player.getPlayerClass(), Trait.STAMINA), 0.0, Proficiency.get(player.getPlayerClass(), Trait.STAMINA));
-    this.mobility = new Attribute<>((float)Proficiency.get(player.getPlayerClass(), Trait.MOBILITY));
+    this.stamina =
+        new RangeAttribute<>(Proficiency.get(player.getPlayerClass(), Trait.STAMINA), 0.0, Proficiency.get(player.getPlayerClass(), Trait.STAMINA));
+    this.mobility = new Attribute<>((float) Proficiency.get(player.getPlayerClass(), Trait.MOBILITY));
     this.recovery = new Attribute<>(Proficiency.get(player.getPlayerClass(), Trait.RECOVERY));
-    this.damage = new Attribute<>((int)Proficiency.get(player.getPlayerClass(), Trait.DAMAGE));
-    this.range = new Attribute<>((int)Proficiency.get(player.getPlayerClass(), Trait.RANGE));
+    this.damage = new Attribute<>((int) Proficiency.get(player.getPlayerClass(), Trait.DAMAGE));
+    this.range = new Attribute<>((int) Proficiency.get(player.getPlayerClass(), Trait.RANGE));
   }
+
   public RangeAttribute<Double> stamina() {
     return this.stamina;
   }
@@ -44,48 +45,48 @@ public class PlayerTraits {
     return this.range;
   }
 
-  public void buff(){
+  public void buff() {
     Map<Trait, Double> buffedTraits = Proficiency.getBuffedTraits(this.player.getPlayerClass());
-    for(Map.Entry<Trait, Double> trait : buffedTraits.entrySet()){
+    for (Map.Entry<Trait, Double> trait : buffedTraits.entrySet()) {
       this.setTrait(trait.getKey(), trait.getValue());
     }
   }
 
   void init() {
     Map<Trait, Double> buffedTraits = Proficiency.getTraits(this.player.getPlayerClass());
-    for(Map.Entry<Trait, Double> trait : buffedTraits.entrySet()){
+    for (Map.Entry<Trait, Double> trait : buffedTraits.entrySet()) {
       this.setTrait(trait.getKey(), trait.getValue());
     }
   }
 
   private void setTrait(Trait trait, double value) {
-    switch (trait){
+    switch (trait) {
       case HEALTH:
-        this.player.getHitPoints().setMaxBaseValue((int)value);
+        this.player.getHitPoints().setMax((int) value);
         break;
       case DAMAGE:
-        this.damage().setBaseValue((int) value);
-        if(this.player.getBash() != null) {
-          this.player.getBash().getAttributes().value().setBaseValue((int) value);
+        this.damage().setValue((int) value);
+        if (this.player.getBash() != null) {
+          this.player.getBash().getAttributes().value().setValue((int) value);
         }
         break;
       case RANGE:
-        this.range.setBaseValue((int) value);
-        if(this.player.getBash() != null) {
-          this.player.getBash().getAttributes().impact().setBaseValue((int) value);
+        this.range.setValue((int) value);
+        if (this.player.getBash() != null) {
+          this.player.getBash().getAttributes().impact().setValue((int) value);
         }
         break;
       case STAMINA:
-        this.stamina().setMaxBaseValue(value);
+        this.stamina().setMax(value);
         break;
       case MOBILITY:
-        this.mobility().setBaseValue((float)value);
-        if(this.player.getDash() != null) {
-          this.player.getDash().getAttributes().value().setBaseValue((int) (this.mobility().get() * 2.2));
+        this.mobility().setValue((float) value);
+        if (this.player.getDash() != null) {
+          this.player.getDash().getAttributes().value().setValue((int) (this.mobility().getValue() * 2.2));
         }
         break;
       case RECOVERY:
-        this.recovery().setBaseValue(value);
+        this.recovery().setValue(value);
         break;
     }
   }

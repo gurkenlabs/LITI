@@ -1,13 +1,11 @@
 package de.gurkenlabs.liti.gui;
 
 import de.gurkenlabs.liti.abilities.Trait;
-import de.gurkenlabs.liti.constants.LitiColors;
 import de.gurkenlabs.liti.constants.LitiFonts;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
 import de.gurkenlabs.litiengine.gui.ImageComponent;
-import de.gurkenlabs.litiengine.gui.ImageScaleMode;
 import de.gurkenlabs.litiengine.resources.Resources;
 
 public class TraitComponent extends GuiComponent {
@@ -37,11 +35,11 @@ public class TraitComponent extends GuiComponent {
     this.name.setFont(LitiFonts.ETCHED.deriveFont((float) (this.name.getHeight() * 3 / 5d)));
     this.name.setTextAlign(Align.CENTER);
     this.name.setTextValign(Valign.MIDDLE);
-    this.name.setSpriteSheet(Resources.spritesheets().get("frame-proficiency"));
+    this.name.setSpritesheet(Resources.spritesheets().get("frame-proficiency"));
     double padding = this.getHeight() * 1 / 10;
     this.value = new ImageComponent(this.getX() + this.getWidth() * 4 / 6d + padding, this.getY() + padding / 2d, this.getWidth() * 1 / 6d - padding,
         this.getHeight() - padding);
-    this.value.setSpriteSheet(Resources.spritesheets().get("frame-proficiencylevel"));
+    this.value.setSpritesheet(Resources.spritesheets().get("frame-proficiencylevel"));
     this.getComponents().add(this.name);
     this.getComponents().add(this.value);
   }

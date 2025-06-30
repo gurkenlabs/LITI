@@ -17,18 +17,20 @@ public class PlayerAnimationController extends CreatureAnimationController<Playe
 
   public PlayerAnimationController(Player entity) {
     super(entity, true);
-    this.dieAnimationName = this.getEntity().getConfiguration().getPlayerClass().toString().toLowerCase() + "-die";
+    this.dieAnimationName = getEntity().getConfiguration().getPlayerClass().toString().toLowerCase() + "-die";
     ;
-//    this.add(new CreatureShadowImageEffect(entity, LitiColors.SHADOW_COLOR).setOffsetY(1));
+    //    this.add(new CreatureShadowImageEffect(entity, LitiColors.SHADOW_COLOR).setOffsetY(1));
 
     this.addPlayerAnimations();
 
-    this.getAll().forEach(an -> {
-      BufferedImage replacedImg = Imaging.replaceColors(an.getSpritesheet().getImage(), this.getEntity().getConfiguration().getSkin().getSkinColorMappings());
-      replacedImg = Imaging.replaceColors(replacedImg, LitiColors.getPlayerColorMappings(this.getEntity().getConfiguration().getIndex()));
+    getAll().forEach(an -> {
+      BufferedImage replacedImg =
+          Imaging.replaceColors(an.getSpritesheet().getImage(), getEntity().getConfiguration().getSkin().getSkinColorMappings());
+      replacedImg = Imaging.replaceColors(replacedImg, LitiColors.getPlayerColorMappings(getEntity().getConfiguration().getIndex()));
 
-      Spritesheet replaced = new Spritesheet(replacedImg, appendIndexAndSkin(an.getSpritesheet().getName()), an.getSpritesheet().getSpriteWidth(), an.getSpritesheet().getSpriteHeight());
-      boolean def = this.get(an.getName()).equals(this.getDefault());
+      Spritesheet replaced = new Spritesheet(replacedImg, appendIndexAndSkin(an.getSpritesheet().getName()), an.getSpritesheet().getSpriteWidth(),
+          an.getSpritesheet().getSpriteHeight());
+      boolean def = get(an.getName()).equals(getDefault());
 
       Animation newAnimation = new Animation(an.getName(), replaced, an.isLooping(), an.getKeyFrameDurations());
       this.add(newAnimation);
@@ -43,33 +45,27 @@ public class PlayerAnimationController extends CreatureAnimationController<Playe
     return this.dieAnimationName;
   }
 
-  @Override
-  public void update() {
-    if (this.getEntity().getCurrentEgg() != null && this.getEntity().findBashAnimation() != null) {
-      this.play(this.getEntity().findBashAnimation().getName());
+  @Override public void update() {
+    if (getEntity().getCurrentEgg() != null && getEntity().findBashAnimation() != null) {
+      this.play(getEntity().findBashAnimation().getName());
     }
 
     super.update();
   }
 
-  private String appendIndexAndSkin(String spriteName){
-    StringBuilder sb = new StringBuilder(spriteName);
-    sb.append("__");
-    sb.append(this.getEntity().getConfiguration().getIndex());
-    sb.append("__");
-    sb.append(this.getEntity().getConfiguration().getSkin());
-    return sb.toString();
+  private String appendIndexAndSkin(String spriteName) {
+    return String.format("%s__%d__%s", spriteName, getEntity().getConfiguration().getIndex(), getEntity().getConfiguration().getSkin());
   }
 
   private void addPlayerAnimations() {
-    final String hitLeftName = this.getEntity().getConfiguration().getPlayerClass().toString().toLowerCase() + "-hit-left";
-    final String hitRightName = this.getEntity().getConfiguration().getPlayerClass().toString().toLowerCase() + "-hit-right";
+    final String hitLeftName = getEntity().getConfiguration().getPlayerClass().toString().toLowerCase() + "-hit-left";
+    final String hitRightName = getEntity().getConfiguration().getPlayerClass().toString().toLowerCase() + "-hit-right";
 
     Spritesheet hitLeft = Resources.spritesheets().get(hitLeftName);
     if (hitLeft != null) {
       Animation hitLeftAnimation = new Animation(hitLeft, false);
       this.add(hitLeftAnimation);
-      this.add(flipAnimation(hitLeftAnimation, hitRightName));
+      this.add(flippedAnimation(hitLeftAnimation, hitRightName, false));
     }
 
     Spritesheet die = Resources.spritesheets().get(this.dieAnimationName);
@@ -78,11 +74,16 @@ public class PlayerAnimationController extends CreatureAnimationController<Playe
       this.add(dieAnimation);
     }
 
-    switch (this.getEntity().getPlayerClass()){
+    switch (getEntity().getPlayerClass()) {
       case WARRIOR:
         this.add(new Animation(Resources.spritesheets().get(Animations.WARRIOR_FORCEOFNATURE_RIGHT), false));
-        this.add(AnimationController.flipAnimation(this.get(Animations.WARRIOR_FORCEOFNATURE_RIGHT), Animations.WARRIOR_FORCEOFNATURE_LEFT));
-
+        this.add(AnimationController.flippedAnimation(get(Animations.WARRIOR_FORCEOFNATURE_RIGHT), Animations.WARRIOR_FORCEOFNATURE_LEFT, false));
+        break;
+      case SHAMAN:
+        break;
+      case HUNTRESS:
+        break;
+      case GATHERER:
         break;
     }
   }

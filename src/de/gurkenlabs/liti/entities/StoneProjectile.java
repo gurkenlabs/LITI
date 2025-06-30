@@ -1,12 +1,5 @@
 package de.gurkenlabs.liti.entities;
 
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
-import de.gurkenlabs.liti.abilities.Proficiency;
-import de.gurkenlabs.liti.abilities.Trait;
 import de.gurkenlabs.liti.constants.Animations;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
@@ -24,6 +17,10 @@ import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @EntityInfo(width = 21, height = 41)
 @AnimationInfo(spritePrefix = "projectile-stone")
@@ -39,7 +36,7 @@ public class StoneProjectile extends Projectile implements IUpdateable {
     super(angle, origin);
     this.executor = executor;
     this.setRenderType(RenderType.OVERLAY);
-    this.velocity = (1000d / Game.loop().getTickRate()) * 0.001f * this.getVelocity().get();
+    this.velocity = (1000d / Game.loop().getTickRate()) * 0.001f * getVelocity().getValue();
 
     this.setController(IEntityAnimationController.class,
         new EntityAnimationController<>(this, Resources.spritesheets().get(Animations.PROJECTILE_STONE)));
@@ -85,7 +82,7 @@ public class StoneProjectile extends Projectile implements IUpdateable {
           for (ICombatEntity entity : Game.world().environment().findCombatEntities(
               new Ellipse2D.Double(impactCenter.getX() - impactSize / 2.0, impactCenter.getY() - impactSize / 2.0, impactSize, impactSize),
               e -> (e instanceof Player) && !e.equals(StoneProjectile.this.executor) && !StoneProjectile.this.hitEntities.contains(e))) {
-            entity.hit(executor.traits().damage().get() * 2);
+            entity.hit(executor.traits().damage().getValue() * 2);
             StoneProjectile.this.hitEntities.add(entity);
           }
         });
@@ -96,18 +93,16 @@ public class StoneProjectile extends Projectile implements IUpdateable {
   @Override
   public void update() {
     final double vel = this.velocity * Game.loop().getTimeScale();
-    this.setLocation(GeometricUtilities.project(this.getLocation(), this.getAngle(), vel));
-    for (ICombatEntity entity : Game.world().environment().findCombatEntities(this.getCollisionBox(),
+    this.setLocation(GeometricUtilities.project(getLocation(), getAngle(), vel));
+    for (ICombatEntity entity : Game.world().environment().findCombatEntities(getCollisionBox(),
         e -> (e instanceof Player) && !e.equals(this.executor) && !this.hitEntities.contains(e))) {
-      entity.hit(executor.traits().damage().get() * 2);
+      entity.hit(executor.traits().damage().getValue() * 2);
 
-      Player player = (Player)entity;
+      Player player = (Player) entity;
       player.setState(Player.PlayerState.LOCKED);
       player.movement().setVelocity(0);
 
-      Game.loop().perform(1200, () -> {
-        player.setState(Player.PlayerState.NORMAL);
-      });
+      Game.loop().perform(1200, () -> player.setState(Player.PlayerState.NORMAL));
 
       this.hitEntities.add(entity);
     }
